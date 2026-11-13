@@ -42,17 +42,46 @@ describe('format', () => {
 	});
 });
 
+const SOURCES = import.meta.glob<string>('../src/lib/**/*.{css,svelte,ts}', {
+	query: '?raw',
+	import: 'default',
+	eager: true
+});
+const sourcesOf = (extension: RegExp) =>
+	Object.fromEntries(
+		Object.entries(SOURCES).filter(([path]) => extension.test(path))
+	);
+
 describe('packaging', () => {
 	it('imports stylesheets only from .svelte components, never from .ts modules', () => {
-		const sources = import.meta.glob<string>('../src/lib/**/*.ts', {
-			query: '?raw',
-			import: 'default',
-			eager: true
-		});
+		const sources = sourcesOf(/\.ts$/);
 		const offenders = Object.keys(sources).filter((path) =>
 			/import\s+['"][^'"]+\.css['"]/.test(sources[path])
 		);
 		expect(Object.keys(sources).length).toBeGreaterThan(20);
+		expect(offenders).toEqual([]);
+	});
+
+	it('reads only --ren-* tokens RenUI declares, unless the read names a fallback', () => {
+		const text = Object.values(SOURCES).join('\n');
+		const declared = new Set(
+			[...text.matchAll(/(--ren-[\w-]*\w)\s*:|style:(--ren-[\w-]*\w)/g)].map(
+				([, property, directive]) => property ?? directive
+			)
+		);
+		const undeclared = [
+			...new Set(
+				[...text.matchAll(/var\((--ren-[\w-]*\w)\)/g)].map(([, name]) => name)
+			)
+		].filter((name) => !declared.has(name));
+		expect(declared.size).toBeGreaterThan(300);
+		expect(undeclared).toEqual([]);
+	});
+
+	it('keeps no Lumi UI name', () => {
+		const offenders = Object.keys(SOURCES).filter((path) =>
+			/lumi(?![n\P{ASCII}])/iu.test(SOURCES[path])
+		);
 		expect(offenders).toEqual([]);
 	});
 
@@ -67,11 +96,7 @@ describe('packaging', () => {
 	});
 
 	it('keeps plain overscroll containment on overlays only', () => {
-		const sources = import.meta.glob<string>('../src/lib/**/*.{css,svelte}', {
-			query: '?raw',
-			import: 'default',
-			eager: true
-		});
+		const sources = sourcesOf(/\.(css|svelte)$/);
 		const offenders = Object.keys(sources)
 			.filter((path) => /overscroll-behavior: contain;/.test(sources[path]))
 			.map((path) => path.replace('../src/lib/', ''));
@@ -84,11 +109,7 @@ describe('packaging', () => {
 	});
 
 	it('declares -webkit-backdrop-filter first, or Lightning CSS drops the standard one', () => {
-		const sources = import.meta.glob<string>('../src/lib/**/*.{css,svelte}', {
-			query: '?raw',
-			import: 'default',
-			eager: true
-		});
+		const sources = sourcesOf(/\.(css|svelte)$/);
 		const offenders = Object.keys(sources).filter((path) =>
 			/(?<!-webkit-)backdrop-filter:[^;]+;\s*-webkit-backdrop-filter:/.test(
 				sources[path]

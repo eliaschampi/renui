@@ -4,32 +4,34 @@ Consumer migration from **Lumi UI 1.x** (`@lumi-ui/svelte`) to **RenUI 2.0** (`@
 
 ## 1.x → 2.0.0
 
-RenUI 2.0 is Lumi UI under a new name and a **breaking CSS release**. Component props and entry points are unchanged; names change, and applications that consume removed tokens must migrate. Lumen replaces decorative glass and gradient panels with opaque surfaces, shared tone roles, and a brand-tinted canvas.
+RenUI 2.0 is Lumi UI under a new name and a **breaking CSS release**. Component props and entry points are unchanged; names change, and applications that consume removed tokens must migrate. Lumen replaces decorative glass and gradient panels with opaque surfaces, shared tone roles, and a brand-tinted canvas. Its palette derives from CSS relative colors, which raises the [browser baseline](../README.md#browser-support) to Baseline 2024.
 
 Includes the 1.2.1 fixes for narrow table pagination and scroll chaining. The current library targets left-to-right interfaces; RTL is not a supported contract.
 
 ### Rename
 
-| Lumi UI 1.x                                                        | RenUI 2.0                                                         |
-| ------------------------------------------------------------------ | ----------------------------------------------------------------- |
-| `@lumi-ui/svelte` and its subpaths (`/styles`, `/icons`, …)        | `@renui/svelte`, same subpaths                                    |
-| `--lumi-*` tokens, `.lumi-*` classes, `lumi.*` cascade layers      | `--ren-*`, `.ren-*`, `ren.*`                                      |
-| `Lumi*`, `lumi*`, `LUMI_*` names (`LumiColor`, `useLumiLocale`, …) | `Ren*`, `ren*`, `REN_*` (`RenColor`, `useRenLocale`, `renEn`, …)  |
-| Default color-scheme storage key `lumi-color-scheme`               | `ren-color-scheme`; pass `storageKey` to keep a stored preference |
+| Lumi UI 1.x                                                        | RenUI 2.0                                                        |
+| ------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| `@lumi-ui/svelte` and its subpaths (`/styles`, `/icons`, …)        | `@renui/svelte`, same subpaths                                   |
+| `--lumi-*` tokens, `.lumi-*` classes, `lumi.*` cascade layers      | `--ren-*`, `.ren-*`, `ren.*`                                     |
+| `Lumi*`, `lumi*`, `LUMI_*` names (`LumiColor`, `useLumiLocale`, …) | `Ren*`, `ren*`, `REN_*` (`RenColor`, `useRenLocale`, `renEn`, …) |
+| Default color-scheme storage key `lumi-color-scheme`               | `ren-color-scheme`: default-key preferences reset once           |
 
 ### Codemod
 
-Run it from a RenUI checkout; RenUI's own source is the ground truth for which tokens exist.
+Run it from a RenUI checkout; RenUI's own source is the ground truth for which tokens exist, and its `package.json` for the version 1.x pins move to.
 
 ```bash
 node scripts/migrate-2.0.mjs <app-dir>           # dry run: every change and problem
-node scripts/migrate-2.0.mjs <app-dir> --write   # rewrite files and git mv renamed paths
-pnpm install                                     # package.json now asks for @renui/svelte 2.0.0
+node scripts/migrate-2.0.mjs <app-dir> --write   # rewrite files and move renamed paths
+pnpm install                                     # package.json now asks for @renui/svelte
 ```
 
-The codemod works on the app's git files (lockfiles excluded) and is idempotent:
+The codemod works on the app's git files, tracked or untracked (lockfiles excluded), and is idempotent:
 
-- renames the package, imports, tokens, classes, layers, TypeScript names, file names and prose, without touching words such as `Illuminate`, `luminous` or `Lumen`;
+- stops before any write when a `package.json` pins `@lumi-ui/svelte` older than 1.x: upgrade to 1.2.1 first with the codemods at tag `v1.2.1`;
+- renames the package, imports, tokens, classes, layers, TypeScript names, file names and prose, without touching words such as `Illuminate`, `luminous`, `Lumen` or `Lumière`;
+- moves renamed files and folders (`git mv` when tracked) and never overwrites: an existing destination is an `error:`;
 - rewrites reads of removed tokens that have a one-to-one replacement (table below);
 - checks every `--ren-*` token the app reads against RenUI: `error:` marks undefined tokens and `lumi` leftovers, `manual:` marks app overrides of tokens RenUI no longer defines, `info:` lists `ren-*` classes RenUI does not define (app-owned or removed).
 
@@ -56,7 +58,7 @@ The following tokens are removed; replace their uses and remove obsolete overrid
 | `--ren-app-background-accent`, `--ren-app-pattern-size`, `--ren-app-pattern-line-color`       | Remove canvas decoration; custom patterns belong to the consumer                                                           | reported  |
 | `--ren-blur-sm`, `--ren-surface-saturation`                                                   | Remove default blur/saturation overrides; cards retain the optional `--ren-surface-blur-filter` hook                       | reported  |
 
-Component-internal tokens were removed as well (for example `--ren-shadow`, `--ren-blur-md`, the `--ren-gradient-glass-*` panels and the progress track and stripe tokens). The codemod reports any the app still reads; choose the role that owns the surface.
+Component-internal tokens were removed as well (for example `--ren-shadow`, `--ren-blur-md`, the `--ren-gradient-glass-*` panels, the progress track and stripe tokens, and the unused `--ren-metric-rank-value-color` hook). The codemod reports any the app still reads; choose the role that owns the surface.
 
 ### Shared tone roles
 
@@ -66,7 +68,7 @@ Use semantic `color` props as before. For consumer CSS, `.ren-tone` anchors the 
 - `--ren-tone-beam`: directional value fill derived from the solid and the shared `--ren-sun` / `--ren-dusk` seeds.
 - `--ren-color-hover`: neutral hover wash; reserve semantic color for meaning and selection.
 
-Theme seeds remain the customization entry point. Tone planes preserve hue while normalizing lightness/chroma; validate custom seeds and plane overrides in both themes. Relative OKLCH colors are required by these recipes.
+Theme seeds remain the customization entry point. Tone planes preserve hue while normalizing lightness/chroma; validate custom seeds and plane overrides in both themes.
 
 ### Light and dark surface changes
 

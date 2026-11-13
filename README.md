@@ -21,7 +21,7 @@ pnpm add @renui/svelte
 
 ## Why RenUI
 
-- **Light by construction.** No runtime theme provider, no CSS-in-JS, no icon registry unless you ask for one. A `Button` is 2.6 KB gzip with its CSS, a `Tooltip` 4.1 KB, and the global stylesheet 7.5 KB, which splits further for lean pages. Overlays position themselves with no third-party engine.
+- **Light by construction.** No runtime theme provider, no CSS-in-JS, no icon registry unless you ask for one. A `Button` is 2.6 KB gzip with its CSS, a `Tooltip` 4.1 KB, and the global stylesheet 7.4 KB, which splits further for lean pages. Overlays position themselves with no third-party engine.
 - **Bilingual.** English by default; one line switches every built-in label, placeholder and `Intl` format to Spanish (`setRenLocale`). Unused copy never reaches the bundle.
 - **Platform first.** Real links (`Button href`, crawlable `Pagination`), `<ul>`/`<hr>` semantics, cascade layers so your CSS wins, container queries, `inert`, native date inputs — less JavaScript, better SEO.
 - **One recipe per role.** Fields, switchers, spinners and skeletons share global recipes, so every control looks and behaves like its peers in light and dark mode.
@@ -58,6 +58,10 @@ Explicit props (`placeholder`, `closeLabel`, …) always win. Details: [Guide §
 
 Brand seeds and color scheme: [Guide §3](./docs/GUIDE.md#3-theming-and-color-scheme). Lean loading for public pages: [Guide §1](./docs/GUIDE.md#load-styles-once).
 
+## Browser Support
+
+Baseline 2024: Chrome and Edge 125+, Firefox 128+, Safari 18+ on macOS and iOS. Every color derives from CSS relative color syntax (`oklch(from …)`), so older engines are not supported.
+
 ## Documentation
 
 | Document                                                 | Covers                                                                   |
@@ -78,24 +82,24 @@ Budgets start from the 1.2.0 baseline on all 16 measured surfaces, including all
 
 | Surface                                                                                     | 1.2.0 baseline |  2.0.0 |   Budget |
 | ------------------------------------------------------------------------------------------- | -------------: | -----: | -------: |
-| Global CSS `@renui/svelte/styles`                                                           |          7,691 |  7,462 |  ≤ 7,691 |
-| Lean CSS `tokens.base.css` + `base.css`                                                     |          4,984 |  4,804 |  ≤ 4,984 |
-| `Button`                                                                                    |          2,754 |  2,586 |  ≤ 2,754 |
-| `Divider`                                                                                   |            966 |    966 |    ≤ 976 |
-| `Tooltip`                                                                                   |          4,121 |  4,054 |  ≤ 4,121 |
-| `Dropdown` + `DropdownItem`                                                                 |          5,560 |  5,385 |  ≤ 5,560 |
-| `Select`                                                                                    |          8,751 |  8,610 |  ≤ 8,751 |
-| `Tabs`                                                                                      |          3,197 |  3,022 |  ≤ 3,197 |
-| `SegmentedControl`                                                                          |          2,872 |  2,760 |  ≤ 2,872 |
-| `ToggleGroup`                                                                               |          3,021 |  2,850 |  ≤ 3,021 |
-| `Skeleton`                                                                                  |          1,089 |  1,011 |  ≤ 1,089 |
-| `Message`                                                                                   |          1,585 |  1,585 |  ≤ 1,585 |
-| `MessageList`                                                                               |          3,070 |  3,058 |  ≤ 3,070 |
-| Form/table: `Switch`, `Radio`, `Textarea`, `Checkbox`, `SegmentedControl`, `Input`, `Table` |         15,156 | 14,772 | ≤ 15,156 |
-| Storefront: `Button`, `Card`, `Image`, `Chip`, `Input`, `Icon`, `Divider`                   |          9,776 |  9,385 |  ≤ 9,776 |
-| All exports                                                                                 |         74,124 | 72,599 | ≤ 74,124 |
+| Global CSS `@renui/svelte/styles`                                                           |          7,691 |  7,430 |  ≤ 7,691 |
+| Lean CSS `tokens.base.css` + `base.css`                                                     |          4,984 |  4,778 |  ≤ 4,984 |
+| `Button`                                                                                    |          2,754 |  2,564 |  ≤ 2,754 |
+| `Divider`                                                                                   |            966 |    965 |    ≤ 976 |
+| `Tooltip`                                                                                   |          4,121 |  4,056 |  ≤ 4,121 |
+| `Dropdown` + `DropdownItem`                                                                 |          5,560 |  5,370 |  ≤ 5,560 |
+| `Select`                                                                                    |          8,751 |  8,601 |  ≤ 8,751 |
+| `Tabs`                                                                                      |          3,197 |  3,007 |  ≤ 3,197 |
+| `SegmentedControl`                                                                          |          2,872 |  2,743 |  ≤ 2,872 |
+| `ToggleGroup`                                                                               |          3,021 |  2,835 |  ≤ 3,021 |
+| `Skeleton`                                                                                  |          1,089 |    999 |  ≤ 1,089 |
+| `Message`                                                                                   |          1,585 |  1,572 |  ≤ 1,585 |
+| `MessageList`                                                                               |          3,070 |  3,037 |  ≤ 3,070 |
+| Form/table: `Switch`, `Radio`, `Textarea`, `Checkbox`, `SegmentedControl`, `Input`, `Table` |         15,156 | 14,726 | ≤ 15,156 |
+| Storefront: `Button`, `Card`, `Image`, `Chip`, `Input`, `Icon`, `Divider`                   |          9,776 |  9,357 |  ≤ 9,776 |
+| All exports                                                                                 |         74,124 | 72,749 | ≤ 74,124 |
 
-Reference output can differ by a few bytes across platforms and Node/zlib builds (`Divider` measures 966–968 B); budgets absorb that variance, not feature growth. Every measured surface is equal to or smaller than the baseline. Global CSS drops **3.0%**, lean CSS **3.6%**, and the all-exports bundle **2.1%**. These are transfer-size measurements, not runtime speed claims.
+Reference output can differ by a few bytes across platforms and Node/zlib builds (`Divider` measures 965–968 B); budgets absorb that variance, not feature growth. Every measured surface is equal to or smaller than the baseline. Global CSS drops **3.4%**, lean CSS **4.1%**, and the all-exports bundle **1.9%**. These are transfer-size measurements, not runtime speed claims.
 
 The [browser benchmark](./docs/BENCHMARK.md) exercises 300 components in light and dark themes after incorporating upstream 1.2.1 changes. Median mount/layout time is 11.9 → 11.9 ms in light and 12.1 → 11.9 ms in dark; median slider-update is 5.4 → 5.3 ms in light and unchanged in dark. Unmount medians are unchanged. Dark mount p95 increases by 0.1 ms and dark update p95 by 0.4 ms. These mixed results do not establish a universal runtime speedup; see the methodology and limits.
 

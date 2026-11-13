@@ -811,5 +811,7 @@ Before a release, also:
 1. Re-measure the [Lightweight Contract](../README.md#lightweight-contract) budgets with `pnpm run package && pnpm run size` and `npm pack --dry-run`.
 2. Dry-run the current codemod on each consumer (`node scripts/migrate-2.0.mjs <app>`) until it reports no `error:` or `manual:` line, then `svelte-check` the migrated app against the packaged build.
 3. Check overlays inside a Dialog, keyboard flows and light/dark mode in a browser; SSR output alone does not cover positioning.
+4. Set `version`, commit, run `git tag -a v<version> -m "RenUI <version>"`, then `pnpm publish`: `prepublishOnly` (lint, check, test) and `prepack` (package, size) rerun the gates. Push with `git push origin main v<version>`, naming the tag, since `--tags` pushes every local tag.
+5. Once the version is on npm, run `pnpm install` in each consumer and commit its lockfile.
 
 For a locally linked consumer, package RenUI before checking that app. The [`renweb`](https://github.com/eliaschampi/renweb) showcase consumes the published package and needs no local link. Do not start a duplicate dev server for docs or type-only changes.

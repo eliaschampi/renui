@@ -5,7 +5,7 @@ export default defineConfig({
 	plugins: [svelte()],
 	resolve: { conditions: ['browser'] },
 	test: {
-		include: ['tests/**/*.test.ts'],
+		include: ['tests/**/*.test.{ts,mjs}'],
 		environment: 'jsdom',
 		// Vitest empties stylesheets; source tests read them through `?raw`.
 		css: { include: [/\.css\?raw/] },

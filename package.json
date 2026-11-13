@@ -5,7 +5,11 @@
 	"type": "module",
 	"packageManager": "pnpm@10.33.2",
 	"license": "MIT",
-	"homepage": "https://github.com/eliaschampi/renui#readme",
+	"homepage": "https://eliaschampi.github.io/renweb/",
+	"author": {
+		"name": "eliaschampi",
+		"email": "elias@faztore.com"
+	},
 	"bugs": {
 		"url": "https://github.com/eliaschampi/renui/issues"
 	},
@@ -17,7 +21,6 @@
 		"components",
 		"design-system",
 		"renui",
-		"glassmorphism",
 		"lightweight",
 		"i18n",
 		"ssr",
@@ -48,8 +51,8 @@
 		"test": "vitest run",
 		"size": "node scripts/size.mjs",
 		"format": "prettier --write .",
-		"prepack": "pnpm run package",
-		"prepublishOnly": "pnpm run lint && pnpm run check && pnpm run test && pnpm run package && pnpm run size"
+		"prepack": "pnpm run package && pnpm run size",
+		"prepublishOnly": "pnpm run lint && pnpm run check && pnpm run test"
 	},
 	"exports": {
 		".": {

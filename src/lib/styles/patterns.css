@@ -262,7 +262,7 @@
 
 	/**
 	 * Ranked metric rows for dashboard, analytics, and comparison panels.
-	 * Uses only design tokens; accent variants swap badge/value emphasis.
+	 * Uses only design tokens; override the badge tint and color per list.
 	 */
 	.ren-metric-rank-list {
 		--ren-metric-rank-badge-tint: color-mix(
@@ -271,7 +271,6 @@
 			var(--ren-color-surface)
 		);
 		--ren-metric-rank-badge-color: var(--ren-color-primary);
-		--ren-metric-rank-value-color: var(--ren-color-secondary);
 		display: flex;
 		flex-direction: column;
 		gap: var(--ren-space-xs);
@@ -738,48 +737,6 @@
 		text-align: center;
 		min-block-size: calc(var(--ren-space-3xl) * 5);
 		justify-content: center;
-	}
-
-	/* ========================================================================== */
-	/* PATTERN SCROLLBAR - extends core scrollbar to pattern scroll containers    */
-	/* ========================================================================== */
-	:where(.ren-result-list, .ren-metric-rank-list--scroll-capped) {
-		scrollbar-width: thin;
-		scrollbar-color: var(--ren-color-border-strong) transparent;
-	}
-
-	:where(
-		.ren-result-list,
-		.ren-metric-rank-list--scroll-capped
-	)::-webkit-scrollbar {
-		width: var(--ren-space-2xs);
-		height: var(--ren-space-2xs);
-	}
-
-	:where(
-		.ren-result-list,
-		.ren-metric-rank-list--scroll-capped
-	)::-webkit-scrollbar-track {
-		background: transparent;
-	}
-
-	:where(
-		.ren-result-list,
-		.ren-metric-rank-list--scroll-capped
-	)::-webkit-scrollbar-thumb {
-		border-radius: var(--ren-radius-pill);
-		background: color-mix(
-			in srgb,
-			var(--ren-color-border-strong) 78%,
-			transparent
-		);
-	}
-
-	:where(
-			.ren-result-list,
-			.ren-metric-rank-list--scroll-capped
-		)::-webkit-scrollbar-thumb:hover {
-		background: var(--ren-color-border-strong);
 	}
 }
 

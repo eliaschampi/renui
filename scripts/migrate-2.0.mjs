@@ -1,21 +1,35 @@
 #!/usr/bin/env node
 // Lumi UI 1.x (`@lumi-ui/svelte`) → RenUI 2.0 (`@renui/svelte`); see docs/UPGRADE.md.
 //   node scripts/migrate-2.0.mjs <app-dir>                 dry run: report every change and problem
-//   node scripts/migrate-2.0.mjs <app-dir> --write         rewrite files and `git mv` renamed paths
+//   node scripts/migrate-2.0.mjs <app-dir> --write         rewrite files and move renamed paths
 //   node scripts/migrate-2.0.mjs <app-dir> --list          also list each rewritten file
 // Run it from a RenUI checkout: RenUI's own source is the ground truth for which
-// tokens exist. Idempotent; exits 1 while anything still needs a decision.
+// tokens exist, and its package.json for the version 1.x pins move to.
+// Idempotent; exits 1 while anything still needs a decision.
 import { execFileSync } from 'node:child_process';
-import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import {
+	existsSync,
+	mkdirSync,
+	readdirSync,
+	readFileSync,
+	renameSync,
+	rmdirSync,
+	statSync,
+	writeFileSync
+} from 'node:fs';
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const VERSION = '2.0.0';
 const SELF = fileURLToPath(import.meta.url);
-const LIB = resolve(dirname(SELF), '../src/lib');
+const CHECKOUT = resolve(dirname(SELF), '..');
+const LIB = join(CHECKOUT, 'src/lib');
+const { version: VERSION } = JSON.parse(
+	readFileSync(join(CHECKOUT, 'package.json'), 'utf8')
+);
 
 // 1. Rename, most specific first. Every rule needs a delimiter around the old
-// name, so words such as `Illuminate`, `luminous` or `Lumen` never match.
+// name, so words such as `Illuminate`, `luminous`, `Lumen` or `Lumière` never
+// match.
 const RENAMES = [
 	// Package spec pinned to 1.x: `"@lumi-ui/svelte": "^1.2.1"`, `@lumi-ui/svelte@1.2.1`.
 	[
@@ -40,7 +54,7 @@ const RENAMES = [
 	[/(?<![A-Za-z0-9_$])lumi(?=[A-Z0-9])/g, 'ren'],
 	[/(?<![A-Za-z0-9])LUMI(?=_|\b)/g, 'REN'],
 	// Prose.
-	[/\bLumi\b/g, 'RenUI']
+	[/(?<![\p{L}\p{N}_])Lumi(?![\p{L}\p{N}_])/gu, 'RenUI']
 ];
 
 // 2. Tokens removed in 2.0 with a one-to-one replacement. Only uses are
@@ -87,7 +101,9 @@ const HINTS = {
 
 const TOKEN = /--ren-[\w-]+/g;
 const CLASS = /(?<![\w-])ren-[\w-]+/g;
-const LEFTOVER = /lumi(?!n)/gi;
+const LEFTOVER = /lumi(?![n\P{ASCII}])/giu;
+// A pin the rename cannot carry: 1.x is the only line 2.0 migrates from.
+const PRE_1X_PIN = /"@lumi-ui\/svelte":\s*"([\^~]?(?!1\.)\d+\.\d+\.\d+)"/g;
 const LOCKFILE =
 	/(^|\/)(pnpm-lock\.yaml|package-lock\.json|yarn\.lock|bun\.lockb?|composer\.lock)$/;
 const FILE_NAME = /^\.(css|scss|pcss|svelte|[cm]?[jt]s|json|md)\b/;
@@ -167,13 +183,33 @@ const isKnown = (set, name) =>
 		? [...set].some((entry) => entry.startsWith(name))
 		: set.has(name);
 
-const files = execFileSync(
-	'git',
-	['-C', root, 'ls-files', '-z', '-co', '--exclude-standard'],
-	{ encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 }
-)
-	.split('\0')
-	.filter(Boolean);
+const gitFiles = (...flags) =>
+	execFileSync('git', ['-C', root, 'ls-files', '-z', ...flags], {
+		encoding: 'utf8',
+		maxBuffer: 64 * 1024 * 1024
+	})
+		.split('\0')
+		.filter(Boolean);
+const tracked = new Set(gitFiles('--cached'));
+const files = [...tracked, ...gitFiles('--others', '--exclude-standard')];
+
+// Stop before any write when the app is older than 1.x.
+const stalePins = files
+	.filter(
+		(file) => /(^|\/)package\.json$/.test(file) && existsSync(join(root, file))
+	)
+	.flatMap((file) =>
+		[...readFileSync(join(root, file), 'utf8').matchAll(PRE_1X_PIN)].map(
+			([, spec]) => `${file} pins @lumi-ui/svelte ${spec}`
+		)
+	);
+if (stalePins.length) {
+	for (const pin of stalePins) console.error(`error: ${pin}`);
+	console.error(
+		'  Upgrade to 1.2.1 first with the codemods at tag v1.2.1, then rerun.'
+	);
+	process.exit(1);
+}
 
 const lineOf = (text, index) => text.slice(0, index).split('\n').length;
 const found = new Map();
@@ -187,6 +223,7 @@ function record(kind, name, where) {
 let rewritten = 0;
 let replacements = 0;
 const moves = [];
+const blocked = [];
 const skipped = [];
 
 for (const file of files) {
@@ -199,8 +236,12 @@ for (const file of files) {
 		continue; // deleted in the working tree
 	}
 	if (!stat.isFile()) continue;
-	const movedTo = rename(file).text;
-	if (movedTo !== file) moves.push([file, movedTo]);
+	const target = rename(file).text;
+	// Never overwrite: an existing destination needs a decision.
+	const collides = target !== file && existsSync(join(root, target));
+	if (collides) blocked.push([file, target]);
+	else if (target !== file) moves.push([file, target]);
+	const shown = collides ? file : target;
 	if (stat.size > MAX_BYTES) {
 		skipped.push(file);
 		continue;
@@ -220,7 +261,6 @@ for (const file of files) {
 		if (write) writeFileSync(path, text);
 	}
 
-	const shown = movedTo;
 	for (const match of text.matchAll(TOKEN)) {
 		const [name] = match;
 		const where = `${shown}:${lineOf(text, match.index)}`;
@@ -247,9 +287,21 @@ for (const file of files) {
 	}
 }
 
-if (write)
-	for (const [from, to] of moves)
-		execFileSync('git', ['-C', root, 'mv', from, to]);
+if (write) {
+	for (const [from, to] of moves) {
+		mkdirSync(dirname(join(root, to)), { recursive: true });
+		if (tracked.has(from)) execFileSync('git', ['-C', root, 'mv', from, to]);
+		else renameSync(join(root, from), join(root, to));
+	}
+	// Drop the directories the moves emptied.
+	for (const [from] of moves)
+		for (
+			let dir = dirname(join(root, from));
+			dir !== root && existsSync(dir) && !readdirSync(dir).length;
+			dir = dirname(dir)
+		)
+			rmdirSync(dir);
+}
 
 // Report.
 const declaredByApp = new Set(
@@ -258,7 +310,13 @@ const declaredByApp = new Set(
 const at = (places) =>
 	places.slice(0, 3).join(', ') +
 	(places.length > 3 ? ` (+${places.length - 3})` : '');
-const problems = { error: [], manual: [], info: [] };
+const problems = {
+	error: blocked.map(
+		([from, to]) => `cannot move ${from} → ${to}: the destination exists`
+	),
+	manual: [],
+	info: []
+};
 
 for (const { kind, name, places } of found.values()) {
 	if (

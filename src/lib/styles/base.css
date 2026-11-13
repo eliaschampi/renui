@@ -243,7 +243,9 @@
 		.ren-scrollbar,
 		.ren-dashboard-layout__content,
 		.ren-table__wrapper,
-		.ren-list
+		.ren-list,
+		.ren-result-list,
+		.ren-metric-rank-list--scroll-capped
 	) {
 		scrollbar-width: thin;
 		scrollbar-color: var(--ren-color-border-strong) transparent;
