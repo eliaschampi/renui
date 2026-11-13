@@ -108,14 +108,11 @@
 	   beam always shows, bright end in front. Both are transforms, and both
 	   follow the same easing: the value moves on the compositor. */
 	.lumi-progress__bar {
-		--_dir: 1;
 		position: relative;
 		height: 100%;
 		overflow: hidden;
 		border-radius: inherit;
-		transform: translateX(
-			calc((var(--lumi-progress-value, 0) - 1) * 100% * var(--_dir))
-		);
+		transform: translateX(calc((var(--lumi-progress-value, 0) - 1) * 100%));
 	}
 
 	.lumi-progress__bar::before {
@@ -130,14 +127,6 @@
 	.lumi-progress__bar,
 	.lumi-progress__bar::before {
 		transition: transform var(--lumi-duration-slow) var(--lumi-easing-default);
-	}
-
-	:global([dir='rtl']) .lumi-progress__bar {
-		--_dir: -1;
-	}
-
-	:global([dir='rtl']) .lumi-progress__bar::before {
-		transform-origin: left;
 	}
 
 	.lumi-progress__bar--indeterminate {

@@ -163,10 +163,6 @@
 		cursor: pointer;
 	}
 
-	:global([dir='rtl']) .lumi-slider__input {
-		--_fill: var(--lumi-tone-beam) 100% / var(--slider-fill) 100% no-repeat;
-	}
-
 	.lumi-slider__input:hover,
 	.lumi-slider__input:active {
 		--_thumb-scale: var(--lumi-interactive-zoom-scale);
@@ -235,13 +231,9 @@
 	/* Value bubble: the solid of the thumb it follows. */
 	.lumi-slider__tooltip {
 		position: absolute;
-		--_tooltip-direction: -1;
-		inset-inline-start: var(--slider-fill);
+		left: var(--slider-fill);
 		bottom: calc(100% + var(--lumi-space-2xs));
-		transform: translate(
-			calc(var(--_tooltip-direction) * var(--slider-fill)),
-			var(--lumi-space-xs)
-		);
+		transform: translate(calc(-1 * var(--slider-fill)), var(--lumi-space-xs));
 		padding: var(--lumi-space-2xs) var(--lumi-space-sm);
 		color: var(--lumi-control-foreground);
 		font-size: var(--lumi-font-size-xs);
@@ -258,19 +250,12 @@
 			transform var(--lumi-duration-fast) var(--lumi-easing-default);
 	}
 
-	.lumi-slider__tooltip:dir(rtl) {
-		--_tooltip-direction: 1;
-	}
-
 	/* Show tooltip on hover or active of input, or hover of control */
 	.lumi-slider__control:hover .lumi-slider__tooltip,
 	.lumi-slider__input:focus-visible ~ .lumi-slider__tooltip,
 	.lumi-slider__input:active ~ .lumi-slider__tooltip {
 		opacity: 1;
-		transform: translate(
-			calc(var(--_tooltip-direction) * var(--slider-fill)),
-			0
-		);
+		transform: translate(calc(-1 * var(--slider-fill)), 0);
 	}
 
 	.lumi-slider__range-labels {

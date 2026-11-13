@@ -16,7 +16,7 @@
 	class={[
 		'lumi-list',
 		size === 'sm' && 'lumi-list--sm',
-		maxHeight && `lumi-list--max-${maxHeight}`,
+		maxHeight && `lumi-list--max-${maxHeight} lumi-scroll-contain`,
 		color && `lumi-tone lumi-tone--${color}`,
 		className
 	]}
@@ -51,7 +51,6 @@
 	.lumi-list--max-md,
 	.lumi-list--max-lg {
 		overflow: hidden auto;
-		overscroll-behavior: contain;
 	}
 
 	.lumi-list--max-sm {

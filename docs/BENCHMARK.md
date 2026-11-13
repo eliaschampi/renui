@@ -1,6 +1,6 @@
 # Browser benchmark — 2.0.0
 
-Final source measured **2026-11-13**, including the light-border and control-shadow adjustment, against the 1.2.0 source at commit `f9826b8`, on Apple M4 (arm64), macOS 27.0.1, Node 26.13.1, headless Chromium **156.0.8078.4**. The benchmark uses a real browser, production Vite builds and the same installed toolchain for both versions. Transfer sizes are reported separately in the [Lightweight Contract](../README.md#lightweight-contract).
+Final source measured **2026-11-13**, including the light-border/control-shadow adjustment and merged upstream 1.2.1 changes, against the 1.2.0 source at commit `f9826b8`, on Apple M4 (arm64), macOS 27.0.1, Node 26.13.1, headless Chromium **156.0.8078.4**. The benchmark uses a real browser, production Vite builds and the same installed toolchain for both versions. Transfer sizes are reported separately in the [Lightweight Contract](../README.md#lightweight-contract).
 
 ## Fixture and method
 
@@ -18,14 +18,14 @@ Times are in milliseconds. The script reports the sorted sample at index `floor(
 
 | Theme | Operation                   | Baseline median | 2.0 median | Baseline p95 | 2.0 p95 |
 | ----- | --------------------------- | --------------: | ---------: | -----------: | ------: |
-| Light | Mount + style/layout        |            12.0 |       12.2 |         14.6 |    14.3 |
-| Light | Slider input + style/layout |             5.5 |        5.5 |          7.0 |     6.7 |
-| Light | Unmount                     |             0.7 |        0.7 |          0.9 |     1.0 |
-| Dark  | Mount + style/layout        |            12.1 |       12.2 |         12.9 |    14.2 |
-| Dark  | Slider input + style/layout |             8.9 |        8.9 |          9.9 |    10.5 |
-| Dark  | Unmount                     |             0.7 |        0.7 |          0.9 |     0.9 |
+| Light | Mount + style/layout        |            11.9 |       11.9 |         13.8 |    13.0 |
+| Light | Slider input + style/layout |             5.4 |        5.3 |          6.9 |     6.6 |
+| Light | Unmount                     |             0.7 |        0.7 |          0.8 |     0.8 |
+| Dark  | Mount + style/layout        |            12.1 |       11.9 |         13.0 |    13.1 |
+| Dark  | Slider input + style/layout |             8.6 |        8.6 |          9.0 |     9.4 |
+| Dark  | Unmount                     |             0.7 |        0.7 |          0.8 |     0.8 |
 
-Median mount/layout increases by **0.2 ms in light** and **0.1 ms in dark**; median update and unmount times are unchanged to one decimal place. Dark mount p95 increases by **1.3 ms** and dark update p95 by **0.6 ms**. Light mount/update p95 decrease by 0.3 ms, while light unmount p95 rises by 0.1 ms. The measured result is mixed: it does not establish a runtime speedup or an improvement in every metric. Repeated runs are needed to distinguish small changes from machine/browser noise.
+Median mount/layout is unchanged in light and decreases by **0.2 ms in dark**. Median slider-update decreases by **0.1 ms in light** and is unchanged in dark; unmount medians are unchanged. Dark mount p95 increases by **0.1 ms** and dark update p95 by **0.4 ms**. Light mount/update p95 decrease by 0.8/0.3 ms. The measured result is mixed: it does not establish a universal runtime speedup or an improvement in every metric. Repeated runs are needed to distinguish small changes from machine/browser noise.
 
 These timings **do not measure GPU paint/compositing**, network loading, hydration, user-perceived responsiveness, animation smoothness or every component. Layout is forced synchronously, but paint is not awaited. They provide no basis for claiming Lumi is the fastest library or that every application becomes faster. Re-run on representative consumer pages and target devices before drawing broader conclusions.
 

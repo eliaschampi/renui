@@ -21,7 +21,7 @@ pnpm add @lumi-ui/svelte
 
 ## Why Lumi
 
-- **Light by construction.** No runtime theme provider, no CSS-in-JS, no icon registry unless you ask for one. A `Button` is 2.6 KB gzip with its CSS, a `Tooltip` 4.1 KB, and the global stylesheet 7.4 KB, which splits further for lean pages. Overlays position themselves with no third-party engine.
+- **Light by construction.** No runtime theme provider, no CSS-in-JS, no icon registry unless you ask for one. A `Button` is 2.6 KB gzip with its CSS, a `Tooltip` 4.1 KB, and the global stylesheet 7.5 KB, which splits further for lean pages. Overlays position themselves with no third-party engine.
 - **Bilingual.** English by default; one line switches every built-in label, placeholder and `Intl` format to Spanish (`setLumiLocale`). Unused copy never reaches the bundle.
 - **Platform first.** Real links (`Button href`, crawlable `Pagination`), `<ul>`/`<hr>` semantics, cascade layers so your CSS wins, container queries, `inert`, native date inputs — less JavaScript, better SEO.
 - **One recipe per role.** Fields, switchers, spinners and skeletons share global recipes, so every control looks and behaves like its peers in light and dark mode.
@@ -78,26 +78,26 @@ Budgets match the 1.2.0 baseline on all 16 measured surfaces, including all expo
 
 | Surface                                                                                     | 1.2.0 baseline |  2.0.0 |   Budget |
 | ------------------------------------------------------------------------------------------- | -------------: | -----: | -------: |
-| Global CSS `@lumi-ui/svelte/styles`                                                         |          7,691 |  7,390 |  ≤ 7,691 |
-| Lean CSS `tokens.base.css` + `base.css`                                                     |          4,984 |  4,715 |  ≤ 4,984 |
+| Global CSS `@lumi-ui/svelte/styles`                                                         |          7,691 |  7,462 |  ≤ 7,691 |
+| Lean CSS `tokens.base.css` + `base.css`                                                     |          4,984 |  4,804 |  ≤ 4,984 |
 | `Button`                                                                                    |          2,754 |  2,586 |  ≤ 2,754 |
 | `Divider`                                                                                   |            966 |    966 |    ≤ 966 |
-| `Tooltip`                                                                                   |          4,121 |  4,105 |  ≤ 4,121 |
-| `Dropdown` + `DropdownItem`                                                                 |          5,560 |  5,474 |  ≤ 5,560 |
-| `Select`                                                                                    |          8,751 |  8,691 |  ≤ 8,751 |
-| `Tabs`                                                                                      |          3,197 |  3,081 |  ≤ 3,197 |
+| `Tooltip`                                                                                   |          4,121 |  4,054 |  ≤ 4,121 |
+| `Dropdown` + `DropdownItem`                                                                 |          5,560 |  5,385 |  ≤ 5,560 |
+| `Select`                                                                                    |          8,751 |  8,610 |  ≤ 8,751 |
+| `Tabs`                                                                                      |          3,197 |  3,022 |  ≤ 3,197 |
 | `SegmentedControl`                                                                          |          2,872 |  2,760 |  ≤ 2,872 |
-| `ToggleGroup`                                                                               |          3,021 |  2,905 |  ≤ 3,021 |
-| `Skeleton`                                                                                  |          1,089 |  1,089 |  ≤ 1,089 |
+| `ToggleGroup`                                                                               |          3,021 |  2,850 |  ≤ 3,021 |
+| `Skeleton`                                                                                  |          1,089 |  1,011 |  ≤ 1,089 |
 | `Message`                                                                                   |          1,585 |  1,585 |  ≤ 1,585 |
-| `MessageList`                                                                               |          3,070 |  3,070 |  ≤ 3,070 |
-| Form/table: `Switch`, `Radio`, `Textarea`, `Checkbox`, `SegmentedControl`, `Input`, `Table` |         15,156 | 14,795 | ≤ 15,156 |
-| Storefront: `Button`, `Card`, `Image`, `Chip`, `Input`, `Icon`, `Divider`                   |          9,776 |  9,471 |  ≤ 9,776 |
-| All exports                                                                                 |         74,124 | 72,846 | ≤ 74,124 |
+| `MessageList`                                                                               |          3,070 |  3,058 |  ≤ 3,070 |
+| Form/table: `Switch`, `Radio`, `Textarea`, `Checkbox`, `SegmentedControl`, `Input`, `Table` |         15,156 | 14,772 | ≤ 15,156 |
+| Storefront: `Button`, `Card`, `Image`, `Chip`, `Input`, `Icon`, `Divider`                   |          9,776 |  9,385 |  ≤ 9,776 |
+| All exports                                                                                 |         74,124 | 72,599 | ≤ 74,124 |
 
-Every measured surface is equal to or smaller than the baseline. Global CSS drops **3.9%**, lean CSS **5.4%**, and the all-exports bundle **1.7%**. These are transfer-size measurements, not runtime speed claims.
+Every measured surface is equal to or smaller than the baseline. Global CSS drops **3.0%**, lean CSS **3.6%**, and the all-exports bundle **2.1%**. These are transfer-size measurements, not runtime speed claims.
 
-The [browser benchmark](./docs/BENCHMARK.md) exercises 300 components in light and dark themes on the final source. Median mount/layout time is 12.0 → 12.2 ms in light and 12.1 → 12.2 ms in dark; median slider-update and unmount times are unchanged. Dark mount p95 increases by 1.3 ms and dark update p95 by 0.6 ms. These mixed results do not establish a runtime speedup; see the methodology and limits.
+The [browser benchmark](./docs/BENCHMARK.md) exercises 300 components in light and dark themes after incorporating upstream 1.2.1 changes. Median mount/layout time is 11.9 → 11.9 ms in light and 12.1 → 11.9 ms in dark; median slider-update is 5.4 → 5.3 ms in light and unchanged in dark. Unmount medians are unchanged. Dark mount p95 increases by 0.1 ms and dark update p95 by 0.4 ms. These mixed results do not establish a universal runtime speedup; see the methodology and limits.
 
 ```bash
 pnpm run package && pnpm run size

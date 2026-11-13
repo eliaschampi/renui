@@ -10,6 +10,8 @@ This is a **breaking CSS release**. Component props and entry points remain avai
 pnpm add @lumi-ui/svelte@^2.0.0
 ```
 
+Includes the 1.2.1 fixes for narrow table pagination and scroll chaining. The current library targets left-to-right interfaces; RTL is not a supported contract.
+
 ### Token migration
 
 The following tokens are removed; replace their uses and remove obsolete overrides. These replacements express the new visual role, not a pixel-identical rendering of 1.2.

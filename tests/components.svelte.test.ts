@@ -14,6 +14,7 @@ import {
 	createToaster,
 	Notification,
 	NumberInput,
+	Pagination,
 	Radio,
 	Select,
 	Slider,
@@ -115,6 +116,17 @@ describe('Tabs', () => {
 	});
 });
 
+describe('Pagination', () => {
+	it('keeps the step names in the DOM when narrow layouts hide them', () => {
+		const target = render(Pagination, { page: 2, pages: 5 });
+		const steps = target.querySelectorAll('.lumi-pagination__label');
+		expect([...steps].map((step) => step.textContent?.trim())).toEqual([
+			'Previous',
+			'Next'
+		]);
+	});
+});
+
 describe('NumberInput', () => {
 	it('leaves an emptied required field empty so the form is invalid', () => {
 		const target = render(NumberInput, {
@@ -200,16 +212,15 @@ describe('rovingIndex', () => {
 		expect(rovingIndex(key('ArrowDown'), 0, 0, true)).toBeUndefined();
 	});
 
-	it('follows the reading direction on inline arrows', () => {
-		const element = document.body.appendChild(document.createElement('div'));
-		const seen: (number | undefined)[] = [];
-		element.addEventListener('keydown', (event) => {
-			seen.push(rovingIndex(event, 1, 3, false));
-		});
-		press(element, 'ArrowRight');
-		element.style.direction = 'rtl';
-		press(element, 'ArrowRight');
-		expect(seen).toEqual([2, 0]);
+	it('ignores a keydown without a key, as autofill dispatches', () => {
+		const event = new Event('keydown') as KeyboardEvent;
+		expect(rovingIndex(event, 0, 3, true)).toBeUndefined();
+	});
+
+	it('moves with the inline arrows on a horizontal list', () => {
+		expect(rovingIndex(key('ArrowRight'), 1, 3, false)).toBe(2);
+		expect(rovingIndex(key('ArrowLeft'), 1, 3, false)).toBe(0);
+		expect(rovingIndex(key('ArrowDown'), 1, 3, false)).toBeUndefined();
 	});
 });
 
