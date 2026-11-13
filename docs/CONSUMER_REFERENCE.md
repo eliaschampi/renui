@@ -460,7 +460,7 @@ import type { ButtonProps, RenColor, RenSize } from '@renui/svelte';
 | Component                                   | Key props / snippets                                                    | Notes                         |
 | ------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------- |
 | `Navbar`                                    | `title`, snippets `actions`, `user`; `ontogglesidebar`                  | Dashboard top bar             |
-| `Sidebar` / `SidebarHeader` / `SidebarItem` | `collapsed`, `mobileOpen`, `aria-label`; item `href`, `icon`, `current` | Responsive primary nav        |
+| `Sidebar` / `SidebarHeader` / `SidebarItem` | `collapsed`, `mobileOpen`, `aria-label`; item `href`, `icon`, `current` | Primary nav; group: Dropdown  |
 | `PageHeader`                                | `title`, `subtitle`, `icon`, `level` (default `1`); snippet `actions`   | Page identity + actions       |
 | `PageSidebar`                               | `bind:mobileOpen`, `mobileTitle`; snippet `sidebar`                     | Desktop aside + mobile drawer |
 | `Tabs`                                      | `tabs`, `bind:value`, `color`, `orientation`; `Tab.content` panels      | Managed panels stay mounted   |

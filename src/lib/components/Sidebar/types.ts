@@ -1,4 +1,5 @@
 import type { Snippet } from 'svelte';
+import type { HTMLAttributes } from 'svelte/elements';
 
 export interface SidebarProps {
 	collapsed?: boolean;
@@ -18,7 +19,12 @@ export interface SidebarProps {
 	children?: Snippet;
 }
 
-export interface SidebarItemProps {
+/**
+ * Rail destination or group toggle. Any global HTML attribute (`id`, `title`,
+ * `data-*`, `aria-*`, event handlers) passes through to the rendered element,
+ * so a `Dropdown` trigger snippet can spread its props onto it.
+ */
+export interface SidebarItemProps extends HTMLAttributes<HTMLElement> {
 	/** Current page or section (`aria-current`) */
 	current?: boolean;
 

@@ -17,6 +17,7 @@ import {
 	Pagination,
 	Radio,
 	Select,
+	SidebarItem,
 	Slider,
 	Switch,
 	Tabs,
@@ -28,6 +29,7 @@ import ContextMenu from './fixtures/ContextMenu.svelte';
 import DialogToaster from './fixtures/DialogToaster.svelte';
 import Menu from './fixtures/Menu.svelte';
 import SelectForm from './fixtures/SelectForm.svelte';
+import SidebarGroup from './fixtures/SidebarGroup.svelte';
 import Spanish from './fixtures/Spanish.svelte';
 
 const mounted: ReturnType<typeof mount>[] = [];
@@ -286,6 +288,54 @@ describe('menus', () => {
 		flushSync();
 		expect(target.querySelector('[aria-expanded="true"]')).toBeNull();
 		await vi.waitFor(() => expect(menu()).toBeNull());
+	});
+});
+
+describe('SidebarItem', () => {
+	it('passes attributes through to the link and keeps its own state', () => {
+		const target = render(SidebarItem, {
+			href: '/files',
+			current: true,
+			title: 'Files',
+			'data-rail': 'files',
+			children: createRawSnippet(() => ({ render: () => '<span>Files</span>' }))
+		});
+		const link = target.querySelector('a')!;
+		expect(link.getAttribute('title')).toBe('Files');
+		expect(link.dataset.rail).toBe('files');
+		expect(link.getAttribute('aria-current')).toBe('page');
+	});
+
+	it('reports a group toggle through expanded', () => {
+		const target = render(SidebarItem, {
+			expanded: false,
+			children: createRawSnippet(() => ({ render: () => '<span>Group</span>' }))
+		});
+		expect(target.querySelector('button')!.getAttribute('aria-expanded')).toBe(
+			'false'
+		);
+	});
+
+	it('is a menu trigger that opens, closes and restores focus', async () => {
+		const target = render(SidebarGroup, { current: true });
+		const trigger = target.querySelector<HTMLElement>(
+			'button.ren-sidebar-item'
+		)!;
+		expect(trigger.getAttribute('aria-haspopup')).toBe('menu');
+		expect(trigger.getAttribute('aria-expanded')).toBe('false');
+		expect(trigger.classList.contains('ren-sidebar-item--active')).toBe(true);
+
+		trigger.click();
+		flushSync();
+		await tick();
+		expect(trigger.getAttribute('aria-expanded')).toBe('true');
+		expect(document.querySelector('[role="menu"]')).not.toBeNull();
+
+		press(document.querySelector('[role="menu"]')!, 'Escape');
+		await vi.waitFor(() =>
+			expect(trigger.getAttribute('aria-expanded')).toBe('false')
+		);
+		expect(document.activeElement).toBe(trigger);
 	});
 });
 

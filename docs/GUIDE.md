@@ -367,24 +367,28 @@ At `64rem` and below, core switches the shell to navbar/content and `Sidebar` us
 
 ### Compact navigation groups
 
-Use `SidebarItem` for a single destination. For a compact group of destinations, compose `Dropdown` with a `Button` trigger and `DropdownItem href` links. The menu portals out of the navigation container, preserving its keyboard navigation, dismissal and focus restoration. Keep labels and routes in the consuming app; no additional library API is needed.
+Use `SidebarItem` for a single destination. For a compact group of destinations, compose `Dropdown` with a collapsed `SidebarItem` trigger and `DropdownItem href` links: the group rail then looks like every other rail item, and a group that holds the current page keeps the soft wash with a neutral icon. The menu portals out of the navigation container, preserving its keyboard navigation, dismissal and focus restoration. Keep labels and routes in the consuming app.
 
 ```svelte
 <script lang="ts">
-	import { Button, Dropdown, DropdownItem, SidebarItem } from '@renui/svelte';
+	import { Dropdown, DropdownItem, Icon, SidebarItem } from '@renui/svelte';
+	import Folder from '@lucide/svelte/icons/folder';
 </script>
 
-<SidebarItem href="/overview">Overview</SidebarItem>
+<SidebarItem href="/overview" collapsed>Overview</SidebarItem>
 <Dropdown placement="right-start">
 	{#snippet trigger(props)}
-		<Button {...props} variant="ghost">Workspace</Button>
+		<SidebarItem {...props} collapsed current={inWorkspace}>
+			{#snippet icon()}<Icon icon={Folder} />{/snippet}
+			Workspace
+		</SidebarItem>
 	{/snippet}
 	<DropdownItem href="/workspace/files">Files</DropdownItem>
 	<DropdownItem href="/workspace/settings">Settings</DropdownItem>
 </Dropdown>
 ```
 
-Spread all trigger props onto the Button so the menu retains its trigger ID, expanded state and event handlers. Use links for navigation; reserve `selected` for a checked menu choice. The menu flips and shifts when space is limited, so verify placement in the consumer's mobile navigation as well.
+Spread all trigger props onto the `SidebarItem` so the menu retains its trigger ID, expanded state and event handlers. The label stays available to assistive technology while the rail shows only the icon. Use links for navigation; reserve `selected` for a checked menu choice. The menu flips and shifts when space is limited, so verify placement in the consumer's mobile navigation as well.
 
 ### Standard page
 

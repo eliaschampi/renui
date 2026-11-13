@@ -10,7 +10,8 @@
 		class: className,
 		onclick,
 		children,
-		icon
+		icon,
+		...rest
 	}: SidebarItemProps = $props();
 
 	const classes = $derived([
@@ -34,6 +35,7 @@
 
 {#if href}
 	<a
+		{...rest}
 		{href}
 		class={classes}
 		aria-current={current ? 'page' : undefined}
@@ -42,11 +44,13 @@
 		{@render content()}
 	</a>
 {:else}
+	<!-- `aria-expanded` precedes the spread: a menu trigger supplies its own. -->
 	<button
 		type="button"
+		aria-expanded={expanded}
+		{...rest}
 		class={classes}
 		aria-current={current || undefined}
-		aria-expanded={expanded}
 		{onclick}
 	>
 		{@render content()}
@@ -145,7 +149,8 @@
 		padding-right: var(--ren-space-sm);
 	}
 
-	/* Compact group rails keep the current wash without the link-ink icon. */
+	/* A compact group trigger (`aria-expanded`) keeps the current wash without
+	   the link-ink icon of a leaf destination. */
 	.ren-sidebar-item--collapsed.ren-sidebar-item--active[aria-expanded]
 		.ren-sidebar-item__icon {
 		color: var(--ren-color-text);
