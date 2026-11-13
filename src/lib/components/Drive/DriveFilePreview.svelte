@@ -1,8 +1,8 @@
 <script module lang="ts">
 	import * as en from '../../i18n/en';
-	import { lumiDriveEn } from '../../i18n/drive';
+	import { renDriveEn } from '../../i18n/drive';
 
-	const COPY = { ...lumiDriveEn, close: en.close };
+	const COPY = { ...renDriveEn, close: en.close };
 </script>
 
 <script lang="ts">
@@ -12,7 +12,7 @@
 	import { Button } from '../Button';
 	import { Dialog } from '../Dialog';
 	import { Icon } from '../Icon';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import {
 		formatDriveDateTime,
 		formatFileSize,
@@ -41,7 +41,7 @@
 		serveUrl = getDriveServeUrl
 	}: Props = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 
 	const previewUrl = $derived.by(() => {
 		if (!file) {
@@ -64,43 +64,43 @@
 </script>
 
 <Dialog bind:open title={file?.name || i18n.t.drivePreview} size="lg">
-	<div class="lumi-drive-preview">
+	<div class="ren-drive-preview">
 		{#if !file}
-			<div class="lumi-drive-preview__empty">
+			<div class="ren-drive-preview__empty">
 				<Icon icon={FileIcon} size="2xl" color="muted" />
 				<p>{i18n.t.driveNoSelection}</p>
 			</div>
 		{:else if isImage}
-			<div class="lumi-drive-preview__media-wrap">
+			<div class="ren-drive-preview__media-wrap">
 				<img
 					src={previewUrl}
 					alt={file.name}
-					class="lumi-drive-preview__image"
+					class="ren-drive-preview__image"
 					decoding="async"
 				/>
 			</div>
 		{:else if isVideo}
-			<div class="lumi-drive-preview__media-wrap">
+			<div class="ren-drive-preview__media-wrap">
 				<!-- svelte-ignore a11y_media_has_caption -->
-				<video src={previewUrl} controls class="lumi-drive-preview__video"
+				<video src={previewUrl} controls class="ren-drive-preview__video"
 				></video>
 			</div>
 		{:else if isAudio}
-			<div class="lumi-drive-preview__audio-wrap">
-				<Icon icon={Music} size="var(--lumi-space-4xl)" color="warning" />
-				<audio src={previewUrl} controls class="lumi-drive-preview__audio"
+			<div class="ren-drive-preview__audio-wrap">
+				<Icon icon={Music} size="var(--ren-space-4xl)" color="warning" />
+				<audio src={previewUrl} controls class="ren-drive-preview__audio"
 				></audio>
 			</div>
 		{:else if isPdf}
-			<div class="lumi-drive-preview__pdf-wrap">
+			<div class="ren-drive-preview__pdf-wrap">
 				<iframe
 					src={previewUrl}
 					title={file.name}
-					class="lumi-drive-preview__pdf"
+					class="ren-drive-preview__pdf"
 				></iframe>
 			</div>
 		{:else}
-			<div class="lumi-drive-preview__empty">
+			<div class="ren-drive-preview__empty">
 				<Icon icon={FileIcon} size="2xl" color="muted" />
 				<p>{i18n.t.drivePreviewUnavailable}</p>
 			</div>
@@ -108,16 +108,16 @@
 	</div>
 
 	{#if file}
-		<div class="lumi-drive-preview__details">
-			<div class="lumi-drive-preview__details-main">
+		<div class="ren-drive-preview__details">
+			<div class="ren-drive-preview__details-main">
 				<Icon
 					icon={getFileIcon(file.type)}
 					size="md"
 					color={getFileColor(file.type)}
 				/>
-				<div class="lumi-drive-preview__details-text">
-					<span class="lumi-drive-preview__name">{file.name}</span>
-					<span class="lumi-drive-preview__meta">
+				<div class="ren-drive-preview__details-text">
+					<span class="ren-drive-preview__name">{file.name}</span>
+					<span class="ren-drive-preview__meta">
 						{getDriveTypeLabel(file.type, i18n.t)}
 						{#if file.type !== 'dir'}
 							• {formatFileSize(file.size)}
@@ -125,14 +125,14 @@
 					</span>
 				</div>
 			</div>
-			<div class="lumi-drive-preview__details-meta">
-				<span class="lumi-drive-preview__meta"
+			<div class="ren-drive-preview__details-meta">
+				<span class="ren-drive-preview__meta"
 					>{i18n.t.driveColumnModified}: {formatDate
 						? formatDate(file.updated_at)
 						: formatDriveDateTime(file.updated_at, i18n)}</span
 				>
 				{#if file.mime_type}
-					<span class="lumi-drive-preview__meta">{file.mime_type}</span>
+					<span class="ren-drive-preview__meta">{file.mime_type}</span>
 				{/if}
 			</div>
 		</div>
@@ -153,129 +153,129 @@
 </Dialog>
 
 <style>
-	.lumi-drive-preview__name {
-		font-weight: var(--lumi-font-weight-medium);
+	.ren-drive-preview__name {
+		font-weight: var(--ren-font-weight-medium);
 	}
 
-	.lumi-drive-preview__meta {
-		color: var(--lumi-color-text-muted);
-		font-size: var(--lumi-font-size-xs);
+	.ren-drive-preview__meta {
+		color: var(--ren-color-text-muted);
+		font-size: var(--ren-font-size-xs);
 	}
 
-	.lumi-drive-preview {
-		min-height: var(--lumi-drive-preview-min-height);
+	.ren-drive-preview {
+		min-height: var(--ren-drive-preview-min-height);
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: var(--lumi-space-sm);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border-light);
-		border-radius: var(--lumi-radius-panel);
-		background: var(--lumi-color-surface-inset);
+		padding: var(--ren-space-sm);
+		border: var(--ren-border-width-thin) solid var(--ren-color-border-light);
+		border-radius: var(--ren-radius-panel);
+		background: var(--ren-color-surface-inset);
 	}
 
-	.lumi-drive-preview__media-wrap {
+	.ren-drive-preview__media-wrap {
 		width: 100%;
 		display: flex;
 		justify-content: center;
 	}
 
-	.lumi-drive-preview__image {
+	.ren-drive-preview__image {
 		max-width: 100%;
 		max-height: 70vh;
 		object-fit: contain;
-		border-radius: var(--lumi-radius-tile);
-		box-shadow: var(--lumi-shadow-md);
+		border-radius: var(--ren-radius-tile);
+		box-shadow: var(--ren-shadow-md);
 	}
 
-	.lumi-drive-preview__video {
+	.ren-drive-preview__video {
 		width: 100%;
 		max-height: 70vh;
-		border-radius: var(--lumi-radius-tile);
-		box-shadow: var(--lumi-shadow-md);
+		border-radius: var(--ren-radius-tile);
+		box-shadow: var(--ren-shadow-md);
 	}
 
-	.lumi-drive-preview__audio-wrap {
+	.ren-drive-preview__audio-wrap {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: var(--lumi-space-lg);
-		padding: var(--lumi-space-xl);
+		gap: var(--ren-space-lg);
+		padding: var(--ren-space-xl);
 		width: 100%;
 	}
 
-	.lumi-drive-preview__audio {
+	.ren-drive-preview__audio {
 		width: 100%;
-		max-width: var(--lumi-drive-preview-audio-max-width);
+		max-width: var(--ren-drive-preview-audio-max-width);
 	}
 
-	.lumi-drive-preview__pdf-wrap {
+	.ren-drive-preview__pdf-wrap {
 		width: 100%;
 		height: 70vh;
 	}
 
-	.lumi-drive-preview__pdf {
+	.ren-drive-preview__pdf {
 		width: 100%;
 		height: 100%;
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border-light);
-		border-radius: var(--lumi-radius-tile);
-		background: var(--lumi-color-surface);
+		border: var(--ren-border-width-thin) solid var(--ren-color-border-light);
+		border-radius: var(--ren-radius-tile);
+		background: var(--ren-color-surface);
 	}
 
-	.lumi-drive-preview__empty {
+	.ren-drive-preview__empty {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: var(--lumi-space-sm);
-		color: var(--lumi-color-text-muted);
+		gap: var(--ren-space-sm);
+		color: var(--ren-color-text-muted);
 		text-align: center;
 	}
 
-	.lumi-drive-preview__details {
-		margin-top: var(--lumi-space-sm);
-		padding: var(--lumi-space-sm) var(--lumi-space-md);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border-light);
-		border-radius: var(--lumi-radius-tile);
-		background: var(--lumi-color-surface);
+	.ren-drive-preview__details {
+		margin-top: var(--ren-space-sm);
+		padding: var(--ren-space-sm) var(--ren-space-md);
+		border: var(--ren-border-width-thin) solid var(--ren-color-border-light);
+		border-radius: var(--ren-radius-tile);
+		background: var(--ren-color-surface);
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		gap: var(--lumi-space-md);
+		gap: var(--ren-space-md);
 		flex-wrap: wrap;
 	}
 
-	.lumi-drive-preview__details-main {
+	.ren-drive-preview__details-main {
 		display: flex;
 		align-items: center;
-		gap: var(--lumi-space-sm);
+		gap: var(--ren-space-sm);
 		min-width: 0;
 	}
 
-	.lumi-drive-preview__details-text {
+	.ren-drive-preview__details-text {
 		display: flex;
 		flex-direction: column;
 		min-width: 0;
 	}
 
-	.lumi-drive-preview__details-text span:first-child {
+	.ren-drive-preview__details-text span:first-child {
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-		max-width: var(--lumi-drive-preview-title-max-width);
+		max-width: var(--ren-drive-preview-title-max-width);
 	}
 
-	.lumi-drive-preview__details-meta {
+	.ren-drive-preview__details-meta {
 		display: flex;
 		flex-direction: column;
-		gap: var(--lumi-space-2xs);
+		gap: var(--ren-space-2xs);
 		text-align: right;
 	}
 
 	@media (max-width: 48rem) {
-		.lumi-drive-preview {
-			min-height: var(--lumi-drive-preview-min-height-mobile);
+		.ren-drive-preview {
+			min-height: var(--ren-drive-preview-min-height-mobile);
 		}
 
-		.lumi-drive-preview__details-meta {
+		.ren-drive-preview__details-meta {
 			text-align: left;
 		}
 	}

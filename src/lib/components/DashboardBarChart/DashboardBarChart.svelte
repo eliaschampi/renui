@@ -25,7 +25,7 @@
 		useChartWidth
 	} from '../../utils/chartLayout.svelte';
 	import '../../styles/charts.css';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import type { DashboardBarChartProps } from './types';
 
 	const {
@@ -39,10 +39,10 @@
 		class: className
 	}: DashboardBarChartProps = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 
 	const instanceId = $props.id();
-	const gradientId = `lumi-bar-gradient-${instanceId}`;
+	const gradientId = `ren-bar-gradient-${instanceId}`;
 	const layout = useChartWidth();
 	const gutter = useChartGutter(() => layout.chartW);
 
@@ -106,19 +106,19 @@
 
 <div
 	bind:this={layout.root}
-	class={['lumi-bar-chart', className]}
+	class={['ren-bar-chart', className]}
 	style:height="{height}px"
 >
 	{#if !scale.hasValues}
-		<div class="lumi-chart-empty">
-			<p class="lumi-chart-empty__text">{emptyMessage ?? i18n.t.chartEmpty}</p>
+		<div class="ren-chart-empty">
+			<p class="ren-chart-empty__text">{emptyMessage ?? i18n.t.chartEmpty}</p>
 		</div>
 	{:else}
 		<!-- svelte-ignore a11y_no_noninteractive_tabindex (Keyboard exploration keeps the chart image semantics.) -->
 		<svg
 			viewBox="0 0 {chartW} {chartH}"
 			preserveAspectRatio="xMidYMid meet"
-			class="lumi-chart-svg"
+			class="ren-chart-svg"
 			role="img"
 			aria-label={ariaLabel ?? i18n.t.chartBar}
 			aria-describedby={hoveredPoint ? `${instanceId}-tooltip` : undefined}
@@ -140,7 +140,7 @@
 					y1={tick.y}
 					x2={chartW - CHART_PADDING.right}
 					y2={tick.y}
-					class="lumi-chart-grid"
+					class="ren-chart-grid"
 				/>
 			{/each}
 			<g use:gutter.measure>
@@ -149,7 +149,7 @@
 						x={gutter.left - CHART_LABEL_GAP}
 						y={tick.y + 3}
 						text-anchor="end"
-						class="lumi-chart-label"
+						class="ren-chart-label"
 					>
 						{tick.label}
 					</text>
@@ -164,8 +164,8 @@
 					width={barW}
 					height={Math.abs(y - zeroY)}
 					fill="url(#{gradientId})"
-					class="lumi-bar-chart__bar"
-					class:lumi-bar-chart__bar--muted={hoveredPoint !== null &&
+					class="ren-bar-chart__bar"
+					class:ren-bar-chart__bar--muted={hoveredPoint !== null &&
 						hover.index !== index}
 				/>
 			{/each}
@@ -176,7 +176,7 @@
 					y1={CHART_PADDING.top}
 					x2={barCenter(hover.index)}
 					y2={CHART_PADDING.top + plotH}
-					class="lumi-chart-crosshair"
+					class="ren-chart-crosshair"
 				/>
 			{/if}
 
@@ -186,7 +186,7 @@
 				width={plotW}
 				height={plotH}
 				fill="transparent"
-				class="lumi-chart-hit"
+				class="ren-chart-hit"
 				aria-hidden="true"
 				onpointerenter={handlePointer}
 				onpointermove={handlePointer}
@@ -207,7 +207,7 @@
 						y={chartH - 8}
 						text-anchor="middle"
 						visibility="hidden"
-						class="lumi-chart-label"
+						class="ren-chart-label"
 					>
 						{truncateAxisLabel(xLabel.label, xLabelMaxLength)}
 					</text>
@@ -219,15 +219,15 @@
 
 {#if hoveredPoint}
 	<div
-		class="lumi-chart-tooltip"
+		class="ren-chart-tooltip"
 		role="tooltip"
 		id={`${instanceId}-tooltip`}
 		use:chartTooltip={hover.anchor}
 	>
-		<span class="lumi-chart-tooltip__title">{hoveredPoint.label}</span>
-		<div class="lumi-chart-tooltip__row">
-			<span class="lumi-chart-tooltip__dot" style:background={fillColor}></span>
-			<span class="lumi-chart-tooltip__value"
+		<span class="ren-chart-tooltip__title">{hoveredPoint.label}</span>
+		<div class="ren-chart-tooltip__row">
+			<span class="ren-chart-tooltip__dot" style:background={fillColor}></span>
+			<span class="ren-chart-tooltip__value"
 				>{formatChartValue(
 					hoveredPoint.value,
 					valueFormat,
@@ -240,19 +240,19 @@
 {/if}
 
 <style>
-	.lumi-bar-chart {
+	.ren-bar-chart {
 		position: relative;
 		width: 100%;
 		min-width: 0;
 	}
 
-	.lumi-bar-chart__bar {
+	.ren-bar-chart__bar {
 		pointer-events: none;
-		rx: var(--lumi-radius-xs);
-		transition: opacity var(--lumi-duration-fast) var(--lumi-easing-default);
+		rx: var(--ren-radius-xs);
+		transition: opacity var(--ren-duration-fast) var(--ren-easing-default);
 	}
 
-	.lumi-bar-chart__bar--muted {
-		opacity: var(--lumi-opacity-muted);
+	.ren-bar-chart__bar--muted {
+		opacity: var(--ren-opacity-muted);
 	}
 </style>

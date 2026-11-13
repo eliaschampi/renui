@@ -24,7 +24,7 @@
 	let textarea: HTMLTextAreaElement | undefined = $state();
 
 	const uid = $props.id();
-	const id = $derived(idProp ?? `lumi-textarea-${uid}`);
+	const id = $derived(idProp ?? `ren-textarea-${uid}`);
 	const messageId = $derived(`${id}-message`);
 	const invalid = $derived(Boolean(error));
 	const errorText = $derived(typeof error === 'string' ? error : '');
@@ -36,22 +36,22 @@
 
 <div
 	class={[
-		'lumi-field',
-		'lumi-textarea',
-		`lumi-field--${size}`,
-		invalid && 'lumi-field--invalid',
-		disabled && 'lumi-field--disabled',
-		showCount && maxlength && 'lumi-textarea--count',
-		`lumi-tone lumi-tone--${invalid ? 'danger' : color}`,
+		'ren-field',
+		'ren-textarea',
+		`ren-field--${size}`,
+		invalid && 'ren-field--invalid',
+		disabled && 'ren-field--disabled',
+		showCount && maxlength && 'ren-textarea--count',
+		`ren-tone ren-tone--${invalid ? 'danger' : color}`,
 		className
 	]}
-	style:--lumi-textarea-rows={rows}
+	style:--ren-textarea-rows={rows}
 >
 	{#if label}
 		<FieldLabel for={id} {label} required={!!required} />
 	{/if}
 
-	<div class="lumi-field__control">
+	<div class="ren-field__control">
 		<textarea
 			{...rest}
 			bind:this={textarea}
@@ -62,14 +62,14 @@
 			{placeholder}
 			{disabled}
 			{required}
-			class="lumi-field__input lumi-autofill"
+			class="ren-field__input ren-autofill"
 			aria-label={ariaLabel ?? (label ? undefined : placeholder || undefined)}
 			aria-invalid={invalid || undefined}
 			aria-describedby={errorText || hint ? messageId : undefined}
 		></textarea>
 
 		{#if showCount && maxlength}
-			<span class="lumi-textarea__count" aria-hidden="true">
+			<span class="ren-textarea__count" aria-hidden="true">
 				{value?.length ?? 0}/{maxlength}
 			</span>
 		{/if}
@@ -79,11 +79,11 @@
 </div>
 
 <style>
-	.lumi-textarea {
-		--lumi-field-pad-y: var(--lumi-field-pad-x);
+	.ren-textarea {
+		--ren-field-pad-y: var(--ren-field-pad-x);
 	}
 
-	.lumi-textarea .lumi-field__control {
+	.ren-textarea .ren-field__control {
 		align-items: stretch;
 	}
 
@@ -92,7 +92,7 @@
 	textarea {
 		field-sizing: content;
 		min-block-size: calc(
-			var(--lumi-textarea-rows) * 1lh + 2 * var(--lumi-field-pad-y)
+			var(--ren-textarea-rows) * 1lh + 2 * var(--ren-field-pad-y)
 		);
 		resize: none;
 	}
@@ -103,20 +103,20 @@
 		}
 	}
 
-	.lumi-textarea--count textarea {
-		padding-block-end: calc(var(--lumi-field-pad-y) + var(--lumi-space-md));
+	.ren-textarea--count textarea {
+		padding-block-end: calc(var(--ren-field-pad-y) + var(--ren-space-md));
 	}
 
-	.lumi-textarea__count {
+	.ren-textarea__count {
 		position: absolute;
-		inset-block-end: var(--lumi-space-2xs);
-		inset-inline-end: var(--lumi-space-xs);
-		padding-inline: var(--lumi-space-2xs);
-		font-size: var(--lumi-font-size-xs);
+		inset-block-end: var(--ren-space-2xs);
+		inset-inline-end: var(--ren-space-xs);
+		padding-inline: var(--ren-space-2xs);
+		font-size: var(--ren-font-size-xs);
 		font-variant-numeric: tabular-nums;
-		color: var(--lumi-color-text-muted);
-		background: var(--lumi-color-control-fill);
-		border-radius: var(--lumi-radius-sm);
+		color: var(--ren-color-text-muted);
+		background: var(--ren-color-control-fill);
+		border-radius: var(--ren-radius-sm);
 		pointer-events: none;
 	}
 </style>

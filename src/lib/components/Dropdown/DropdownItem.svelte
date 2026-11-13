@@ -39,7 +39,7 @@
 
 {#snippet itemContent()}
 	{#if icon}<Icon {icon} size="sm" />{/if}
-	<span class="lumi-dropdown-item__content">{@render children?.()}</span>
+	<span class="ren-dropdown-item__content">{@render children?.()}</span>
 {/snippet}
 
 <svelte:element
@@ -48,10 +48,10 @@
 	type={href ? undefined : submit ? 'submit' : 'button'}
 	disabled={href ? undefined : disabled}
 	class={[
-		'lumi-dropdown-item',
-		selected && 'lumi-dropdown-item--selected',
-		disabled && 'lumi-dropdown-item--disabled',
-		color && `lumi-tone lumi-tone--${color}`,
+		'ren-dropdown-item',
+		selected && 'ren-dropdown-item--selected',
+		disabled && 'ren-dropdown-item--disabled',
+		color && `ren-tone ren-tone--${color}`,
 		className
 	]}
 	role={selected === undefined ? 'menuitem' : 'menuitemradio'}
@@ -67,76 +67,76 @@
 <style>
 	/* The one menu-item recipe, shared by DropdownItem and ContextItem. A
 	   `color` sets the accent; uncolored items keep neutral icons. */
-	.lumi-dropdown-item {
-		--lumi-dropdown-item-accent: var(
-			--lumi-control-accent,
-			var(--lumi-color-primary)
+	.ren-dropdown-item {
+		--ren-dropdown-item-accent: var(
+			--ren-control-accent,
+			var(--ren-color-primary)
 		);
 		display: flex;
 		align-items: center;
-		gap: var(--lumi-space-md);
+		gap: var(--ren-space-md);
 		inline-size: 100%;
-		padding: var(--lumi-space-sm) var(--lumi-space-md);
+		padding: var(--ren-space-sm) var(--ren-space-md);
 		background: transparent;
 		border: 0;
-		border-radius: var(--lumi-radius-control);
-		color: var(--lumi-color-text);
+		border-radius: var(--ren-radius-control);
+		color: var(--ren-color-text);
 		font: inherit;
-		font-size: var(--lumi-font-size-sm);
-		line-height: var(--lumi-line-height-normal);
+		font-size: var(--ren-font-size-sm);
+		line-height: var(--ren-line-height-normal);
 		text-align: start;
 		text-decoration: none;
 		cursor: pointer;
 		user-select: none;
-		transition: var(--lumi-transition-interactive);
+		transition: var(--ren-transition-interactive);
 	}
 
-	.lumi-dropdown-item:hover,
-	.lumi-dropdown-item:focus-visible {
-		background: var(--lumi-color-hover);
+	.ren-dropdown-item:hover,
+	.ren-dropdown-item:focus-visible {
+		background: var(--ren-color-hover);
 	}
 
 	/* Same lift and press as list rows and buttons. */
-	.lumi-dropdown-item:hover {
-		transform: translateY(var(--lumi-interactive-lift));
+	.ren-dropdown-item:hover {
+		transform: translateY(var(--ren-interactive-lift));
 	}
 
-	.lumi-dropdown-item:active {
+	.ren-dropdown-item:active {
 		transform: none;
 	}
 
-	.lumi-dropdown-item:focus-visible {
-		outline: var(--lumi-focus-outline);
-		outline-offset: var(--lumi-focus-outline-offset);
+	.ren-dropdown-item:focus-visible {
+		outline: var(--ren-focus-outline);
+		outline-offset: var(--ren-focus-outline-offset);
 	}
 
-	.lumi-dropdown-item > :global(.lumi-icon) {
-		color: var(--lumi-control-accent, var(--lumi-color-text-muted));
+	.ren-dropdown-item > :global(.ren-icon) {
+		color: var(--ren-control-accent, var(--ren-color-text-muted));
 	}
 
-	.lumi-dropdown-item--selected {
-		color: var(--lumi-dropdown-item-accent);
-		font-weight: var(--lumi-font-weight-semibold);
+	.ren-dropdown-item--selected {
+		color: var(--ren-dropdown-item-accent);
+		font-weight: var(--ren-font-weight-semibold);
 	}
 
-	.lumi-dropdown-item--selected > :global(.lumi-icon),
-	.lumi-dropdown-item:hover > :global(.lumi-icon) {
+	.ren-dropdown-item--selected > :global(.ren-icon),
+	.ren-dropdown-item:hover > :global(.ren-icon) {
 		color: inherit;
 	}
 
-	.lumi-dropdown-item__content {
+	.ren-dropdown-item__content {
 		display: flex;
 		flex: 1;
 		align-items: center;
-		gap: var(--lumi-space-lg);
+		gap: var(--ren-space-lg);
 		min-inline-size: 0;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
 
-	.lumi-dropdown-item--disabled {
-		opacity: var(--lumi-opacity-disabled);
+	.ren-dropdown-item--disabled {
+		opacity: var(--ren-opacity-disabled);
 		pointer-events: none;
 	}
 </style>

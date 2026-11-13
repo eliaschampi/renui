@@ -25,25 +25,25 @@
 
 	const inert = $derived(disabled || loading);
 	const classes = $derived([
-		'lumi-button',
-		`lumi-button--${variant}`,
-		`lumi-button--${size}`,
-		`lumi-tone lumi-tone--${color}`,
-		icon && !children && 'lumi-button--icon-only',
-		loading && 'lumi-button--loading',
+		'ren-button',
+		`ren-button--${variant}`,
+		`ren-button--${size}`,
+		`ren-tone ren-tone--${color}`,
+		icon && !children && 'ren-button--icon-only',
+		loading && 'ren-button--loading',
 		className
 	]);
 </script>
 
 {#snippet content()}
 	{#if loading}
-		<span class="lumi-spinner lumi-button__spinner" aria-hidden="true"></span>
+		<span class="ren-spinner ren-button__spinner" aria-hidden="true"></span>
 	{/if}
 	{#if icon && !iconAfter && !loading}
 		<Icon {icon} size="var(--btn-icon)" />
 	{/if}
 	{#if children}
-		<span class="lumi-button__text">{@render children()}</span>
+		<span class="ren-button__text">{@render children()}</span>
 	{/if}
 	{#if icon && iconAfter && !loading}
 		<Icon {icon} size="var(--btn-icon)" />
@@ -86,209 +86,207 @@
 <style>
 	/* Semantic actions with restrained tactile depth. Disabled and loading
 	   controls drop pointer events, so hover/active rules need no guards. */
-	.lumi-button {
+	.ren-button {
 		--btn-icon: 1.2em;
 		--btn-lift: 0;
-		--btn-shade: var(--lumi-color-black);
-		--btn-sheen: inset 0 var(--lumi-border-width-thin) 0
-			color-mix(in srgb, var(--lumi-color-white) 26%, transparent);
-		--btn-glow: 0 var(--lumi-space-xs) var(--lumi-space-lg)
-			calc(var(--lumi-space-xs) * -1)
-			color-mix(in oklch, var(--lumi-control-solid) 34%, transparent);
-		--btn-glow-hover: 0 var(--lumi-space-sm) var(--lumi-space-xl)
-			calc(var(--lumi-space-xs) * -1)
-			color-mix(in oklch, var(--lumi-control-solid) 42%, transparent);
+		--btn-shade: var(--ren-color-black);
+		--btn-sheen: inset 0 var(--ren-border-width-thin) 0
+			color-mix(in srgb, var(--ren-color-white) 26%, transparent);
+		--btn-glow: 0 var(--ren-space-xs) var(--ren-space-lg)
+			calc(var(--ren-space-xs) * -1)
+			color-mix(in oklch, var(--ren-control-solid) 34%, transparent);
+		--btn-glow-hover: 0 var(--ren-space-sm) var(--ren-space-xl)
+			calc(var(--ren-space-xs) * -1)
+			color-mix(in oklch, var(--ren-control-solid) 42%, transparent);
 		position: relative;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		gap: var(--lumi-space-xs);
-		font-family: var(--lumi-font-family-sans);
-		font-weight: var(--lumi-font-weight-semibold);
-		line-height: var(--lumi-line-height-none);
-		letter-spacing: var(--lumi-letter-spacing-wide);
+		gap: var(--ren-space-xs);
+		font-family: var(--ren-font-family-sans);
+		font-weight: var(--ren-font-weight-semibold);
+		line-height: var(--ren-line-height-none);
+		letter-spacing: var(--ren-letter-spacing-wide);
 		text-decoration: none;
 		white-space: nowrap;
-		border: var(--lumi-border-width-base) solid transparent;
-		border-radius: var(--lumi-radius-control);
-		outline: var(--lumi-border-width-thick) solid transparent;
+		border: var(--ren-border-width-base) solid transparent;
+		border-radius: var(--ren-radius-control);
+		outline: var(--ren-border-width-thick) solid transparent;
 		cursor: pointer;
 		user-select: none;
 		isolation: isolate;
-		transition: var(--lumi-transition-interactive);
+		transition: var(--ren-transition-interactive);
 	}
 
-	.lumi-button:is(:disabled, [aria-disabled='true']) {
+	.ren-button:is(:disabled, [aria-disabled='true']) {
 		pointer-events: none;
 	}
 
-	.lumi-button:is(:disabled, [aria-disabled='true']):not(
-			.lumi-button--loading
-		) {
-		opacity: var(--lumi-opacity-disabled);
+	.ren-button:is(:disabled, [aria-disabled='true']):not(.ren-button--loading) {
+		opacity: var(--ren-opacity-disabled);
 	}
 
-	.lumi-button:hover {
+	.ren-button:hover {
 		transform: translateY(var(--btn-lift));
 	}
 
-	.lumi-button:active {
-		transform: scale(var(--lumi-interactive-press-scale));
+	.ren-button:active {
+		transform: scale(var(--ren-interactive-press-scale));
 	}
 
 	/* Sizes */
-	.lumi-button--sm {
-		height: var(--lumi-control-height-sm);
-		padding: 0 var(--lumi-space-md);
-		font-size: var(--lumi-font-size-xs);
+	.ren-button--sm {
+		height: var(--ren-control-height-sm);
+		padding: 0 var(--ren-space-md);
+		font-size: var(--ren-font-size-xs);
 	}
 
-	.lumi-button--md {
-		height: var(--lumi-control-height-md);
-		padding: 0 var(--lumi-space-lg);
-		font-size: var(--lumi-font-size-sm);
+	.ren-button--md {
+		height: var(--ren-control-height-md);
+		padding: 0 var(--ren-space-lg);
+		font-size: var(--ren-font-size-sm);
 	}
 
-	.lumi-button--lg {
+	.ren-button--lg {
 		--btn-icon: 1.4em;
-		height: var(--lumi-control-height-lg);
-		padding: 0 var(--lumi-space-xl);
-		font-size: var(--lumi-font-size-base);
+		height: var(--ren-control-height-lg);
+		padding: 0 var(--ren-space-xl);
+		font-size: var(--ren-font-size-base);
 	}
 
-	.lumi-button--xl {
+	.ren-button--xl {
 		--btn-icon: 1.4em;
-		height: var(--lumi-control-height-xl);
-		padding: 0 var(--lumi-space-xxl);
-		font-size: var(--lumi-font-size-lg);
+		height: var(--ren-control-height-xl);
+		padding: 0 var(--ren-space-xxl);
+		font-size: var(--ren-font-size-lg);
 	}
 
 	/* Square from the size height. */
-	.lumi-button--icon-only {
+	.ren-button--icon-only {
 		padding: 0;
 		aspect-ratio: 1;
 	}
 
 	/* Solid fills: filled + gradient pair solid with its foreground. */
-	.lumi-button--filled,
-	.lumi-button--gradient {
-		--btn-lift: var(--lumi-interactive-lift);
-		color: var(--lumi-control-foreground);
-		background: var(--lumi-control-solid);
-		box-shadow: var(--btn-sheen), var(--btn-glow), var(--lumi-shadow-sm);
+	.ren-button--filled,
+	.ren-button--gradient {
+		--btn-lift: var(--ren-interactive-lift);
+		color: var(--ren-control-foreground);
+		background: var(--ren-control-solid);
+		box-shadow: var(--btn-sheen), var(--btn-glow), var(--ren-shadow-sm);
 	}
 
-	.lumi-button--filled:hover {
+	.ren-button--filled:hover {
 		background: color-mix(
 			in srgb,
-			var(--lumi-control-solid) 90%,
+			var(--ren-control-solid) 90%,
 			var(--btn-shade)
 		);
 	}
 
-	.lumi-button--filled:hover,
-	.lumi-button--gradient:hover {
-		box-shadow: var(--btn-sheen), var(--btn-glow-hover), var(--lumi-shadow-md);
+	.ren-button--filled:hover,
+	.ren-button--gradient:hover {
+		box-shadow: var(--btn-sheen), var(--btn-glow-hover), var(--ren-shadow-md);
 	}
 
-	.lumi-button--filled:active,
-	.lumi-button--gradient:active {
-		box-shadow: var(--lumi-shadow-sm);
+	.ren-button--filled:active,
+	.ren-button--gradient:active {
+		box-shadow: var(--ren-shadow-sm);
 	}
 
 	/* The beam, cut diagonally and kept deep enough for its foreground. */
-	.lumi-button--gradient {
-		--lumi-beam-angle: 135deg;
-		--lumi-beam-sun: 4%;
-		background: var(--lumi-tone-beam);
+	.ren-button--gradient {
+		--ren-beam-angle: 135deg;
+		--ren-beam-sun: 4%;
+		background: var(--ren-tone-beam);
 	}
 
 	/* Hover shades away from the paired foreground when supported. */
 	@supports (color: contrast-color(red)) {
-		.lumi-button {
-			--btn-shade: contrast-color(var(--lumi-control-foreground));
+		.ren-button {
+			--btn-shade: contrast-color(var(--ren-control-foreground));
 		}
 	}
 
 	/* Quiet variants live on the tone roles: accent on a neutral surface, ink
 	   on a soft one; hover and press step soft → strong. */
-	.lumi-button--border {
-		color: var(--lumi-control-accent);
-		background: var(--lumi-color-surface);
+	.ren-button--border {
+		color: var(--ren-control-accent);
+		background: var(--ren-color-surface);
 		border-color: color-mix(
 			in srgb,
-			var(--lumi-control-accent) 34%,
-			var(--lumi-color-border)
+			var(--ren-control-accent) 34%,
+			var(--ren-color-border)
 		);
 	}
 
-	.lumi-button--flat {
-		color: var(--lumi-tone-ink);
-		background: var(--lumi-tone-soft);
+	.ren-button--flat {
+		color: var(--ren-tone-ink);
+		background: var(--ren-tone-soft);
 	}
 
-	.lumi-button--ghost {
-		color: var(--lumi-control-accent);
+	.ren-button--ghost {
+		color: var(--ren-control-accent);
 		background: transparent;
 	}
 
-	.lumi-button--border:hover,
-	.lumi-button--ghost:hover {
-		color: var(--lumi-tone-ink);
-		background: var(--lumi-tone-soft);
+	.ren-button--border:hover,
+	.ren-button--ghost:hover {
+		color: var(--ren-tone-ink);
+		background: var(--ren-tone-soft);
 	}
 
-	.lumi-button--flat:hover,
-	.lumi-button--border:active,
-	.lumi-button--flat:active,
-	.lumi-button--ghost:active {
-		background: var(--lumi-tone-strong);
+	.ren-button--flat:hover,
+	.ren-button--border:active,
+	.ren-button--flat:active,
+	.ren-button--ghost:active {
+		background: var(--ren-tone-strong);
 	}
 
 	/* Toggle on (or an open disclosure): quiet variants settle into the strong
 	   tone. */
-	.lumi-button[aria-pressed='true']:not(
-			.lumi-button--filled,
-			.lumi-button--gradient
+	.ren-button[aria-pressed='true']:not(
+			.ren-button--filled,
+			.ren-button--gradient
 		),
 	:global(details[open])
-		> .lumi-button:not(.lumi-button--filled, .lumi-button--gradient) {
-		color: var(--lumi-tone-ink);
-		background: var(--lumi-tone-strong);
+		> .ren-button:not(.ren-button--filled, .ren-button--gradient) {
+		color: var(--ren-tone-ink);
+		background: var(--ren-tone-strong);
 		border-color: transparent;
 	}
 
 	/* A disclosure toggle drops the native marker; the label carries the state. */
-	summary.lumi-button {
+	summary.ren-button {
 		list-style: none;
 	}
 
-	summary.lumi-button::-webkit-details-marker {
+	summary.ren-button::-webkit-details-marker {
 		display: none;
 	}
 
 	/* Focus wins over hover and pressed fills (doubled class for weight). */
-	.lumi-button.lumi-button:focus-visible {
-		box-shadow: var(--lumi-focus-ring-offset);
+	.ren-button.ren-button:focus-visible {
+		box-shadow: var(--ren-focus-ring-offset);
 	}
 
 	/* Spinner (shared recipe) centered over the hidden label. */
-	.lumi-button__spinner {
-		--lumi-spinner-size: var(--btn-icon);
+	.ren-button__spinner {
+		--ren-spinner-size: var(--btn-icon);
 		position: absolute;
 	}
 
-	.lumi-button--loading .lumi-button__text {
+	.ren-button--loading .ren-button__text {
 		opacity: 0;
 	}
 
-	.lumi-button__text {
+	.ren-button__text {
 		display: inline-flex;
 		align-items: center;
 	}
 
 	@media (forced-colors: active) {
-		.lumi-button:focus-visible {
+		.ren-button:focus-visible {
 			outline-color: Highlight;
 		}
 	}

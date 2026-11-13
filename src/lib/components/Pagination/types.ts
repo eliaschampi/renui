@@ -1,4 +1,4 @@
-import type { LumiCompactSize } from '../config';
+import type { RenCompactSize } from '../config';
 
 export interface PaginationProps {
 	/** Current page, 1-based (bindable) */
@@ -10,7 +10,7 @@ export interface PaginationProps {
 	/** Previous/next with a "2 / 5" status instead of page numbers */
 	compact?: boolean;
 	/** @default 'sm' */
-	size?: LumiCompactSize;
+	size?: RenCompactSize;
 	/** Blocks navigation, e.g. while a page loads */
 	disabled?: boolean;
 	/**

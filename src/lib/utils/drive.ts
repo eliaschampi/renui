@@ -10,9 +10,9 @@ import Music from '@lucide/svelte/icons/music';
 import Trash2 from '@lucide/svelte/icons/trash-2';
 import User from '@lucide/svelte/icons/user';
 import Video from '@lucide/svelte/icons/video';
-import type { LumiColor } from '../components/config';
-import { lumiDriveEn } from '../i18n/drive';
-import type { LumiDriveMessages, LumiFormatLocale } from '../i18n/types';
+import type { RenColor } from '../components/config';
+import { renDriveEn } from '../i18n/drive';
+import type { RenDriveMessages, RenFormatLocale } from '../i18n/types';
 import { dateFormat, DEFAULT_LOCALE } from './format';
 import type { IconComponent, IconSource } from './icons';
 
@@ -33,7 +33,7 @@ export interface DriveScopeOption {
 	name: string;
 	description: string;
 	icon: IconComponent;
-	color: LumiColor;
+	color: RenColor;
 }
 
 export type DriveTagTone = 'favorite' | 'highlight' | 'work' | 'personal';
@@ -130,7 +130,7 @@ const DRIVE_FILE_COLORS = {
 	doc: 'info',
 	zip: 'secondary',
 	otr: 'muted'
-} as const satisfies Record<DriveFileType, LumiColor | 'muted'>;
+} as const satisfies Record<DriveFileType, RenColor | 'muted'>;
 
 /**
  * Images above this threshold are optimized during upload.
@@ -180,7 +180,7 @@ export function getSafeDriveExtension(originalName: string): string {
  */
 export function validateDriveName(
 	value: string,
-	t: LumiDriveMessages = lumiDriveEn
+	t: RenDriveMessages = renDriveEn
 ): string | null {
 	const normalized = normalizeDriveName(value);
 
@@ -239,7 +239,7 @@ export function getFileIcon(type: DriveFileType): IconComponent {
 }
 
 /**
- * Get semantic Lumi color for a file type
+ * Get semantic RenUI color for a file type
  */
 export function getFileColor(type: DriveFileType) {
 	return DRIVE_FILE_COLORS[type];
@@ -253,14 +253,14 @@ const DRIVE_TYPE_LABEL_KEYS = {
 	doc: 'driveDocument',
 	zip: 'driveArchive',
 	otr: 'driveFile'
-} as const satisfies Record<DriveFileType, keyof LumiDriveMessages>;
+} as const satisfies Record<DriveFileType, keyof RenDriveMessages>;
 
 /**
  * Get display label for a drive file type.
  */
 export function getDriveTypeLabel(
 	type: DriveFileType,
-	t: LumiDriveMessages = lumiDriveEn
+	t: RenDriveMessages = renDriveEn
 ): string {
 	return t[DRIVE_TYPE_LABEL_KEYS[type] ?? 'driveFile'];
 }
@@ -311,7 +311,7 @@ export function getDriveServeUrl(
 	return query ? `${path}?${query}` : path;
 }
 
-type DriveDateLocale = Pick<LumiFormatLocale, 'locale' | 'timeZone'>;
+type DriveDateLocale = Pick<RenFormatLocale, 'locale' | 'timeZone'>;
 
 const DRIVE_DATE = { year: 'numeric', month: 'short', day: 'numeric' } as const;
 const DRIVE_DATE_TIME = {
@@ -375,24 +375,24 @@ type DriveTagKey =
 
 function toTag(
 	{ key, ...tag }: (typeof DRIVE_TAGS)[number],
-	t: LumiDriveMessages
+	t: RenDriveMessages
 ): DriveTagOption {
 	return { ...tag, name: t[key] };
 }
 
 /**
  * Tag options for Drive. `hash` is what gets stored in the database; `color`
- * comes from Lumi tokens.
+ * comes from RenUI tokens.
  */
 export function getDriveTagOptions(
-	t: LumiDriveMessages = lumiDriveEn
+	t: RenDriveMessages = renDriveEn
 ): DriveTagOption[] {
 	return DRIVE_TAGS.map((tag) => toTag(tag, t));
 }
 
 export function getDriveTagByHash(
 	hash: string | null | undefined,
-	t: LumiDriveMessages = lumiDriveEn
+	t: RenDriveMessages = renDriveEn
 ): DriveTagOption | null {
 	if (!hash) return null;
 	const normalizedHash = hash.toLowerCase();
@@ -400,15 +400,15 @@ export function getDriveTagByHash(
 	return tag ? toTag(tag, t) : null;
 }
 
-/** CSS `var(--lumi-color-*)` for tag dots (semantic `color` is not a paint value). */
+/** CSS `var(--ren-color-*)` for tag dots (semantic `color` is not a paint value). */
 export function driveTagColorCssVar(color: DriveTagOption['color']): string {
-	return `var(--lumi-color-${color})`;
+	return `var(--ren-color-${color})`;
 }
 
 /**
  * Sidebar menu options for Drive navigation
  */
-export function getDriveMenuOptions(t: LumiDriveMessages = lumiDriveEn): {
+export function getDriveMenuOptions(t: RenDriveMessages = renDriveEn): {
 	main: DriveMenuOption[];
 	trash: DriveMenuOption[];
 } {
@@ -442,7 +442,7 @@ export function getDriveMenuOptions(t: LumiDriveMessages = lumiDriveEn): {
  * Drive scope options for UI selectors
  */
 export function getDriveScopeOptions(
-	t: LumiDriveMessages = lumiDriveEn
+	t: RenDriveMessages = renDriveEn
 ): DriveScopeOption[] {
 	return [
 		{
@@ -464,7 +464,7 @@ export function getDriveScopeOptions(
 
 /** Scope options shaped for `SegmentedControl`. */
 export function getDriveScopeSegmentOptions(
-	t: LumiDriveMessages = lumiDriveEn
+	t: RenDriveMessages = renDriveEn
 ): { value: DriveScope; label: string; icon: IconComponent }[] {
 	return getDriveScopeOptions(t).map((scope) => ({
 		value: scope.value,

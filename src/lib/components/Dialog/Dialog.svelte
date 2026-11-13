@@ -11,7 +11,7 @@
 	import { registerModal } from '../../utils/modal';
 	import { CloseButton } from '../CloseButton';
 	import { DURATION_BASE, motion } from '../config';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import type { DialogProps } from './types';
 
 	let {
@@ -34,12 +34,12 @@
 		footer
 	}: DialogProps = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 	let dialogElement: HTMLDivElement | undefined = $state();
 	let pointerDownOnOverlay = false;
 
 	const uniqueId = $props.id();
-	const titleId = `lumi-dialog-title-${uniqueId}`;
+	const titleId = `ren-dialog-title-${uniqueId}`;
 
 	function handleClose(): void {
 		if (!open) return;
@@ -73,9 +73,9 @@
 		bind:this={dialogElement}
 		use:portal={'body'}
 		class={[
-			'lumi-dialog-overlay',
-			persistent && 'lumi-dialog-overlay--persistent',
-			fullScreen && 'lumi-dialog-overlay--full-screen'
+			'ren-dialog-overlay',
+			persistent && 'ren-dialog-overlay--persistent',
+			fullScreen && 'ren-dialog-overlay--full-screen'
 		]}
 		transition:fade={{ duration: motion(DURATION_BASE) }}
 		onintroend={onafteropen}
@@ -90,26 +90,26 @@
 	>
 		<div
 			class={[
-				'lumi-dialog',
-				!fullScreen && `lumi-dialog--${size}`,
-				scrollable && 'lumi-dialog--scrollable',
-				fullScreen && 'lumi-dialog--full-screen',
+				'ren-dialog',
+				!fullScreen && `ren-dialog--${size}`,
+				scrollable && 'ren-dialog--scrollable',
+				fullScreen && 'ren-dialog--full-screen',
 				className
 			]}
 			transition:scale={{ duration: motion(DURATION_BASE), start: 0.96 }}
 		>
 			{#if header || title || !hideClose}
-				<header class="lumi-dialog__header">
-					<div class="lumi-dialog__header-content">
+				<header class="ren-dialog__header">
+					<div class="ren-dialog__header-content">
 						{#if header}
 							{@render header()}
 						{:else if title}
-							<h2 id={titleId} class="lumi-dialog__title">{title}</h2>
+							<h2 id={titleId} class="ren-dialog__title">{title}</h2>
 						{/if}
 					</div>
 					{#if !hideClose}
 						<CloseButton
-							class="lumi-dialog__close"
+							class="ren-dialog__close"
 							label={closeLabel ?? i18n.t.dialogClose}
 							onclick={handleClose}
 						/>
@@ -117,12 +117,12 @@
 				</header>
 			{/if}
 
-			<div class="lumi-dialog__content lumi-scrollbar">
+			<div class="ren-dialog__content ren-scrollbar">
 				{@render children?.()}
 			</div>
 
 			{#if footer}
-				<footer class="lumi-dialog__footer">{@render footer()}</footer>
+				<footer class="ren-dialog__footer">{@render footer()}</footer>
 			{/if}
 		</div>
 	</div>
@@ -131,146 +131,146 @@
 <style>
 	/*
 	 * Layout contract on the portal root. Children inherit.
-	 * Tokens must not live only on `.lumi-dialog` — overlay padding and
+	 * Tokens must not live only on `.ren-dialog` — overlay padding and
 	 * size vars are consumed by the parent and would resolve as invalid.
 	 */
-	.lumi-dialog-overlay {
-		--lumi-dialog-width-sm: 25rem;
-		--lumi-dialog-width-md: 31.25rem;
-		--lumi-dialog-width-lg: 43.75rem;
-		--lumi-dialog-width-xl: 56.25rem;
-		--lumi-dialog-max-height: 90dvh;
-		--lumi-dialog-content-max-height: 60dvh;
-		--lumi-dialog-full-width: 100vw;
-		--lumi-dialog-full-height: 100dvh;
-		--lumi-dialog-overlay-padding: var(--lumi-space-lg);
-		--lumi-dialog-overlay-padding-mobile: var(--lumi-space-sm);
-		--lumi-dialog-mobile-max-width: calc(
-			100vw - (var(--lumi-dialog-overlay-padding-mobile) * 2)
+	.ren-dialog-overlay {
+		--ren-dialog-width-sm: 25rem;
+		--ren-dialog-width-md: 31.25rem;
+		--ren-dialog-width-lg: 43.75rem;
+		--ren-dialog-width-xl: 56.25rem;
+		--ren-dialog-max-height: 90dvh;
+		--ren-dialog-content-max-height: 60dvh;
+		--ren-dialog-full-width: 100vw;
+		--ren-dialog-full-height: 100dvh;
+		--ren-dialog-overlay-padding: var(--ren-space-lg);
+		--ren-dialog-overlay-padding-mobile: var(--ren-space-sm);
+		--ren-dialog-mobile-max-width: calc(
+			100vw - (var(--ren-dialog-overlay-padding-mobile) * 2)
 		);
-		--lumi-dialog-mobile-max-height: calc(
+		--ren-dialog-mobile-max-height: calc(
 			100dvh -
 				max(
-					var(--lumi-dialog-overlay-padding-mobile),
-					var(--lumi-safe-area-top)
+					var(--ren-dialog-overlay-padding-mobile),
+					var(--ren-safe-area-top)
 				) -
 				max(
-					var(--lumi-dialog-overlay-padding-mobile),
-					var(--lumi-safe-area-bottom)
+					var(--ren-dialog-overlay-padding-mobile),
+					var(--ren-safe-area-bottom)
 				)
 		);
 		position: fixed;
 		inset: 0;
-		background: var(--lumi-color-overlay);
-		z-index: var(--lumi-z-modal-backdrop);
+		background: var(--ren-color-overlay);
+		z-index: var(--ren-z-modal-backdrop);
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: max(var(--lumi-dialog-overlay-padding), var(--lumi-safe-area-top))
-			max(var(--lumi-dialog-overlay-padding), var(--lumi-safe-area-right))
-			max(var(--lumi-dialog-overlay-padding), var(--lumi-safe-area-bottom))
-			max(var(--lumi-dialog-overlay-padding), var(--lumi-safe-area-left));
+		padding: max(var(--ren-dialog-overlay-padding), var(--ren-safe-area-top))
+			max(var(--ren-dialog-overlay-padding), var(--ren-safe-area-right))
+			max(var(--ren-dialog-overlay-padding), var(--ren-safe-area-bottom))
+			max(var(--ren-dialog-overlay-padding), var(--ren-safe-area-left));
 		cursor: pointer;
 		overflow-y: auto;
 		overscroll-behavior: contain;
 		outline: none;
 	}
 
-	.lumi-dialog-overlay--full-screen {
+	.ren-dialog-overlay--full-screen {
 		padding: 0;
 	}
 
-	.lumi-dialog-overlay--persistent,
+	.ren-dialog-overlay--persistent,
 	/* Layers portaled into the overlay (menus, tooltips, listboxes) are not backdrop. */
-	.lumi-dialog-overlay > :global(:not(.lumi-dialog)) {
+	.ren-dialog-overlay > :global(:not(.ren-dialog)) {
 		cursor: default;
 	}
 
-	.lumi-dialog {
-		--lumi-surface-bg: var(--lumi-color-surface-overlay);
-		--lumi-surface-radius-local: var(--lumi-layout-floating-radius);
-		--lumi-surface-shadow: var(--lumi-shadow-xl);
+	.ren-dialog {
+		--ren-surface-bg: var(--ren-color-surface-overlay);
+		--ren-surface-radius-local: var(--ren-layout-floating-radius);
+		--ren-surface-shadow: var(--ren-shadow-xl);
 		position: relative;
-		max-height: var(--lumi-dialog-max-height);
+		max-height: var(--ren-dialog-max-height);
 		width: 100%;
 		display: flex;
 		flex-direction: column;
 		cursor: default;
-		z-index: var(--lumi-z-modal);
+		z-index: var(--ren-z-modal);
 		overflow: hidden;
 	}
 
-	.lumi-dialog--sm {
-		max-width: var(--lumi-dialog-width-sm);
+	.ren-dialog--sm {
+		max-width: var(--ren-dialog-width-sm);
 	}
 
-	.lumi-dialog--md {
-		max-width: var(--lumi-dialog-width-md);
+	.ren-dialog--md {
+		max-width: var(--ren-dialog-width-md);
 	}
 
-	.lumi-dialog--lg {
-		max-width: var(--lumi-dialog-width-lg);
+	.ren-dialog--lg {
+		max-width: var(--ren-dialog-width-lg);
 	}
 
-	.lumi-dialog--xl {
-		max-width: var(--lumi-dialog-width-xl);
+	.ren-dialog--xl {
+		max-width: var(--ren-dialog-width-xl);
 	}
 
-	.lumi-dialog--scrollable .lumi-dialog__content {
+	.ren-dialog--scrollable .ren-dialog__content {
 		overflow-y: auto;
-		max-height: var(--lumi-dialog-content-max-height);
+		max-height: var(--ren-dialog-content-max-height);
 	}
 
-	.lumi-dialog--full-screen {
+	.ren-dialog--full-screen {
 		max-width: none;
 		max-height: none;
-		width: var(--lumi-dialog-full-width);
-		height: var(--lumi-dialog-full-height);
-		padding: var(--lumi-safe-area-top) var(--lumi-safe-area-right)
-			var(--lumi-safe-area-bottom) var(--lumi-safe-area-left);
-		--lumi-surface-radius-local: var(--lumi-radius-none);
+		width: var(--ren-dialog-full-width);
+		height: var(--ren-dialog-full-height);
+		padding: var(--ren-safe-area-top) var(--ren-safe-area-right)
+			var(--ren-safe-area-bottom) var(--ren-safe-area-left);
+		--ren-surface-radius-local: var(--ren-radius-none);
 	}
 
-	.lumi-dialog--full-screen .lumi-dialog__content {
+	.ren-dialog--full-screen .ren-dialog__content {
 		flex: 1;
 		overflow-y: auto;
 	}
 
-	.lumi-dialog__header {
+	.ren-dialog__header {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		padding: var(--lumi-space-lg);
-		border-bottom: var(--lumi-border-width-thin) solid var(--lumi-color-border);
-		background: var(--lumi-color-surface-raised);
-		border-top-left-radius: var(--lumi-layout-floating-radius);
-		border-top-right-radius: var(--lumi-layout-floating-radius);
+		padding: var(--ren-space-lg);
+		border-bottom: var(--ren-border-width-thin) solid var(--ren-color-border);
+		background: var(--ren-color-surface-raised);
+		border-top-left-radius: var(--ren-layout-floating-radius);
+		border-top-right-radius: var(--ren-layout-floating-radius);
 		flex-shrink: 0;
 	}
 
-	.lumi-dialog__header-content {
+	.ren-dialog__header-content {
 		flex: 1;
 		min-width: 0;
 	}
 
-	.lumi-dialog__title {
+	.ren-dialog__title {
 		margin: 0;
-		font-size: var(--lumi-font-size-lg);
-		font-weight: var(--lumi-font-weight-bold);
-		color: var(--lumi-color-text);
-		line-height: var(--lumi-line-height-tight);
+		font-size: var(--ren-font-size-lg);
+		font-weight: var(--ren-font-weight-bold);
+		color: var(--ren-color-text);
+		line-height: var(--ren-line-height-tight);
 	}
 
-	.lumi-dialog__header :global(.lumi-dialog__close) {
-		margin-inline-start: var(--lumi-space-md);
+	.ren-dialog__header :global(.ren-dialog__close) {
+		margin-inline-start: var(--ren-space-md);
 	}
 
-	.lumi-dialog__content {
+	.ren-dialog__content {
 		flex: 1;
-		padding: var(--lumi-space-lg);
-		color: var(--lumi-color-text);
-		line-height: var(--lumi-line-height-normal);
-		background: var(--lumi-color-surface);
+		padding: var(--ren-space-lg);
+		color: var(--ren-color-text);
+		line-height: var(--ren-line-height-normal);
+		background: var(--ren-color-surface);
 		overflow-x: hidden;
 		overflow-y: auto;
 		min-width: 0;
@@ -278,56 +278,56 @@
 		overscroll-behavior: contain;
 	}
 
-	.lumi-dialog__footer {
+	.ren-dialog__footer {
 		display: flex;
 		align-items: center;
 		justify-content: flex-end;
-		gap: var(--lumi-space-md);
-		padding: var(--lumi-space-lg);
-		border-top: var(--lumi-border-width-thin) solid var(--lumi-color-border);
+		gap: var(--ren-space-md);
+		padding: var(--ren-space-lg);
+		border-top: var(--ren-border-width-thin) solid var(--ren-color-border);
 		flex-shrink: 0;
-		background: var(--lumi-color-surface-raised);
-		border-bottom-left-radius: var(--lumi-layout-floating-radius);
-		border-bottom-right-radius: var(--lumi-layout-floating-radius);
+		background: var(--ren-color-surface-raised);
+		border-bottom-left-radius: var(--ren-layout-floating-radius);
+		border-bottom-right-radius: var(--ren-layout-floating-radius);
 	}
 
 	@media (max-width: 48rem) {
-		.lumi-dialog-overlay {
-			--lumi-dialog-overlay-padding: var(--lumi-dialog-overlay-padding-mobile);
+		.ren-dialog-overlay {
+			--ren-dialog-overlay-padding: var(--ren-dialog-overlay-padding-mobile);
 			align-items: center;
 		}
 
-		.lumi-dialog {
-			max-width: var(--lumi-dialog-mobile-max-width);
-			max-height: var(--lumi-dialog-mobile-max-height);
-			--lumi-surface-radius-local: var(--lumi-layout-floating-radius-mobile);
+		.ren-dialog {
+			max-width: var(--ren-dialog-mobile-max-width);
+			max-height: var(--ren-dialog-mobile-max-height);
+			--ren-surface-radius-local: var(--ren-layout-floating-radius-mobile);
 		}
 
-		.lumi-dialog--full-screen {
-			height: var(--lumi-dialog-full-height);
-			max-height: var(--lumi-dialog-full-height);
-			--lumi-surface-radius-local: var(--lumi-radius-none);
+		.ren-dialog--full-screen {
+			height: var(--ren-dialog-full-height);
+			max-height: var(--ren-dialog-full-height);
+			--ren-surface-radius-local: var(--ren-radius-none);
 		}
 
-		.lumi-dialog__header {
-			padding: var(--lumi-space-md);
-			border-top-left-radius: var(--lumi-layout-floating-radius-mobile);
-			border-top-right-radius: var(--lumi-layout-floating-radius-mobile);
+		.ren-dialog__header {
+			padding: var(--ren-space-md);
+			border-top-left-radius: var(--ren-layout-floating-radius-mobile);
+			border-top-right-radius: var(--ren-layout-floating-radius-mobile);
 		}
 
-		.lumi-dialog__content {
-			padding: var(--lumi-space-md);
+		.ren-dialog__content {
+			padding: var(--ren-space-md);
 		}
 
-		.lumi-dialog__footer {
-			padding: var(--lumi-space-md);
+		.ren-dialog__footer {
+			padding: var(--ren-space-md);
 			flex-direction: column-reverse;
-			gap: var(--lumi-space-sm);
-			border-bottom-left-radius: var(--lumi-layout-floating-radius-mobile);
-			border-bottom-right-radius: var(--lumi-layout-floating-radius-mobile);
+			gap: var(--ren-space-sm);
+			border-bottom-left-radius: var(--ren-layout-floating-radius-mobile);
+			border-bottom-right-radius: var(--ren-layout-floating-radius-mobile);
 		}
 
-		.lumi-dialog__footer :global(.lumi-button) {
+		.ren-dialog__footer :global(.ren-button) {
 			width: 100%;
 		}
 	}

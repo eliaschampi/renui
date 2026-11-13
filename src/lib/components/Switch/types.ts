@@ -1,8 +1,8 @@
 import type { Snippet } from 'svelte';
-import type { LumiColor, LumiControlSize } from '../config';
+import type { RenColor, RenControlSize } from '../config';
 
-export type SwitchSize = LumiControlSize;
-export type SwitchColor = LumiColor;
+export type SwitchSize = RenControlSize;
+export type SwitchColor = RenColor;
 
 export interface SwitchProps {
 	/** Checked state (bindable) */

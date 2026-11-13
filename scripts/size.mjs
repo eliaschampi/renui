@@ -19,7 +19,7 @@ import { build } from 'vite';
 
 const dist = resolve('dist');
 const named = (...names) =>
-	`export { ${names.join(', ')} } from '@lumi-ui/svelte';`;
+	`export { ${names.join(', ')} } from '@renui/svelte';`;
 
 const CSS = [
 	['Global CSS (`/styles`)', ['index.css'], 7_691],
@@ -56,13 +56,13 @@ const BUNDLES = [
 		named('Button', 'Card', 'Image', 'Chip', 'Input', 'Icon', 'Divider'),
 		9_776
 	],
-	['All exports', `export * from '@lumi-ui/svelte';`, 74_124]
+	['All exports', `export * from '@renui/svelte';`, 74_124]
 ];
 
 const gzip = (path) => gzipSync(readFileSync(path), { level: 9 }).length;
 
 async function bundle(source) {
-	const root = mkdtempSync(join(tmpdir(), 'lumi-size-'));
+	const root = mkdtempSync(join(tmpdir(), 'ren-size-'));
 	const input = join(root, 'entry.js');
 	const outDir = join(root, 'out');
 	writeFileSync(input, source);
@@ -72,7 +72,7 @@ async function bundle(source) {
 		logLevel: 'silent',
 		plugins: [svelte({ configFile: false })],
 		resolve: {
-			alias: { '@lumi-ui/svelte': join(dist, 'index.js') },
+			alias: { '@renui/svelte': join(dist, 'index.js') },
 			conditions: ['svelte', 'browser', 'production', 'module', 'import']
 		},
 		build: {

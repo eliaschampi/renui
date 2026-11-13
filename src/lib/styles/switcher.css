@@ -1,99 +1,99 @@
 /* Switcher shared by Tabs, SegmentedControl and ToggleGroup; imported by those
    components, so only pages that render one ship it. Recessed track + raised
-   active pill in the tone ink. The root carries .lumi-tone; options are
+   active pill in the tone ink. The root carries .ren-tone; options are
    buttons or labels wrapping a visually hidden input. */
-@layer lumi.tokens, lumi.base, lumi.components, lumi.layout, lumi.patterns, lumi.utilities;
+@layer ren.tokens, ren.base, ren.components, ren.layout, ren.patterns, ren.utilities;
 
-@layer lumi.components {
-	.lumi-switcher {
+@layer ren.components {
+	.ren-switcher {
 		display: inline-flex;
 		align-items: stretch;
-		gap: var(--lumi-space-2xs);
+		gap: var(--ren-space-2xs);
 		max-width: 100%;
-		padding: var(--lumi-space-2xs);
-		background: var(--lumi-color-surface-inset);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border-light);
-		border-radius: var(--lumi-radius-panel);
-		box-shadow: var(--lumi-control-shadow);
+		padding: var(--ren-space-2xs);
+		background: var(--ren-color-surface-inset);
+		border: var(--ren-border-width-thin) solid var(--ren-color-border-light);
+		border-radius: var(--ren-radius-panel);
+		box-shadow: var(--ren-control-shadow);
 		overflow-x: auto;
 		overflow-y: hidden;
 		overscroll-behavior-inline: contain;
 		scrollbar-width: thin;
-		scrollbar-color: var(--lumi-color-border-strong) transparent;
+		scrollbar-color: var(--ren-color-border-strong) transparent;
 		user-select: none;
-		transition: var(--lumi-transition-control);
+		transition: var(--ren-transition-control);
 	}
 
-	.lumi-switcher:hover {
-		border-color: var(--lumi-color-border-strong);
+	.ren-switcher:hover {
+		border-color: var(--ren-color-border-strong);
 	}
 
-	.lumi-switcher:focus-within {
+	.ren-switcher:focus-within {
 		border-color: color-mix(
 			in srgb,
-			var(--lumi-control-accent) 30%,
-			var(--lumi-color-border-strong)
+			var(--ren-control-accent) 30%,
+			var(--ren-color-border-strong)
 		);
 	}
 
-	.lumi-switcher--vertical {
+	.ren-switcher--vertical {
 		flex-direction: column;
 		overflow-x: hidden;
 		overflow-y: auto;
 	}
 
-	.lumi-switcher--vertical > .lumi-switcher__option {
+	.ren-switcher--vertical > .ren-switcher__option {
 		justify-content: flex-start;
 		width: 100%;
 		min-width: 0;
 		text-align: start;
 	}
 
-	.lumi-switcher__option {
+	.ren-switcher__option {
 		position: relative;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: var(--lumi-space-xs);
+		gap: var(--ren-space-xs);
 		min-width: max-content;
-		min-height: var(--lumi-control-height-sm);
-		padding: var(--lumi-space-xs) var(--lumi-space-md);
+		min-height: var(--ren-control-height-sm);
+		padding: var(--ren-space-xs) var(--ren-space-md);
 		font: inherit;
-		font-size: var(--lumi-font-size-sm);
-		font-weight: var(--lumi-font-weight-medium);
-		line-height: var(--lumi-line-height-tight);
-		color: var(--lumi-color-text-muted);
+		font-size: var(--ren-font-size-sm);
+		font-weight: var(--ren-font-weight-medium);
+		line-height: var(--ren-line-height-tight);
+		color: var(--ren-color-text-muted);
 		white-space: nowrap;
 		background: transparent;
-		border: var(--lumi-border-width-thin) solid transparent;
-		border-radius: var(--lumi-radius-control);
+		border: var(--ren-border-width-thin) solid transparent;
+		border-radius: var(--ren-radius-control);
 		cursor: pointer;
-		transition: var(--lumi-transition-interactive);
+		transition: var(--ren-transition-interactive);
 	}
 
-	.lumi-switcher__option:hover:not(.lumi-switcher__option--active) {
-		color: var(--lumi-color-text);
-		background: var(--lumi-color-hover);
+	.ren-switcher__option:hover:not(.ren-switcher__option--active) {
+		color: var(--ren-color-text);
+		background: var(--ren-color-hover);
 	}
 
-	.lumi-switcher__option:active:not(.lumi-switcher__option--active) {
-		transform: scale(var(--lumi-interactive-press-scale));
+	.ren-switcher__option:active:not(.ren-switcher__option--active) {
+		transform: scale(var(--ren-interactive-press-scale));
 	}
 
-	.lumi-switcher__option--active {
-		color: var(--lumi-tone-ink);
-		font-weight: var(--lumi-font-weight-semibold);
-		background: var(--lumi-color-surface-raised);
-		box-shadow: var(--lumi-shadow-sm);
+	.ren-switcher__option--active {
+		color: var(--ren-tone-ink);
+		font-weight: var(--ren-font-weight-semibold);
+		background: var(--ren-color-surface-raised);
+		box-shadow: var(--ren-shadow-sm);
 	}
 
-	.lumi-switcher__option:focus-visible {
-		outline: var(--lumi-focus-outline);
-		outline-offset: var(--lumi-focus-outline-offset);
+	.ren-switcher__option:focus-visible {
+		outline: var(--ren-focus-outline);
+		outline-offset: var(--ren-focus-outline-offset);
 	}
 
-	.lumi-switcher__option--disabled {
-		opacity: var(--lumi-opacity-disabled);
+	.ren-switcher__option--disabled {
+		opacity: var(--ren-opacity-disabled);
 		pointer-events: none;
 	}
 }

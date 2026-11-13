@@ -39,28 +39,28 @@
 	rel={href && (target === '_blank' ? (rel ?? 'noopener noreferrer') : rel)}
 	type={tag === 'button' ? 'button' : undefined}
 	class={[
-		'lumi-card',
-		interactive && 'lumi-card--interactive',
-		(hoverable ?? (interactive || media || image)) && 'lumi-card--hoverable',
-		selected && 'lumi-card--selected',
-		spaced && 'lumi-card--spaced',
+		'ren-card',
+		interactive && 'ren-card--interactive',
+		(hoverable ?? (interactive || media || image)) && 'ren-card--hoverable',
+		selected && 'ren-card--selected',
+		spaced && 'ren-card--spaced',
 		className
 	]}
 	{style}
-	style:--lumi-card-image-height={imageHeight && `${imageHeight}px`}
+	style:--ren-card-image-height={imageHeight && `${imageHeight}px`}
 	aria-label={ariaLabel}
 	aria-current={href && selected ? 'true' : undefined}
 	aria-pressed={tag === 'button' ? selected : undefined}
 	onclick={interactive ? onclick : undefined}
 >
 	{#if media || image}
-		<svelte:element this={part} class="lumi-card__media">
+		<svelte:element this={part} class="ren-card__media">
 			{#if media}
 				{@render media()}
 			{:else if image && part === 'span'}
 				<!-- Phrasing content only inside a button card. -->
 				<img
-					class="lumi-card__image"
+					class="ren-card__image"
 					src={image}
 					alt={imageAlt ?? ''}
 					loading="lazy"
@@ -71,27 +71,27 @@
 					src={image}
 					alt={imageAlt ?? ''}
 					radius="none"
-					class="lumi-card__image"
+					class="ren-card__image"
 				/>
 			{/if}
 		</svelte:element>
 	{/if}
 
 	{#if header || title || subtitle}
-		<svelte:element this={part} class="lumi-card__header">
+		<svelte:element this={part} class="ren-card__header">
 			{#if header}
 				{@render header()}
 			{:else}
 				{#if title}
 					<svelte:element
 						this={part === 'span' ? 'span' : 'h4'}
-						class="lumi-card__title">{title}</svelte:element
+						class="ren-card__title">{title}</svelte:element
 					>
 				{/if}
 				{#if subtitle}
 					<svelte:element
 						this={part === 'span' ? 'span' : 'p'}
-						class="lumi-card__subtitle">{subtitle}</svelte:element
+						class="ren-card__subtitle">{subtitle}</svelte:element
 					>
 				{/if}
 			{/if}
@@ -99,37 +99,31 @@
 	{/if}
 
 	{#if children}
-		<svelte:element this={part} class="lumi-card__content">
+		<svelte:element this={part} class="ren-card__content">
 			{@render children()}
 		</svelte:element>
 	{/if}
 
 	{#if footer}
-		<svelte:element this={part} class="lumi-card__footer">
+		<svelte:element this={part} class="ren-card__footer">
 			{@render footer()}
 		</svelte:element>
 	{/if}
 </svelte:element>
 
 <style>
-	.lumi-card {
-		--lumi-surface-bg: var(
-			--lumi-card-surface-bg,
-			var(--lumi-color-surface-card)
-		);
-		--lumi-surface-shadow: var(
-			--lumi-card-surface-shadow,
-			var(--lumi-shadow-sm)
-		);
+	.ren-card {
+		--ren-surface-bg: var(--ren-card-surface-bg, var(--ren-color-surface-card));
+		--ren-surface-shadow: var(--ren-card-surface-shadow, var(--ren-shadow-sm));
 		position: relative;
 		min-width: 0;
 		overflow: hidden;
 		display: flex;
 		flex-direction: column;
-		transition: var(--lumi-transition-interactive);
+		transition: var(--ren-transition-interactive);
 		width: 100%;
 		text-align: start;
-		color: var(--lumi-color-text);
+		color: var(--ren-color-text);
 		appearance: none;
 		font: inherit;
 		text-decoration: none;
@@ -137,139 +131,139 @@
 		isolation: isolate;
 	}
 
-	.lumi-card > * {
+	.ren-card > * {
 		position: relative;
 		z-index: 1;
 	}
 
 	/* Interactive state */
-	.lumi-card--interactive {
+	.ren-card--interactive {
 		cursor: pointer;
-		outline: var(--lumi-border-width-thick) solid transparent;
+		outline: var(--ren-border-width-thick) solid transparent;
 	}
 
-	.lumi-card--interactive:focus-visible {
-		--lumi-surface-hover: 1;
+	.ren-card--interactive:focus-visible {
+		--ren-surface-hover: 1;
 		outline-color: transparent;
-		border-color: var(--lumi-color-border-interactive);
-		box-shadow: var(--lumi-focus-ring), var(--lumi-shadow-md);
+		border-color: var(--ren-color-border-interactive);
+		box-shadow: var(--ren-focus-ring), var(--ren-shadow-md);
 	}
 
-	.lumi-card--hoverable:hover {
-		transform: translateY(var(--lumi-interactive-lift));
-		border-color: var(--lumi-color-border-interactive);
-		background: var(--lumi-color-surface-card-hover);
-		box-shadow: var(--lumi-shadow-md);
+	.ren-card--hoverable:hover {
+		transform: translateY(var(--ren-interactive-lift));
+		border-color: var(--ren-color-border-interactive);
+		background: var(--ren-color-surface-card-hover);
+		box-shadow: var(--ren-shadow-md);
 	}
 
 	@media (hover: hover) {
-		.lumi-card--hoverable:hover {
-			--lumi-surface-hover: 1;
+		.ren-card--hoverable:hover {
+			--ren-surface-hover: 1;
 		}
 	}
 
-	.lumi-card--interactive:active {
+	.ren-card--interactive:active {
 		transform: translateY(0);
-		box-shadow: var(--lumi-shadow-sm);
+		box-shadow: var(--ren-shadow-sm);
 	}
 
-	.lumi-card--selected,
-	.lumi-card--selected:hover {
-		--lumi-surface-border: var(--lumi-border-width-base) solid
-			var(--lumi-color-primary);
-		--lumi-surface-shadow: var(--lumi-shadow-md);
-		border-color: var(--lumi-color-primary);
+	.ren-card--selected,
+	.ren-card--selected:hover {
+		--ren-surface-border: var(--ren-border-width-base) solid
+			var(--ren-color-primary);
+		--ren-surface-shadow: var(--ren-shadow-md);
+		border-color: var(--ren-color-primary);
 	}
 
 	/* Spaced content */
-	.lumi-card--spaced .lumi-card__content {
+	.ren-card--spaced .ren-card__content {
 		display: flex;
 		flex-direction: column;
-		gap: var(--lumi-space-md);
+		gap: var(--ren-space-md);
 	}
 
 	/* Image */
-	.lumi-card__media {
+	.ren-card__media {
 		width: 100%;
-		height: var(--lumi-card-image-height, var(--lumi-card-media-height));
+		height: var(--ren-card-image-height, var(--ren-card-media-height));
 		overflow: hidden;
 		flex-shrink: 0;
 		position: relative;
-		background: var(--lumi-color-background-secondary);
-		border-bottom: var(--lumi-border-width-thin) solid var(--lumi-color-border);
+		background: var(--ren-color-background-secondary);
+		border-bottom: var(--ren-border-width-thin) solid var(--ren-color-border);
 	}
 
-	.lumi-card__media :global(.lumi-card__image) {
+	.ren-card__media :global(.ren-card__image) {
 		width: 100%;
 		height: 100%;
 		display: block;
 		object-fit: cover;
 	}
 
-	.lumi-card--hoverable:hover .lumi-card__media :global(.lumi-image img) {
-		transform: scale(var(--lumi-card-media-hover-scale));
+	.ren-card--hoverable:hover .ren-card__media :global(.ren-image img) {
+		transform: scale(var(--ren-card-media-hover-scale));
 	}
 
 	/* Sections (spans inside a button card, so display is explicit) */
-	.lumi-card__media,
-	.lumi-card__content,
-	.lumi-card__footer,
-	.lumi-card__title,
-	.lumi-card__subtitle {
+	.ren-card__media,
+	.ren-card__content,
+	.ren-card__footer,
+	.ren-card__title,
+	.ren-card__subtitle {
 		display: block;
 	}
 
-	.lumi-card__header,
-	.lumi-card__content,
-	.lumi-card__footer {
-		padding: var(--lumi-space-lg);
+	.ren-card__header,
+	.ren-card__content,
+	.ren-card__footer {
+		padding: var(--ren-space-lg);
 	}
 
-	.lumi-card__header {
+	.ren-card__header {
 		display: grid;
-		gap: var(--lumi-space-2xs);
-		padding-bottom: var(--lumi-space-xs);
+		gap: var(--ren-space-2xs);
+		padding-bottom: var(--ren-space-xs);
 	}
 
-	.lumi-card__header:last-child {
-		padding-bottom: var(--lumi-space-lg);
+	.ren-card__header:last-child {
+		padding-bottom: var(--ren-space-lg);
 	}
 
-	.lumi-card__content {
+	.ren-card__content {
 		flex: 1;
 		min-width: 0;
-		padding-top: var(--lumi-space-sm);
-		padding-bottom: var(--lumi-space-lg);
+		padding-top: var(--ren-space-sm);
+		padding-bottom: var(--ren-space-lg);
 	}
 
 	/* Comfortable breathing room when content leads (no header) or follows the image,
 	   instead of relying on :first-child which fails whenever an image is rendered. */
-	.lumi-card__media + .lumi-card__content,
-	.lumi-card__content:first-child {
-		padding-top: var(--lumi-space-lg);
+	.ren-card__media + .ren-card__content,
+	.ren-card__content:first-child {
+		padding-top: var(--ren-space-lg);
 	}
 
-	.lumi-card__footer {
-		padding-top: var(--lumi-space-md);
-		border-top: var(--lumi-border-width-thin) solid var(--lumi-color-border);
+	.ren-card__footer {
+		padding-top: var(--ren-space-md);
+		border-top: var(--ren-border-width-thin) solid var(--ren-color-border);
 	}
 
 	/* Typography */
-	.lumi-card__title {
-		color: var(--lumi-color-text);
-		line-height: var(--lumi-line-height-tight);
-		font-size: var(--lumi-font-size-lg);
-		font-weight: var(--lumi-font-weight-semibold);
+	.ren-card__title {
+		color: var(--ren-color-text);
+		line-height: var(--ren-line-height-tight);
+		font-size: var(--ren-font-size-lg);
+		font-weight: var(--ren-font-weight-semibold);
 	}
 
-	.lumi-card__subtitle {
-		color: var(--lumi-color-text-muted);
-		font-size: var(--lumi-font-size-sm);
-		line-height: var(--lumi-line-height-normal);
+	.ren-card__subtitle {
+		color: var(--ren-color-text-muted);
+		font-size: var(--ren-font-size-sm);
+		line-height: var(--ren-line-height-normal);
 	}
 
 	@media (forced-colors: active) {
-		.lumi-card--interactive:focus-visible {
+		.ren-card--interactive:focus-visible {
 			outline-color: CanvasText;
 			box-shadow: none;
 		}

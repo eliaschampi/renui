@@ -1,8 +1,8 @@
 import type { Snippet } from 'svelte';
-import type { LumiColor, LumiCompactSize } from '../config';
+import type { RenColor, RenCompactSize } from '../config';
 
-export type CheckboxSize = LumiCompactSize;
-export type CheckboxColor = LumiColor;
+export type CheckboxSize = RenCompactSize;
+export type CheckboxColor = RenColor;
 
 export interface CheckboxProps {
 	/** Checked state (bindable) */

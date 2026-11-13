@@ -76,7 +76,7 @@ export function createFloating(
 		matchWidth: false,
 		maxHeight: 300,
 		viewportPadding: 16,
-		zIndex: 'var(--lumi-z-dropdown)',
+		zIndex: 'var(--ren-z-dropdown)',
 		...readOptions()
 	});
 

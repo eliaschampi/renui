@@ -1,5 +1,5 @@
 /**
- * Lumi UI - Input Component
+ * RenUI - Input Component
  * Text input with validation states and icons
  */
 

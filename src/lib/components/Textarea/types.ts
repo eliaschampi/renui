@@ -1,9 +1,9 @@
 import type { HTMLTextareaAttributes } from 'svelte/elements';
-import type { LumiColor, LumiExtendedSize } from '../config';
+import type { RenColor, RenExtendedSize } from '../config';
 import type { FieldError } from '../Field';
 
-export type TextareaSize = LumiExtendedSize;
-export type TextareaColor = LumiColor;
+export type TextareaSize = RenExtendedSize;
+export type TextareaColor = RenColor;
 
 /**
  * Multiline field that grows with its content. Native textarea attributes

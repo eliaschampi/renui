@@ -7,7 +7,7 @@ export interface TableRow {
 }
 
 export interface TableProps<TRow extends object = TableRow> {
-	/** Column sizing strategy; `fixed` honors `.lumi-table-column--*` widths */
+	/** Column sizing strategy; `fixed` honors `.ren-table-column--*` widths */
 	layout?: 'auto' | 'fixed';
 	/** Compact row/cell padding */
 	compact?: boolean;

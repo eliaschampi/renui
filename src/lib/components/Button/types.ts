@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from 'svelte/elements';
 import type { IconSource } from '../../utils/icons';
-import type { LumiColor, LumiDisplaySize } from '../config';
+import type { RenColor, RenDisplaySize } from '../config';
 
 export type ButtonVariant = 'filled' | 'border' | 'flat' | 'ghost' | 'gradient';
 
@@ -15,9 +15,9 @@ export interface ButtonProps extends Omit<
 	/** Visual style @default 'filled' */
 	variant?: ButtonVariant;
 	/** Semantic accent color @default 'primary' */
-	color?: LumiColor;
+	color?: RenColor;
 	/** Size on the shared display scale @default 'md' */
-	size?: LumiDisplaySize;
+	size?: RenDisplaySize;
 	/** Icon component or registered icon name */
 	icon?: IconSource;
 	/** Place the icon after the label */

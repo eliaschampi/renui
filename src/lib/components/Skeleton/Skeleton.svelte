@@ -18,18 +18,18 @@
 <!-- Decorative: the region being loaded carries aria-busy="true". -->
 {#if count > 1}
 	<span
-		class={['lumi-skeleton-lines', className]}
+		class={['ren-skeleton-lines', className]}
 		style:inline-size={width}
 		aria-hidden="true"
 	>
 		{#each { length: count }, index (index)}
-			<span class="lumi-skeleton lumi-skeleton--text" style:block-size={height}
+			<span class="ren-skeleton ren-skeleton--text" style:block-size={height}
 			></span>
 		{/each}
 	</span>
 {:else}
 	<span
-		class={['lumi-skeleton', `lumi-skeleton--${shape}`, className]}
+		class={['ren-skeleton', `ren-skeleton--${shape}`, className]}
 		style:inline-size={width ?? (shape === 'circle' ? height : undefined)}
 		style:block-size={shape === 'circle' ? undefined : height}
 		aria-hidden="true"
@@ -37,15 +37,15 @@
 {/if}
 
 <style>
-	/* Shimmer and shapes come from the shared .lumi-skeleton recipe. */
-	.lumi-skeleton-lines {
+	/* Shimmer and shapes come from the shared .ren-skeleton recipe. */
+	.ren-skeleton-lines {
 		display: flex;
 		flex-direction: column;
 		/* Gaps match the leading of real text at the same font size. */
-		gap: calc((var(--lumi-line-height-normal) - 1) * 1em);
+		gap: calc((var(--ren-line-height-normal) - 1) * 1em);
 	}
 
-	.lumi-skeleton-lines > :last-child {
+	.ren-skeleton-lines > :last-child {
 		inline-size: 60%;
 	}
 </style>

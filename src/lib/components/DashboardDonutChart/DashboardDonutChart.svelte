@@ -22,7 +22,7 @@
 		useChartWidth
 	} from '../../utils/chartLayout.svelte';
 	import '../../styles/charts.css';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import type { DashboardDonutChartProps } from './types';
 
 	const {
@@ -36,7 +36,7 @@
 		class: className
 	}: DashboardDonutChartProps = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 
 	const INNER_RADIUS_RATIO = 0.62;
 	const FULL_TURN = Math.PI * 2;
@@ -128,11 +128,11 @@
 	}
 </script>
 
-<div bind:this={layout.root} class={['lumi-donut-chart', className]}>
-	<div class="lumi-donut-chart__plot" style:height="{chartH}px">
+<div bind:this={layout.root} class={['ren-donut-chart', className]}>
+	<div class="ren-donut-chart__plot" style:height="{chartH}px">
 		{#if !hasValues}
-			<div class="lumi-chart-empty">
-				<p class="lumi-chart-empty__text">
+			<div class="ren-chart-empty">
+				<p class="ren-chart-empty__text">
 					{emptyMessage ?? i18n.t.chartEmpty}
 				</p>
 			</div>
@@ -141,7 +141,7 @@
 			<svg
 				viewBox="0 0 {chartW} {chartH}"
 				preserveAspectRatio="xMidYMid meet"
-				class="lumi-chart-svg"
+				class="ren-chart-svg"
 				role="img"
 				aria-label={ariaLabel ?? i18n.t.chartDonut}
 				aria-describedby={hovered ? `${instanceId}-tooltip` : undefined}
@@ -159,8 +159,8 @@
 							fill="none"
 							stroke={arc.fill}
 							stroke-width={outerRadius - innerRadius}
-							class="lumi-donut-chart__slice"
-							class:lumi-donut-chart__slice--muted={hovered !== null &&
+							class="ren-donut-chart__slice"
+							class:ren-donut-chart__slice--muted={hovered !== null &&
 								hover.index !== index}
 							aria-hidden="true"
 							onpointerenter={(event) => hover.set(index, event)}
@@ -171,8 +171,8 @@
 						<path
 							d={arc.path}
 							fill={arc.fill}
-							class="lumi-donut-chart__slice"
-							class:lumi-donut-chart__slice--muted={hovered !== null &&
+							class="ren-donut-chart__slice"
+							class:ren-donut-chart__slice--muted={hovered !== null &&
 								hover.index !== index}
 							aria-hidden="true"
 							onpointerenter={(event) => hover.set(index, event)}
@@ -187,7 +187,7 @@
 						x={centerX}
 						y={centerY - (centerValue ? 6 : -4)}
 						text-anchor="middle"
-						class="lumi-chart-label"
+						class="ren-chart-label"
 					>
 						{centerLabel}
 					</text>
@@ -197,7 +197,7 @@
 						x={centerX}
 						y={centerY + (centerLabel ? 16 : 6)}
 						text-anchor="middle"
-						class="lumi-donut-chart__center-value"
+						class="ren-donut-chart__center-value"
 					>
 						{centerValue}
 					</text>
@@ -207,15 +207,13 @@
 	</div>
 
 	{#if hasValues}
-		<ul class="lumi-donut-chart__legend">
+		<ul class="ren-donut-chart__legend">
 			{#each legend as item}
-				<li class="lumi-donut-chart__legend-item">
-					<span
-						class="lumi-donut-chart__legend-dot"
-						style:background={item.fill}
+				<li class="ren-donut-chart__legend-item">
+					<span class="ren-donut-chart__legend-dot" style:background={item.fill}
 					></span>
-					<span class="lumi-donut-chart__legend-label">{item.label}</span>
-					<span class="lumi-donut-chart__legend-value">
+					<span class="ren-donut-chart__legend-label">{item.label}</span>
+					<span class="ren-donut-chart__legend-value">
 						{item.formattedValue} · {item.share}
 					</span>
 				</li>
@@ -226,16 +224,16 @@
 
 {#if hovered}
 	<div
-		class="lumi-chart-tooltip"
+		class="ren-chart-tooltip"
 		role="tooltip"
 		id={`${instanceId}-tooltip`}
 		use:chartTooltip={hover.anchor}
 	>
-		<span class="lumi-chart-tooltip__title">{hovered.label}</span>
-		<div class="lumi-chart-tooltip__row">
-			<span class="lumi-chart-tooltip__dot" style:background={hovered.fill}
+		<span class="ren-chart-tooltip__title">{hovered.label}</span>
+		<div class="ren-chart-tooltip__row">
+			<span class="ren-chart-tooltip__dot" style:background={hovered.fill}
 			></span>
-			<span class="lumi-chart-tooltip__value">
+			<span class="ren-chart-tooltip__value">
 				{hovered.formattedValue} · {hovered.share}
 			</span>
 		</div>
@@ -243,68 +241,68 @@
 {/if}
 
 <style>
-	.lumi-donut-chart {
+	.ren-donut-chart {
 		width: 100%;
 		min-width: 0;
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		gap: var(--lumi-space-sm);
+		gap: var(--ren-space-sm);
 	}
 
-	.lumi-donut-chart__plot {
+	.ren-donut-chart__plot {
 		width: 100%;
 		min-width: 0;
 		position: relative;
 	}
 
-	.lumi-donut-chart__slice {
+	.ren-donut-chart__slice {
 		cursor: pointer;
-		transition: opacity var(--lumi-duration-fast) var(--lumi-easing-default);
+		transition: opacity var(--ren-duration-fast) var(--ren-easing-default);
 	}
 
-	path.lumi-donut-chart__slice {
-		stroke: var(--lumi-color-surface);
-		stroke-width: var(--lumi-border-width-thick);
+	path.ren-donut-chart__slice {
+		stroke: var(--ren-color-surface);
+		stroke-width: var(--ren-border-width-thick);
 	}
 
-	.lumi-donut-chart__slice--muted {
-		opacity: var(--lumi-opacity-muted);
+	.ren-donut-chart__slice--muted {
+		opacity: var(--ren-opacity-muted);
 	}
 
-	.lumi-donut-chart__center-value {
-		font-size: var(--lumi-font-size-lg);
-		font-weight: var(--lumi-font-weight-semibold);
-		fill: var(--lumi-color-text);
+	.ren-donut-chart__center-value {
+		font-size: var(--ren-font-size-lg);
+		font-weight: var(--ren-font-weight-semibold);
+		fill: var(--ren-color-text);
 	}
 
-	.lumi-donut-chart__legend {
+	.ren-donut-chart__legend {
 		display: flex;
 		flex-direction: column;
-		gap: var(--lumi-space-2xs);
+		gap: var(--ren-space-2xs);
 		margin: 0;
 		padding: 0;
 		list-style: none;
 		min-width: 0;
 	}
 
-	.lumi-donut-chart__legend-item {
+	.ren-donut-chart__legend-item {
 		display: flex;
 		align-items: center;
-		gap: var(--lumi-space-xs);
+		gap: var(--ren-space-xs);
 		min-width: 0;
 	}
 
-	.lumi-donut-chart__legend-dot {
-		width: var(--lumi-space-xs);
-		min-width: var(--lumi-space-xs);
-		height: var(--lumi-space-xs);
-		border-radius: var(--lumi-radius-full);
+	.ren-donut-chart__legend-dot {
+		width: var(--ren-space-xs);
+		min-width: var(--ren-space-xs);
+		height: var(--ren-space-xs);
+		border-radius: var(--ren-radius-full);
 	}
 
-	.lumi-donut-chart__legend-label {
-		font-size: var(--lumi-font-size-xs);
-		color: var(--lumi-color-text-muted);
+	.ren-donut-chart__legend-label {
+		font-size: var(--ren-font-size-xs);
+		color: var(--ren-color-text-muted);
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -312,13 +310,13 @@
 		flex: 1 1 auto;
 	}
 
-	.lumi-donut-chart__legend-value {
+	.ren-donut-chart__legend-value {
 		min-width: 0;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		font-size: var(--lumi-font-size-xs);
-		font-weight: var(--lumi-font-weight-medium);
-		color: var(--lumi-color-text);
+		font-size: var(--ren-font-size-xs);
+		font-weight: var(--ren-font-weight-medium);
+		color: var(--ren-color-text);
 		white-space: nowrap;
 	}
 </style>

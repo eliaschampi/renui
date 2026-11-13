@@ -1,6 +1,6 @@
 import type { Snippet } from 'svelte';
 /**
- * Lumi UI - Card Component Types
+ * RenUI - Card Component Types
  */
 
 export interface CardProps {

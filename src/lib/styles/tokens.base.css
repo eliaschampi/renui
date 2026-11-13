@@ -1,14 +1,14 @@
-/* Lumi UI - Base Design Tokens */
+/* RenUI - Base Design Tokens */
 /* Lumen: one accent in, five roles out.
    Seeds own identity: two brand hues, four status hues, and a light pair (sun,
-   dusk). Everything else is derived. A toned element (.lumi-tone, base.css)
+   dusk). Everything else is derived. A toned element (.ren-tone, base.css)
    reads its accent and resolves soft / strong / ink on the fixed OKLCH planes
    below, plus a beam for anything that measures — so every hue, including a
    product's own brand, lands with the same weight and the same contrast.
-   Override seeds and plane dials; never reassign derived --lumi-color-* tokens. */
-@layer lumi.tokens, lumi.base, lumi.components, lumi.layout, lumi.patterns, lumi.utilities;
+   Override seeds and plane dials; never reassign derived --ren-color-* tokens. */
+@layer ren.tokens, ren.base, ren.components, ren.layout, ren.patterns, ren.utilities;
 
-@layer lumi.tokens {
+@layer ren.tokens {
 	:root {
 		color-scheme: light;
 
@@ -17,310 +17,306 @@
 		/* ========================================================================== */
 
 		/* --- SEEDS --------------------------------------------------------------- */
-		/* All chromatic roles share one lightness plane (--lumi-accent-lightness) and
-		   a chroma ceiling (--lumi-accent-chroma-max) so no accent outweighs another.
+		/* All chromatic roles share one lightness plane (--ren-accent-lightness) and
+		   a chroma ceiling (--ren-accent-chroma-max) so no accent outweighs another.
 		   Every chroma below is inside the sRGB gamut at that lightness — requesting
 		   more makes the browser clip and silently shift hue. Rebrand by moving hue. */
-		--lumi-accent-lightness: 54%;
-		--lumi-accent-chroma-max: 0.21;
-		--lumi-brand-primary: oklch(
-			var(--lumi-accent-lightness) min(0.184, var(--lumi-accent-chroma-max)) 257
+		--ren-accent-lightness: 54%;
+		--ren-accent-chroma-max: 0.21;
+		--ren-brand-primary: oklch(
+			var(--ren-accent-lightness) min(0.184, var(--ren-accent-chroma-max)) 257
 		); /* azure — gamut max 0.192 at default lightness */
-		--lumi-brand-secondary: oklch(
-			var(--lumi-accent-lightness) min(0.21, var(--lumi-accent-chroma-max)) 310
+		--ren-brand-secondary: oklch(
+			var(--ren-accent-lightness) min(0.21, var(--ren-accent-chroma-max)) 310
 		); /* orchid — ceiling-capped */
 		/* Neutrals carry the brand hue at a whisper of chroma: one seed tints the
 		   ink, the canvas and (through the ink) every border and shadow. */
-		--lumi-color-neutral: oklch(from var(--lumi-brand-primary) 21% 0.03 h);
-		--lumi-color-canvas: oklch(from var(--lumi-brand-primary) 97.2% 0.008 h);
+		--ren-color-neutral: oklch(from var(--ren-brand-primary) 21% 0.03 h);
+		--ren-color-canvas: oklch(from var(--ren-brand-primary) 97.2% 0.008 h);
 		/* The light pair. A beam leans toward the sun at its head and toward dusk at
 		   its tail, on the shorter hue arc — one light source for every accent. */
-		--lumi-sun: oklch(88% 0.17 95);
-		--lumi-dusk: oklch(38% 0.16 285);
+		--ren-sun: oklch(88% 0.17 95);
+		--ren-dusk: oklch(38% 0.16 285);
 		/* Single dark-mode accent lift. */
-		--lumi-dark-accent-mix: 70%;
-		--lumi-color-primary: var(--lumi-brand-primary);
-		--lumi-color-primary-solid: var(--lumi-brand-primary);
-		--lumi-color-secondary: var(--lumi-brand-secondary);
-		--lumi-color-secondary-solid: var(--lumi-brand-secondary);
+		--ren-dark-accent-mix: 70%;
+		--ren-color-primary: var(--ren-brand-primary);
+		--ren-color-primary-solid: var(--ren-brand-primary);
+		--ren-color-secondary: var(--ren-brand-secondary);
+		--ren-color-secondary-solid: var(--ren-brand-secondary);
 
 		/* --- STATUS SEEDS -------------------------------------------------------- */
 		/* Same lightness plane as brand, chroma clamped into sRGB. Hue carries the
 		   semantic identity; warning is the one exception — amber below L≈70% reads
 		   brown, so it keeps its own plane and takes a black foreground. */
-		--lumi-status-success: oklch(
-			var(--lumi-accent-lightness) min(0.121, var(--lumi-accent-chroma-max)) 158
+		--ren-status-success: oklch(
+			var(--ren-accent-lightness) min(0.121, var(--ren-accent-chroma-max)) 158
 		); /* emerald — gamut max 0.126 at default lightness */
-		--lumi-status-warning: oklch(
+		--ren-status-warning: oklch(
 			80% 0.162 82
 		); /* amber fill; ink darkens below */
-		--lumi-status-danger: oklch(
-			var(--lumi-accent-lightness) min(0.21, var(--lumi-accent-chroma-max)) 24
+		--ren-status-danger: oklch(
+			var(--ren-accent-lightness) min(0.21, var(--ren-accent-chroma-max)) 24
 		); /* vermilion */
 		/* Teal-cyan, not a second blue. Gamut ceiling here is 0.093 — do not raise. */
-		--lumi-status-info: oklch(
-			var(--lumi-accent-lightness) min(0.09, var(--lumi-accent-chroma-max)) 210
+		--ren-status-info: oklch(
+			var(--ren-accent-lightness) min(0.09, var(--ren-accent-chroma-max)) 210
 		);
 
 		/* Consumed accents (line, icon, focus on a neutral surface): light = seed;
-		   dark applies --lumi-dark-accent-mix. */
-		--lumi-color-success: var(--lumi-status-success);
-		--lumi-color-warning: color-mix(
+		   dark applies --ren-dark-accent-mix. */
+		--ren-color-success: var(--ren-status-success);
+		--ren-color-warning: color-mix(
 			in oklch,
-			var(--lumi-status-warning) 68%,
-			var(--lumi-color-black)
+			var(--ren-status-warning) 68%,
+			var(--ren-color-black)
 		);
-		--lumi-color-danger: var(--lumi-status-danger);
-		--lumi-color-info: var(--lumi-status-info);
+		--ren-color-danger: var(--ren-status-danger);
+		--ren-color-info: var(--ren-status-info);
 		/* Calibrated solids stay invariant while dark-mode accents may brighten. */
-		--lumi-color-success-solid: var(--lumi-status-success);
-		--lumi-color-warning-solid: var(--lumi-status-warning);
-		--lumi-color-danger-solid: var(--lumi-status-danger);
-		--lumi-color-info-solid: var(--lumi-status-info);
-		--lumi-color-white: rgb(255, 255, 255);
-		--lumi-color-black: rgb(0, 0, 0);
+		--ren-color-success-solid: var(--ren-status-success);
+		--ren-color-warning-solid: var(--ren-status-warning);
+		--ren-color-danger-solid: var(--ren-status-danger);
+		--ren-color-info-solid: var(--ren-status-info);
+		--ren-color-white: rgb(255, 255, 255);
+		--ren-color-black: rgb(0, 0, 0);
 		/* Elevation key tracks neutral ink — hue-true shadows without dual RGB seeds. */
-		--lumi-color-shadow-key: var(--lumi-color-neutral);
+		--ren-color-shadow-key: var(--ren-color-neutral);
 
 		/* --- TONE PLANES --------------------------------------------------------- */
-		/* "lightness chroma" of each derived role; .lumi-tone keeps only the hue of
+		/* "lightness chroma" of each derived role; .ren-tone keeps only the hue of
 		   its accent. soft = tinted container, strong = its hover / pressed /
 		   selected step, ink = content on either (≥ 7:1 on soft). */
-		--lumi-tone-soft-lc: 93.5% 0.042;
-		--lumi-tone-strong-lc: 88.5% 0.068;
-		--lumi-tone-ink-lc: 37% 0.12;
+		--ren-tone-soft-lc: 93.5% 0.042;
+		--ren-tone-strong-lc: 88.5% 0.068;
+		--ren-tone-ink-lc: 37% 0.12;
 
 		/* --- DERIVED TEXT -------------------------------------------------------- */
-		--lumi-color-text: var(--lumi-color-neutral);
-		--lumi-color-text-muted: color-mix(
+		--ren-color-text: var(--ren-color-neutral);
+		--ren-color-text-muted: color-mix(
 			in srgb,
-			var(--lumi-color-text) 70%,
-			var(--lumi-color-surface)
+			var(--ren-color-text) 70%,
+			var(--ren-color-surface)
 		);
 		/* Tertiary ink (range labels, neutral status dots): ≥ 3:1 on surfaces. */
-		--lumi-color-text-light: color-mix(
+		--ren-color-text-light: color-mix(
 			in srgb,
-			var(--lumi-color-text) 54%,
-			var(--lumi-color-surface)
+			var(--ren-color-text) 54%,
+			var(--ren-color-surface)
 		);
-		--lumi-color-primary-foreground: var(--lumi-color-white);
-		--lumi-color-secondary-foreground: var(--lumi-color-white);
-		--lumi-color-success-foreground: var(--lumi-color-white);
-		--lumi-color-warning-foreground: var(--lumi-color-black);
-		--lumi-color-danger-foreground: var(--lumi-color-white);
-		--lumi-color-info-foreground: var(--lumi-color-white);
+		--ren-color-primary-foreground: var(--ren-color-white);
+		--ren-color-secondary-foreground: var(--ren-color-white);
+		--ren-color-success-foreground: var(--ren-color-white);
+		--ren-color-warning-foreground: var(--ren-color-black);
+		--ren-color-danger-foreground: var(--ren-color-white);
+		--ren-color-info-foreground: var(--ren-color-white);
 
-		--lumi-color-placeholder: color-mix(
+		--ren-color-placeholder: color-mix(
 			in srgb,
-			var(--lumi-color-text-muted) 72%,
-			var(--lumi-color-surface-raised)
+			var(--ren-color-text-muted) 72%,
+			var(--ren-color-surface-raised)
 		);
 
 		/* --- DERIVED BACKGROUND -------------------------------------------------- */
-		--lumi-color-background: var(--lumi-color-canvas);
-		--lumi-color-background-secondary: color-mix(
+		--ren-color-background: var(--ren-color-canvas);
+		--ren-color-background-secondary: color-mix(
 			in srgb,
-			var(--lumi-color-background) 94%,
-			var(--lumi-color-text)
+			var(--ren-color-background) 94%,
+			var(--ren-color-text)
 		);
-		--lumi-color-background-hover: color-mix(
+		--ren-color-background-hover: color-mix(
 			in srgb,
-			var(--lumi-color-background) 88%,
-			var(--lumi-color-text)
+			var(--ren-color-background) 88%,
+			var(--ren-color-text)
 		);
 		/* Neutral hover wash for rows, options and quiet controls. Translucent ink,
 		   so it reads on any surface; color is reserved for selection. */
-		--lumi-color-hover: color-mix(
+		--ren-color-hover: color-mix(
 			in srgb,
-			var(--lumi-color-text) var(--lumi-state-hover-strength),
+			var(--ren-color-text) var(--ren-state-hover-strength),
 			transparent
 		);
 
 		/* --- DERIVED SURFACE LADDER --------------------------------------------- */
 		/* Light: recessed wells sit below the canvas, every raised surface is the
 		   same clean white and depth comes from elevation. Dark lifts each step. */
-		--lumi-color-surface-inset: color-mix(
+		--ren-color-surface-inset: color-mix(
 			in srgb,
-			var(--lumi-color-background) 95%,
-			var(--lumi-color-text)
+			var(--ren-color-background) 95%,
+			var(--ren-color-text)
 		);
-		--lumi-color-surface: var(--lumi-color-white);
-		--lumi-color-surface-card: var(--lumi-color-surface);
-		--lumi-color-surface-card-hover: var(--lumi-color-surface);
-		--lumi-color-surface-elevated: var(--lumi-color-surface);
-		--lumi-color-surface-raised: var(--lumi-color-surface);
-		--lumi-color-surface-overlay: var(--lumi-color-surface);
+		--ren-color-surface: var(--ren-color-white);
+		--ren-color-surface-card: var(--ren-color-surface);
+		--ren-color-surface-card-hover: var(--ren-color-surface);
+		--ren-color-surface-elevated: var(--ren-color-surface);
+		--ren-color-surface-raised: var(--ren-color-surface);
+		--ren-color-surface-overlay: var(--ren-color-surface);
 
 		/* --- DERIVED BORDERS / RINGS --------------------------------------------- */
-		--lumi-color-border: color-mix(
+		--ren-color-border: color-mix(
 			in srgb,
-			var(--lumi-color-text) 7%,
+			var(--ren-color-text) 7%,
 			transparent
 		);
-		--lumi-color-border-strong: color-mix(
+		--ren-color-border-strong: color-mix(
 			in srgb,
-			var(--lumi-color-text) 12%,
+			var(--ren-color-text) 12%,
 			transparent
 		);
-		--lumi-color-border-light: color-mix(
+		--ren-color-border-light: color-mix(
 			in srgb,
-			var(--lumi-color-border) 60%,
+			var(--ren-color-border) 60%,
 			transparent
 		);
-		--lumi-color-border-interactive: color-mix(
+		--ren-color-border-interactive: color-mix(
 			in srgb,
-			var(--lumi-color-primary) 32%,
-			var(--lumi-color-border)
+			var(--ren-color-primary) 32%,
+			var(--ren-color-border)
 		);
 
 		/* --- DERIVED CONTROL SURFACES -------------------------------------------- */
-		--lumi-color-control-fill: color-mix(
+		--ren-color-control-fill: color-mix(
 			in srgb,
-			var(--lumi-color-surface-inset) 60%,
-			var(--lumi-color-surface) 40%
+			var(--ren-color-surface-inset) 60%,
+			var(--ren-color-surface) 40%
 		);
-		--lumi-color-control-border: color-mix(
+		--ren-color-control-border: color-mix(
 			in srgb,
-			var(--lumi-color-border) 80%,
+			var(--ren-color-border) 80%,
 			transparent
 		);
-		--lumi-color-control-hover-fill: color-mix(
+		--ren-color-control-hover-fill: color-mix(
 			in srgb,
-			var(--lumi-color-control-fill) 80%,
-			var(--lumi-color-surface) 20%
+			var(--ren-color-control-fill) 80%,
+			var(--ren-color-surface) 20%
 		);
 		/* --- DERIVED STATE BACKGROUNDS ------------------------------------------- */
-		/* Soft status surfaces for app CSS, on the same plane as .lumi-tone. */
-		--lumi-state-hover-strength: 6%;
-		--lumi-color-primary-bg: oklch(
-			from var(--lumi-color-primary) var(--lumi-tone-soft-lc) h
+		/* Soft status surfaces for app CSS, on the same plane as .ren-tone. */
+		--ren-state-hover-strength: 6%;
+		--ren-color-primary-bg: oklch(
+			from var(--ren-color-primary) var(--ren-tone-soft-lc) h
 		);
-		--lumi-color-secondary-bg: oklch(
-			from var(--lumi-color-secondary) var(--lumi-tone-soft-lc) h
+		--ren-color-secondary-bg: oklch(
+			from var(--ren-color-secondary) var(--ren-tone-soft-lc) h
 		);
-		--lumi-color-success-bg: oklch(
-			from var(--lumi-color-success) var(--lumi-tone-soft-lc) h
+		--ren-color-success-bg: oklch(
+			from var(--ren-color-success) var(--ren-tone-soft-lc) h
 		);
-		--lumi-color-warning-bg: oklch(
-			from var(--lumi-color-warning) var(--lumi-tone-soft-lc) h
+		--ren-color-warning-bg: oklch(
+			from var(--ren-color-warning) var(--ren-tone-soft-lc) h
 		);
-		--lumi-color-danger-bg: oklch(
-			from var(--lumi-color-danger) var(--lumi-tone-soft-lc) h
+		--ren-color-danger-bg: oklch(
+			from var(--ren-color-danger) var(--ren-tone-soft-lc) h
 		);
-		--lumi-color-info-bg: oklch(
-			from var(--lumi-color-info) var(--lumi-tone-soft-lc) h
+		--ren-color-info-bg: oklch(
+			from var(--ren-color-info) var(--ren-tone-soft-lc) h
 		);
 
 		/* --- DERIVED SURFACES / FX ----------------------------------------------- */
 		/* Cards float directly over the app canvas; tint the content well only
 		   when a theme wants a visible panel. */
-		--lumi-dashboard-content-bg: transparent;
+		--ren-dashboard-content-bg: transparent;
 		/* Quiet filled controls in light mode; dark adds the inset depth below.
 		   Focus keeps its own accent border and halo. */
-		--lumi-control-shadow: none;
-		--lumi-control-focus-shadow:
-			var(--lumi-focus-ring), var(--lumi-control-shadow);
+		--ren-control-shadow: none;
+		--ren-control-focus-shadow:
+			var(--ren-focus-ring), var(--ren-control-shadow);
 
 		/* ========================================================================== */
 		/* SPACING SYSTEM - quarter-rem base unit                                     */
 		/* ========================================================================== */
-		--lumi-space-2xs: 0.25rem;
-		--lumi-space-xs: 0.5rem;
-		--lumi-space-sm: 0.75rem;
-		--lumi-space-md: 1rem;
-		--lumi-space-lg: 1.5rem;
-		--lumi-space-xl: 2rem;
-		--lumi-space-2xl: 2.5rem;
-		--lumi-space-xxl: var(--lumi-space-2xl);
-		--lumi-space-3xl: 3rem;
-		--lumi-space-4xl: 4rem;
-		--lumi-space-5xl: 5rem;
-		--lumi-space-6xl: 6rem;
+		--ren-space-2xs: 0.25rem;
+		--ren-space-xs: 0.5rem;
+		--ren-space-sm: 0.75rem;
+		--ren-space-md: 1rem;
+		--ren-space-lg: 1.5rem;
+		--ren-space-xl: 2rem;
+		--ren-space-2xl: 2.5rem;
+		--ren-space-xxl: var(--ren-space-2xl);
+		--ren-space-3xl: 3rem;
+		--ren-space-4xl: 4rem;
+		--ren-space-5xl: 5rem;
+		--ren-space-6xl: 6rem;
 
 		/* ========================================================================== */
 		/* TYPOGRAPHY SYSTEM                                                          */
 		/* ========================================================================== */
-		--lumi-font-size-xs: 0.75rem;
-		--lumi-font-size-sm: 0.875rem;
-		--lumi-font-size-base: 1rem;
-		--lumi-font-size-lg: 1.125rem;
-		--lumi-font-size-xl: 1.25rem;
-		--lumi-font-size-2xl: 1.5rem;
-		--lumi-font-size-3xl: 1.875rem;
-		--lumi-font-size-4xl: 2.25rem;
-		--lumi-font-weight-normal: 400;
-		--lumi-font-weight-medium: 500;
-		--lumi-font-weight-semibold: 600;
-		--lumi-font-weight-bold: 700;
-		--lumi-line-height-none: 1;
-		--lumi-line-height-tight: 1.25;
-		--lumi-line-height-snug: 1.375;
-		--lumi-line-height-normal: 1.5;
-		--lumi-line-height-relaxed: 1.625;
-		--lumi-letter-spacing-tight: -0.01em;
-		--lumi-letter-spacing-wide: 0.01em;
-		--lumi-letter-spacing-wider: 0.04em;
-		--lumi-opacity-muted: 0.4;
-		--lumi-opacity-disabled: 0.5;
-		--lumi-opacity-hover: 0.8;
-		--lumi-font-family-sans:
+		--ren-font-size-xs: 0.75rem;
+		--ren-font-size-sm: 0.875rem;
+		--ren-font-size-base: 1rem;
+		--ren-font-size-lg: 1.125rem;
+		--ren-font-size-xl: 1.25rem;
+		--ren-font-size-2xl: 1.5rem;
+		--ren-font-size-3xl: 1.875rem;
+		--ren-font-size-4xl: 2.25rem;
+		--ren-font-weight-normal: 400;
+		--ren-font-weight-medium: 500;
+		--ren-font-weight-semibold: 600;
+		--ren-font-weight-bold: 700;
+		--ren-line-height-none: 1;
+		--ren-line-height-tight: 1.25;
+		--ren-line-height-snug: 1.375;
+		--ren-line-height-normal: 1.5;
+		--ren-line-height-relaxed: 1.625;
+		--ren-letter-spacing-tight: -0.01em;
+		--ren-letter-spacing-wide: 0.01em;
+		--ren-letter-spacing-wider: 0.04em;
+		--ren-opacity-muted: 0.4;
+		--ren-opacity-disabled: 0.5;
+		--ren-opacity-hover: 0.8;
+		--ren-font-family-sans:
 			'Inter', system-ui, -apple-system, BlinkMacSystemFont,
 			'Segoe UI Variable', 'Segoe UI', sans-serif;
-		--lumi-font-family-mono: ui-monospace, Menlo, Monaco, Consolas, monospace;
+		--ren-font-family-mono: ui-monospace, Menlo, Monaco, Consolas, monospace;
 
 		/* ========================================================================== */
 		/* BORDER RADIUS SYSTEM - continuous ~1.25× ladder, no hard corners           */
 		/* ========================================================================== */
-		--lumi-radius-none: 0;
-		--lumi-radius-2xs: 0.3125rem;
-		--lumi-radius-xs: 0.375rem;
-		--lumi-radius-sm: 0.5rem;
-		--lumi-radius-base: 0.625rem;
-		--lumi-radius-md: 0.75rem;
-		--lumi-radius-lg: 1rem;
-		--lumi-radius-xl: 1.25rem;
-		--lumi-radius-2xl: 1.75rem;
-		--lumi-radius-full: 9999px;
+		--ren-radius-none: 0;
+		--ren-radius-2xs: 0.3125rem;
+		--ren-radius-xs: 0.375rem;
+		--ren-radius-sm: 0.5rem;
+		--ren-radius-base: 0.625rem;
+		--ren-radius-md: 0.75rem;
+		--ren-radius-lg: 1rem;
+		--ren-radius-xl: 1.25rem;
+		--ren-radius-2xl: 1.75rem;
+		--ren-radius-full: 9999px;
 
 		/* Radius ROLES — pick by what the element is, never by t-shirt size.
 		   Nesting order is surface > panel > option > control, so an inner corner
 		   never out-rounds the box that contains it. */
-		--lumi-radius-control: var(
-			--lumi-radius-md
-		); /* buttons, fields, menu rows */
-		--lumi-radius-option: var(
-			--lumi-radius-lg
-		); /* self-bordered option cards */
-		--lumi-radius-tile: var(--lumi-radius-lg); /* icon tiles, badges, thumbs */
-		--lumi-radius-panel: var(--lumi-radius-xl); /* blocks nested in a surface */
-		--lumi-radius-tooltip: var(--lumi-radius-lg); /* every floating bubble */
+		--ren-radius-control: var(--ren-radius-md); /* buttons, fields, menu rows */
+		--ren-radius-option: var(--ren-radius-lg); /* self-bordered option cards */
+		--ren-radius-tile: var(--ren-radius-lg); /* icon tiles, badges, thumbs */
+		--ren-radius-panel: var(--ren-radius-xl); /* blocks nested in a surface */
+		--ren-radius-tooltip: var(--ren-radius-lg); /* every floating bubble */
 		/* Soft halo around a field, whose solid border carries the contrast. */
-		--lumi-control-focus-ring-strength: 26%;
+		--ren-control-focus-ring-strength: 26%;
 		/* Outline: :root is a primary fallback only (explicit primary — never
-		   var(--lumi-control-accent) here, or it bakes primary for everyone).
+		   var(--ren-control-accent) here, or it bakes primary for everyone).
 		   base.css re-declares the recipes on the focused element with its accent.
 		   A standalone focus indicator must reach 3:1 in every role and theme. */
-		--lumi-focus-outline-strength: 80%;
-		--lumi-focus-outline-offset: calc(var(--lumi-space-2xs) * -1);
-		--lumi-focus-outline: var(--lumi-border-width-thick) solid
+		--ren-focus-outline-strength: 80%;
+		--ren-focus-outline-offset: calc(var(--ren-space-2xs) * -1);
+		--ren-focus-outline: var(--ren-border-width-thick) solid
 			color-mix(
 				in srgb,
-				var(--lumi-color-primary) var(--lumi-focus-outline-strength),
+				var(--ren-color-primary) var(--ren-focus-outline-strength),
 				transparent
 			);
 		/* Focus rings as box-shadow. Same accent-baking caveat as the outline above. */
-		--lumi-focus-ring: 0 0 0 var(--lumi-border-width-thick)
+		--ren-focus-ring: 0 0 0 var(--ren-border-width-thick)
 			color-mix(
 				in srgb,
-				var(--lumi-color-primary) var(--lumi-focus-outline-strength),
+				var(--ren-color-primary) var(--ren-focus-outline-strength),
 				transparent
 			);
 		/* Gap ring for solid fills, where a translucent halo would be invisible. */
-		--lumi-focus-ring-offset:
-			0 0 0 var(--lumi-border-width-thick)
-				color-mix(in srgb, var(--lumi-color-background) 88%, transparent),
-			0 0 0 calc(var(--lumi-border-width-thick) * 2) var(--lumi-color-primary);
-		--lumi-surface-radius: var(--lumi-radius-2xl);
+		--ren-focus-ring-offset:
+			0 0 0 var(--ren-border-width-thick)
+				color-mix(in srgb, var(--ren-color-background) 88%, transparent),
+			0 0 0 calc(var(--ren-border-width-thick) * 2) var(--ren-color-primary);
+		--ren-surface-radius: var(--ren-radius-2xl);
 
 		/* ========================================================================== */
 		/* ELEVATION ENGINE - soft depth, three stacked layers, no hard edge          */
@@ -338,126 +334,126 @@
 		   shared, which is what keeps elevation reading as one language. Offsets and
 		   blurs stay in px on purpose: shadow geometry is optical, not typographic,
 		   so it must not scale with the root font size. */
-		--lumi-elevation-key: var(--lumi-color-shadow-key);
-		--lumi-elevation-light: var(--lumi-color-white);
-		--lumi-elevation-rim-strength: 34%;
-		--lumi-elevation-contact-strength: 4%;
-		--lumi-elevation-ambient-strength: 14%;
+		--ren-elevation-key: var(--ren-color-shadow-key);
+		--ren-elevation-light: var(--ren-color-white);
+		--ren-elevation-rim-strength: 34%;
+		--ren-elevation-contact-strength: 4%;
+		--ren-elevation-ambient-strength: 14%;
 
-		--lumi-elevation-rim: inset 0 var(--lumi-border-width-thin) 0
+		--ren-elevation-rim: inset 0 var(--ren-border-width-thin) 0
 			color-mix(
 				in srgb,
-				var(--lumi-elevation-light) var(--lumi-elevation-rim-strength),
+				var(--ren-elevation-light) var(--ren-elevation-rim-strength),
 				transparent
 			);
 
-		--lumi-shadow-sm:
-			var(--lumi-elevation-rim),
+		--ren-shadow-sm:
+			var(--ren-elevation-rim),
 			0 1px 2px -1px
 				color-mix(
 					in srgb,
-					var(--lumi-elevation-key) var(--lumi-elevation-contact-strength),
+					var(--ren-elevation-key) var(--ren-elevation-contact-strength),
 					transparent
 				),
 			0 8px 20px -12px
 				color-mix(
 					in srgb,
-					var(--lumi-elevation-key) var(--lumi-elevation-ambient-strength),
+					var(--ren-elevation-key) var(--ren-elevation-ambient-strength),
 					transparent
 				);
 
-		--lumi-shadow-md:
-			var(--lumi-elevation-rim),
+		--ren-shadow-md:
+			var(--ren-elevation-rim),
 			0 2px 5px -2px
 				color-mix(
 					in srgb,
-					var(--lumi-elevation-key)
-						calc(var(--lumi-elevation-contact-strength) * 1.25),
+					var(--ren-elevation-key)
+						calc(var(--ren-elevation-contact-strength) * 1.25),
 					transparent
 				),
 			0 16px 36px -18px
 				color-mix(
 					in srgb,
-					var(--lumi-elevation-key)
-						calc(var(--lumi-elevation-ambient-strength) * 1.2),
+					var(--ren-elevation-key)
+						calc(var(--ren-elevation-ambient-strength) * 1.2),
 					transparent
 				);
 
-		--lumi-shadow-lg:
-			var(--lumi-elevation-rim),
+		--ren-shadow-lg:
+			var(--ren-elevation-rim),
 			0 4px 10px -4px
 				color-mix(
 					in srgb,
-					var(--lumi-elevation-key)
-						calc(var(--lumi-elevation-contact-strength) * 1.5),
+					var(--ren-elevation-key)
+						calc(var(--ren-elevation-contact-strength) * 1.5),
 					transparent
 				),
 			0 26px 52px -24px
 				color-mix(
 					in srgb,
-					var(--lumi-elevation-key)
-						calc(var(--lumi-elevation-ambient-strength) * 1.45),
+					var(--ren-elevation-key)
+						calc(var(--ren-elevation-ambient-strength) * 1.45),
 					transparent
 				);
 
-		--lumi-shadow-xl:
-			var(--lumi-elevation-rim),
+		--ren-shadow-xl:
+			var(--ren-elevation-rim),
 			0 8px 20px -8px
 				color-mix(
 					in srgb,
-					var(--lumi-elevation-key)
-						calc(var(--lumi-elevation-contact-strength) * 1.75),
+					var(--ren-elevation-key)
+						calc(var(--ren-elevation-contact-strength) * 1.75),
 					transparent
 				),
 			0 40px 72px -28px
 				color-mix(
 					in srgb,
-					var(--lumi-elevation-key)
-						calc(var(--lumi-elevation-ambient-strength) * 1.6),
+					var(--ren-elevation-key)
+						calc(var(--ren-elevation-ambient-strength) * 1.6),
 					transparent
 				);
 
 		/* Recessed counterpart: the rim moves to the bottom and the shade inward, so
 		   a control looks pressed into its surface instead of sitting on it. */
-		--lumi-shadow-inset:
-			inset 0 var(--lumi-border-width-base) 3px -1px
+		--ren-shadow-inset:
+			inset 0 var(--ren-border-width-base) 3px -1px
 				color-mix(
 					in srgb,
-					var(--lumi-elevation-key)
-						calc(var(--lumi-elevation-contact-strength) * 2),
+					var(--ren-elevation-key)
+						calc(var(--ren-elevation-contact-strength) * 2),
 					transparent
 				),
-			inset 0 calc(var(--lumi-border-width-thin) * -1) 0
+			inset 0 calc(var(--ren-border-width-thin) * -1) 0
 				color-mix(
 					in srgb,
-					var(--lumi-elevation-light)
-						calc(var(--lumi-elevation-rim-strength) * 0.6),
+					var(--ren-elevation-light)
+						calc(var(--ren-elevation-rim-strength) * 0.6),
 					transparent
 				);
 
 		/* ========================================================================== */
 		/* ICON SIZE SYSTEM                                                           */
 		/* ========================================================================== */
-		--lumi-icon-xs: var(--lumi-space-sm);
-		--lumi-icon-sm: var(--lumi-space-md);
-		--lumi-icon-md: 1.25rem;
-		--lumi-icon-lg: var(--lumi-space-lg);
-		--lumi-icon-xl: var(--lumi-space-xl);
-		--lumi-icon-2xl: var(--lumi-space-2xl);
-		--lumi-border-width-thin: 1px;
-		--lumi-border-width-base: 1.5px;
-		--lumi-border-width-thick: 2px;
+		--ren-icon-xs: var(--ren-space-sm);
+		--ren-icon-sm: var(--ren-space-md);
+		--ren-icon-md: 1.25rem;
+		--ren-icon-lg: var(--ren-space-lg);
+		--ren-icon-xl: var(--ren-space-xl);
+		--ren-icon-2xl: var(--ren-space-2xl);
+		--ren-border-width-thin: 1px;
+		--ren-border-width-base: 1.5px;
+		--ren-border-width-thick: 2px;
 
 		/* ========================================================================== */
 		/* OVERLAY                                                                    */
 		/* ========================================================================== */
-		--lumi-color-overlay: color-mix(
+		--ren-color-overlay: color-mix(
 			in oklch,
-			var(--lumi-color-text) 42%,
+			var(--ren-color-text) 42%,
 			transparent
 		);
-		--lumi-brand-logo-filter-dark: brightness(0) invert(1);
-		--lumi-brand-logo-opacity-dark: 0.94;
+		--ren-brand-logo-filter-dark: brightness(0) invert(1);
+		--ren-brand-logo-opacity-dark: 0.94;
 
 		/* ========================================================================== */
 		/* TRANSITION SYSTEM                                                          */
@@ -466,151 +462,149 @@
 		   to 0 under prefers-reduced-motion; a consumer can do the same to calm the
 		   whole UI. Durations stay unscaled so loading animations keep their cadence —
 		   core.css handles those separately. */
-		--lumi-motion-scale: 1;
-		--lumi-interactive-lift: calc(
-			var(--lumi-space-2xs) * -0.5 * var(--lumi-motion-scale)
+		--ren-motion-scale: 1;
+		--ren-interactive-lift: calc(
+			var(--ren-space-2xs) * -0.5 * var(--ren-motion-scale)
 		);
-		--lumi-interactive-press-scale: calc(1 - 0.02 * var(--lumi-motion-scale));
-		--lumi-interactive-hover-scale: calc(1 + 0.02 * var(--lumi-motion-scale));
-		--lumi-interactive-zoom-scale: calc(1 + 0.08 * var(--lumi-motion-scale));
+		--ren-interactive-press-scale: calc(1 - 0.02 * var(--ren-motion-scale));
+		--ren-interactive-hover-scale: calc(1 + 0.02 * var(--ren-motion-scale));
+		--ren-interactive-zoom-scale: calc(1 + 0.08 * var(--ren-motion-scale));
 		/* 1 while the nearest interactive surface is hovered or keyboard-focused.
 		   Nested tiles and glyphs react to their container, never to themselves. */
-		--lumi-surface-hover: 0;
-		--lumi-transition-colors:
-			color var(--lumi-duration-base) var(--lumi-easing-default),
-			background-color var(--lumi-duration-base) var(--lumi-easing-default),
-			border-color var(--lumi-duration-base) var(--lumi-easing-default);
-		--lumi-transition-opacity: opacity var(--lumi-duration-base)
-			var(--lumi-easing-default);
+		--ren-surface-hover: 0;
+		--ren-transition-colors:
+			color var(--ren-duration-base) var(--ren-easing-default),
+			background-color var(--ren-duration-base) var(--ren-easing-default),
+			border-color var(--ren-duration-base) var(--ren-easing-default);
+		--ren-transition-opacity: opacity var(--ren-duration-base)
+			var(--ren-easing-default);
 		/* Form control micro-interactions (color, fill, border, shadow). */
-		--lumi-transition-control:
-			color var(--lumi-duration-fast) var(--lumi-easing-default),
-			background-color var(--lumi-duration-fast) var(--lumi-easing-default),
-			border-color var(--lumi-duration-fast) var(--lumi-easing-default),
-			box-shadow var(--lumi-duration-fast) var(--lumi-easing-default);
+		--ren-transition-control:
+			color var(--ren-duration-fast) var(--ren-easing-default),
+			background-color var(--ren-duration-fast) var(--ren-easing-default),
+			border-color var(--ren-duration-fast) var(--ren-easing-default),
+			box-shadow var(--ren-duration-fast) var(--ren-easing-default);
 		/* Control micro-interactions plus the lift/press transform. Anything that
 		   moves on hover or press uses this — never a hand-rolled variant. */
-		--lumi-transition-interactive:
-			var(--lumi-transition-control),
-			transform var(--lumi-duration-fast) var(--lumi-easing-default);
-		--lumi-z-base: 1;
-		--lumi-z-fixed: 1040;
-		--lumi-z-sidebar: 1050;
-		--lumi-z-modal-backdrop: 2020;
-		--lumi-z-modal: 2030;
-		--lumi-z-dropdown: 2040;
-		--lumi-z-tooltip: 2050;
-		--lumi-z-toast: 2060;
-		--lumi-z-max: 999999;
-		--lumi-sidebar-width: 16.25rem;
-		--lumi-sidebar-width-collapsed: 5rem;
-		--lumi-sidebar-width-mobile: 20rem;
-		--lumi-sidebar-item-height: calc(
-			var(--lumi-space-xxl) + var(--lumi-space-2xs)
+		--ren-transition-interactive:
+			var(--ren-transition-control),
+			transform var(--ren-duration-fast) var(--ren-easing-default);
+		--ren-z-base: 1;
+		--ren-z-fixed: 1040;
+		--ren-z-sidebar: 1050;
+		--ren-z-modal-backdrop: 2020;
+		--ren-z-modal: 2030;
+		--ren-z-dropdown: 2040;
+		--ren-z-tooltip: 2050;
+		--ren-z-toast: 2060;
+		--ren-z-max: 999999;
+		--ren-sidebar-width: 16.25rem;
+		--ren-sidebar-width-collapsed: 5rem;
+		--ren-sidebar-width-mobile: 20rem;
+		--ren-sidebar-item-height: calc(
+			var(--ren-space-xxl) + var(--ren-space-2xs)
 		);
-		--lumi-sidebar-subitem-height: var(--lumi-space-xl);
-		--lumi-sidebar-subitem-indent: var(--lumi-space-lg);
-		--lumi-sidebar-subitem-icon-size: var(--lumi-icon-sm);
-		--lumi-sidebar-subitem-icon-opacity: 0.82;
-		--lumi-navbar-height: 4rem;
-		--lumi-safe-area-top: env(safe-area-inset-top, 0px);
-		--lumi-safe-area-right: env(safe-area-inset-right, 0px);
-		--lumi-safe-area-bottom: env(safe-area-inset-bottom, 0px);
-		--lumi-safe-area-left: env(safe-area-inset-left, 0px);
-		--lumi-layout-shell-padding: var(--lumi-space-md);
-		--lumi-layout-shell-padding-tablet: var(--lumi-space-sm);
-		--lumi-layout-shell-padding-mobile: var(--lumi-space-xs);
-		--lumi-layout-shell-gap: var(--lumi-space-md);
-		--lumi-layout-content-padding: var(--lumi-space-lg);
-		--lumi-layout-content-padding-tablet: var(--lumi-space-md);
-		--lumi-layout-content-padding-mobile: var(--lumi-space-sm);
-		--lumi-layout-content-padding-compact: var(--lumi-space-xs);
-		--lumi-layout-floating-radius: var(--lumi-radius-2xl);
-		--lumi-layout-floating-radius-tablet: var(--lumi-radius-xl);
-		--lumi-layout-floating-radius-mobile: var(--lumi-radius-lg);
-		--lumi-layout-sidebar-min-width: 15.5rem;
-		--lumi-grid-responsive-min: 17.5rem;
-		--lumi-grid-mobile-min: 12.5rem;
-		--lumi-sidebar-mobile-offset: var(--lumi-layout-shell-padding-tablet);
-		--lumi-sidebar-mobile-width: min(
-			var(--lumi-sidebar-width-mobile),
-			calc(100vw - (var(--lumi-sidebar-mobile-offset) * 2))
+		--ren-sidebar-subitem-height: var(--ren-space-xl);
+		--ren-sidebar-subitem-indent: var(--ren-space-lg);
+		--ren-sidebar-subitem-icon-size: var(--ren-icon-sm);
+		--ren-sidebar-subitem-icon-opacity: 0.82;
+		--ren-navbar-height: 4rem;
+		--ren-safe-area-top: env(safe-area-inset-top, 0px);
+		--ren-safe-area-right: env(safe-area-inset-right, 0px);
+		--ren-safe-area-bottom: env(safe-area-inset-bottom, 0px);
+		--ren-safe-area-left: env(safe-area-inset-left, 0px);
+		--ren-layout-shell-padding: var(--ren-space-md);
+		--ren-layout-shell-padding-tablet: var(--ren-space-sm);
+		--ren-layout-shell-padding-mobile: var(--ren-space-xs);
+		--ren-layout-shell-gap: var(--ren-space-md);
+		--ren-layout-content-padding: var(--ren-space-lg);
+		--ren-layout-content-padding-tablet: var(--ren-space-md);
+		--ren-layout-content-padding-mobile: var(--ren-space-sm);
+		--ren-layout-content-padding-compact: var(--ren-space-xs);
+		--ren-layout-floating-radius: var(--ren-radius-2xl);
+		--ren-layout-floating-radius-tablet: var(--ren-radius-xl);
+		--ren-layout-floating-radius-mobile: var(--ren-radius-lg);
+		--ren-layout-sidebar-min-width: 15.5rem;
+		--ren-grid-responsive-min: 17.5rem;
+		--ren-grid-mobile-min: 12.5rem;
+		--ren-sidebar-mobile-offset: var(--ren-layout-shell-padding-tablet);
+		--ren-sidebar-mobile-width: min(
+			var(--ren-sidebar-width-mobile),
+			calc(100vw - (var(--ren-sidebar-mobile-offset) * 2))
 		);
-		--lumi-sidebar-mobile-height: calc(
-			100dvh - (var(--lumi-sidebar-mobile-offset) * 2)
+		--ren-sidebar-mobile-height: calc(
+			100dvh - (var(--ren-sidebar-mobile-offset) * 2)
 		);
-		--lumi-sidebar-mobile-closed-shift: calc(
-			-100% - var(--lumi-sidebar-mobile-offset)
+		--ren-sidebar-mobile-closed-shift: calc(
+			-100% - var(--ren-sidebar-mobile-offset)
 		);
-		--lumi-toast-portal-max-width: 23.75rem;
-		--lumi-navbar-branch-max-width: min(10rem, 34vw);
-		--lumi-navbar-branch-text-max-width: 7rem;
-		--lumi-navbar-branch-max-width-mobile: min(12rem, 52vw);
-		--lumi-navbar-branch-text-max-width-mobile: min(8.5rem, 42vw);
-		--lumi-navbar-user-dropdown-max-width: 13.75rem;
-		--lumi-segmented-control-icon-only-padding: var(--lumi-space-xs);
-		--lumi-control-height-xs: calc(
-			var(--lumi-space-lg) + var(--lumi-space-2xs)
-		);
-		--lumi-control-height-sm: var(--lumi-space-xl);
-		--lumi-control-height-md: var(--lumi-space-xxl);
-		--lumi-control-height-lg: var(--lumi-space-3xl);
-		--lumi-control-height-xl: var(--lumi-space-4xl);
-		--lumi-min-width-sm: 9.5rem;
-		--lumi-min-width-md: 12.5rem;
-		--lumi-min-width-lg: 15.5rem;
-		--lumi-min-width-xl: 18rem;
-		--lumi-container-width-sm: 40rem;
-		--lumi-container-width-lg: 64rem;
-		--lumi-container-width-xl: 80rem;
-		--lumi-container-width-2xl: 96rem;
-		--lumi-centered-card-width-sm: 22.5rem;
-		--lumi-centered-card-width-md: 26.25rem;
-		--lumi-centered-card-width-lg: 32.5rem;
-		--lumi-grid-identity-split-min: 20rem;
-		--lumi-max-width-sm: 24rem;
-		--lumi-max-width-lg: 32rem;
-		--lumi-max-width-2xl: 42rem;
-		--lumi-max-width-3xl: 48rem;
-		--lumi-max-width-4xl: 56rem;
-		--lumi-prose-max-width: 58ch;
-		--lumi-dashboard-card-grid-min: 17.5rem;
-		--lumi-card-media-height: 12.5rem;
-		--lumi-card-media-hover-scale: 1.04;
-		--lumi-drive-file-grid-min-desktop: 10.5rem;
-		--lumi-drive-file-grid-min-tablet: 9.75rem;
-		--lumi-drive-file-grid-min-mobile: 8.5rem;
-		--lumi-drive-file-preview-ratio: 4 / 3;
-		--lumi-drive-file-icon-size: 2.25rem;
-		--lumi-drive-file-card-padding: var(--lumi-space-sm);
-		--lumi-drive-file-card-padding-mobile: var(--lumi-space-xs);
-		--lumi-drive-tag-dot-size: var(--lumi-space-xs);
-		--lumi-page-sidebar-drawer-width: var(--lumi-sidebar-width-mobile);
-		--lumi-drive-sidebar-nav-max-height: 20rem;
-		--lumi-drive-uploader-queue-max-height: 15rem;
-		--lumi-drive-preview-min-height: 17.5rem;
-		--lumi-drive-preview-min-height-mobile: 13.75rem;
-		--lumi-drive-preview-audio-max-width: 27.5rem;
-		--lumi-drive-preview-title-max-width: 20rem;
-		--lumi-scroll-well-max-height: min(34rem, 62dvh);
-		--lumi-scroll-well-bg: var(--lumi-color-surface-inset);
-		--lumi-page-sidebar-list-max-height: min(18rem, 42dvh);
-		--lumi-page-sidebar-list-bg: var(--lumi-scroll-well-bg);
+		--ren-toast-portal-max-width: 23.75rem;
+		--ren-navbar-branch-max-width: min(10rem, 34vw);
+		--ren-navbar-branch-text-max-width: 7rem;
+		--ren-navbar-branch-max-width-mobile: min(12rem, 52vw);
+		--ren-navbar-branch-text-max-width-mobile: min(8.5rem, 42vw);
+		--ren-navbar-user-dropdown-max-width: 13.75rem;
+		--ren-segmented-control-icon-only-padding: var(--ren-space-xs);
+		--ren-control-height-xs: calc(var(--ren-space-lg) + var(--ren-space-2xs));
+		--ren-control-height-sm: var(--ren-space-xl);
+		--ren-control-height-md: var(--ren-space-xxl);
+		--ren-control-height-lg: var(--ren-space-3xl);
+		--ren-control-height-xl: var(--ren-space-4xl);
+		--ren-min-width-sm: 9.5rem;
+		--ren-min-width-md: 12.5rem;
+		--ren-min-width-lg: 15.5rem;
+		--ren-min-width-xl: 18rem;
+		--ren-container-width-sm: 40rem;
+		--ren-container-width-lg: 64rem;
+		--ren-container-width-xl: 80rem;
+		--ren-container-width-2xl: 96rem;
+		--ren-centered-card-width-sm: 22.5rem;
+		--ren-centered-card-width-md: 26.25rem;
+		--ren-centered-card-width-lg: 32.5rem;
+		--ren-grid-identity-split-min: 20rem;
+		--ren-max-width-sm: 24rem;
+		--ren-max-width-lg: 32rem;
+		--ren-max-width-2xl: 42rem;
+		--ren-max-width-3xl: 48rem;
+		--ren-max-width-4xl: 56rem;
+		--ren-prose-max-width: 58ch;
+		--ren-dashboard-card-grid-min: 17.5rem;
+		--ren-card-media-height: 12.5rem;
+		--ren-card-media-hover-scale: 1.04;
+		--ren-drive-file-grid-min-desktop: 10.5rem;
+		--ren-drive-file-grid-min-tablet: 9.75rem;
+		--ren-drive-file-grid-min-mobile: 8.5rem;
+		--ren-drive-file-preview-ratio: 4 / 3;
+		--ren-drive-file-icon-size: 2.25rem;
+		--ren-drive-file-card-padding: var(--ren-space-sm);
+		--ren-drive-file-card-padding-mobile: var(--ren-space-xs);
+		--ren-drive-tag-dot-size: var(--ren-space-xs);
+		--ren-page-sidebar-drawer-width: var(--ren-sidebar-width-mobile);
+		--ren-drive-sidebar-nav-max-height: 20rem;
+		--ren-drive-uploader-queue-max-height: 15rem;
+		--ren-drive-preview-min-height: 17.5rem;
+		--ren-drive-preview-min-height-mobile: 13.75rem;
+		--ren-drive-preview-audio-max-width: 27.5rem;
+		--ren-drive-preview-title-max-width: 20rem;
+		--ren-scroll-well-max-height: min(34rem, 62dvh);
+		--ren-scroll-well-bg: var(--ren-color-surface-inset);
+		--ren-page-sidebar-list-max-height: min(18rem, 42dvh);
+		--ren-page-sidebar-list-bg: var(--ren-scroll-well-bg);
 
-		--lumi-duration-fast: 150ms;
-		--lumi-duration-base: 220ms;
-		--lumi-duration-slow: 300ms;
-		--lumi-duration-slower: 500ms;
-		/* Looping cadences. Independent of --lumi-motion-scale so a spinner still
+		--ren-duration-fast: 150ms;
+		--ren-duration-base: 220ms;
+		--ren-duration-slow: 300ms;
+		--ren-duration-slower: 500ms;
+		/* Looping cadences. Independent of --ren-motion-scale so a spinner still
 		   reads as a spinner; base.css stops them under prefers-reduced-motion. */
-		--lumi-duration-spin: calc(var(--lumi-duration-slower) * 2);
-		--lumi-duration-pulse: calc(var(--lumi-duration-slower) * 4);
-		--lumi-duration-shimmer: calc(var(--lumi-duration-slower) * 3);
+		--ren-duration-spin: calc(var(--ren-duration-slower) * 2);
+		--ren-duration-pulse: calc(var(--ren-duration-slower) * 4);
+		--ren-duration-shimmer: calc(var(--ren-duration-slower) * 3);
 
-		--lumi-easing-default: cubic-bezier(0.22, 1, 0.36, 1);
-		--lumi-easing-out: cubic-bezier(0, 0, 0.2, 1);
-		--lumi-easing-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-		--lumi-easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+		--ren-easing-default: cubic-bezier(0.22, 1, 0.36, 1);
+		--ren-easing-out: cubic-bezier(0, 0, 0.2, 1);
+		--ren-easing-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+		--ren-easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 	}
 
 	/* ========================================================================== */
@@ -620,148 +614,148 @@
 		color-scheme: dark;
 
 		/* Dark surfaces retain their edge definition; light relies on fill. */
-		--lumi-color-border: color-mix(
+		--ren-color-border: color-mix(
 			in srgb,
-			var(--lumi-color-text) 10%,
+			var(--ren-color-text) 10%,
 			transparent
 		);
-		--lumi-color-border-strong: color-mix(
+		--ren-color-border-strong: color-mix(
 			in srgb,
-			var(--lumi-color-text) 16%,
+			var(--ren-color-text) 16%,
 			transparent
 		);
-		--lumi-control-shadow: var(--lumi-shadow-inset);
+		--ren-control-shadow: var(--ren-shadow-inset);
 
 		/* --- SEEDS ---------------------------------------------------------------- */
-		--lumi-color-neutral: oklch(from var(--lumi-brand-primary) 96% 0.008 h);
-		--lumi-color-canvas: oklch(from var(--lumi-brand-primary) 15.5% 0.016 h);
+		--ren-color-neutral: oklch(from var(--ren-brand-primary) 96% 0.008 h);
+		--ren-color-canvas: oklch(from var(--ren-brand-primary) 15.5% 0.016 h);
 		/* Dark elevation sits on black for depth without muddy shadows. */
-		--lumi-color-shadow-key: var(--lumi-color-black);
-		/* Accents brighten by --lumi-dark-accent-mix; override a light seed and dark tracks it. */
-		--lumi-color-primary: color-mix(
+		--ren-color-shadow-key: var(--ren-color-black);
+		/* Accents brighten by --ren-dark-accent-mix; override a light seed and dark tracks it. */
+		--ren-color-primary: color-mix(
 			in oklch,
-			var(--lumi-brand-primary) var(--lumi-dark-accent-mix),
-			var(--lumi-color-white)
+			var(--ren-brand-primary) var(--ren-dark-accent-mix),
+			var(--ren-color-white)
 		);
-		--lumi-color-secondary: color-mix(
+		--ren-color-secondary: color-mix(
 			in oklch,
-			var(--lumi-brand-secondary) var(--lumi-dark-accent-mix),
-			var(--lumi-color-white)
+			var(--ren-brand-secondary) var(--ren-dark-accent-mix),
+			var(--ren-color-white)
 		);
-		--lumi-color-success: color-mix(
+		--ren-color-success: color-mix(
 			in oklch,
-			var(--lumi-status-success) var(--lumi-dark-accent-mix),
-			var(--lumi-color-white)
+			var(--ren-status-success) var(--ren-dark-accent-mix),
+			var(--ren-color-white)
 		);
-		--lumi-color-warning: color-mix(
+		--ren-color-warning: color-mix(
 			in oklch,
-			var(--lumi-status-warning) var(--lumi-dark-accent-mix),
-			var(--lumi-color-white)
+			var(--ren-status-warning) var(--ren-dark-accent-mix),
+			var(--ren-color-white)
 		);
-		--lumi-color-danger: color-mix(
+		--ren-color-danger: color-mix(
 			in oklch,
-			var(--lumi-status-danger) var(--lumi-dark-accent-mix),
-			var(--lumi-color-white)
+			var(--ren-status-danger) var(--ren-dark-accent-mix),
+			var(--ren-color-white)
 		);
-		--lumi-color-info: color-mix(
+		--ren-color-info: color-mix(
 			in oklch,
-			var(--lumi-status-info) var(--lumi-dark-accent-mix),
-			var(--lumi-color-white)
+			var(--ren-status-info) var(--ren-dark-accent-mix),
+			var(--ren-color-white)
 		);
 
 		/* --- TONE PLANES ---------------------------------------------------------- */
 		/* Same roles, mirrored: deep pigment containers, luminous ink. */
-		--lumi-tone-soft-lc: 29% 0.06;
-		--lumi-tone-strong-lc: 35% 0.085;
-		--lumi-tone-ink-lc: 87% 0.085;
+		--ren-tone-soft-lc: 29% 0.06;
+		--ren-tone-strong-lc: 35% 0.085;
+		--ren-tone-ink-lc: 87% 0.085;
 
 		/* --- DERIVED TEXT ------------------------------------------------------- */
-		--lumi-color-placeholder: color-mix(
+		--ren-color-placeholder: color-mix(
 			in srgb,
-			var(--lumi-color-text-muted) 70%,
-			var(--lumi-color-surface-raised)
+			var(--ren-color-text-muted) 70%,
+			var(--ren-color-surface-raised)
 		);
 
 		/* --- DERIVED BACKGROUND / LIFT ------------------------------------------- */
 		/* Elevation is neutral; brand color belongs to interaction, not every surface. */
-		--lumi-lift: var(--lumi-color-white);
-		--lumi-color-background-secondary: color-mix(
+		--ren-lift: var(--ren-color-white);
+		--ren-color-background-secondary: color-mix(
 			in srgb,
-			var(--lumi-color-background) 97.5%,
-			var(--lumi-lift)
+			var(--ren-color-background) 97.5%,
+			var(--ren-lift)
 		);
-		--lumi-color-background-hover: color-mix(
+		--ren-color-background-hover: color-mix(
 			in srgb,
-			var(--lumi-color-background) 91%,
-			var(--lumi-lift)
+			var(--ren-color-background) 91%,
+			var(--ren-lift)
 		);
 
 		/* --- DERIVED SURFACE LADDER ---------------------------------------------- */
-		--lumi-color-surface-inset: color-mix(
+		--ren-color-surface-inset: color-mix(
 			in srgb,
-			var(--lumi-color-background) 98%,
-			var(--lumi-lift)
+			var(--ren-color-background) 98%,
+			var(--ren-lift)
 		);
-		--lumi-color-surface: color-mix(
+		--ren-color-surface: color-mix(
 			in srgb,
-			var(--lumi-color-background) 94%,
-			var(--lumi-lift)
+			var(--ren-color-background) 94%,
+			var(--ren-lift)
 		);
-		--lumi-color-surface-card-hover: color-mix(
+		--ren-color-surface-card-hover: color-mix(
 			in srgb,
-			var(--lumi-color-background) 92%,
-			var(--lumi-lift)
+			var(--ren-color-background) 92%,
+			var(--ren-lift)
 		);
-		--lumi-color-surface-raised: color-mix(
+		--ren-color-surface-raised: color-mix(
 			in srgb,
-			var(--lumi-color-background) 90%,
-			var(--lumi-lift)
+			var(--ren-color-background) 90%,
+			var(--ren-lift)
 		);
-		--lumi-color-surface-elevated: color-mix(
+		--ren-color-surface-elevated: color-mix(
 			in srgb,
-			var(--lumi-color-background) 87%,
-			var(--lumi-lift)
+			var(--ren-color-background) 87%,
+			var(--ren-lift)
 		);
-		--lumi-color-surface-overlay: var(--lumi-color-surface-raised);
+		--ren-color-surface-overlay: var(--ren-color-surface-raised);
 
 		/* --- DERIVED BORDERS / RINGS --------------------------------------------- */
-		--lumi-color-border-light: color-mix(
+		--ren-color-border-light: color-mix(
 			in srgb,
-			var(--lumi-color-border) 56%,
+			var(--ren-color-border) 56%,
 			transparent
 		);
-		--lumi-color-border-interactive: color-mix(
+		--ren-color-border-interactive: color-mix(
 			in srgb,
-			var(--lumi-color-primary) 36%,
-			var(--lumi-color-border)
+			var(--ren-color-primary) 36%,
+			var(--ren-color-border)
 		);
 
 		/* --- DERIVED CONTROL SURFACES -------------------------------------------- */
-		--lumi-color-control-fill: color-mix(
+		--ren-color-control-fill: color-mix(
 			in srgb,
-			var(--lumi-color-background) 96.5%,
-			var(--lumi-lift)
+			var(--ren-color-background) 96.5%,
+			var(--ren-lift)
 		);
-		--lumi-color-control-hover-fill: color-mix(
+		--ren-color-control-hover-fill: color-mix(
 			in srgb,
-			var(--lumi-color-background) 92.5%,
-			var(--lumi-lift)
+			var(--ren-color-background) 92.5%,
+			var(--ren-lift)
 		);
-		--lumi-control-focus-ring-strength: 28%;
+		--ren-control-focus-ring-strength: 28%;
 
 		/* --- DERIVED STATE BACKGROUNDS / OVERLAY --------------------------------- */
-		--lumi-state-hover-strength: 8%;
-		--lumi-color-overlay: color-mix(
+		--ren-state-hover-strength: 8%;
+		--ren-color-overlay: color-mix(
 			in oklch,
-			var(--lumi-color-background) 82%,
+			var(--ren-color-background) 82%,
 			transparent
 		);
 
 		/* Elevation: geometry is shared with light; only the three dials move. The rim
 		   drops to a faint sheen because there is no white to catch, and the key is
 		   pure black so depth reads without milky haze. */
-		--lumi-elevation-rim-strength: 9%;
-		--lumi-elevation-contact-strength: 18%;
-		--lumi-elevation-ambient-strength: 26%;
+		--ren-elevation-rim-strength: 9%;
+		--ren-elevation-contact-strength: 18%;
+		--ren-elevation-ambient-strength: 26%;
 	}
 }

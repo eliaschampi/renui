@@ -6,7 +6,7 @@
 
 <script lang="ts">
 	import '../../styles/switcher.css';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import { rovingIndex } from '../../utils/roving';
 	import Icon from '../Icon/Icon.svelte';
 	import type { TabsProps } from './types';
@@ -22,10 +22,10 @@
 		onchange
 	}: TabsProps = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 	const uid = $props.id();
-	const tabId = (index: number) => `lumi-tabs-${uid}-tab-${index}`;
-	const panelId = (index: number) => `lumi-tabs-${uid}-panel-${index}`;
+	const tabId = (index: number) => `ren-tabs-${uid}-tab-${index}`;
+	const panelId = (index: number) => `ren-tabs-${uid}-panel-${index}`;
 
 	// An unknown or disabled `value` falls back to the first enabled tab, so SSR
 	// renders a selected tab and the tablist always keeps one tab stop.
@@ -62,17 +62,17 @@
 
 <div
 	class={[
-		'lumi-tabs',
-		`lumi-tabs--${orientation}`,
-		`lumi-tone lumi-tone--${color}`,
+		'ren-tabs',
+		`ren-tabs--${orientation}`,
+		`ren-tone ren-tone--${color}`,
 		className
 	]}
 >
 	<div
 		class={[
-			'lumi-switcher',
-			'lumi-tabs__nav',
-			orientation === 'vertical' && 'lumi-switcher--vertical'
+			'ren-switcher',
+			'ren-tabs__nav',
+			orientation === 'vertical' && 'ren-switcher--vertical'
 		]}
 		role="tablist"
 		aria-orientation={orientation}
@@ -84,10 +84,10 @@
 				type="button"
 				role="tab"
 				class={[
-					'lumi-switcher__option',
-					'lumi-tabs__tab',
-					active === tab.value && 'lumi-switcher__option--active',
-					tab.disabled && 'lumi-switcher__option--disabled'
+					'ren-switcher__option',
+					'ren-tabs__tab',
+					active === tab.value && 'ren-switcher__option--active',
+					tab.disabled && 'ren-switcher__option--disabled'
 				]}
 				aria-controls={managedPanels || index === activeIndex
 					? panelId(index)
@@ -110,7 +110,7 @@
 
 	<div
 		id={!managedPanels && activeIndex >= 0 ? panelId(activeIndex) : undefined}
-		class="lumi-tabs__content"
+		class="ren-tabs__content"
 		role={!managedPanels ? 'tabpanel' : undefined}
 		aria-labelledby={!managedPanels && activeIndex >= 0
 			? tabId(activeIndex)
@@ -134,57 +134,57 @@
 </div>
 
 <style>
-	/* Nav shell, tabs and active pill come from the shared .lumi-switcher recipe. */
-	.lumi-tabs {
+	/* Nav shell, tabs and active pill come from the shared .ren-switcher recipe. */
+	.ren-tabs {
 		display: flex;
 		flex-direction: column;
 		width: 100%;
 	}
 
-	.lumi-tabs--horizontal .lumi-tabs__nav {
+	.ren-tabs--horizontal .ren-tabs__nav {
 		display: flex;
 		width: 100%;
 		min-width: 0;
 	}
 
-	.lumi-tabs--horizontal .lumi-tabs__tab {
+	.ren-tabs--horizontal .ren-tabs__tab {
 		flex: 1 1 0;
 	}
 
-	.lumi-tabs--vertical {
+	.ren-tabs--vertical {
 		flex-direction: row;
-		gap: var(--lumi-space-md);
+		gap: var(--ren-space-md);
 	}
 
-	.lumi-tabs--vertical .lumi-tabs__nav {
-		min-width: calc(var(--lumi-space-5xl) * 2 + var(--lumi-space-md));
+	.ren-tabs--vertical .ren-tabs__nav {
+		min-width: calc(var(--ren-space-5xl) * 2 + var(--ren-space-md));
 	}
 
-	.lumi-tabs__content {
+	.ren-tabs__content {
 		flex: 1;
-		padding-top: var(--lumi-space-md);
+		padding-top: var(--ren-space-md);
 	}
 
-	.lumi-tabs--vertical .lumi-tabs__content {
-		padding-top: var(--lumi-space-2xs);
+	.ren-tabs--vertical .ren-tabs__content {
+		padding-top: var(--ren-space-2xs);
 	}
 
 	@media (max-width: 48rem) {
-		.lumi-tabs--vertical {
+		.ren-tabs--vertical {
 			flex-direction: column;
 		}
 
-		.lumi-tabs--vertical .lumi-tabs__nav {
+		.ren-tabs--vertical .ren-tabs__nav {
 			min-width: auto;
-			margin-bottom: var(--lumi-space-sm);
+			margin-bottom: var(--ren-space-sm);
 		}
 
-		.lumi-tabs--vertical .lumi-tabs__content {
-			padding-top: var(--lumi-space-sm);
+		.ren-tabs--vertical .ren-tabs__content {
+			padding-top: var(--ren-space-sm);
 		}
 
-		.lumi-tabs__tab {
-			padding: var(--lumi-space-xs) var(--lumi-space-sm);
+		.ren-tabs__tab {
+			padding: var(--ren-space-xs) var(--ren-space-sm);
 		}
 	}
 </style>

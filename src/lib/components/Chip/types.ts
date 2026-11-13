@@ -1,9 +1,9 @@
 import type { Snippet } from 'svelte';
 import type { IconSource } from '../../utils/icons';
-import type { LumiColor, LumiCompactSize } from '../config';
+import type { RenColor, RenCompactSize } from '../config';
 
-export type ChipColor = LumiColor;
-export type ChipSize = LumiCompactSize;
+export type ChipColor = RenColor;
+export type ChipSize = RenCompactSize;
 
 export interface ChipProps {
 	/**

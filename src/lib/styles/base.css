@@ -1,18 +1,18 @@
 /* ========================================================================== */
-/* Lumi UI Base                                                               */
+/* RenUI Base                                                               */
 /* Reset, the tone engine, focus and control contracts, surfaces and the     */
 /* recipes every page needs                                                   */
 /* (icon, spinner, sr-only) and scrollbars. Required by every component.      */
 /* Recipes a few components share ship with them: styles/switcher*.css,       */
 /* styles/skeleton.css, styles/floating.css, Field/field.css.                 */
 /* ========================================================================== */
-/* Cascade layers, weakest first; every Lumi stylesheet repeats this order so */
-/* import order never changes it. lumi.components holds shared stylesheets    */
+/* Cascade layers, weakest first; every RenUI stylesheet repeats this order so */
+/* import order never changes it. ren.components holds shared stylesheets    */
 /* that components import (e.g. Field/field.css). Component-scoped <style>    */
 /* blocks stay unlayered, as does any app CSS, so both win over all layers.   */
-@layer lumi.tokens, lumi.base, lumi.components, lumi.layout, lumi.patterns, lumi.utilities;
+@layer ren.tokens, ren.base, ren.components, ren.layout, ren.patterns, ren.utilities;
 
-@layer lumi.base {
+@layer ren.base {
 	/* ========================================================================== */
 	/* GLOBAL RESET */
 	/* ========================================================================== */
@@ -25,9 +25,9 @@
 	}
 
 	html {
-		font-family: var(--lumi-font-family-sans);
-		font-size: var(--lumi-font-size-sm);
-		line-height: var(--lumi-line-height-normal);
+		font-family: var(--ren-font-family-sans);
+		font-size: var(--ren-font-size-sm);
+		line-height: var(--ren-line-height-normal);
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		scroll-behavior: smooth;
@@ -35,14 +35,14 @@
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		/* One global guard instead of a block per component. --lumi-motion-scale
+		/* One global guard instead of a block per component. --ren-motion-scale
 		   flattens every lift/press/zoom magnitude at the token level; the resets
 		   below collapse durations and stop looping animations. Durations land on a
 		   non-zero value so transitionend/animationend listeners still fire.
 		   Layered !important outranks every unlayered rule, even !important ones:
 		   motion that is essential must be conveyed without animation. */
 		:root {
-			--lumi-motion-scale: 0;
+			--ren-motion-scale: 0;
 		}
 
 		html {
@@ -64,20 +64,20 @@
 	@media (hover: none) {
 		/* Touch has no hover, so a lift would stick after a tap; presses still scale. */
 		:root {
-			--lumi-interactive-lift: 0px;
+			--ren-interactive-lift: 0px;
 		}
 	}
 
 	body {
 		min-height: 100dvh;
-		color: var(--lumi-color-text);
-		background: var(--lumi-color-background);
+		color: var(--ren-color-text);
+		background: var(--ren-color-background);
 		overflow-x: hidden;
 	}
 
 	::selection {
-		background: color-mix(in srgb, var(--lumi-color-primary) 28%, transparent);
-		color: var(--lumi-color-text);
+		background: color-mix(in srgb, var(--ren-color-primary) 28%, transparent);
+		color: var(--ren-color-text);
 	}
 
 	/* ========================================================================== */
@@ -88,141 +88,141 @@
 	   that draws for a hidden input: one selector, no list of components to keep
 	   in sync, and only the focused element pays for it. */
 	:where(:focus-visible, :focus-visible + *) {
-		--lumi-focus-outline: var(--lumi-border-width-thick) solid
+		--ren-focus-outline: var(--ren-border-width-thick) solid
 			color-mix(
 				in srgb,
-				var(--lumi-control-accent, var(--lumi-color-primary))
-					var(--lumi-focus-outline-strength),
+				var(--ren-control-accent, var(--ren-color-primary))
+					var(--ren-focus-outline-strength),
 				transparent
 			);
-		--lumi-focus-ring: 0 0 0 var(--lumi-border-width-thick)
+		--ren-focus-ring: 0 0 0 var(--ren-border-width-thick)
 			color-mix(
 				in srgb,
-				var(--lumi-control-accent, var(--lumi-color-primary))
-					var(--lumi-focus-outline-strength),
+				var(--ren-control-accent, var(--ren-color-primary))
+					var(--ren-focus-outline-strength),
 				transparent
 			);
-		--lumi-focus-ring-offset:
-			0 0 0 var(--lumi-border-width-thick)
-				color-mix(in srgb, var(--lumi-color-background) 88%, transparent),
-			0 0 0 calc(var(--lumi-border-width-thick) * 2)
-				var(--lumi-control-accent, var(--lumi-color-primary));
-		--lumi-control-focus-shadow:
-			var(--lumi-focus-ring), var(--lumi-control-shadow);
+		--ren-focus-ring-offset:
+			0 0 0 var(--ren-border-width-thick)
+				color-mix(in srgb, var(--ren-color-background) 88%, transparent),
+			0 0 0 calc(var(--ren-border-width-thick) * 2)
+				var(--ren-control-accent, var(--ren-color-primary));
+		--ren-control-focus-shadow:
+			var(--ren-focus-ring), var(--ren-control-shadow);
 	}
 
-	/* Tone engine — one accent in, five roles out. .lumi-tone anchors the accent
+	/* Tone engine — one accent in, five roles out. .ren-tone anchors the accent
 	   trio (primary unless a color class or an inline accent says otherwise) and
 	   derives the rest for itself and its descendants: soft, strong and ink keep
 	   only the accent hue, on the theme planes; the beam shades the solid toward
 	   dusk at its tail and toward the sun at its head. An accent change without
-	   .lumi-tone keeps the roles it inherited. */
-	:where(.lumi-tone) {
-		--lumi-control-accent: var(--lumi-color-primary);
-		--lumi-control-solid: var(--lumi-color-primary-solid);
-		--lumi-control-foreground: var(--lumi-color-primary-foreground);
-		--lumi-tone-soft: oklch(
-			from var(--lumi-control-accent) var(--lumi-tone-soft-lc) h
+	   .ren-tone keeps the roles it inherited. */
+	:where(.ren-tone) {
+		--ren-control-accent: var(--ren-color-primary);
+		--ren-control-solid: var(--ren-color-primary-solid);
+		--ren-control-foreground: var(--ren-color-primary-foreground);
+		--ren-tone-soft: oklch(
+			from var(--ren-control-accent) var(--ren-tone-soft-lc) h
 		);
-		--lumi-tone-strong: oklch(
-			from var(--lumi-control-accent) var(--lumi-tone-strong-lc) h
+		--ren-tone-strong: oklch(
+			from var(--ren-control-accent) var(--ren-tone-strong-lc) h
 		);
-		--lumi-tone-ink: oklch(
-			from var(--lumi-control-accent) var(--lumi-tone-ink-lc) h
+		--ren-tone-ink: oklch(
+			from var(--ren-control-accent) var(--ren-tone-ink-lc) h
 		);
-		--lumi-tone-beam: linear-gradient(
-			var(--lumi-beam-angle, 90deg),
-			color-mix(in oklch, var(--lumi-control-solid), var(--lumi-dusk) 22%),
-			var(--lumi-control-solid) 55%,
+		--ren-tone-beam: linear-gradient(
+			var(--ren-beam-angle, 90deg),
+			color-mix(in oklch, var(--ren-control-solid), var(--ren-dusk) 22%),
+			var(--ren-control-solid) 55%,
 			color-mix(
 				in oklch,
-				var(--lumi-control-solid),
-				var(--lumi-sun) var(--lumi-beam-sun, 20%)
+				var(--ren-control-solid),
+				var(--ren-sun) var(--ren-beam-sun, 20%)
 			)
 		);
 	}
 
-	:where(.lumi-tone--secondary) {
-		--lumi-control-accent: var(--lumi-color-secondary);
-		--lumi-control-solid: var(--lumi-color-secondary-solid);
-		--lumi-control-foreground: var(--lumi-color-secondary-foreground);
+	:where(.ren-tone--secondary) {
+		--ren-control-accent: var(--ren-color-secondary);
+		--ren-control-solid: var(--ren-color-secondary-solid);
+		--ren-control-foreground: var(--ren-color-secondary-foreground);
 	}
 
-	:where(.lumi-tone--success) {
-		--lumi-control-accent: var(--lumi-color-success);
-		--lumi-control-solid: var(--lumi-color-success-solid);
-		--lumi-control-foreground: var(--lumi-color-success-foreground);
+	:where(.ren-tone--success) {
+		--ren-control-accent: var(--ren-color-success);
+		--ren-control-solid: var(--ren-color-success-solid);
+		--ren-control-foreground: var(--ren-color-success-foreground);
 	}
 
-	:where(.lumi-tone--warning) {
-		--lumi-control-accent: var(--lumi-color-warning);
-		--lumi-control-solid: var(--lumi-color-warning-solid);
-		--lumi-control-foreground: var(--lumi-color-warning-foreground);
+	:where(.ren-tone--warning) {
+		--ren-control-accent: var(--ren-color-warning);
+		--ren-control-solid: var(--ren-color-warning-solid);
+		--ren-control-foreground: var(--ren-color-warning-foreground);
 	}
 
-	:where(.lumi-tone--danger) {
-		--lumi-control-accent: var(--lumi-color-danger);
-		--lumi-control-solid: var(--lumi-color-danger-solid);
-		--lumi-control-foreground: var(--lumi-color-danger-foreground);
+	:where(.ren-tone--danger) {
+		--ren-control-accent: var(--ren-color-danger);
+		--ren-control-solid: var(--ren-color-danger-solid);
+		--ren-control-foreground: var(--ren-color-danger-foreground);
 	}
 
-	:where(.lumi-tone--info) {
-		--lumi-control-accent: var(--lumi-color-info);
-		--lumi-control-solid: var(--lumi-color-info-solid);
-		--lumi-control-foreground: var(--lumi-color-info-foreground);
+	:where(.ren-tone--info) {
+		--ren-control-accent: var(--ren-color-info);
+		--ren-control-solid: var(--ren-color-info-solid);
+		--ren-control-foreground: var(--ren-color-info-foreground);
 	}
 
 	/* Binary peers: a tinted fill and an accent border while hovered or active. */
-	:where(.lumi-checkbox, .lumi-radio, .lumi-switch) {
-		--lumi-control-active-fill: color-mix(
+	:where(.ren-checkbox, .ren-radio, .ren-switch) {
+		--ren-control-active-fill: color-mix(
 			in srgb,
-			var(--lumi-control-accent, var(--lumi-color-primary))
-				var(--lumi-state-hover-strength),
-			var(--lumi-color-control-fill)
+			var(--ren-control-accent, var(--ren-color-primary))
+				var(--ren-state-hover-strength),
+			var(--ren-color-control-fill)
 		);
-		--lumi-control-active-border: color-mix(
+		--ren-control-active-border: color-mix(
 			in srgb,
-			var(--lumi-control-accent, var(--lumi-color-primary)) 55%,
+			var(--ren-control-accent, var(--ren-color-primary)) 55%,
 			transparent
 		);
-		--lumi-control-active-shadow: var(--lumi-shadow-sm);
+		--ren-control-active-shadow: var(--ren-shadow-sm);
 	}
 
 	/* A link in the label stays usable while the control is disabled. */
-	:where(.lumi-checkbox, .lumi-radio, .lumi-switch) a {
+	:where(.ren-checkbox, .ren-radio, .ren-switch) a {
 		pointer-events: auto;
 	}
 
 	/* Shared autofill override — UA yellow only yields to a large inset shadow. */
-	:where(.lumi-autofill):autofill,
-	:where(.lumi-autofill):-webkit-autofill {
-		-webkit-text-fill-color: var(--lumi-color-text);
-		caret-color: var(--lumi-color-text);
+	:where(.ren-autofill):autofill,
+	:where(.ren-autofill):-webkit-autofill {
+		-webkit-text-fill-color: var(--ren-color-text);
+		caret-color: var(--ren-color-text);
 		box-shadow: inset 0 0 0 100vmax
-			var(--lumi-control-autofill-bg, var(--lumi-color-control-fill));
-		transition: background-color calc(var(--lumi-duration-slower) * 20)
-			var(--lumi-easing-default);
+			var(--ren-control-autofill-bg, var(--ren-color-control-fill));
+		transition: background-color calc(var(--ren-duration-slower) * 20)
+			var(--ren-easing-default);
 	}
 
 	/* One opaque shell for every raised surface: depth is elevation, not blur. */
-	:where(.lumi-surface, .lumi-card, .lumi-navbar, .lumi-sidebar, .lumi-dialog) {
-		background: var(--lumi-surface-bg, var(--lumi-color-surface-raised));
+	:where(.ren-surface, .ren-card, .ren-navbar, .ren-sidebar, .ren-dialog) {
+		background: var(--ren-surface-bg, var(--ren-color-surface-raised));
 		border: var(
-			--lumi-surface-border,
-			var(--lumi-border-width-thin) solid var(--lumi-color-border)
+			--ren-surface-border,
+			var(--ren-border-width-thin) solid var(--ren-color-border)
 		);
-		border-radius: var(--lumi-surface-radius-local, var(--lumi-surface-radius));
-		box-shadow: var(--lumi-surface-shadow, var(--lumi-shadow-md));
+		border-radius: var(--ren-surface-radius-local, var(--ren-surface-radius));
+		box-shadow: var(--ren-surface-shadow, var(--ren-shadow-md));
 	}
 
-	/* Frosting is opt-in per card (--lumi-surface-blur-filter). */
-	:where(.lumi-card) {
-		-webkit-backdrop-filter: var(--lumi-surface-blur-filter, none);
-		backdrop-filter: var(--lumi-surface-blur-filter, none);
+	/* Frosting is opt-in per card (--ren-surface-blur-filter). */
+	:where(.ren-card) {
+		-webkit-backdrop-filter: var(--ren-surface-blur-filter, none);
+		backdrop-filter: var(--ren-surface-blur-filter, none);
 	}
 
 	/* Ambient card: a wash of its tone, lit from the top corner. */
-	.lumi-card--ambient::after {
+	.ren-card--ambient::after {
 		content: '';
 		position: absolute;
 		inset: 0;
@@ -230,7 +230,7 @@
 		pointer-events: none;
 		background: linear-gradient(
 			145deg,
-			var(--lumi-color-primary-bg),
+			var(--ren-color-primary-bg),
 			transparent 58%
 		);
 		z-index: 0;
@@ -240,33 +240,33 @@
 	/* SCROLLBARS */
 	/* ========================================================================== */
 	:where(
-		.lumi-scrollbar,
-		.lumi-dashboard-layout__content,
-		.lumi-table__wrapper,
-		.lumi-list
+		.ren-scrollbar,
+		.ren-dashboard-layout__content,
+		.ren-table__wrapper,
+		.ren-list
 	) {
 		scrollbar-width: thin;
-		scrollbar-color: var(--lumi-color-border-strong) transparent;
+		scrollbar-color: var(--ren-color-border-strong) transparent;
 	}
 
 	/* ========================================================================== */
 	/* SHARED RECIPES — one global class per visual role                         */
 	/* ========================================================================== */
-	/* Icon (Icon component and direct Lucide imports that pass class="lumi-icon"). */
-	.lumi-icon {
+	/* Icon (Icon component and direct Lucide imports that pass class="ren-icon"). */
+	.ren-icon {
 		display: inline-block;
-		width: var(--lumi-icon-size, var(--lumi-icon-md));
-		height: var(--lumi-icon-size, var(--lumi-icon-md));
+		width: var(--ren-icon-size, var(--ren-icon-md));
+		height: var(--ren-icon-size, var(--ren-icon-md));
 		flex-shrink: 0;
 		vertical-align: middle;
-		color: var(--lumi-icon-color, inherit);
-		transition: color var(--lumi-duration-fast) var(--lumi-easing-default);
+		color: var(--ren-icon-color, inherit);
+		transition: color var(--ren-duration-fast) var(--ren-easing-default);
 		user-select: none;
 	}
 
 	/* Visually hidden, still announced. !important: layered rules lose to any
 	   unlayered component or app rule, and hidden text must stay hidden. */
-	.lumi-sr-only {
+	.ren-sr-only {
 		position: absolute !important;
 		width: 1px !important;
 		height: 1px !important;
@@ -279,17 +279,17 @@
 	}
 
 	/* Spinner (Button, Select, Table, Loading): currentColor 18% track + solid
-	   arc. Size with --lumi-spinner-size; color follows `color`. */
-	.lumi-spinner {
+	   arc. Size with --ren-spinner-size; color follows `color`. */
+	.ren-spinner {
 		display: inline-block;
 		flex-shrink: 0;
-		inline-size: var(--lumi-spinner-size, 1em);
-		block-size: var(--lumi-spinner-size, 1em);
-		border: var(--lumi-border-width-thick) solid
+		inline-size: var(--ren-spinner-size, 1em);
+		block-size: var(--ren-spinner-size, 1em);
+		border: var(--ren-border-width-thick) solid
 			color-mix(in srgb, currentColor 18%, transparent);
 		border-top-color: currentColor;
-		border-radius: var(--lumi-radius-full);
-		animation: lumi-spin var(--lumi-duration-spin) linear infinite;
+		border-radius: var(--ren-radius-full);
+		animation: ren-spin var(--ren-duration-spin) linear infinite;
 	}
 
 	/* Scroll surfaces inside a page hold the wheel only while they really scroll:
@@ -298,13 +298,13 @@
 	   Overlays keep plain `contain`, because the page behind must never move. */
 	@supports (animation-timeline: scroll()) {
 		:where(
-			.lumi-scroll-contain,
-			.lumi-scroll-well,
-			.lumi-page-sidebar__bounded-list,
-			.lumi-metric-rank-list--scroll-capped,
-			.lumi-result-list
+			.ren-scroll-contain,
+			.ren-scroll-well,
+			.ren-page-sidebar__bounded-list,
+			.ren-metric-rank-list--scroll-capped,
+			.ren-result-list
 		) {
-			animation: lumi-scroll-contain linear both;
+			animation: ren-scroll-contain linear both;
 			animation-timeline: scroll(self block);
 		}
 	}
@@ -312,14 +312,14 @@
 	/* ========================================================================== */
 	/* ANIMATIONS (shared keyframes) */
 	/* ========================================================================== */
-	@keyframes lumi-scroll-contain {
+	@keyframes ren-scroll-contain {
 		from,
 		to {
 			overscroll-behavior: contain;
 		}
 	}
 
-	@keyframes lumi-spin {
+	@keyframes ren-spin {
 		from {
 			transform: rotate(0deg);
 		}
@@ -332,15 +332,15 @@
 	/* Compact heading scale on small screens. */
 	@media (max-width: 48rem) {
 		h1 {
-			font-size: var(--lumi-font-size-2xl);
+			font-size: var(--ren-font-size-2xl);
 		}
 
 		h2 {
-			font-size: var(--lumi-font-size-xl);
+			font-size: var(--ren-font-size-xl);
 		}
 
 		h3 {
-			font-size: var(--lumi-font-size-lg);
+			font-size: var(--ren-font-size-lg);
 		}
 	}
 }

@@ -1,5 +1,5 @@
 /**
- * Lumi UI - AvatarPicker Component Types
+ * RenUI - AvatarPicker Component Types
  */
 
 export interface AvatarOption {

@@ -1,8 +1,8 @@
 import type { Snippet } from 'svelte';
-import type { LumiColor, LumiDisplaySize } from '../config';
+import type { RenColor, RenDisplaySize } from '../config';
 
-export type AvatarColor = LumiColor;
-export type AvatarSize = LumiDisplaySize;
+export type AvatarColor = RenColor;
+export type AvatarSize = RenDisplaySize;
 
 export interface AvatarProps {
 	/**

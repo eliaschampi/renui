@@ -1,12 +1,12 @@
 /**
- * Curated Lucide map for string icon names — optional `@lumi-ui/svelte/icons` entry.
+ * Curated Lucide map for string icon names — optional `@renui/svelte/icons` entry.
  *
- * Lumi components never need it: pass icon components directly (`icon={Search}`).
+ * RenUI components never need it: pass icon components directly (`icon={Search}`).
  * Apps that store icon names as data register the map once at their root:
  *
- *   import { registerIcons } from '@lumi-ui/svelte';
- *   import { lumiIcons } from '@lumi-ui/svelte/icons';
- *   registerIcons(lumiIcons);
+ *   import { registerIcons } from '@renui/svelte';
+ *   import { renIcons } from '@renui/svelte/icons';
+ *   registerIcons(renIcons);
  *
  * Registering pulls every icon below into the bundle; public, SEO-sensitive
  * pages should import the few Lucide icons they render instead.
@@ -248,9 +248,9 @@ const icons = {
 } satisfies Record<string, LucideIcon>;
 
 /** Curated name → component map; pass it to `registerIcons`. */
-export const lumiIcons: {
+export const renIcons: {
 	readonly [Name in keyof typeof icons]: IconComponent;
 } = icons;
 
-/** Names available after `registerIcons(lumiIcons)`. */
-export type LumiIconName = keyof typeof lumiIcons;
+/** Names available after `registerIcons(renIcons)`. */
+export type RenIconName = keyof typeof renIcons;

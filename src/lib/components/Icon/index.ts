@@ -1,5 +1,5 @@
 /**
- * Lumi UI - Icon Component
+ * RenUI - Icon Component
  * Lucide icons with consistent sizing and semantic color
  */
 

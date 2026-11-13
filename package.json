@@ -1,13 +1,13 @@
 {
-	"name": "@lumi-ui/svelte",
+	"name": "@renui/svelte",
 	"version": "2.0.0",
 	"description": "Lightweight Svelte 5 component library: Lumen surfaces, semantic tokens, English and Spanish built in, SSR-first and SEO-friendly.",
 	"type": "module",
 	"packageManager": "pnpm@10.33.2",
 	"license": "MIT",
-	"homepage": "https://github.com/eliaschampi/lumi-ui#readme",
+	"homepage": "https://github.com/eliaschampi/renui#readme",
 	"bugs": {
-		"url": "https://github.com/eliaschampi/lumi-ui/issues"
+		"url": "https://github.com/eliaschampi/renui/issues"
 	},
 	"keywords": [
 		"svelte",
@@ -16,7 +16,7 @@
 		"ui",
 		"components",
 		"design-system",
-		"lumi-ui",
+		"renui",
 		"glassmorphism",
 		"lightweight",
 		"i18n",
@@ -25,7 +25,7 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/eliaschampi/lumi-ui.git"
+		"url": "git+https://github.com/eliaschampi/renui.git"
 	},
 	"svelte": "./dist/index.js",
 	"main": "./dist/index.js",

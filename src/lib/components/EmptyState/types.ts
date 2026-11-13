@@ -1,8 +1,8 @@
 import type { Snippet } from 'svelte';
 import type { IconSource } from '../../utils/icons';
-import type { LumiColor } from '../config';
+import type { RenColor } from '../config';
 
-export type EmptyStateColor = LumiColor | 'muted';
+export type EmptyStateColor = RenColor | 'muted';
 
 export interface EmptyStateProps {
 	/** Defaults to the localized "Nothing here yet" */

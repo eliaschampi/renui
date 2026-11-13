@@ -27,7 +27,7 @@
 	import { Button } from '../Button';
 	import { Card } from '../Card';
 	import { EmptyState } from '../EmptyState';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import type { ErrorStateProps, ErrorStateStatus } from './types';
 
 	const {
@@ -37,7 +37,7 @@
 		class: className
 	}: ErrorStateProps = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 
 	const code = $derived<ErrorStateStatus>(
 		status === 404 ? 404 : status >= 400 && status < 500 ? 400 : 500
@@ -76,10 +76,10 @@
 </script>
 
 <section
-	class={['lumi-error-state', className]}
+	class={['ren-error-state', className]}
 	aria-label={`${content.kicker}: ${content.title}`}
 >
-	<Card class="lumi-error-state__card">
+	<Card class="ren-error-state__card">
 		<EmptyState
 			icon={content.icon}
 			iconColor={content.color}
@@ -125,23 +125,23 @@
 </section>
 
 <style>
-	.lumi-error-state {
+	.ren-error-state {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		inline-size: 100%;
-		min-block-size: calc(100dvh - (var(--lumi-layout-content-padding) * 2));
-		padding: var(--lumi-space-xl);
+		min-block-size: calc(100dvh - (var(--ren-layout-content-padding) * 2));
+		padding: var(--ren-space-xl);
 	}
 
-	.lumi-error-state :global(.lumi-error-state__card) {
-		max-inline-size: calc(var(--lumi-space-6xl) * 7);
+	.ren-error-state :global(.ren-error-state__card) {
+		max-inline-size: calc(var(--ren-space-6xl) * 7);
 	}
 
 	@media (max-width: 48rem) {
-		.lumi-error-state {
+		.ren-error-state {
 			min-block-size: calc(
-				100dvh - (var(--lumi-layout-content-padding-mobile) * 2)
+				100dvh - (var(--ren-layout-content-padding-mobile) * 2)
 			);
 		}
 	}

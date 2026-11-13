@@ -1,11 +1,11 @@
 /* ========================================================================== */
-/* Lumi UI Layout                                                           */
+/* RenUI Layout                                                           */
 /* App and dashboard shells, two-column and page-sidebar                  */
 /* layouts, scroll wells, containers and centered pages. Optional.          */
 /* ========================================================================== */
-@layer lumi.tokens, lumi.base, lumi.components, lumi.layout, lumi.patterns, lumi.utilities;
+@layer ren.tokens, ren.base, ren.components, ren.layout, ren.patterns, ren.utilities;
 
-@layer lumi.layout {
+@layer ren.layout {
 	/* ========================================================================== */
 	/* APP LAYOUT SYSTEM */
 	/* ========================================================================== */
@@ -13,61 +13,61 @@
 		min-height: 100dvh;
 		width: 100%;
 		background: transparent;
-		color: var(--lumi-color-text);
+		color: var(--ren-color-text);
 		transition:
-			color var(--lumi-duration-base) var(--lumi-easing-default),
-			background var(--lumi-duration-base) var(--lumi-easing-default);
+			color var(--ren-duration-base) var(--ren-easing-default),
+			background var(--ren-duration-base) var(--ren-easing-default);
 	}
 
 	/* Dashboard layout */
-	.lumi-dashboard-layout {
-		--lumi-shell-padding: var(--lumi-layout-shell-padding);
+	.ren-dashboard-layout {
+		--ren-shell-padding: var(--ren-layout-shell-padding);
 		display: grid;
 		height: 100dvh;
-		padding: max(var(--lumi-shell-padding), var(--lumi-safe-area-top))
-			max(var(--lumi-shell-padding), var(--lumi-safe-area-right))
-			max(var(--lumi-shell-padding), var(--lumi-safe-area-bottom))
-			max(var(--lumi-shell-padding), var(--lumi-safe-area-left));
-		gap: var(--lumi-layout-shell-gap);
+		padding: max(var(--ren-shell-padding), var(--ren-safe-area-top))
+			max(var(--ren-shell-padding), var(--ren-safe-area-right))
+			max(var(--ren-shell-padding), var(--ren-safe-area-bottom))
+			max(var(--ren-shell-padding), var(--ren-safe-area-left));
+		gap: var(--ren-layout-shell-gap);
 		grid-template-areas:
 			'sidebar navbar'
 			'sidebar content';
-		grid-template-columns: var(--lumi-sidebar-width) minmax(0, 1fr);
+		grid-template-columns: var(--ren-sidebar-width) minmax(0, 1fr);
 		grid-template-rows: auto minmax(0, 1fr);
-		transition: grid-template-columns var(--lumi-duration-base)
-			var(--lumi-easing-default);
+		transition: grid-template-columns var(--ren-duration-base)
+			var(--ren-easing-default);
 	}
 
-	.lumi-dashboard-layout.lumi-sidebar--is-collapsed {
-		grid-template-columns: var(--lumi-sidebar-width-collapsed) minmax(0, 1fr);
+	.ren-dashboard-layout.ren-sidebar--is-collapsed {
+		grid-template-columns: var(--ren-sidebar-width-collapsed) minmax(0, 1fr);
 	}
 
 	/* ========================================================================== */
 	/* MAIN CONTENT AREA */
 	/* ========================================================================== */
 	/* Navbar - branch chip and shell actions */
-	.lumi-navbar-branch {
+	.ren-navbar-branch {
 		min-width: 0;
-		max-width: var(--lumi-navbar-branch-max-width);
+		max-width: var(--ren-navbar-branch-max-width);
 	}
 
-	.lumi-navbar-branch__chip {
+	.ren-navbar-branch__chip {
 		max-width: 100%;
 		min-width: 0;
 	}
 
-	.lumi-navbar-user-dropdown {
-		max-width: var(--lumi-navbar-user-dropdown-max-width);
+	.ren-navbar-user-dropdown {
+		max-width: var(--ren-navbar-user-dropdown-max-width);
 	}
 
-	.lumi-dashboard-layout__content {
+	.ren-dashboard-layout__content {
 		grid-area: content;
 		position: relative;
 		min-width: 0;
 		min-height: 0;
-		background: var(--lumi-dashboard-content-bg);
-		border-radius: var(--lumi-layout-floating-radius);
-		padding: var(--lumi-layout-content-padding);
+		background: var(--ren-dashboard-content-bg);
+		border-radius: var(--ren-layout-floating-radius);
+		padding: var(--ren-layout-content-padding);
 		overflow-y: auto;
 		overflow-x: hidden;
 	}
@@ -75,122 +75,122 @@
 	/* ========================================================================== */
 	/* MOBILE OVERLAY */
 	/* ========================================================================== */
-	.lumi-mobile-overlay {
+	.ren-mobile-overlay {
 		display: none;
 		position: fixed;
 		inset: 0;
-		background: var(--lumi-color-overlay);
-		z-index: calc(var(--lumi-z-sidebar) - 1);
+		background: var(--ren-color-overlay);
+		z-index: calc(var(--ren-z-sidebar) - 1);
 		cursor: pointer;
 		opacity: 0;
 		visibility: hidden;
 		transition:
-			opacity var(--lumi-duration-base) var(--lumi-easing-default),
-			visibility var(--lumi-duration-base) var(--lumi-easing-default);
+			opacity var(--ren-duration-base) var(--ren-easing-default),
+			visibility var(--ren-duration-base) var(--ren-easing-default);
 	}
 
 	/* ========================================================================== */
 	/* TWO-COLUMN LAYOUT SYSTEM */
 	/* ========================================================================== */
-	.lumi-layout--two-columns {
+	.ren-layout--two-columns {
 		display: grid;
 		grid-template-columns:
-			minmax(var(--lumi-layout-sidebar-min-width), 30%)
+			minmax(var(--ren-layout-sidebar-min-width), 30%)
 			minmax(0, 1fr);
-		gap: var(--lumi-space-lg);
+		gap: var(--ren-space-lg);
 		width: 100%;
 	}
 
-	.lumi-layout--sidebar-left,
-	.lumi-layout--content-right {
+	.ren-layout--sidebar-left,
+	.ren-layout--content-right {
 		min-width: 0;
 	}
 
 	/* ========================================================================== */
 	/* PAGE SIDEBAR SHELL */
 	/* ========================================================================== */
-	.lumi-page-sidebar-layout {
+	.ren-page-sidebar-layout {
 		align-items: start;
 	}
 
-	.lumi-page-sidebar__desktop {
+	.ren-page-sidebar__desktop {
 		position: sticky;
 		inset-block-start: 0;
 		align-self: start;
 		min-width: 0;
 	}
 
-	.lumi-page-sidebar__card {
+	.ren-page-sidebar__card {
 		height: 100%;
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
-		background: var(--lumi-color-surface-card);
-		box-shadow: var(--lumi-shadow-sm);
+		border: var(--ren-border-width-thin) solid var(--ren-color-border);
+		background: var(--ren-color-surface-card);
+		box-shadow: var(--ren-shadow-sm);
 	}
 
-	.lumi-page-sidebar__content,
-	.lumi-page-sidebar__section {
+	.ren-page-sidebar__content,
+	.ren-page-sidebar__section {
 		display: flex;
 		flex-direction: column;
-		gap: var(--lumi-space-sm);
+		gap: var(--ren-space-sm);
 	}
 
-	.lumi-page-sidebar__label {
+	.ren-page-sidebar__label {
 		margin: 0;
-		font-size: var(--lumi-font-size-xs);
-		font-weight: var(--lumi-font-weight-semibold);
-		letter-spacing: var(--lumi-letter-spacing-wide);
+		font-size: var(--ren-font-size-xs);
+		font-weight: var(--ren-font-weight-semibold);
+		letter-spacing: var(--ren-letter-spacing-wide);
 		text-transform: uppercase;
-		color: var(--lumi-color-text-muted);
+		color: var(--ren-color-text-muted);
 	}
 
-	.lumi-page-sidebar__header-actions {
+	.ren-page-sidebar__header-actions {
 		flex-wrap: wrap;
 		justify-content: flex-end;
 	}
 
-	.lumi-page-sidebar__bounded-list {
-		max-height: var(--lumi-page-sidebar-list-max-height);
+	.ren-page-sidebar__bounded-list {
+		max-height: var(--ren-page-sidebar-list-max-height);
 		min-height: 0;
 		overflow-x: hidden;
 		overflow-y: auto;
-		padding: var(--lumi-space-xs);
-		border-radius: var(--lumi-radius-panel);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
-		background: var(--lumi-page-sidebar-list-bg);
+		padding: var(--ren-space-xs);
+		border-radius: var(--ren-radius-panel);
+		border: var(--ren-border-width-thin) solid var(--ren-color-border);
+		background: var(--ren-page-sidebar-list-bg);
 	}
 
 	/* Recessed internally scrolling surface (the design-language "well" role on
 	   the inset ladder step). Retune the cap per surface through
-	   --lumi-scroll-well-max-height. */
-	.lumi-scroll-well {
-		max-height: var(--lumi-scroll-well-max-height);
+	   --ren-scroll-well-max-height. */
+	.ren-scroll-well {
+		max-height: var(--ren-scroll-well-max-height);
 		min-height: 0;
 		overflow-x: hidden;
 		overflow-y: auto;
-		padding: var(--lumi-space-sm);
-		border-radius: var(--lumi-radius-panel);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
-		background: var(--lumi-scroll-well-bg);
+		padding: var(--ren-space-sm);
+		border-radius: var(--ren-radius-panel);
+		border: var(--ren-border-width-thin) solid var(--ren-color-border);
+		background: var(--ren-scroll-well-bg);
 	}
 
-	.lumi-page-sidebar__radio-group {
+	.ren-page-sidebar__radio-group {
 		display: grid;
-		gap: var(--lumi-space-sm);
+		gap: var(--ren-space-sm);
 	}
 
-	.lumi-page-sidebar__radio-option {
+	.ren-page-sidebar__radio-option {
 		display: flex;
 		flex-direction: column;
-		gap: var(--lumi-space-2xs);
+		gap: var(--ren-space-2xs);
 	}
 
-	.lumi-page-sidebar__radio-description {
-		font-size: var(--lumi-font-size-xs);
-		color: var(--lumi-color-text-muted);
-		padding-left: calc(var(--lumi-icon-md) + var(--lumi-space-sm));
+	.ren-page-sidebar__radio-description {
+		font-size: var(--ren-font-size-xs);
+		color: var(--ren-color-text-muted);
+		padding-left: calc(var(--ren-icon-md) + var(--ren-space-sm));
 	}
 
-	.lumi-page-sidebar__backdrop {
+	.ren-page-sidebar__backdrop {
 		display: none;
 		border: none;
 		padding: 0;
@@ -198,70 +198,69 @@
 		cursor: pointer;
 	}
 
-	.lumi-page-sidebar__modal,
-	.lumi-page-sidebar__drawer {
+	.ren-page-sidebar__modal,
+	.ren-page-sidebar__drawer {
 		display: none;
 	}
 
-	.lumi-page-sidebar__drawer-header {
+	.ren-page-sidebar__drawer-header {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 	}
 
 	@media (max-width: 64rem) {
-		.lumi-page-sidebar-layout {
+		.ren-page-sidebar-layout {
 			grid-template-columns: 1fr;
 		}
 
-		.lumi-page-sidebar__desktop {
+		.ren-page-sidebar__desktop {
 			display: none;
 		}
 
-		.lumi-page-sidebar__header-actions {
+		.ren-page-sidebar__header-actions {
 			justify-content: flex-start;
 		}
 
-		.lumi-page-sidebar__backdrop {
+		.ren-page-sidebar__backdrop {
 			display: block;
 			position: absolute;
 			inset: 0;
-			background: var(--lumi-color-overlay);
-			animation: lumi-fade-in var(--lumi-duration-base)
-				var(--lumi-easing-default);
+			background: var(--ren-color-overlay);
+			animation: ren-fade-in var(--ren-duration-base) var(--ren-easing-default);
 		}
-		.lumi-page-sidebar__modal {
+		.ren-page-sidebar__modal {
 			display: block;
 			position: fixed;
 			inset: 0;
-			z-index: var(--lumi-z-modal-backdrop);
+			z-index: var(--ren-z-modal-backdrop);
 		}
 
-		.lumi-page-sidebar__drawer {
+		.ren-page-sidebar__drawer {
 			display: block;
 			position: absolute;
 			top: 0;
 			left: 0;
 			bottom: 0;
-			width: min(var(--lumi-page-sidebar-drawer-width), 85vw);
-			padding: max(var(--lumi-space-sm), var(--lumi-safe-area-top))
-				max(var(--lumi-space-sm), var(--lumi-safe-area-right))
-				max(var(--lumi-space-sm), var(--lumi-safe-area-bottom))
-				max(var(--lumi-space-sm), var(--lumi-safe-area-left));
+			width: min(var(--ren-page-sidebar-drawer-width), 85vw);
+			padding: max(var(--ren-space-sm), var(--ren-safe-area-top))
+				max(var(--ren-space-sm), var(--ren-safe-area-right))
+				max(var(--ren-space-sm), var(--ren-safe-area-bottom))
+				max(var(--ren-space-sm), var(--ren-safe-area-left));
 			overflow-y: auto;
 			overscroll-behavior: contain;
-			animation: lumi-page-sidebar-slide var(--lumi-duration-slow)
-				var(--lumi-easing-bounce);
+			animation: ren-page-sidebar-slide var(--ren-duration-slow)
+				var(--ren-easing-bounce);
 		}
 	}
 
-	@keyframes lumi-fade-in {
+	@keyframes ren-fade-in {
 		from {
 			opacity: 0;
 		}
 	}
 
-	@keyframes lumi-page-sidebar-slide {
+	@keyframes ren-page-sidebar-slide {
 		from {
 			transform: translateX(-100%);
 			opacity: 0;
@@ -277,43 +276,43 @@
 	/* ========================================================================== */
 
 	/* Container - Centered with max-width */
-	.lumi-container {
+	.ren-container {
 		width: 100%;
 		margin-inline: auto;
-		padding-left: max(var(--lumi-space-md), var(--lumi-safe-area-left));
-		padding-right: max(var(--lumi-space-md), var(--lumi-safe-area-right));
+		padding-left: max(var(--ren-space-md), var(--ren-safe-area-left));
+		padding-right: max(var(--ren-space-md), var(--ren-safe-area-right));
 	}
 
-	.lumi-container--sm {
-		max-width: var(--lumi-container-width-sm);
+	.ren-container--sm {
+		max-width: var(--ren-container-width-sm);
 	}
 
 	/* Centered card layout (sign-in, onboarding) */
-	.lumi-centered-layout {
+	.ren-centered-layout {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		min-height: 100dvh;
-		padding: var(--lumi-space-lg);
+		padding: var(--ren-space-lg);
 		overflow-x: hidden;
 		overflow-y: auto;
 	}
 
-	.lumi-centered-card {
+	.ren-centered-card {
 		width: 100%;
-		max-width: var(--lumi-centered-card-width-md);
+		max-width: var(--ren-centered-card-width-md);
 	}
 
-	.lumi-centered-card--md {
-		max-width: var(--lumi-centered-card-width-md);
+	.ren-centered-card--md {
+		max-width: var(--ren-centered-card-width-md);
 	}
 
 	/* ========================================================================== */
 	/* BRAND: horizontal wordmark on dark chrome (auth topbar, sidebar header) */
 	/* ========================================================================== */
-	[data-theme='dark'] .lumi-brand-logo-wordmark {
-		filter: var(--lumi-brand-logo-filter-dark);
-		opacity: var(--lumi-brand-logo-opacity-dark);
+	[data-theme='dark'] .ren-brand-logo-wordmark {
+		filter: var(--ren-brand-logo-filter-dark);
+		opacity: var(--ren-brand-logo-opacity-dark);
 	}
 
 	/* ========================================================================== */
@@ -322,124 +321,123 @@
 	/* Tablet & Mobile Layout (64rem / 1024px and below) */
 	@media (max-width: 64rem) {
 		/* Transform to mobile layout - remove sidebar from grid */
-		.lumi-dashboard-layout {
+		.ren-dashboard-layout {
 			grid-template-areas:
 				'navbar'
 				'content';
 			grid-template-columns: 1fr;
-			--lumi-shell-padding: var(--lumi-layout-shell-padding-tablet);
+			--ren-shell-padding: var(--ren-layout-shell-padding-tablet);
 		}
 
 		/* Override any collapsed state classes */
-		.lumi-dashboard-layout.lumi-sidebar--is-collapsed {
+		.ren-dashboard-layout.ren-sidebar--is-collapsed {
 			grid-template-columns: 1fr;
 		}
 
 		/* When mobile sidebar is open, prevent body scroll */
-		.lumi-dashboard-layout.lumi-sidebar--mobile-open {
+		.ren-dashboard-layout.ren-sidebar--mobile-open {
 			overflow: hidden;
 		}
 
 		/* Mobile overlay — base rule already owns opacity/visibility/transition */
-		.lumi-mobile-overlay {
+		.ren-mobile-overlay {
 			display: block;
 		}
 
 		/* Show overlay when sidebar is open */
-		.lumi-dashboard-layout.lumi-sidebar--mobile-open .lumi-mobile-overlay {
+		.ren-dashboard-layout.ren-sidebar--mobile-open .ren-mobile-overlay {
 			opacity: 1;
 			visibility: visible;
 		}
 
 		/* Content adjustments */
-		.lumi-dashboard-layout__content {
-			padding: var(--lumi-layout-content-padding-tablet);
-			border-radius: var(--lumi-layout-floating-radius-tablet);
+		.ren-dashboard-layout__content {
+			padding: var(--ren-layout-content-padding-tablet);
+			border-radius: var(--ren-layout-floating-radius-tablet);
 		}
 
 		/* Two-column layout becomes single column */
-		.lumi-layout--two-columns {
+		.ren-layout--two-columns {
 			grid-template-columns: 1fr;
-			gap: var(--lumi-space-md);
+			gap: var(--ren-space-md);
 		}
 	}
 
 	@media (max-width: 48rem) {
-		.lumi-dashboard-layout {
-			--lumi-shell-padding: var(--lumi-layout-shell-padding-mobile);
+		.ren-dashboard-layout {
+			--ren-shell-padding: var(--ren-layout-shell-padding-mobile);
 		}
 
-		.lumi-dashboard-layout__content {
-			padding: var(--lumi-layout-content-padding-mobile);
-			border-radius: var(--lumi-layout-floating-radius-mobile);
+		.ren-dashboard-layout__content {
+			padding: var(--ren-layout-content-padding-mobile);
+			border-radius: var(--ren-layout-floating-radius-mobile);
 		}
 
-		.lumi-navbar-branch {
-			max-width: var(--lumi-navbar-branch-max-width-mobile);
+		.ren-navbar-branch {
+			max-width: var(--ren-navbar-branch-max-width-mobile);
 		}
 	}
 
 	@media (max-width: 30rem) {
-		.lumi-dashboard-layout__content {
-			padding: var(--lumi-layout-content-padding-compact);
+		.ren-dashboard-layout__content {
+			padding: var(--ren-layout-content-padding-compact);
 		}
 	}
 
 	@media (min-width: 80rem) {
-		.lumi-dashboard-layout__content {
-			padding: var(--lumi-space-xl);
+		.ren-dashboard-layout__content {
+			padding: var(--ren-space-xl);
 		}
 	}
 
 	@media (min-width: 96rem) {
-		.lumi-container--ultrawide {
-			max-width: var(--lumi-container-width-2xl);
+		.ren-container--ultrawide {
+			max-width: var(--ren-container-width-2xl);
 		}
 	}
 }
 
 /* Overrides of component-owned classes stay unlayered: component styles are
    unlayered too, so these keep winning by specificity as before. */
-.lumi-navbar-branch__chip .lumi-chip__text {
+.ren-navbar-branch__chip .ren-chip__text {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	min-width: 0;
-	max-width: var(--lumi-navbar-branch-text-max-width);
+	max-width: var(--ren-navbar-branch-text-max-width);
 }
 
-.lumi-page-sidebar__header-actions
-	.lumi-button.lumi-page-sidebar__mobile-trigger {
+.ren-page-sidebar__header-actions .ren-button.ren-page-sidebar__mobile-trigger {
 	display: none;
 }
 
-.lumi-page-sidebar__radio-group .lumi-radio {
+.ren-page-sidebar__radio-group .ren-radio {
 	width: 100%;
-	padding: var(--lumi-space-sm) var(--lumi-space-md);
-	border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
-	border-radius: var(--lumi-radius-option);
-	background: var(--lumi-color-surface-card);
-	transition: var(--lumi-transition-colors);
+	padding: var(--ren-space-sm) var(--ren-space-md);
+	border: var(--ren-border-width-thin) solid var(--ren-color-border);
+	border-radius: var(--ren-radius-option);
+	background: var(--ren-color-surface-card);
+	transition: var(--ren-transition-colors);
 }
 
-.lumi-page-sidebar__radio-group .lumi-radio:not(.lumi-radio--disabled):hover {
-	border-color: var(--lumi-color-border-strong);
+.ren-page-sidebar__radio-group .ren-radio:not(.ren-radio--disabled):hover {
+	border-color: var(--ren-color-border-strong);
 }
 
-.lumi-page-sidebar__radio-group .lumi-radio--checked {
+.ren-page-sidebar__radio-group .ren-radio--checked {
 	border-color: transparent;
-	background: var(--lumi-color-primary-bg);
+	background: var(--ren-color-primary-bg);
 }
 
 @media (max-width: 64rem) {
-	.lumi-page-sidebar__header-actions
-		.lumi-button.lumi-page-sidebar__mobile-trigger {
+	.ren-page-sidebar__header-actions
+		.ren-button.ren-page-sidebar__mobile-trigger {
 		display: inline-flex;
 	}
 }
 
 @media (max-width: 48rem) {
-	.lumi-navbar-branch__chip .lumi-chip__text {
-		max-width: var(--lumi-navbar-branch-text-max-width-mobile);
+	.ren-navbar-branch__chip .ren-chip__text {
+		max-width: var(--ren-navbar-branch-text-max-width-mobile);
 	}
 }

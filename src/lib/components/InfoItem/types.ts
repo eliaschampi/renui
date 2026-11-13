@@ -1,9 +1,9 @@
 import type { Snippet } from 'svelte';
 import type { IconSource } from '../../utils/icons';
-import type { LumiColor } from '../config';
+import type { RenColor } from '../config';
 
 export type InfoItemLayout = 'horizontal' | 'vertical';
-export type InfoItemColor = LumiColor;
+export type InfoItemColor = RenColor;
 
 export interface InfoItemProps {
 	/** Layout orientation */

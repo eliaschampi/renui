@@ -5,42 +5,42 @@
 	const { title, icon, actions, class: className }: ListHeaderProps = $props();
 </script>
 
-<li class={['lumi-list-header', className]}>
+<li class={['ren-list-header', className]}>
 	{#if icon}<Icon {icon} size="sm" />{/if}
-	<span class="lumi-list-header__title">{title}</span>
+	<span class="ren-list-header__title">{title}</span>
 	{#if actions}
-		<span class="lumi-list-header__actions">{@render actions()}</span>
+		<span class="ren-list-header__actions">{@render actions()}</span>
 	{/if}
 </li>
 
 <style>
-	.lumi-list-header {
+	.ren-list-header {
 		display: flex;
 		align-items: center;
-		gap: var(--lumi-space-sm);
-		margin-block-end: var(--lumi-space-2xs);
-		padding: var(--lumi-space-xs) var(--lumi-space-sm);
-		border-block-end: var(--lumi-border-width-thin) solid
-			var(--lumi-color-border-light);
-		color: var(--lumi-control-accent, var(--lumi-color-text-muted));
+		gap: var(--ren-space-sm);
+		margin-block-end: var(--ren-space-2xs);
+		padding: var(--ren-space-xs) var(--ren-space-sm);
+		border-block-end: var(--ren-border-width-thin) solid
+			var(--ren-color-border-light);
+		color: var(--ren-control-accent, var(--ren-color-text-muted));
 	}
 
-	.lumi-list-header__title {
+	.ren-list-header__title {
 		flex: 1;
 		min-inline-size: 0;
 		overflow: hidden;
-		font-size: var(--lumi-font-size-xs);
-		font-weight: var(--lumi-font-weight-semibold);
-		letter-spacing: var(--lumi-letter-spacing-wide);
-		line-height: var(--lumi-line-height-tight);
+		font-size: var(--ren-font-size-xs);
+		font-weight: var(--ren-font-weight-semibold);
+		letter-spacing: var(--ren-letter-spacing-wide);
+		line-height: var(--ren-line-height-tight);
 		text-overflow: ellipsis;
 		text-transform: uppercase;
 		white-space: nowrap;
 	}
 
-	.lumi-list-header__actions {
+	.ren-list-header__actions {
 		display: inline-flex;
 		align-items: center;
-		gap: var(--lumi-space-xs);
+		gap: var(--ren-space-xs);
 	}
 </style>

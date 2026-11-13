@@ -24,8 +24,8 @@
 	let surface: MenuSurface | undefined = $state();
 
 	const instanceId = $props.id();
-	const triggerId = `lumi-dropdown-trigger-${instanceId}`;
-	const menuId = `lumi-dropdown-menu-${instanceId}`;
+	const triggerId = `ren-dropdown-trigger-${instanceId}`;
+	const menuId = `ren-dropdown-menu-${instanceId}`;
 
 	// The wrapper anchors the menu; the trigger itself is a real button.
 	const floating = createFloating(
@@ -107,13 +107,13 @@
 	});
 </script>
 
-<div bind:this={root} class={['lumi-dropdown', className]}>
+<div bind:this={root} class={['ren-dropdown', className]}>
 	{#if trigger}
 		{@render trigger(triggerProps)}
 	{:else}
 		<button
 			type="button"
-			class="lumi-dropdown__trigger"
+			class="ren-dropdown__trigger"
 			aria-label={ariaLabel}
 			{...triggerProps}
 		>
@@ -137,30 +137,30 @@
 </div>
 
 <style>
-	.lumi-dropdown {
+	.ren-dropdown {
 		position: relative;
 		display: inline-block;
 	}
 
-	.lumi-dropdown__trigger {
+	.ren-dropdown__trigger {
 		display: inline-flex;
 		align-items: center;
 		padding: 0;
 		background: none;
 		border: 0;
-		border-radius: var(--lumi-radius-control);
+		border-radius: var(--ren-radius-control);
 		color: inherit;
 		font: inherit;
 		cursor: pointer;
 	}
 
-	.lumi-dropdown__trigger:disabled {
-		opacity: var(--lumi-opacity-disabled);
+	.ren-dropdown__trigger:disabled {
+		opacity: var(--ren-opacity-disabled);
 		pointer-events: none;
 	}
 
-	.lumi-dropdown__trigger:focus-visible {
-		outline: var(--lumi-focus-outline);
-		outline-offset: var(--lumi-focus-outline-offset);
+	.ren-dropdown__trigger:focus-visible {
+		outline: var(--ren-focus-outline);
+		outline-offset: var(--ren-focus-outline-offset);
 	}
 </style>

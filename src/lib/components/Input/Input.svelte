@@ -7,7 +7,7 @@
 <script lang="ts">
 	import CircleX from '@lucide/svelte/icons/circle-x';
 	import X from '@lucide/svelte/icons/x';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import { FieldLabel, FieldMessage } from '../Field';
 	import Icon from '../Icon/Icon.svelte';
 	import type { InputProps } from './types';
@@ -37,9 +37,9 @@
 
 	let input: HTMLInputElement | undefined = $state();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 	const uid = $props.id();
-	const id = $derived(idProp ?? `lumi-input-${uid}`);
+	const id = $derived(idProp ?? `ren-input-${uid}`);
 	const messageId = $derived(`${id}-message`);
 	const invalid = $derived(Boolean(error));
 	const errorText = $derived(typeof error === 'string' ? error : '');
@@ -70,12 +70,12 @@
 
 <div
 	class={[
-		'lumi-field',
-		'lumi-input-container',
-		`lumi-field--${size}`,
-		invalid && 'lumi-field--invalid',
-		disabled && 'lumi-field--disabled',
-		`lumi-tone lumi-tone--${invalid ? 'danger' : color}`,
+		'ren-field',
+		'ren-input-container',
+		`ren-field--${size}`,
+		invalid && 'ren-field--invalid',
+		disabled && 'ren-field--disabled',
+		`ren-tone ren-tone--${invalid ? 'danger' : color}`,
 		className
 	]}
 >
@@ -83,9 +83,9 @@
 		<FieldLabel for={id} {label} required={!!required} />
 	{/if}
 
-	<div class="lumi-field__control">
+	<div class="ren-field__control">
 		{#if icon}
-			<span class="lumi-input__icon" aria-hidden="true">
+			<span class="ren-input__icon" aria-hidden="true">
 				<Icon {icon} size={iconSize} />
 			</span>
 		{/if}
@@ -100,14 +100,14 @@
 			{disabled}
 			{readonly}
 			{required}
-			class="lumi-field__input lumi-autofill"
+			class="ren-field__input ren-autofill"
 			aria-label={ariaLabel ?? (label ? undefined : placeholder || undefined)}
 			aria-invalid={invalid || undefined}
 			aria-describedby={errorText || hint ? messageId : undefined}
 		/>
 
 		{#if invalid}
-			<span class="lumi-input__invalid" aria-hidden="true">
+			<span class="ren-input__invalid" aria-hidden="true">
 				<Icon icon={CircleX} size={iconSize} />
 			</span>
 		{/if}
@@ -115,7 +115,7 @@
 		{#if showClear}
 			<button
 				type="button"
-				class="lumi-field__button"
+				class="ren-field__button"
 				aria-label={i18n.t.clear}
 				onclick={clear}
 			>
@@ -126,7 +126,7 @@
 		{#if actionIcon}
 			<button
 				type="button"
-				class="lumi-field__button"
+				class="ren-field__button"
 				aria-label={actionLabel}
 				{disabled}
 				onclick={action}
@@ -140,49 +140,49 @@
 </div>
 
 <style>
-	.lumi-input__icon {
+	.ren-input__icon {
 		display: inline-flex;
-		padding-inline-start: var(--lumi-field-pad-x);
+		padding-inline-start: var(--ren-field-pad-x);
 	}
 
-	.lumi-input__icon + .lumi-field__input {
-		padding-inline-start: var(--lumi-space-xs);
+	.ren-input__icon + .ren-field__input {
+		padding-inline-start: var(--ren-space-xs);
 	}
 
-	.lumi-input__invalid {
+	.ren-input__invalid {
 		display: inline-flex;
-		padding-inline: var(--lumi-space-2xs);
-		color: var(--lumi-control-accent);
+		padding-inline: var(--ren-space-2xs);
+		color: var(--ren-control-accent);
 	}
 
-	.lumi-input__invalid:last-child {
-		padding-inline-end: var(--lumi-field-pad-x);
+	.ren-input__invalid:last-child {
+		padding-inline-end: var(--ren-field-pad-x);
 	}
 
 	/* Native date/time pickers: theme-aware (inherits color-scheme), quiet
 	   indicator that wakes on hover and focus, no layout jump in WebKit. */
-	.lumi-field__input::-webkit-calendar-picker-indicator {
+	.ren-field__input::-webkit-calendar-picker-indicator {
 		margin: 0;
 		opacity: 0.55;
 		cursor: pointer;
-		transition: opacity var(--lumi-duration-fast) var(--lumi-easing-default);
+		transition: opacity var(--ren-duration-fast) var(--ren-easing-default);
 	}
 
-	.lumi-field__control:is(:hover, :focus-within)
-		.lumi-field__input::-webkit-calendar-picker-indicator {
+	.ren-field__control:is(:hover, :focus-within)
+		.ren-field__input::-webkit-calendar-picker-indicator {
 		opacity: 1;
 	}
 
-	.lumi-field__input::-webkit-datetime-edit {
+	.ren-field__input::-webkit-datetime-edit {
 		padding: 0;
 	}
 
-	.lumi-field__input::-webkit-date-and-time-value {
+	.ren-field__input::-webkit-date-and-time-value {
 		text-align: start;
 	}
 
 	/* The clearable button replaces WebKit's search cancel glyph. */
-	.lumi-field__input::-webkit-search-cancel-button {
+	.ren-field__input::-webkit-search-cancel-button {
 		appearance: none;
 	}
 </style>

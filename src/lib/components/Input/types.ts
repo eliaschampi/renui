@@ -1,6 +1,6 @@
 import type { HTMLInputAttributes } from 'svelte/elements';
 import type { IconSource } from '../../utils/icons';
-import type { LumiColor, LumiExtendedSize } from '../config';
+import type { RenColor, RenExtendedSize } from '../config';
 import type { FieldError } from '../Field';
 
 export type InputType =
@@ -17,9 +17,9 @@ export type InputType =
 	| 'month'
 	| 'week';
 
-export type InputSize = LumiExtendedSize;
+export type InputSize = RenExtendedSize;
 
-export type InputColor = LumiColor;
+export type InputColor = RenColor;
 
 /**
  * Text field. Native input attributes (`name`, `autocomplete`, `inputmode`,

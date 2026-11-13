@@ -1,5 +1,5 @@
 import type { IconSource } from '../../utils/icons';
-import type { LumiColor } from '../config';
+import type { RenColor } from '../config';
 
 export interface StatCardProps {
 	/** Card title */
@@ -9,7 +9,7 @@ export interface StatCardProps {
 	/** Lucide icon name */
 	icon: IconSource;
 	/** Semantic color */
-	color?: LumiColor;
+	color?: RenColor;
 	/** Whether card shows hover effects */
 	hoverable?: boolean;
 	/** Optional link href */

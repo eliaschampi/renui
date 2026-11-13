@@ -249,23 +249,23 @@ export { Tooltip } from './components/Tooltip';
 export type { UserInfoProps } from './components/UserInfo';
 export { UserInfo } from './components/UserInfo';
 export { portal } from './actions/portal';
-export { lumiEn, lumiEs, setLumiLocale } from './i18n';
-export type { LumiLocaleOptions, LumiMessages } from './i18n';
+export { renEn, renEs, setRenLocale } from './i18n';
+export type { RenLocaleOptions, RenMessages } from './i18n';
 export { formatDate, formatNumber } from './utils/format';
 export type { FormatDateOptions, FormatNumberOptions } from './utils/format';
 export { getInitials } from './utils/initials';
 export type {
-	LumiColor,
-	LumiCompactSize,
-	LumiControlSize,
-	LumiDisplaySize,
-	LumiExtendedSize,
-	LumiSize
+	RenColor,
+	RenCompactSize,
+	RenControlSize,
+	RenDisplaySize,
+	RenExtendedSize,
+	RenSize
 } from './components/config';
 export type {
 	ChartColor,
 	ChartSeriesPoint,
 	ChartValueFormat
 } from './types/charts';
-export type { LumiChoiceOption } from './types/choice';
+export type { RenChoiceOption } from './types/choice';
 export type { FieldError } from './components/Field';

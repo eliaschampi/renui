@@ -7,7 +7,7 @@
 <script lang="ts">
 	import Menu from '@lucide/svelte/icons/menu';
 	import { Button } from '../Button';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import type { NavbarProps } from './types';
 
 	const {
@@ -18,11 +18,11 @@
 		user
 	}: NavbarProps = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 </script>
 
-<nav class={['lumi-navbar', className]}>
-	<div class="lumi-navbar__left">
+<nav class={['ren-navbar', className]}>
+	<div class="ren-navbar__left">
 		{#if ontogglesidebar}
 			<Button
 				variant="ghost"
@@ -32,75 +32,75 @@
 			/>
 		{/if}
 		{#if title}
-			<div class="lumi-navbar__title">{@render title()}</div>
+			<div class="ren-navbar__title">{@render title()}</div>
 		{/if}
 	</div>
 
-	<div class="lumi-navbar__right">
+	<div class="ren-navbar__right">
 		{#if actions}
 			{@render actions()}
 		{:else if user}
-			<div class="lumi-navbar__actions">{@render user()}</div>
+			<div class="ren-navbar__actions">{@render user()}</div>
 		{/if}
 	</div>
 </nav>
 
 <style>
-	.lumi-navbar {
-		--lumi-surface-radius-local: var(--lumi-layout-floating-radius);
+	.ren-navbar {
+		--ren-surface-radius-local: var(--ren-layout-floating-radius);
 		grid-area: navbar;
 		position: sticky;
 		top: 0;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		min-height: var(--lumi-navbar-height);
+		min-height: var(--ren-navbar-height);
 		width: 100%;
 		min-width: 0;
-		padding: 0 var(--lumi-space-lg);
-		z-index: var(--lumi-z-fixed);
-		transition: var(--lumi-transition-colors);
+		padding: 0 var(--ren-space-lg);
+		z-index: var(--ren-z-fixed);
+		transition: var(--ren-transition-colors);
 	}
 
-	.lumi-navbar__left {
+	.ren-navbar__left {
 		display: flex;
 		align-items: center;
-		gap: var(--lumi-space-md);
+		gap: var(--ren-space-md);
 	}
 
-	.lumi-navbar__title {
-		color: var(--lumi-color-text);
-		font-size: var(--lumi-font-size-lg);
-		font-weight: var(--lumi-font-weight-bold);
+	.ren-navbar__title {
+		color: var(--ren-color-text);
+		font-size: var(--ren-font-size-lg);
+		font-weight: var(--ren-font-weight-bold);
 		white-space: nowrap;
 	}
 
-	.lumi-navbar__right {
+	.ren-navbar__right {
 		display: flex;
 		align-items: center;
-		gap: var(--lumi-space-md);
+		gap: var(--ren-space-md);
 	}
 
-	.lumi-navbar__actions {
+	.ren-navbar__actions {
 		display: flex;
 		align-items: center;
-		gap: var(--lumi-space-xs);
+		gap: var(--ren-space-xs);
 	}
 
 	/* Responsive adjustments */
 	@media (max-width: 64rem) {
-		.lumi-navbar {
-			--lumi-surface-radius-local: var(--lumi-layout-floating-radius-tablet);
+		.ren-navbar {
+			--ren-surface-radius-local: var(--ren-layout-floating-radius-tablet);
 		}
 	}
 
 	@media (max-width: 48rem) {
-		.lumi-navbar {
-			padding: 0 var(--lumi-space-md);
-			--lumi-surface-radius-local: var(--lumi-layout-floating-radius-mobile);
+		.ren-navbar {
+			padding: 0 var(--ren-space-md);
+			--ren-surface-radius-local: var(--ren-layout-floating-radius-mobile);
 		}
 
-		.lumi-navbar__title {
+		.ren-navbar__title {
 			display: none;
 		}
 	}

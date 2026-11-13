@@ -4,7 +4,7 @@ import type {
 	ResolvedColorScheme
 } from './types';
 
-export const DEFAULT_COLOR_SCHEME_STORAGE_KEY = 'lumi-color-scheme';
+export const DEFAULT_COLOR_SCHEME_STORAGE_KEY = 'ren-color-scheme';
 export const DEFAULT_COLOR_SCHEME_PREFERENCE: ColorSchemePreference = 'system';
 export const COLOR_SCHEME_MEDIA_QUERY = '(prefers-color-scheme: dark)';
 export const COLOR_SCHEME_DOM_ATTRIBUTE = 'data-theme';

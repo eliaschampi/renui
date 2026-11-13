@@ -42,6 +42,6 @@ export type {
 	DriveTagTone
 } from './utils/drive';
 
-export { lumiDriveEn, lumiDriveEs } from './i18n';
-export type { LumiDriveMessages } from './i18n';
+export { renDriveEn, renDriveEs } from './i18n';
+export type { RenDriveMessages } from './i18n';
 export type { DriveFileItem } from './components/Drive';

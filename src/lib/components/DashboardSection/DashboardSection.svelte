@@ -16,8 +16,8 @@
 	}: DashboardSectionProps = $props();
 </script>
 
-<Card class="lumi-dashboard-section {className}" {spaced} {footer}>
-	<div class="lumi-dashboard-section__header">
+<Card class="ren-dashboard-section {className}" {spaced} {footer}>
+	<div class="ren-dashboard-section__header">
 		<Title
 			{title}
 			{subtitle}
@@ -27,7 +27,7 @@
 			iconColor="primary"
 		/>
 		{#if actions}
-			<div class="lumi-dashboard-section__actions">{@render actions()}</div>
+			<div class="ren-dashboard-section__actions">{@render actions()}</div>
 		{/if}
 	</div>
 
@@ -35,19 +35,19 @@
 </Card>
 
 <style>
-	.lumi-dashboard-section__header,
-	.lumi-dashboard-section__actions {
+	.ren-dashboard-section__header,
+	.ren-dashboard-section__actions {
 		display: flex;
 		flex-wrap: wrap;
-		gap: var(--lumi-space-sm);
+		gap: var(--ren-space-sm);
 	}
 
-	.lumi-dashboard-section__header {
+	.ren-dashboard-section__header {
 		align-items: flex-start;
 		justify-content: space-between;
 	}
 
-	.lumi-dashboard-section__actions {
+	.ren-dashboard-section__actions {
 		justify-content: flex-end;
 	}
 </style>

@@ -1,12 +1,12 @@
 <script module lang="ts">
-	import { lumiDriveEn } from '../../i18n/drive';
+	import { renDriveEn } from '../../i18n/drive';
 
-	const COPY = lumiDriveEn;
+	const COPY = renDriveEn;
 </script>
 
 <script lang="ts">
 	import { Icon } from '../Icon';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import { Table } from '../Table';
 	import {
 		driveTagColorCssVar,
@@ -46,7 +46,7 @@
 		formatDate
 	}: Props = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 
 	const selectedFileSet = $derived(new Set(selectedFiles));
 	const selectedRows = $derived(
@@ -93,52 +93,52 @@
 	onrowcontextmenu={onfilecontextmenu}
 >
 	{#snippet thead()}
-		<th class="lumi-table-column--main">{i18n.t.driveColumnName}</th>
-		<th class="lumi-table-column--compact">{i18n.t.driveColumnType}</th>
-		<th class="lumi-table-column--compact">{i18n.t.driveColumnSize}</th>
-		<th class="lumi-table-column--compact">{i18n.t.driveColumnModified}</th>
+		<th class="ren-table-column--main">{i18n.t.driveColumnName}</th>
+		<th class="ren-table-column--compact">{i18n.t.driveColumnType}</th>
+		<th class="ren-table-column--compact">{i18n.t.driveColumnSize}</th>
+		<th class="ren-table-column--compact">{i18n.t.driveColumnModified}</th>
 	{/snippet}
 
 	{#snippet row({ row })}
 		{@const file = row}
 		{@const tagOption = getDriveTagByHash(file.tag, i18n.t)}
 		<td
-			class="lumi-table-column--main"
+			class="ren-table-column--main"
 			draggable={!isTrash}
 			ondragstart={(event) => handleDragStart(event, file)}
 			ondragend={() => onfiledragend?.()}
 			ondragover={(event) => handleDragOver(event, file)}
 			ondrop={(event) => handleDrop(event, file)}
 		>
-			<div class="lumi-drive-file-list__name-content">
+			<div class="ren-drive-file-list__name-content">
 				<Icon
 					icon={getFileIcon(file.type)}
 					size="sm"
 					color={getFileColor(file.type)}
 				/>
-				<span class="lumi-drive-file-list__name-text" title={file.name}
+				<span class="ren-drive-file-list__name-text" title={file.name}
 					>{file.name}</span
 				>
 				{#if tagOption}
 					<span
-						class="lumi-drive-file-list__tag"
+						class="ren-drive-file-list__tag"
 						style:--drive-tag-color={driveTagColorCssVar(tagOption.color)}
 					></span>
 				{/if}
 			</div>
 		</td>
 		<td>
-			<span class="lumi-drive-file-list__meta"
+			<span class="ren-drive-file-list__meta"
 				>{getDriveTypeLabel(file.type, i18n.t)}</span
 			>
 		</td>
 		<td>
-			<span class="lumi-drive-file-list__meta">
+			<span class="ren-drive-file-list__meta">
 				{file.type === 'dir' ? '—' : formatFileSize(file.size)}
 			</span>
 		</td>
 		<td>
-			<span class="lumi-drive-file-list__meta"
+			<span class="ren-drive-file-list__meta"
 				>{formatDate
 					? formatDate(file.updated_at)
 					: formatDriveDate(file.updated_at, i18n)}</span
@@ -148,21 +148,21 @@
 </Table>
 
 <style>
-	.lumi-drive-file-list__name-content {
+	.ren-drive-file-list__name-content {
 		display: flex;
 		align-items: center;
-		gap: var(--lumi-space-xs);
+		gap: var(--ren-space-xs);
 		width: 100%;
 		min-width: 0;
-		padding: var(--lumi-space-2xs);
+		padding: var(--ren-space-2xs);
 		border: none;
 		background: transparent;
-		color: var(--lumi-color-text);
+		color: var(--ren-color-text);
 		text-align: left;
 		font: inherit;
 	}
 
-	.lumi-drive-file-list__name-text {
+	.ren-drive-file-list__name-text {
 		flex: 1 1 auto;
 		min-width: 0;
 		display: -webkit-box;
@@ -173,16 +173,16 @@
 		line-clamp: 2;
 	}
 
-	.lumi-drive-file-list__meta {
-		color: var(--lumi-color-text-muted);
-		font-size: var(--lumi-font-size-sm);
+	.ren-drive-file-list__meta {
+		color: var(--ren-color-text-muted);
+		font-size: var(--ren-font-size-sm);
 	}
 
-	.lumi-drive-file-list__tag {
-		width: var(--lumi-drive-tag-dot-size);
-		height: var(--lumi-drive-tag-dot-size);
-		border-radius: var(--lumi-radius-full);
+	.ren-drive-file-list__tag {
+		width: var(--ren-drive-tag-dot-size);
+		height: var(--ren-drive-tag-dot-size);
+		border-radius: var(--ren-radius-full);
 		flex-shrink: 0;
-		background: var(--drive-tag-color, var(--lumi-color-border));
+		background: var(--drive-tag-color, var(--ren-color-border));
 	}
 </style>

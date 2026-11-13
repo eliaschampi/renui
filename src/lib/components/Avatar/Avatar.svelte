@@ -5,7 +5,7 @@
 </script>
 
 <script lang="ts">
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import { getInitials } from '../../utils/initials';
 	import { AVATAR_SIZES } from './size';
 	import type { AvatarProps } from './types';
@@ -20,7 +20,7 @@
 		children
 	}: AvatarProps = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 
 	// Remembering the failed URL lets a new `src` retry without an effect.
 	let failedSrc = $state('');
@@ -33,10 +33,10 @@
 </script>
 
 <span
-	class={['lumi-avatar', className]}
-	style:--lumi-avatar-size={AVATAR_SIZES[size]}
-	style:--lumi-avatar-solid="var(--lumi-color-{color}-solid)"
-	style:--lumi-avatar-foreground="var(--lumi-color-{color}-foreground)"
+	class={['ren-avatar', className]}
+	style:--ren-avatar-size={AVATAR_SIZES[size]}
+	style:--ren-avatar-solid="var(--ren-color-{color}-solid)"
+	style:--ren-avatar-foreground="var(--ren-color-{color}-foreground)"
 	role={decorative ? undefined : 'img'}
 	aria-label={decorative ? undefined : alt || name || i18n.t.avatar}
 	aria-hidden={decorative || undefined}
@@ -57,20 +57,20 @@
 </span>
 
 <style>
-	.lumi-avatar {
+	.ren-avatar {
 		display: inline-grid;
 		place-items: center;
 		flex-shrink: 0;
-		inline-size: var(--lumi-avatar-size);
-		block-size: var(--lumi-avatar-size);
+		inline-size: var(--ren-avatar-size);
+		block-size: var(--ren-avatar-size);
 		overflow: hidden;
-		border-radius: var(--lumi-radius-full);
-		background: var(--lumi-avatar-solid);
-		color: var(--lumi-avatar-foreground);
+		border-radius: var(--ren-radius-full);
+		background: var(--ren-avatar-solid);
+		color: var(--ren-avatar-foreground);
 		/* Initials scale with the diameter, so every size keeps one proportion. */
-		font-size: calc(var(--lumi-avatar-size) * 0.375);
-		font-weight: var(--lumi-font-weight-semibold);
-		line-height: var(--lumi-line-height-none);
+		font-size: calc(var(--ren-avatar-size) * 0.375);
+		font-weight: var(--ren-font-weight-semibold);
+		line-height: var(--ren-line-height-none);
 		white-space: nowrap;
 		user-select: none;
 	}

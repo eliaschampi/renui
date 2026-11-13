@@ -1,38 +1,38 @@
 /* Skeleton placeholder shared by Skeleton, Image and Table; imported by those
    components, so only pages that render one ship it. One soft shimmer pass per
    cycle; static under reduced motion. Size it from outside. */
-@layer lumi.tokens, lumi.base, lumi.components, lumi.layout, lumi.patterns, lumi.utilities;
+@layer ren.tokens, ren.base, ren.components, ren.layout, ren.patterns, ren.utilities;
 
-@layer lumi.components {
-	.lumi-skeleton {
+@layer ren.components {
+	.ren-skeleton {
 		display: block;
-		border-radius: var(--lumi-radius-control);
+		border-radius: var(--ren-radius-control);
 		background: linear-gradient(
 				90deg,
-				var(--lumi-skeleton-base, var(--lumi-color-background-secondary)) 25%,
-				var(--lumi-skeleton-highlight, var(--lumi-color-background-hover)) 50%,
-				var(--lumi-skeleton-base, var(--lumi-color-background-secondary)) 75%
+				var(--ren-skeleton-base, var(--ren-color-background-secondary)) 25%,
+				var(--ren-skeleton-highlight, var(--ren-color-background-hover)) 50%,
+				var(--ren-skeleton-base, var(--ren-color-background-secondary)) 75%
 			)
 			0 0 / 200% 100%;
-		animation: lumi-shimmer var(--lumi-duration-shimmer) linear infinite;
+		animation: ren-shimmer var(--ren-duration-shimmer) linear infinite;
 	}
 
-	.lumi-skeleton--text {
+	.ren-skeleton--text {
 		block-size: 1em;
-		border-radius: var(--lumi-radius-sm);
+		border-radius: var(--ren-radius-sm);
 	}
 
-	.lumi-skeleton--rect {
-		block-size: var(--lumi-control-height-md);
+	.ren-skeleton--rect {
+		block-size: var(--ren-control-height-md);
 	}
 
-	.lumi-skeleton--circle {
-		inline-size: var(--lumi-space-xxl);
+	.ren-skeleton--circle {
+		inline-size: var(--ren-space-xxl);
 		aspect-ratio: 1;
-		border-radius: var(--lumi-radius-full);
+		border-radius: var(--ren-radius-full);
 	}
 
-	@keyframes lumi-shimmer {
+	@keyframes ren-shimmer {
 		from {
 			background-position: 100% 0;
 		}

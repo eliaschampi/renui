@@ -12,7 +12,7 @@
 	import { fly } from 'svelte/transition';
 	import { DURATION_BASE, motion } from '../config';
 	import StatusSurface from '../Notification/StatusSurface.svelte';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import { liveRegion } from '../../utils/modal';
 	import type { ToasterProps } from './types';
 
@@ -22,7 +22,7 @@
 		class: className
 	}: ToasterProps = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 </script>
 
 <!-- One persistent polite region announces each toast once as it is added;
@@ -30,7 +30,7 @@
      animate here, so dismiss, clear and overflow all leave the same way. -->
 <section
 	use:liveRegion
-	class={['lumi-toaster', `lumi-toaster--${placement}`, className]}
+	class={['ren-toaster', `ren-toaster--${placement}`, className]}
 	aria-label={i18n.t.notifications}
 	aria-live="polite"
 >
@@ -57,39 +57,39 @@
 </section>
 
 <style>
-	.lumi-toaster {
+	.ren-toaster {
 		position: fixed;
-		inset-block-start: var(--lumi-space-lg);
-		inset-inline-end: var(--lumi-space-lg);
-		z-index: var(--lumi-z-toast);
+		inset-block-start: var(--ren-space-lg);
+		inset-inline-end: var(--ren-space-lg);
+		z-index: var(--ren-z-toast);
 		display: flex;
 		flex-direction: column;
-		gap: var(--lumi-space-sm);
+		gap: var(--ren-space-sm);
 		inline-size: min(
-			100vw - var(--lumi-space-lg) * 2,
-			var(--lumi-toast-portal-max-width)
+			100vw - var(--ren-space-lg) * 2,
+			var(--ren-toast-portal-max-width)
 		);
 		pointer-events: none;
 	}
 
-	.lumi-toaster > * {
+	.ren-toaster > * {
 		pointer-events: auto;
 	}
 
-	.lumi-toaster--bottom-end,
-	.lumi-toaster--bottom-center {
-		inset-block: auto var(--lumi-space-lg);
+	.ren-toaster--bottom-end,
+	.ren-toaster--bottom-center {
+		inset-block: auto var(--ren-space-lg);
 	}
 
-	.lumi-toaster--top-center,
-	.lumi-toaster--bottom-center {
+	.ren-toaster--top-center,
+	.ren-toaster--bottom-center {
 		inset-inline: 0;
 		margin-inline: auto;
 	}
 
 	@media (max-width: 48rem) {
-		.lumi-toaster {
-			inset-inline: var(--lumi-space-md);
+		.ren-toaster {
+			inset-inline: var(--ren-space-md);
 			inline-size: auto;
 		}
 	}

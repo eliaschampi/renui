@@ -8,39 +8,39 @@
 	}: FieldsetProps = $props();
 </script>
 
-<fieldset class={['lumi-fieldset', className]}>
+<fieldset class={['ren-fieldset', className]}>
 	{#if legend}
-		<legend class="lumi-fieldset__legend">{legend}</legend>
+		<legend class="ren-fieldset__legend">{legend}</legend>
 	{/if}
-	<div class="lumi-fieldset__content">
+	<div class="ren-fieldset__content">
 		{@render children?.()}
 	</div>
 </fieldset>
 
 <style>
-	.lumi-fieldset {
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
-		border-radius: var(--lumi-surface-radius);
-		padding: var(--lumi-space-md);
+	.ren-fieldset {
+		border: var(--ren-border-width-thin) solid var(--ren-color-border);
+		border-radius: var(--ren-surface-radius);
+		padding: var(--ren-space-md);
 		margin: 0;
 		min-width: 0;
-		background: var(--lumi-color-surface-card);
+		background: var(--ren-color-surface-card);
 		position: relative;
 	}
 
-	.lumi-fieldset__legend {
-		background: var(--lumi-color-surface-card);
-		color: var(--lumi-color-text-muted);
-		padding: 0 var(--lumi-space-sm);
-		font-size: var(--lumi-font-size-sm);
-		font-weight: var(--lumi-font-weight-medium);
-		margin-inline-start: var(--lumi-space-md);
-		border-radius: var(--lumi-radius-base);
+	.ren-fieldset__legend {
+		background: var(--ren-color-surface-card);
+		color: var(--ren-color-text-muted);
+		padding: 0 var(--ren-space-sm);
+		font-size: var(--ren-font-size-sm);
+		font-weight: var(--ren-font-weight-medium);
+		margin-inline-start: var(--ren-space-md);
+		border-radius: var(--ren-radius-base);
 	}
 
-	.lumi-fieldset__content {
+	.ren-fieldset__content {
 		display: flex;
 		flex-direction: column;
-		gap: var(--lumi-space-md);
+		gap: var(--ren-space-md);
 	}
 </style>

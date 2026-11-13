@@ -1,5 +1,5 @@
 /**
- * Lumi UI - Alert Component
+ * RenUI - Alert Component
  */
 
 export { default as Alert } from './Alert.svelte';

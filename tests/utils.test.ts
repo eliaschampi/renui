@@ -8,14 +8,14 @@ import {
 	hasIcon,
 	registerIcons
 } from '../src/lib';
-import { lumiIcons } from '../src/lib/icons';
+import { renIcons } from '../src/lib/icons';
 
 describe('icons', () => {
 	it('starts empty and resolves names once registered', () => {
 		expect(getIcon('search')).toBeNull();
-		registerIcons({ search: lumiIcons.search });
+		registerIcons({ search: renIcons.search });
 		expect(hasIcon('search')).toBe(true);
-		expect(getIcon('search')).toBe(lumiIcons.search);
+		expect(getIcon('search')).toBe(renIcons.search);
 	});
 });
 
@@ -62,7 +62,7 @@ describe('packaging', () => {
 			{ query: '?raw', import: 'default', eager: true }
 		)['../src/lib/components/Table/Table.svelte'];
 		expect(table).toMatch(
-			/\.lumi-table__pagination\) \{\s*(?:\/\*.*?\*\/\s*)?flex: 1 1 \d+rem;/s
+			/\.ren-table__pagination\) \{\s*(?:\/\*.*?\*\/\s*)?flex: 1 1 \d+rem;/s
 		);
 	});
 

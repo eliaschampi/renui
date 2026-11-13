@@ -1,6 +1,6 @@
 /**
  * English copy (default), one export per key so bundles keep only the
- * strings their components use. `lumiEn` in `./index` collects them all.
+ * strings their components use. `renEn` in `./index` collects them all.
  */
 
 export const close = 'Close';

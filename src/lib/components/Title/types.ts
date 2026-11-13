@@ -1,9 +1,9 @@
 import type { IconSource } from '../../utils/icons';
-import type { LumiColor, LumiDisplaySize } from '../config';
+import type { RenColor, RenDisplaySize } from '../config';
 
-export type TitleColor = LumiColor | 'text';
+export type TitleColor = RenColor | 'text';
 export type TitleLevel = 1 | 2 | 3 | 4 | 5 | 6;
-export type TitleSize = LumiDisplaySize;
+export type TitleSize = RenDisplaySize;
 
 export interface TitleProps {
 	/** Heading id for accessible labelling */

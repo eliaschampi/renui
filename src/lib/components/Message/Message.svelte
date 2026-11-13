@@ -21,153 +21,153 @@
 
 <div
 	class={[
-		'lumi-message',
-		end && 'lumi-message--end',
-		`lumi-message--${variant ?? (end ? 'filled' : 'soft')}`,
-		grouped && 'lumi-message--grouped',
+		'ren-message',
+		end && 'ren-message--end',
+		`ren-message--${variant ?? (end ? 'filled' : 'soft')}`,
+		grouped && 'ren-message--grouped',
 		className
 	]}
 	style={accent
-		? `--lumi-message-accent: var(--lumi-color-${accent}); --lumi-message-tint: var(--lumi-color-${accent}-bg); --lumi-message-solid: var(--lumi-color-${accent}-solid); --lumi-message-on-solid: var(--lumi-color-${accent}-foreground)`
+		? `--ren-message-accent: var(--ren-color-${accent}); --ren-message-tint: var(--ren-color-${accent}-bg); --ren-message-solid: var(--ren-color-${accent}-solid); --ren-message-on-solid: var(--ren-color-${accent}-foreground)`
 		: undefined}
 >
 	{#if avatar}
-		<div class="lumi-message__avatar" aria-hidden={grouped || undefined}>
+		<div class="ren-message__avatar" aria-hidden={grouped || undefined}>
 			{#if !grouped}{@render avatar()}{/if}
 		</div>
 	{/if}
 
-	<div class="lumi-message__content">
+	<div class="ren-message__content">
 		{#if showHeader}
-			<div class="lumi-message__header">
-				{#if name}<span class="lumi-message__name">{name}</span>{/if}
-				{#if time}<span class="lumi-message__time">{time}</span>{/if}
+			<div class="ren-message__header">
+				{#if name}<span class="ren-message__name">{name}</span>{/if}
+				{#if time}<span class="ren-message__time">{time}</span>{/if}
 			</div>
 		{:else if grouped && name}
-			<span class="lumi-sr-only">{name}</span>
+			<span class="ren-sr-only">{name}</span>
 		{/if}
 
-		<div class="lumi-message__bubble">
+		<div class="ren-message__bubble">
 			{@render children?.()}
 		</div>
 
 		{#if footer}
-			<div class="lumi-message__footer">{@render footer()}</div>
+			<div class="ren-message__footer">{@render footer()}</div>
 		{/if}
 	</div>
 </div>
 
 <style>
-	.lumi-message {
+	.ren-message {
 		/* Neutral defaults; a `color` re-points these four. */
-		--lumi-message-accent: var(--lumi-color-border-strong);
-		--lumi-message-tint: var(--lumi-color-background-secondary);
-		--lumi-message-solid: var(--lumi-color-surface-elevated);
-		--lumi-message-on-solid: var(--lumi-color-text);
-		--lumi-message-avatar-size: var(--lumi-space-xl);
-		--lumi-message-max-inline-size: 80%;
+		--ren-message-accent: var(--ren-color-border-strong);
+		--ren-message-tint: var(--ren-color-background-secondary);
+		--ren-message-solid: var(--ren-color-surface-elevated);
+		--ren-message-on-solid: var(--ren-color-text);
+		--ren-message-avatar-size: var(--ren-space-xl);
+		--ren-message-max-inline-size: 80%;
 		display: flex;
 		align-items: flex-start;
-		gap: var(--lumi-space-xs);
+		gap: var(--ren-space-xs);
 		min-width: 0;
 	}
 
-	.lumi-message:not(:first-child) {
-		margin-block-start: var(--lumi-space-md);
+	.ren-message:not(:first-child) {
+		margin-block-start: var(--ren-space-md);
 	}
 
-	.lumi-message--grouped:not(:first-child) {
-		margin-block-start: var(--lumi-space-2xs);
+	.ren-message--grouped:not(:first-child) {
+		margin-block-start: var(--ren-space-2xs);
 	}
 
-	.lumi-message--end {
+	.ren-message--end {
 		flex-direction: row-reverse;
 	}
 
-	.lumi-message__avatar {
+	.ren-message__avatar {
 		display: flex;
 		flex: none;
-		min-inline-size: var(--lumi-message-avatar-size);
+		min-inline-size: var(--ren-message-avatar-size);
 	}
 
-	.lumi-message__content {
+	.ren-message__content {
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
-		gap: var(--lumi-space-2xs);
+		gap: var(--ren-space-2xs);
 		min-width: 0;
-		max-inline-size: var(--lumi-message-max-inline-size);
+		max-inline-size: var(--ren-message-max-inline-size);
 	}
 
-	.lumi-message--end .lumi-message__content {
+	.ren-message--end .ren-message__content {
 		align-items: flex-end;
 	}
 
-	.lumi-message__header,
-	.lumi-message__footer {
+	.ren-message__header,
+	.ren-message__footer {
 		display: flex;
 		align-items: baseline;
-		gap: var(--lumi-space-xs);
-		padding-inline: var(--lumi-space-2xs);
-		font-size: var(--lumi-font-size-xs);
-		line-height: var(--lumi-line-height-tight);
-		color: var(--lumi-color-text-muted);
+		gap: var(--ren-space-xs);
+		padding-inline: var(--ren-space-2xs);
+		font-size: var(--ren-font-size-xs);
+		line-height: var(--ren-line-height-tight);
+		color: var(--ren-color-text-muted);
 	}
 
-	.lumi-message__name {
-		font-weight: var(--lumi-font-weight-semibold);
-		color: var(--lumi-color-text);
+	.ren-message__name {
+		font-weight: var(--ren-font-weight-semibold);
+		color: var(--ren-color-text);
 	}
 
 	/* Bubble: one recipe; variants only choose fill, border and ink. */
-	.lumi-message__bubble {
-		padding: var(--lumi-space-xs) var(--lumi-space-sm);
-		font-size: var(--lumi-font-size-sm);
-		line-height: var(--lumi-line-height-normal);
-		color: var(--lumi-color-text);
+	.ren-message__bubble {
+		padding: var(--ren-space-xs) var(--ren-space-sm);
+		font-size: var(--ren-font-size-sm);
+		line-height: var(--ren-line-height-normal);
+		color: var(--ren-color-text);
 		overflow-wrap: anywhere;
-		background: var(--lumi-message-tint);
-		border: var(--lumi-border-width-thin) solid
-			color-mix(in srgb, var(--lumi-message-accent) 18%, transparent);
-		border-radius: var(--lumi-radius-lg);
+		background: var(--ren-message-tint);
+		border: var(--ren-border-width-thin) solid
+			color-mix(in srgb, var(--ren-message-accent) 18%, transparent);
+		border-radius: var(--ren-radius-lg);
 		/* The corner beside the sender stays tight, like a tail. */
-		border-start-start-radius: var(--lumi-radius-xs);
+		border-start-start-radius: var(--ren-radius-xs);
 	}
 
-	.lumi-message--end .lumi-message__bubble {
-		border-start-start-radius: var(--lumi-radius-lg);
-		border-start-end-radius: var(--lumi-radius-xs);
+	.ren-message--end .ren-message__bubble {
+		border-start-start-radius: var(--ren-radius-lg);
+		border-start-end-radius: var(--ren-radius-xs);
 	}
 
-	.lumi-message--filled .lumi-message__bubble {
-		color: var(--lumi-message-on-solid);
-		background: var(--lumi-message-solid);
+	.ren-message--filled .ren-message__bubble {
+		color: var(--ren-message-on-solid);
+		background: var(--ren-message-solid);
 		border-color: transparent;
-		box-shadow: var(--lumi-shadow-sm);
+		box-shadow: var(--ren-shadow-sm);
 	}
 
-	.lumi-message--filled .lumi-message__bubble :global(a) {
+	.ren-message--filled .ren-message__bubble :global(a) {
 		color: inherit;
 	}
 
-	.lumi-message--outline .lumi-message__bubble {
+	.ren-message--outline .ren-message__bubble {
 		background: transparent;
 		border-color: color-mix(
 			in srgb,
-			var(--lumi-message-accent) 45%,
-			var(--lumi-color-border)
+			var(--ren-message-accent) 45%,
+			var(--ren-color-border)
 		);
 	}
 
-	.lumi-message--ghost {
-		--lumi-message-max-inline-size: 100%;
+	.ren-message--ghost {
+		--ren-message-max-inline-size: 100%;
 	}
 
-	.lumi-message--ghost .lumi-message__content {
+	.ren-message--ghost .ren-message__content {
 		flex: 1;
 	}
 
-	.lumi-message--ghost .lumi-message__bubble {
+	.ren-message--ghost .ren-message__bubble {
 		padding: 0;
 		background: none;
 		border: none;

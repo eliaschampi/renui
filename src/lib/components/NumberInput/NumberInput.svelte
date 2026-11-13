@@ -18,7 +18,7 @@
 <script lang="ts">
 	import Minus from '@lucide/svelte/icons/minus';
 	import Plus from '@lucide/svelte/icons/plus';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import { FieldLabel, FieldMessage } from '../Field';
 	import Icon from '../Icon/Icon.svelte';
 	import type { NumberInputProps } from './types';
@@ -44,9 +44,9 @@
 		...rest
 	}: NumberInputProps = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 	const uid = $props.id();
-	const id = $derived(idProp ?? `lumi-number-${uid}`);
+	const id = $derived(idProp ?? `ren-number-${uid}`);
 	const messageId = $derived(`${id}-message`);
 	const invalid = $derived(Boolean(error));
 	const errorText = $derived(typeof error === 'string' ? error : '');
@@ -96,12 +96,12 @@
 
 <div
 	class={[
-		'lumi-field',
-		'lumi-number-input',
-		`lumi-field--${size}`,
-		invalid && 'lumi-field--invalid',
-		disabled && 'lumi-field--disabled',
-		`lumi-tone lumi-tone--${invalid ? 'danger' : color}`,
+		'ren-field',
+		'ren-number-input',
+		`ren-field--${size}`,
+		invalid && 'ren-field--invalid',
+		disabled && 'ren-field--disabled',
+		`ren-tone ren-tone--${invalid ? 'danger' : color}`,
 		className
 	]}
 >
@@ -109,10 +109,10 @@
 		<FieldLabel for={id} {label} required={!!required} />
 	{/if}
 
-	<div class="lumi-field__control">
+	<div class="ren-field__control">
 		<button
 			type="button"
-			class="lumi-field__button"
+			class="ren-field__button"
 			tabindex="-1"
 			aria-label={i18n.t.numberDecrease}
 			disabled={disabled || readonly || !canDecrease}
@@ -133,7 +133,7 @@
 			{disabled}
 			{readonly}
 			{required}
-			class="lumi-field__input lumi-autofill"
+			class="ren-field__input ren-autofill"
 			aria-label={ariaLabel ?? (label ? undefined : placeholder || undefined)}
 			aria-invalid={invalid || undefined}
 			aria-describedby={errorText || hint ? messageId : undefined}
@@ -143,7 +143,7 @@
 
 		<button
 			type="button"
-			class="lumi-field__button"
+			class="ren-field__button"
 			tabindex="-1"
 			aria-label={i18n.t.numberIncrease}
 			disabled={disabled || readonly || !canIncrease}
@@ -157,39 +157,39 @@
 </div>
 
 <style>
-	.lumi-number-input .lumi-field__input {
+	.ren-number-input .ren-field__input {
 		text-align: center;
 		font-variant-numeric: tabular-nums;
 		appearance: textfield;
 	}
 
-	.lumi-number-input .lumi-field__input::-webkit-inner-spin-button,
-	.lumi-number-input .lumi-field__input::-webkit-outer-spin-button {
+	.ren-number-input .ren-field__input::-webkit-inner-spin-button,
+	.ren-number-input .ren-field__input::-webkit-outer-spin-button {
 		appearance: none;
 		margin: 0;
 	}
 
 	/* Square steppers set off by hairlines. */
-	.lumi-number-input .lumi-field__button {
-		inline-size: var(--lumi-field-height);
+	.ren-number-input .ren-field__button {
+		inline-size: var(--ren-field-height);
 		padding: 0;
-		border-inline: var(--lumi-border-width-thin) solid var(--lumi-color-border);
+		border-inline: var(--ren-border-width-thin) solid var(--ren-color-border);
 	}
 
-	.lumi-number-input .lumi-field__button:first-child {
+	.ren-number-input .ren-field__button:first-child {
 		border-inline-start: 0;
 	}
 
-	.lumi-number-input .lumi-field__button:last-child {
+	.ren-number-input .ren-field__button:last-child {
 		border-inline-end: 0;
 	}
 
-	.lumi-number-input .lumi-field__button:hover {
-		background: var(--lumi-color-hover);
+	.ren-number-input .ren-field__button:hover {
+		background: var(--ren-color-hover);
 	}
 
-	.lumi-number-input .lumi-field__button:disabled {
-		opacity: var(--lumi-opacity-disabled);
+	.ren-number-input .ren-field__button:disabled {
+		opacity: var(--ren-opacity-disabled);
 		pointer-events: none;
 	}
 </style>

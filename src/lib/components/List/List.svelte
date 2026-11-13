@@ -14,10 +14,10 @@
 <!-- role="list" keeps list semantics in Safari once list-style is removed. -->
 <ul
 	class={[
-		'lumi-list',
-		size === 'sm' && 'lumi-list--sm',
-		maxHeight && `lumi-list--max-${maxHeight} lumi-scroll-contain`,
-		color && `lumi-tone lumi-tone--${color}`,
+		'ren-list',
+		size === 'sm' && 'ren-list--sm',
+		maxHeight && `ren-list--max-${maxHeight} ren-scroll-contain`,
+		color && `ren-tone ren-tone--${color}`,
 		className
 	]}
 	role="list"
@@ -27,45 +27,45 @@
 </ul>
 
 <style>
-	.lumi-list {
-		--lumi-list-item-padding: var(--lumi-space-sm) var(--lumi-space-md);
-		--lumi-list-icon-size: var(--lumi-icon-sm);
+	.ren-list {
+		--ren-list-item-padding: var(--ren-space-sm) var(--ren-space-md);
+		--ren-list-icon-size: var(--ren-icon-sm);
 		display: flex;
 		flex-direction: column;
-		gap: var(--lumi-space-2xs);
+		gap: var(--ren-space-2xs);
 		inline-size: 100%;
-		padding: var(--lumi-space-xs);
+		padding: var(--ren-space-xs);
 		list-style: none;
-		background: var(--lumi-color-surface-inset);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
-		border-radius: var(--lumi-surface-radius);
+		background: var(--ren-color-surface-inset);
+		border: var(--ren-border-width-thin) solid var(--ren-color-border);
+		border-radius: var(--ren-surface-radius);
 	}
 
-	.lumi-list--sm {
-		--lumi-list-item-padding: var(--lumi-space-xs) var(--lumi-space-sm);
-		--lumi-list-icon-size: var(--lumi-icon-xs);
+	.ren-list--sm {
+		--ren-list-item-padding: var(--ren-space-xs) var(--ren-space-sm);
+		--ren-list-icon-size: var(--ren-icon-xs);
 	}
 
 	/* Inner scroller only when capped; unbounded lists stay in the parent. */
-	.lumi-list--max-sm,
-	.lumi-list--max-md,
-	.lumi-list--max-lg {
+	.ren-list--max-sm,
+	.ren-list--max-md,
+	.ren-list--max-lg {
 		overflow: hidden auto;
 	}
 
-	.lumi-list--max-sm {
-		max-block-size: calc(var(--lumi-space-3xl) * 3);
+	.ren-list--max-sm {
+		max-block-size: calc(var(--ren-space-3xl) * 3);
 	}
 
-	.lumi-list--max-md {
-		max-block-size: calc(var(--lumi-space-3xl) * 4);
+	.ren-list--max-md {
+		max-block-size: calc(var(--ren-space-3xl) * 4);
 	}
 
-	.lumi-list--max-lg {
-		max-block-size: calc(var(--lumi-space-3xl) * 5);
+	.ren-list--max-lg {
+		max-block-size: calc(var(--ren-space-3xl) * 5);
 	}
 
-	.lumi-list[inert] {
-		opacity: var(--lumi-opacity-disabled);
+	.ren-list[inert] {
+		opacity: var(--ren-opacity-disabled);
 	}
 </style>

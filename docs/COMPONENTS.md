@@ -1,10 +1,10 @@
 # Component Catalog
 
-> Every value currently exported from `@lumi-ui/svelte`, grouped for selection. Exact props: linked `types.ts` and `.svelte`. Local snippets/callbacks are not always in `types.ts`.
+> Every value currently exported from `@renui/svelte`, grouped for selection. Exact props: linked `types.ts` and `.svelte`. Local snippets/callbacks are not always in `types.ts`.
 
 ```ts
-import { Button, Card } from '@lumi-ui/svelte';
-import type { ButtonProps } from '@lumi-ui/svelte';
+import { Button, Card } from '@renui/svelte';
+import type { ButtonProps } from '@renui/svelte';
 ```
 
 `ColorSchemeScript` lives on optional `/color-scheme` — see [Guide §3](./GUIDE.md#3-theming-and-color-scheme). Shared semantic scales: [`config.ts`](../src/lib/components/config.ts).
@@ -124,35 +124,35 @@ Shell recipes: [Guide §4](./GUIDE.md#4-layouts-and-composition). CSS families: 
 | ---------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
 | `DriveFileCard`, `DriveFileGrid`, `DriveFileList`, `DriveFilePreview`, `DriveFileUploader`, `DriveSidebar` | Opinionated file-workspace UI; persistence/endpoints stay in the app | [`Drive/types.ts`](../src/lib/components/Drive/types.ts), [source](../src/lib/components/Drive) |
 
-These six are root exports. Pure helpers/types: `@lumi-ui/svelte/drive` — [Guide §1 entry points](./GUIDE.md#public-entry-points).
+These six are root exports. Pure helpers/types: `@renui/svelte/drive` — [Guide §1 entry points](./GUIDE.md#public-entry-points).
 
 ## Shared Config, Helpers, and Types
 
-Non-component root exports from `@lumi-ui/svelte`. Use these to compose custom UI and keep product code type-safe against the same semantic scales components use.
+Non-component root exports from `@renui/svelte`. Use these to compose custom UI and keep product code type-safe against the same semantic scales components use.
 
-| Export                                                                                  | Kind          | Use                                                                                                   |
-| --------------------------------------------------------------------------------------- | ------------- | ----------------------------------------------------------------------------------------------------- |
-| `registerIcons(map)`, `getIcon(name)`, `hasIcon(name)`                                  | functions     | Opt-in string icon registry (empty by default); curated map: `lumiIcons` from `@lumi-ui/svelte/icons` |
-| `setLumiLocale(options)`, `lumiEn`, `lumiEs`                                            | i18n          | Built-in copy and `Intl` locale/currency/time zone through context (English default)                  |
-| `formatNumber`, `formatDate`, `getInitials`                                             | functions     | Cached, pure formatters and initials helper used by components                                        |
-| `createToaster(options)`                                                                | factory       | Explicit toast queue for `Toaster`                                                                    |
-| `portal`                                                                                | Svelte action | `use:portal={'css-selector'}` or `use:portal={element}`; default target is `document.body`            |
-| `LumiColor`, `LumiChoiceOption`                                                         | type          | `'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger' \| 'info'`                            |
-| `LumiSize`, `LumiCompactSize`, `LumiControlSize`, `LumiDisplaySize`, `LumiExtendedSize` | types         | Semantic size unions consumed by component `size` props                                               |
-| `ChartColor`, `ChartSeriesPoint`, `ChartValueFormat`                                    | types         | Chart data contracts shared with `DashboardChart`                                                     |
-| `FieldError`                                                                            | type          | `error` prop of `Input`, `Textarea`, `Select`, `NumberInput`: `true` or a message                     |
+| Export                                                                             | Kind          | Use                                                                                                |
+| ---------------------------------------------------------------------------------- | ------------- | -------------------------------------------------------------------------------------------------- |
+| `registerIcons(map)`, `getIcon(name)`, `hasIcon(name)`                             | functions     | Opt-in string icon registry (empty by default); curated map: `renIcons` from `@renui/svelte/icons` |
+| `setRenLocale(options)`, `renEn`, `renEs`                                          | i18n          | Built-in copy and `Intl` locale/currency/time zone through context (English default)               |
+| `formatNumber`, `formatDate`, `getInitials`                                        | functions     | Cached, pure formatters and initials helper used by components                                     |
+| `createToaster(options)`                                                           | factory       | Explicit toast queue for `Toaster`                                                                 |
+| `portal`                                                                           | Svelte action | `use:portal={'css-selector'}` or `use:portal={element}`; default target is `document.body`         |
+| `RenColor`, `RenChoiceOption`                                                      | type          | `'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger' \| 'info'`                         |
+| `RenSize`, `RenCompactSize`, `RenControlSize`, `RenDisplaySize`, `RenExtendedSize` | types         | Semantic size unions consumed by component `size` props                                            |
+| `ChartColor`, `ChartSeriesPoint`, `ChartValueFormat`                               | types         | Chart data contracts shared with `DashboardChart`                                                  |
+| `FieldError`                                                                       | type          | `error` prop of `Input`, `Textarea`, `Select`, `NumberInput`: `true` or a message                  |
 
 Contracts: [`config.ts`](../src/lib/components/config.ts), [`portal.ts`](../src/lib/actions/portal.ts), [`icons.ts`](../src/lib/utils/icons.ts), [`i18n`](../src/lib/i18n/index.ts), [`format.ts`](../src/lib/utils/format.ts), [`charts.ts`](../src/lib/types/charts.ts).
 
-Icons cost only what a page renders: pass deep-imported Lucide components (`@lucide/svelte/icons/search`). String names resolve through a registry that is empty until `registerIcons()` runs — register `lumiIcons` only in layouts that render icon names from data, never on SEO-sensitive pages.
+Icons cost only what a page renders: pass deep-imported Lucide components (`@lucide/svelte/icons/search`). String names resolve through a registry that is empty until `registerIcons()` runs — register `renIcons` only in layouts that render icon names from data, never on SEO-sensitive pages.
 
 ## Behavioral Checks
 
 - Read `.svelte` when snippets/callbacks matter; several are local, not in exported `*Props`.
 - `Button.variant` sets the visual treatment and `Button.type` the native semantics. `href` renders an `<a>` with the same styles (disabled/loading links drop `href` and expose `aria-disabled`); `pressed` adds `aria-pressed` for a standalone toggle. `summary` renders the `<summary>` of a native `<details>` — a disclosure toggle that works without JavaScript (storefront menus, filter panels) and reads as pressed while open. `filled` and `gradient` consume `solid + foreground`.
 - `Card` derives its depth from the neutral surface ladder. A clickable card renders as a button and must not contain nested interactive controls.
-- Form peers share one field shell (`Field/field.css`, layer `lumi.components`): `Input`, `NumberInput`, `Select` and `Textarea` render `.lumi-field` with the same heights, fill/border, invalid state, autofill and focus. `error` (`true` or a message) and `hint` work the same on all four.
-- `Tabs`, `SegmentedControl` and `ToggleGroup` share the `.lumi-switcher` recipe (recessed track + raised active pill with tone ink, `styles/switcher.css`, imported by those components), not the field well. SegmentedControl is one exclusive choice (radio semantics); ToggleGroup is any number of pressed options (`aria-pressed`, roving tabindex, `value` is an array).
+- Form peers share one field shell (`Field/field.css`, layer `ren.components`): `Input`, `NumberInput`, `Select` and `Textarea` render `.ren-field` with the same heights, fill/border, invalid state, autofill and focus. `error` (`true` or a message) and `hint` work the same on all four.
+- `Tabs`, `SegmentedControl` and `ToggleGroup` share the `.ren-switcher` recipe (recessed track + raised active pill with tone ink, `styles/switcher.css`, imported by those components), not the field well. SegmentedControl is one exclusive choice (radio semantics); ToggleGroup is any number of pressed options (`aria-pressed`, roving tabindex, `value` is an array).
 - `Tab.content` enables managed panels: every panel stays mounted while inactive panels are hidden, preserving local state and successful form controls.
 - Radios bound to the same `group` must also share a non-empty `name`. `busy` temporarily disables interaction.
 - `List` renders `<ul>`/`<li>`. A `ListItem` with `href` or `onclick` is interactive through a stretched target, so `trailing` actions stay siblings, never nested controls. `selected` marks selection; `SidebarItem.current` marks navigation.
@@ -166,7 +166,7 @@ Icons cost only what a page renders: pass deep-imported Lucide components (`@luc
 - `Alert.color` and `Notification.color` take semantic colors; `onclose()` fires after the exit transition. `closeLabel` overrides the localized dismiss name.
 - `Checkbox`, `Radio` and `Switch` take the same form props: `id`, `name`, `value`, `required`, `disabled`, `aria-label`.
 - Supply `Table.rowKey` when records lack stable `id` or `key`. `Table` suppresses row click/double-click/context actions when the pointer originates from a nested interactive control.
-- All `Dashboard*` charts consume the shared `.lumi-chart-*` primitives from `styles/charts.css`, which they import themselves.
+- All `Dashboard*` charts consume the shared `.ren-chart-*` primitives from `styles/charts.css`, which they import themselves.
 - Icon-only controls need an accessible name; decorative nested icons do not.
 - `Tooltip` anchors to its child when it wraps a single element, and to its wrapper otherwise.
 - Preserve focus, dismissal, and roles when composing overlays.

@@ -6,30 +6,30 @@
 	let {
 		options,
 		value = $bindable(),
-		name = `lumi-avatar-${uid}`,
+		name = `ren-avatar-${uid}`,
 		'aria-label': ariaLabel,
 		class: className
 	}: AvatarPickerProps = $props();
 </script>
 
 <div
-	class={['lumi-avatar-picker', className]}
+	class={['ren-avatar-picker', className]}
 	role="radiogroup"
 	aria-label={ariaLabel}
 >
 	{#each options as option (option.value)}
-		<label class="lumi-avatar-picker__option">
+		<label class="ren-avatar-picker__option">
 			<input
 				type="radio"
 				{name}
 				value={option.value}
 				checked={value === option.value}
 				onchange={() => (value = option.value)}
-				class="lumi-sr-only"
+				class="ren-sr-only"
 			/>
 			<span
-				class="lumi-avatar-picker__image"
-				class:lumi-avatar-picker__image--selected={value === option.value}
+				class="ren-avatar-picker__image"
+				class:ren-avatar-picker__image--selected={value === option.value}
 			>
 				<img
 					src={option.src}
@@ -43,45 +43,45 @@
 </div>
 
 <style>
-	.lumi-avatar-picker {
+	.ren-avatar-picker {
 		display: flex;
 		flex-wrap: wrap;
-		gap: var(--lumi-space-sm);
+		gap: var(--ren-space-sm);
 		justify-content: center;
 	}
 
-	.lumi-avatar-picker__option {
+	.ren-avatar-picker__option {
 		cursor: pointer;
 	}
 
-	.lumi-avatar-picker__image {
-		width: var(--lumi-space-4xl);
-		height: var(--lumi-space-4xl);
-		border-radius: var(--lumi-radius-full);
+	.ren-avatar-picker__image {
+		width: var(--ren-space-4xl);
+		height: var(--ren-space-4xl);
+		border-radius: var(--ren-radius-full);
 		overflow: hidden;
-		border: var(--lumi-border-width-thick) solid var(--lumi-color-border);
-		transition: var(--lumi-transition-interactive);
+		border: var(--ren-border-width-thick) solid var(--ren-color-border);
+		transition: var(--ren-transition-interactive);
 		transform: scale(1);
 		display: flex;
 		align-items: center;
 		justify-content: center;
 	}
 
-	.lumi-avatar-picker__image:hover {
-		border-color: var(--lumi-color-primary);
-		transform: scale(var(--lumi-interactive-hover-scale));
+	.ren-avatar-picker__image:hover {
+		border-color: var(--ren-color-primary);
+		transform: scale(var(--ren-interactive-hover-scale));
 	}
 
-	.lumi-avatar-picker__image--selected {
-		border-color: var(--lumi-color-primary);
-		transform: scale(var(--lumi-interactive-zoom-scale));
+	.ren-avatar-picker__image--selected {
+		border-color: var(--ren-color-primary);
+		transform: scale(var(--ren-interactive-zoom-scale));
 	}
 
-	input:focus-visible + .lumi-avatar-picker__image {
-		box-shadow: var(--lumi-control-focus-shadow);
+	input:focus-visible + .ren-avatar-picker__image {
+		box-shadow: var(--ren-control-focus-shadow);
 	}
 
-	.lumi-avatar-picker__image img {
+	.ren-avatar-picker__image img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;

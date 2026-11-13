@@ -71,7 +71,7 @@ describe('Toaster', () => {
 		render(DialogToaster, props);
 		await tick();
 
-		const region = document.querySelector('.lumi-toaster')!;
+		const region = document.querySelector('.ren-toaster')!;
 		expect(region.closest('[aria-modal="true"]')).not.toBeNull();
 
 		props.dialog = false;
@@ -96,7 +96,7 @@ describe('Button', () => {
 
 	it('renders a disclosure summary that needs no script', () => {
 		const target = render(Button, { summary: true, children: undefined });
-		expect(target.querySelector('summary.lumi-button')).not.toBeNull();
+		expect(target.querySelector('summary.ren-button')).not.toBeNull();
 		expect(target.querySelector('button, a')).toBeNull();
 	});
 });
@@ -119,7 +119,7 @@ describe('Tabs', () => {
 describe('Pagination', () => {
 	it('keeps the step names in the DOM when narrow layouts hide them', () => {
 		const target = render(Pagination, { page: 2, pages: 5 });
-		const steps = target.querySelectorAll('.lumi-pagination__label');
+		const steps = target.querySelectorAll('.ren-pagination__label');
 		expect([...steps].map((step) => step.textContent?.trim())).toEqual([
 			'Previous',
 			'Next'
@@ -176,7 +176,7 @@ describe('ToggleGroup', () => {
 });
 
 describe('i18n', () => {
-	it('renders Spanish copy and crawlable links through setLumiLocale', () => {
+	it('renders Spanish copy and crawlable links through setRenLocale', () => {
 		const target = render(Spanish, {});
 		const nav = target.querySelector('nav')!;
 		expect(nav.getAttribute('aria-label')).toBe('Paginación');
@@ -253,7 +253,7 @@ describe('menus', () => {
 		stubViewport();
 		const target = render(Menu, { open: true });
 		await tick();
-		const anchor = target.querySelector<HTMLElement>('.lumi-dropdown')!;
+		const anchor = target.querySelector<HTMLElement>('.ren-dropdown')!;
 		const at = (y: number) => ({ x: 20, y, width: 100, height: 40 }) as DOMRect;
 		const style = () =>
 			document.querySelector('[role="menu"]')?.getAttribute('style');
@@ -298,7 +298,7 @@ describe('Tooltip', () => {
 				render: () => '<button>Go</button>'
 			}))
 		});
-		const wrapper = target.querySelector<HTMLElement>('.lumi-tooltip')!;
+		const wrapper = target.querySelector<HTMLElement>('.ren-tooltip')!;
 		const button = wrapper.querySelector('button')!;
 		const rect = (width: number) =>
 			({ x: 0, y: 100, width, height: 40 }) as DOMRect;
@@ -309,7 +309,7 @@ describe('Tooltip', () => {
 		wrapper.dispatchEvent(new PointerEvent('pointerenter'));
 		await vi.waitFor(() =>
 			expect(
-				document.querySelector('.lumi-tooltip__content')?.getAttribute('style')
+				document.querySelector('.ren-tooltip__content')?.getAttribute('style')
 			).toContain('left: 50px')
 		);
 	});
@@ -419,8 +419,8 @@ describe('control contract', () => {
 	it('carries its accent as tone classes, never as inline style', () => {
 		const target = render(Switch, { label: 'On', color: 'danger' });
 		const label = target.querySelector('label');
-		expect(label?.classList.contains('lumi-tone')).toBe(true);
-		expect(label?.classList.contains('lumi-tone--danger')).toBe(true);
+		expect(label?.classList.contains('ren-tone')).toBe(true);
+		expect(label?.classList.contains('ren-tone--danger')).toBe(true);
 		expect(label?.hasAttribute('style')).toBe(false);
 	});
 });

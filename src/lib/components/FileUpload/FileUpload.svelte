@@ -34,7 +34,7 @@
 	import FileIcon from '@lucide/svelte/icons/file';
 	import Plus from '@lucide/svelte/icons/plus';
 	import X from '@lucide/svelte/icons/x';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import { formatFileSize } from '../../utils/file';
 	import Icon from '../Icon/Icon.svelte';
 	import type { FileUploadFile, FileUploadProps } from './types';
@@ -59,7 +59,7 @@
 	let picker: HTMLInputElement | undefined = $state();
 	let dragging = $state(false);
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 	const invalid = $derived(files.some((file) => file.status === 'error'));
 
 	function validate(file: File): string | null {
@@ -83,7 +83,7 @@
 				continue;
 			}
 			next.push({
-				id: `lumi-file-${++sequence}`,
+				id: `ren-file-${++sequence}`,
 				file,
 				status: error ? 'error' : 'selected',
 				progress: 0,
@@ -116,10 +116,10 @@
 
 <div
 	class={[
-		'lumi-file-upload',
-		dragging && 'lumi-file-upload--dragging',
-		disabled && 'lumi-file-upload--disabled',
-		invalid && 'lumi-file-upload--invalid',
+		'ren-file-upload',
+		dragging && 'ren-file-upload--dragging',
+		disabled && 'ren-file-upload--disabled',
+		invalid && 'ren-file-upload--invalid',
 		className
 	]}
 	role="presentation"
@@ -148,34 +148,32 @@
 	{#if files.length === 0}
 		<button
 			type="button"
-			class="lumi-file-upload__placeholder"
+			class="ren-file-upload__placeholder"
 			{disabled}
 			onclick={() => picker?.click()}
 		>
-			<span class="lumi-file-upload__glyph" aria-hidden="true">
+			<span class="ren-file-upload__glyph" aria-hidden="true">
 				<Icon icon={CloudUpload} size="xl" />
 			</span>
-			<span class="lumi-file-upload__title">
+			<span class="ren-file-upload__title">
 				{placeholderText ?? i18n.t.fileUploadTitle}
 			</span>
-			<span class="lumi-file-upload__hint">
+			<span class="ren-file-upload__hint">
 				{hintText ?? i18n.t.fileUploadHint}
 			</span>
 		</button>
 	{:else}
-		<ul class="lumi-file-upload__list" aria-label={i18n.t.fileUploadList}>
+		<ul class="ren-file-upload__list" aria-label={i18n.t.fileUploadList}>
 			{#each files as item (item.id)}
-				<li
-					class="lumi-file-upload__item lumi-file-upload__item--{item.status}"
-				>
-					<span class="lumi-file-upload__file-icon" aria-hidden="true">
+				<li class="ren-file-upload__item ren-file-upload__item--{item.status}">
+					<span class="ren-file-upload__file-icon" aria-hidden="true">
 						<Icon icon={FileIcon} size="md" />
 					</span>
-					<span class="lumi-file-upload__details">
-						<span class="lumi-file-upload__name" title={item.file.name}>
+					<span class="ren-file-upload__details">
+						<span class="ren-file-upload__name" title={item.file.name}>
 							{item.file.name}
 						</span>
-						<span class="lumi-file-upload__meta">
+						<span class="ren-file-upload__meta">
 							{item.status === 'error'
 								? item.error
 								: formatFileSize(item.file.size)}
@@ -183,7 +181,7 @@
 					</span>
 					{#if item.status === 'uploading'}
 						<span
-							class="lumi-spinner lumi-file-upload__spinner"
+							class="ren-spinner ren-file-upload__spinner"
 							aria-hidden="true"
 						></span>
 					{:else if item.status === 'success'}
@@ -191,7 +189,7 @@
 					{:else if !disabled}
 						<button
 							type="button"
-							class="lumi-file-upload__remove"
+							class="ren-file-upload__remove"
 							aria-label={i18n.t.fileUploadRemove(item.file.name)}
 							onclick={() => remove(item.id)}
 						>
@@ -201,7 +199,7 @@
 					{#if item.status === 'uploading' || item.status === 'success'}
 						{@const inProgress = item.status === 'uploading'}
 						<span
-							class="lumi-file-upload__progress"
+							class="ren-file-upload__progress"
 							style:inline-size="{item.progress}%"
 							role={inProgress ? 'progressbar' : undefined}
 							aria-label={inProgress ? item.file.name : undefined}
@@ -217,7 +215,7 @@
 		{#if multiple}
 			<button
 				type="button"
-				class="lumi-file-upload__add"
+				class="ren-file-upload__add"
 				{disabled}
 				onclick={() => picker?.click()}
 			>
@@ -229,222 +227,222 @@
 </div>
 
 <style>
-	.lumi-file-upload {
-		--lumi-control-accent: var(--lumi-color-primary);
+	.ren-file-upload {
+		--ren-control-accent: var(--ren-color-primary);
 		display: flex;
 		flex-direction: column;
-		gap: var(--lumi-space-sm);
+		gap: var(--ren-space-sm);
 		inline-size: 100%;
-		min-block-size: calc(var(--lumi-space-6xl) + var(--lumi-space-4xl));
-		padding: var(--lumi-space-md);
-		font-family: var(--lumi-font-family-sans);
-		background: var(--lumi-color-surface);
-		border: var(--lumi-border-width-thick) dashed var(--lumi-color-border);
-		border-radius: var(--lumi-radius-panel);
-		transition: var(--lumi-transition-interactive);
+		min-block-size: calc(var(--ren-space-6xl) + var(--ren-space-4xl));
+		padding: var(--ren-space-md);
+		font-family: var(--ren-font-family-sans);
+		background: var(--ren-color-surface);
+		border: var(--ren-border-width-thick) dashed var(--ren-color-border);
+		border-radius: var(--ren-radius-panel);
+		transition: var(--ren-transition-interactive);
 	}
 
-	.lumi-file-upload:hover,
-	.lumi-file-upload:focus-within,
-	.lumi-file-upload--dragging {
-		border-color: var(--lumi-control-accent);
+	.ren-file-upload:hover,
+	.ren-file-upload:focus-within,
+	.ren-file-upload--dragging {
+		border-color: var(--ren-control-accent);
 	}
 
-	.lumi-file-upload--dragging {
-		background: var(--lumi-color-primary-bg);
-		transform: scale(var(--lumi-interactive-hover-scale));
+	.ren-file-upload--dragging {
+		background: var(--ren-color-primary-bg);
+		transform: scale(var(--ren-interactive-hover-scale));
 	}
 
-	.lumi-file-upload--invalid {
-		--lumi-control-accent: var(--lumi-color-danger);
-		border-color: var(--lumi-color-danger);
+	.ren-file-upload--invalid {
+		--ren-control-accent: var(--ren-color-danger);
+		border-color: var(--ren-color-danger);
 	}
 
-	.lumi-file-upload--disabled {
-		opacity: var(--lumi-opacity-disabled);
+	.ren-file-upload--disabled {
+		opacity: var(--ren-opacity-disabled);
 		pointer-events: none;
 		border-style: solid;
 	}
 
 	/* Empty state: the whole zone is one button. */
-	.lumi-file-upload__placeholder {
+	.ren-file-upload__placeholder {
 		display: flex;
 		flex: 1;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		gap: var(--lumi-space-xs);
-		padding: var(--lumi-space-lg);
+		gap: var(--ren-space-xs);
+		padding: var(--ren-space-lg);
 		font: inherit;
-		color: var(--lumi-color-text-muted);
+		color: var(--ren-color-text-muted);
 		text-align: center;
 		background: transparent;
 		border: 0;
-		border-radius: var(--lumi-radius-control);
+		border-radius: var(--ren-radius-control);
 		cursor: pointer;
 	}
 
-	.lumi-file-upload__placeholder:focus-visible,
-	.lumi-file-upload__remove:focus-visible,
-	.lumi-file-upload__add:focus-visible {
-		outline: var(--lumi-focus-outline);
-		outline-offset: var(--lumi-focus-outline-offset);
+	.ren-file-upload__placeholder:focus-visible,
+	.ren-file-upload__remove:focus-visible,
+	.ren-file-upload__add:focus-visible {
+		outline: var(--ren-focus-outline);
+		outline-offset: var(--ren-focus-outline-offset);
 	}
 
-	.lumi-file-upload__glyph {
+	.ren-file-upload__glyph {
 		display: grid;
 		place-items: center;
-		inline-size: var(--lumi-space-3xl);
-		block-size: var(--lumi-space-3xl);
-		margin-block-end: var(--lumi-space-xs);
-		background: var(--lumi-color-background-secondary);
-		border-radius: var(--lumi-radius-full);
-		transition: var(--lumi-transition-interactive);
+		inline-size: var(--ren-space-3xl);
+		block-size: var(--ren-space-3xl);
+		margin-block-end: var(--ren-space-xs);
+		background: var(--ren-color-background-secondary);
+		border-radius: var(--ren-radius-full);
+		transition: var(--ren-transition-interactive);
 	}
 
-	.lumi-file-upload__placeholder:hover .lumi-file-upload__glyph {
-		color: var(--lumi-control-accent);
-		background: var(--lumi-color-primary-bg);
-		transform: scale(var(--lumi-interactive-zoom-scale));
+	.ren-file-upload__placeholder:hover .ren-file-upload__glyph {
+		color: var(--ren-control-accent);
+		background: var(--ren-color-primary-bg);
+		transform: scale(var(--ren-interactive-zoom-scale));
 	}
 
-	.lumi-file-upload__title {
-		font-size: var(--lumi-font-size-lg);
-		font-weight: var(--lumi-font-weight-medium);
-		color: var(--lumi-color-text);
+	.ren-file-upload__title {
+		font-size: var(--ren-font-size-lg);
+		font-weight: var(--ren-font-weight-medium);
+		color: var(--ren-color-text);
 	}
 
-	.lumi-file-upload__hint {
-		font-size: var(--lumi-font-size-sm);
+	.ren-file-upload__hint {
+		font-size: var(--ren-font-size-sm);
 	}
 
-	.lumi-file-upload__list {
+	.ren-file-upload__list {
 		display: flex;
 		flex-direction: column;
-		gap: var(--lumi-space-sm);
+		gap: var(--ren-space-sm);
 		margin: 0;
 		padding: 0;
 		list-style: none;
 	}
 
-	.lumi-file-upload__item {
+	.ren-file-upload__item {
 		position: relative;
 		display: grid;
 		grid-template-columns: auto minmax(0, 1fr) auto;
 		align-items: center;
-		gap: var(--lumi-space-md);
-		padding: var(--lumi-space-sm) var(--lumi-space-md);
-		background: var(--lumi-color-background);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
-		border-radius: var(--lumi-radius-control);
+		gap: var(--ren-space-md);
+		padding: var(--ren-space-sm) var(--ren-space-md);
+		background: var(--ren-color-background);
+		border: var(--ren-border-width-thin) solid var(--ren-color-border);
+		border-radius: var(--ren-radius-control);
 		overflow: hidden;
-		transition: var(--lumi-transition-control);
+		transition: var(--ren-transition-control);
 	}
 
-	.lumi-file-upload__item--success {
-		--lumi-file-tone: var(--lumi-color-success);
+	.ren-file-upload__item--success {
+		--ren-file-tone: var(--ren-color-success);
 	}
 
-	.lumi-file-upload__item--error {
-		--lumi-file-tone: var(--lumi-color-danger);
+	.ren-file-upload__item--error {
+		--ren-file-tone: var(--ren-color-danger);
 	}
 
-	.lumi-file-upload__item--success,
-	.lumi-file-upload__item--error {
-		color: var(--lumi-file-tone);
+	.ren-file-upload__item--success,
+	.ren-file-upload__item--error {
+		color: var(--ren-file-tone);
 		background: color-mix(
 			in srgb,
-			var(--lumi-file-tone) 6%,
-			var(--lumi-color-surface)
+			var(--ren-file-tone) 6%,
+			var(--ren-color-surface)
 		);
-		border-color: color-mix(in srgb, var(--lumi-file-tone) 45%, transparent);
+		border-color: color-mix(in srgb, var(--ren-file-tone) 45%, transparent);
 	}
 
-	.lumi-file-upload__file-icon {
+	.ren-file-upload__file-icon {
 		display: grid;
 		place-items: center;
-		inline-size: var(--lumi-space-xxl);
-		block-size: var(--lumi-space-xxl);
+		inline-size: var(--ren-space-xxl);
+		block-size: var(--ren-space-xxl);
 		color: inherit;
 		background: color-mix(in srgb, currentColor 10%, transparent);
-		border-radius: var(--lumi-radius-control);
+		border-radius: var(--ren-radius-control);
 	}
 
-	.lumi-file-upload__details {
+	.ren-file-upload__details {
 		display: flex;
 		flex-direction: column;
-		gap: var(--lumi-space-2xs);
+		gap: var(--ren-space-2xs);
 		min-inline-size: 0;
 	}
 
-	.lumi-file-upload__name {
+	.ren-file-upload__name {
 		overflow: hidden;
-		font-size: var(--lumi-font-size-sm);
-		font-weight: var(--lumi-font-weight-medium);
-		color: var(--lumi-color-text);
+		font-size: var(--ren-font-size-sm);
+		font-weight: var(--ren-font-weight-medium);
+		color: var(--ren-color-text);
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
 
-	.lumi-file-upload__meta {
-		font-size: var(--lumi-font-size-xs);
-		color: var(--lumi-color-text-muted);
+	.ren-file-upload__meta {
+		font-size: var(--ren-font-size-xs);
+		color: var(--ren-color-text-muted);
 	}
 
-	.lumi-file-upload__item--error .lumi-file-upload__meta {
-		color: var(--lumi-color-danger);
+	.ren-file-upload__item--error .ren-file-upload__meta {
+		color: var(--ren-color-danger);
 	}
 
-	.lumi-file-upload__spinner {
-		--lumi-spinner-size: var(--lumi-icon-sm);
-		color: var(--lumi-control-accent);
+	.ren-file-upload__spinner {
+		--ren-spinner-size: var(--ren-icon-sm);
+		color: var(--ren-control-accent);
 	}
 
-	.lumi-file-upload__remove {
+	.ren-file-upload__remove {
 		display: grid;
 		place-items: center;
-		padding: var(--lumi-space-xs);
-		color: var(--lumi-color-text-muted);
+		padding: var(--ren-space-xs);
+		color: var(--ren-color-text-muted);
 		background: transparent;
 		border: 0;
-		border-radius: var(--lumi-radius-full);
+		border-radius: var(--ren-radius-full);
 		cursor: pointer;
-		transition: var(--lumi-transition-control);
+		transition: var(--ren-transition-control);
 	}
 
-	.lumi-file-upload__remove:hover {
-		color: var(--lumi-color-danger);
-		background: var(--lumi-color-danger-bg);
+	.ren-file-upload__remove:hover {
+		color: var(--ren-color-danger);
+		background: var(--ren-color-danger-bg);
 	}
 
-	.lumi-file-upload__progress {
+	.ren-file-upload__progress {
 		position: absolute;
 		inset-block-end: 0;
 		inset-inline-start: 0;
-		block-size: var(--lumi-border-width-thick);
-		background: var(--lumi-file-tone, var(--lumi-control-accent));
-		transition: inline-size var(--lumi-duration-slow) var(--lumi-easing-default);
+		block-size: var(--ren-border-width-thick);
+		background: var(--ren-file-tone, var(--ren-control-accent));
+		transition: inline-size var(--ren-duration-slow) var(--ren-easing-default);
 	}
 
-	.lumi-file-upload__add {
+	.ren-file-upload__add {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: var(--lumi-space-xs);
-		padding: var(--lumi-space-sm);
+		gap: var(--ren-space-xs);
+		padding: var(--ren-space-sm);
 		font: inherit;
-		font-size: var(--lumi-font-size-sm);
-		color: var(--lumi-color-text-muted);
+		font-size: var(--ren-font-size-sm);
+		color: var(--ren-color-text-muted);
 		background: transparent;
-		border: var(--lumi-border-width-thin) dashed var(--lumi-color-border);
-		border-radius: var(--lumi-radius-control);
+		border: var(--ren-border-width-thin) dashed var(--ren-color-border);
+		border-radius: var(--ren-radius-control);
 		cursor: pointer;
-		transition: var(--lumi-transition-control);
+		transition: var(--ren-transition-control);
 	}
 
-	.lumi-file-upload__add:hover {
-		color: var(--lumi-control-accent);
-		background: var(--lumi-color-primary-bg);
-		border-color: var(--lumi-control-accent);
+	.ren-file-upload__add:hover {
+		color: var(--ren-control-accent);
+		background: var(--ren-color-primary-bg);
+		border-color: var(--ren-control-accent);
 	}
 </style>

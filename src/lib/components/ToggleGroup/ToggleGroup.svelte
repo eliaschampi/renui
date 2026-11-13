@@ -8,8 +8,8 @@
 	import '../../styles/switcher.css';
 	import '../../styles/switcher-group.css';
 	import { Icon } from '../Icon';
-	import { useLumiLocale } from '../../i18n';
-	import type { LumiChoiceOption } from '../../types/choice';
+	import { useRenLocale } from '../../i18n';
+	import type { RenChoiceOption } from '../../types/choice';
 	import { rovingIndex } from '../../utils/roving';
 	import type { ToggleGroupProps } from './types';
 
@@ -26,7 +26,7 @@
 		onchange
 	}: ToggleGroupProps = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 	const vertical = $derived(orientation === 'vertical');
 	const pressed = $derived(new Set(value));
 
@@ -43,7 +43,7 @@
 		return first >= 0 ? first : options.findIndex((_, index) => enabled(index));
 	});
 
-	function toggle(option: LumiChoiceOption): void {
+	function toggle(option: RenChoiceOption): void {
 		value = pressed.has(option.value)
 			? value.filter((item) => item !== option.value)
 			: [...value, option.value];
@@ -71,13 +71,13 @@
 
 <div
 	class={[
-		'lumi-switcher',
-		'lumi-toggle-group',
-		size === 'sm' && 'lumi-switcher--sm',
-		vertical && 'lumi-switcher--vertical',
-		fullWidth && 'lumi-switcher--full',
-		disabled && 'lumi-switcher--disabled',
-		`lumi-tone lumi-tone--${color}`,
+		'ren-switcher',
+		'ren-toggle-group',
+		size === 'sm' && 'ren-switcher--sm',
+		vertical && 'ren-switcher--vertical',
+		fullWidth && 'ren-switcher--full',
+		disabled && 'ren-switcher--disabled',
+		`ren-tone ren-tone--${color}`,
 		className
 	]}
 	role="group"
@@ -88,10 +88,10 @@
 		<button
 			type="button"
 			class={[
-				'lumi-switcher__option',
-				isPressed && 'lumi-switcher__option--active',
-				option.disabled && 'lumi-switcher__option--disabled',
-				!option.label && 'lumi-toggle-group__option--icon'
+				'ren-switcher__option',
+				isPressed && 'ren-switcher__option--active',
+				option.disabled && 'ren-switcher__option--disabled',
+				!option.label && 'ren-toggle-group__option--icon'
 			]}
 			aria-pressed={isPressed}
 			aria-label={option.ariaLabel ??
@@ -106,15 +106,15 @@
 				<Icon icon={option.icon} size="sm" />
 			{/if}
 			{#if option.label}
-				<span class="lumi-switcher__label">{option.label}</span>
+				<span class="ren-switcher__label">{option.label}</span>
 			{/if}
 		</button>
 	{/each}
 </div>
 
 <style>
-	/* Shell, options and pressed pill come from the shared .lumi-switcher recipe. */
-	.lumi-toggle-group > .lumi-toggle-group__option--icon {
-		padding-inline: var(--lumi-segmented-control-icon-only-padding);
+	/* Shell, options and pressed pill come from the shared .ren-switcher recipe. */
+	.ren-toggle-group > .ren-toggle-group__option--icon {
+		padding-inline: var(--ren-segmented-control-icon-only-padding);
 	}
 </style>

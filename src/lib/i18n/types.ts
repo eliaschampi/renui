@@ -1,8 +1,8 @@
 /**
- * Built-in copy for Lumi components. Keys are grouped by owner; shared verbs
+ * Built-in copy for RenUI components. Keys are grouped by owner; shared verbs
  * come first. Messages that interpolate values are functions.
  */
-export interface LumiMessages {
+export interface RenMessages {
 	// Shared
 	close: string;
 	cancel: string;
@@ -105,8 +105,8 @@ export interface LumiMessages {
 	messagesLoadingEarlier: string;
 }
 
-/** Copy for the Drive workspace (`@lumi-ui/svelte/drive`). */
-export interface LumiDriveMessages {
+/** Copy for the Drive workspace (`@renui/svelte/drive`). */
+export interface RenDriveMessages {
 	driveFolder: string;
 	driveImage: string;
 	driveVideo: string;
@@ -158,8 +158,8 @@ export interface LumiDriveMessages {
 	driveUploadFailed: string;
 }
 
-/** App-level locale configuration passed to `setLumiLocale`. */
-export interface LumiLocaleOptions {
+/** App-level locale configuration passed to `setRenLocale`. */
+export interface RenLocaleOptions {
 	/** BCP 47 tag for number and date formatting. @default 'en-US' */
 	locale?: string;
 	/** ISO 4217 code for currency formatting. @default 'USD' */
@@ -171,19 +171,19 @@ export interface LumiLocaleOptions {
 	 */
 	timeZone?: string;
 	/** Copy overrides; missing keys fall back to English */
-	messages?: Partial<LumiMessages & LumiDriveMessages>;
+	messages?: Partial<RenMessages & RenDriveMessages>;
 }
 
 /** Formatting settings shared by locale-aware helpers. */
-export interface LumiFormatLocale {
+export interface RenFormatLocale {
 	locale: string;
 	currency: string;
 	timeZone?: string;
 }
 
-/** What `useLumiLocale` returns; read fields during render to stay reactive. */
-export interface LumiLocale<
-	T extends object = LumiMessages
-> extends LumiFormatLocale {
+/** What `useRenLocale` returns; read fields during render to stay reactive. */
+export interface RenLocale<
+	T extends object = RenMessages
+> extends RenFormatLocale {
 	readonly t: T;
 }

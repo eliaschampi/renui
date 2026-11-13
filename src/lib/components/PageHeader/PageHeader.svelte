@@ -6,7 +6,7 @@
 
 <script lang="ts">
 	import { Title } from '../Title';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import type { PageHeaderProps } from './types';
 
 	const {
@@ -17,17 +17,17 @@
 		...titleProps
 	}: PageHeaderProps = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 </script>
 
-<header class={['lumi-page-header', className]}>
-	<div class="lumi-page-header__title">
+<header class={['ren-page-header', className]}>
+	<div class="ren-page-header__title">
 		<Title {...titleProps} {size} {level} />
 	</div>
 
 	{#if actions}
 		<div
-			class="lumi-page-header__actions"
+			class="ren-page-header__actions"
 			role="group"
 			aria-label={i18n.t.pageActions}
 		>
@@ -37,48 +37,48 @@
 </header>
 
 <style>
-	.lumi-page-header {
+	.ren-page-header {
 		position: relative;
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) auto;
 		align-items: center;
-		gap: var(--lumi-space-md);
-		padding: var(--lumi-space-lg);
-		border-radius: var(--lumi-surface-radius);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
-		background: var(--lumi-color-surface-card);
-		box-shadow: var(--lumi-shadow-sm);
+		gap: var(--ren-space-md);
+		padding: var(--ren-space-lg);
+		border-radius: var(--ren-surface-radius);
+		border: var(--ren-border-width-thin) solid var(--ren-color-border);
+		background: var(--ren-color-surface-card);
+		box-shadow: var(--ren-shadow-sm);
 		overflow: hidden;
 		isolation: isolate;
 	}
 
-	.lumi-page-header__title {
+	.ren-page-header__title {
 		position: relative;
-		z-index: var(--lumi-z-base);
+		z-index: var(--ren-z-base);
 		min-width: 0;
 	}
 
-	.lumi-page-header__actions {
+	.ren-page-header__actions {
 		position: relative;
-		z-index: var(--lumi-z-base);
+		z-index: var(--ren-z-base);
 		display: flex;
 		align-items: center;
-		gap: var(--lumi-space-sm);
+		gap: var(--ren-space-sm);
 		flex-shrink: 0;
 		flex-wrap: wrap;
 	}
 
 	@media (max-width: 48rem) {
-		.lumi-page-header {
-			padding: var(--lumi-space-md);
-			border-radius: var(--lumi-radius-panel);
+		.ren-page-header {
+			padding: var(--ren-space-md);
+			border-radius: var(--ren-radius-panel);
 			grid-template-columns: 1fr;
 		}
 
-		.lumi-page-header__actions {
+		.ren-page-header__actions {
 			width: 100%;
 			justify-content: flex-end;
-			gap: var(--lumi-space-xs);
+			gap: var(--ren-space-xs);
 		}
 	}
 </style>

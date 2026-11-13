@@ -1,5 +1,5 @@
-import type { LumiColor, LumiCompactSize } from '../config';
-import type { LumiChoiceOption } from '../../types/choice';
+import type { RenColor, RenCompactSize } from '../config';
+import type { RenChoiceOption } from '../../types/choice';
 
 export type ToggleGroupValue = string | number;
 
@@ -8,15 +8,15 @@ export interface ToggleGroupProps {
 	value?: ToggleGroupValue[];
 
 	/** Options rendered as toggle buttons */
-	options: LumiChoiceOption[];
+	options: RenChoiceOption[];
 
 	/** Accent of pressed options
 	 * @default "primary"
 	 */
-	color?: LumiColor;
+	color?: RenColor;
 
 	/** @default "md" */
-	size?: LumiCompactSize;
+	size?: RenCompactSize;
 
 	/** @default "horizontal" */
 	orientation?: 'horizontal' | 'vertical';

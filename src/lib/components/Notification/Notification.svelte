@@ -7,7 +7,7 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
 	import { DURATION_BASE, motion } from '../config';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import StatusSurface from './StatusSurface.svelte';
 	import { statusRole } from './status';
 	import type { NotificationProps } from './types';
@@ -24,7 +24,7 @@
 		onclose
 	}: NotificationProps = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 </script>
 
 {#if active}
@@ -34,7 +34,7 @@
 		{title}
 		{message}
 		{duration}
-		class={className ? `lumi-notification ${className}` : 'lumi-notification'}
+		class={className ? `ren-notification ${className}` : 'ren-notification'}
 		role={statusRole(color)}
 		closeLabel={closable
 			? (closeLabel ?? i18n.t.notificationDismiss)

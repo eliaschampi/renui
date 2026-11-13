@@ -1,9 +1,9 @@
 /* ========================================================================== */
-/* Lumi UI Core — base + layout + utilities in one import.                    */
+/* RenUI Core — base + layout + utilities in one import.                    */
 /* Lean pages can import only what they use:                                  */
-/*   @lumi-ui/svelte/styles/base.css       reset + component recipes (needed) */
-/*   @lumi-ui/svelte/styles/layout.css     app shells and page layouts        */
-/*   @lumi-ui/svelte/styles/utilities.css  flex, grid, text, spacing helpers  */
+/*   @renui/svelte/styles/base.css       reset + component recipes (needed) */
+/*   @renui/svelte/styles/layout.css     app shells and page layouts        */
+/*   @renui/svelte/styles/utilities.css  flex, grid, text, spacing helpers  */
 /* All files share one cascade-layer order, so consumer CSS wins without       */
 /* specificity hacks regardless of import order.                              */
 /* ========================================================================== */

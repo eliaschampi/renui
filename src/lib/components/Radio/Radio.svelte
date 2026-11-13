@@ -21,8 +21,8 @@
 	}: RadioProps = $props();
 
 	const uid = $props.id();
-	const labelId = `lumi-radio-${uid}-label`;
-	const descriptionId = `lumi-radio-${uid}-description`;
+	const labelId = `ren-radio-${uid}-label`;
+	const descriptionId = `ren-radio-${uid}-description`;
 	const checked = $derived(group === value);
 
 	function handleChange(event: Event): void {
@@ -33,21 +33,21 @@
 
 <label
 	class={[
-		'lumi-radio',
-		`lumi-radio--${size}`,
-		(option || description) && 'lumi-radio-option',
-		description && 'lumi-radio--card',
-		busy && 'lumi-radio-option--busy',
-		checked && 'lumi-radio--checked',
-		disabled && 'lumi-radio--disabled',
-		`lumi-tone lumi-tone--${color}`,
+		'ren-radio',
+		`ren-radio--${size}`,
+		(option || description) && 'ren-radio-option',
+		description && 'ren-radio--card',
+		busy && 'ren-radio-option--busy',
+		checked && 'ren-radio--checked',
+		disabled && 'ren-radio--disabled',
+		`ren-tone ren-tone--${color}`,
 		className
 	]}
 	aria-busy={busy || undefined}
 >
 	<input
 		type="radio"
-		class="lumi-sr-only"
+		class="ren-sr-only"
 		{id}
 		{name}
 		{value}
@@ -61,11 +61,11 @@
 		aria-describedby={description ? descriptionId : undefined}
 		onchange={handleChange}
 	/>
-	<span class="lumi-radio__visual" aria-hidden="true">
-		<span class="lumi-radio__circle"></span>
+	<span class="ren-radio__visual" aria-hidden="true">
+		<span class="ren-radio__circle"></span>
 	</span>
 	{#if label || children}
-		<span id={labelId} class="lumi-radio__label">
+		<span id={labelId} class="ren-radio__label">
 			{#if children}
 				{@render children()}
 			{:else}
@@ -74,170 +74,169 @@
 		</span>
 	{/if}
 	{#if description}
-		<span id={descriptionId} class="lumi-radio__description">{description}</span
-		>
+		<span id={descriptionId} class="ren-radio__description">{description}</span>
 	{/if}
 </label>
 
 <style>
 	/* ── Base control ─────────────────────────────────────────── */
-	.lumi-radio {
-		--radio-size: var(--lumi-icon-md);
-		--radio-dot-size: var(--lumi-space-sm);
-		--radio-label-size: var(--lumi-font-size-base);
+	.ren-radio {
+		--radio-size: var(--ren-icon-md);
+		--radio-dot-size: var(--ren-space-sm);
+		--radio-label-size: var(--ren-font-size-base);
 
 		position: relative;
 		display: inline-flex;
 		align-items: center;
-		gap: var(--lumi-space-sm);
+		gap: var(--ren-space-sm);
 		cursor: pointer;
 		user-select: none;
-		font-family: var(--lumi-font-family-sans);
+		font-family: var(--ren-font-family-sans);
 	}
 
-	.lumi-radio__visual {
+	.ren-radio__visual {
 		position: relative;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		width: var(--radio-size);
 		height: var(--radio-size);
-		border: var(--lumi-border-width-base) solid var(--lumi-color-control-border);
-		border-radius: var(--lumi-radius-full);
-		background: var(--lumi-color-control-fill);
-		box-shadow: var(--lumi-control-shadow);
+		border: var(--ren-border-width-base) solid var(--ren-color-control-border);
+		border-radius: var(--ren-radius-full);
+		background: var(--ren-color-control-fill);
+		box-shadow: var(--ren-control-shadow);
 		flex-shrink: 0;
-		transition: var(--lumi-transition-interactive);
+		transition: var(--ren-transition-interactive);
 	}
 
-	.lumi-radio__circle {
+	.ren-radio__circle {
 		width: var(--radio-dot-size);
 		height: var(--radio-dot-size);
-		border-radius: var(--lumi-radius-full);
+		border-radius: var(--ren-radius-full);
 		background: transparent;
 		transform: scale(0);
 		transition:
-			transform var(--lumi-duration-fast) var(--lumi-easing-default),
-			background-color var(--lumi-duration-fast) var(--lumi-easing-default);
+			transform var(--ren-duration-fast) var(--ren-easing-default),
+			background-color var(--ren-duration-fast) var(--ren-easing-default);
 	}
 
-	.lumi-radio__label {
-		color: var(--lumi-color-text);
+	.ren-radio__label {
+		color: var(--ren-color-text);
 		font-size: var(--radio-label-size);
-		font-weight: var(--lumi-font-weight-medium);
-		line-height: var(--lumi-line-height-tight);
+		font-weight: var(--ren-font-weight-medium);
+		line-height: var(--ren-line-height-tight);
 	}
 
 	/* ── Option card (sidebar / dialog lists) ─────────────────── */
-	.lumi-radio.lumi-radio-option {
+	.ren-radio.ren-radio-option {
 		width: 100%;
-		padding: var(--lumi-space-sm) var(--lumi-space-md);
-		border-radius: var(--lumi-radius-option);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
-		background: var(--lumi-color-surface-card);
-		transition: var(--lumi-transition-control);
+		padding: var(--ren-space-sm) var(--ren-space-md);
+		border-radius: var(--ren-radius-option);
+		border: var(--ren-border-width-thin) solid var(--ren-color-border);
+		background: var(--ren-color-surface-card);
+		transition: var(--ren-transition-control);
 	}
 
-	.lumi-radio.lumi-radio-option:not(.lumi-radio--card) {
+	.ren-radio.ren-radio-option:not(.ren-radio--card) {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-		gap: var(--lumi-space-sm);
+		gap: var(--ren-space-sm);
 	}
 
 	/* Card: dot + label on the first row, description aligned under the label. */
-	.lumi-radio.lumi-radio-option.lumi-radio--card {
+	.ren-radio.ren-radio-option.ren-radio--card {
 		display: grid;
 		grid-template-columns: var(--radio-size) minmax(0, 1fr);
-		column-gap: var(--lumi-space-sm);
-		row-gap: var(--lumi-space-2xs);
+		column-gap: var(--ren-space-sm);
+		row-gap: var(--ren-space-2xs);
 	}
 
 	@media (hover: hover) {
-		.lumi-radio.lumi-radio-option:not(.lumi-radio--checked):hover {
-			border-color: var(--lumi-control-active-border);
-			background: var(--lumi-control-active-fill);
+		.ren-radio.ren-radio-option:not(.ren-radio--checked):hover {
+			border-color: var(--ren-control-active-border);
+			background: var(--ren-control-active-fill);
 		}
 	}
 
-	.lumi-radio.lumi-radio-option.lumi-radio--checked {
-		border-color: var(--lumi-control-active-border);
-		background: var(--lumi-control-active-fill);
-		box-shadow: var(--lumi-control-active-shadow);
+	.ren-radio.ren-radio-option.ren-radio--checked {
+		border-color: var(--ren-control-active-border);
+		background: var(--ren-control-active-fill);
+		box-shadow: var(--ren-control-active-shadow);
 	}
 
-	.lumi-radio.lumi-radio-option--busy {
-		opacity: var(--lumi-opacity-disabled);
+	.ren-radio.ren-radio-option--busy {
+		opacity: var(--ren-opacity-disabled);
 		pointer-events: none;
 	}
 
-	.lumi-radio__description {
+	.ren-radio__description {
 		grid-column: 2;
-		font-size: var(--lumi-font-size-xs);
-		font-weight: var(--lumi-font-weight-normal);
-		line-height: var(--lumi-line-height-normal);
-		color: var(--lumi-color-text-muted);
+		font-size: var(--ren-font-size-xs);
+		font-weight: var(--ren-font-weight-normal);
+		line-height: var(--ren-line-height-normal);
+		color: var(--ren-color-text-muted);
 	}
 
 	/* ── Size variants ────────────────────────────────────────── */
-	.lumi-radio--sm {
-		--radio-size: var(--lumi-icon-sm);
-		--radio-dot-size: var(--lumi-space-xs);
-		--radio-label-size: var(--lumi-font-size-sm);
+	.ren-radio--sm {
+		--radio-size: var(--ren-icon-sm);
+		--radio-dot-size: var(--ren-space-xs);
+		--radio-label-size: var(--ren-font-size-sm);
 	}
 
 	/* ── States ───────────────────────────────────────────────── */
-	.lumi-radio:not(.lumi-radio--checked):hover .lumi-radio__visual {
-		border-color: var(--lumi-control-active-border);
-		background: var(--lumi-control-active-fill);
+	.ren-radio:not(.ren-radio--checked):hover .ren-radio__visual {
+		border-color: var(--ren-control-active-border);
+		background: var(--ren-control-active-fill);
 	}
 
-	.lumi-radio:active .lumi-radio__visual {
-		transform: scale(var(--lumi-interactive-press-scale));
+	.ren-radio:active .ren-radio__visual {
+		transform: scale(var(--ren-interactive-press-scale));
 	}
 
-	.lumi-radio--checked .lumi-radio__visual {
-		border-color: var(--lumi-control-accent);
-		background: var(--lumi-control-active-fill);
-		box-shadow: var(--lumi-control-active-shadow);
+	.ren-radio--checked .ren-radio__visual {
+		border-color: var(--ren-control-accent);
+		background: var(--ren-control-active-fill);
+		box-shadow: var(--ren-control-active-shadow);
 	}
 
-	.lumi-radio--checked .lumi-radio__circle {
-		background: var(--lumi-control-accent);
+	.ren-radio--checked .ren-radio__circle {
+		background: var(--ren-control-accent);
 		transform: scale(1);
 	}
 
-	input:focus-visible + .lumi-radio__visual {
-		box-shadow: var(--lumi-control-focus-shadow);
+	input:focus-visible + .ren-radio__visual {
+		box-shadow: var(--ren-control-focus-shadow);
 	}
 
-	.lumi-radio--disabled {
-		opacity: var(--lumi-opacity-disabled);
+	.ren-radio--disabled {
+		opacity: var(--ren-opacity-disabled);
 		pointer-events: none;
 	}
 
-	.lumi-radio--disabled .lumi-radio__visual {
-		background: var(--lumi-color-background-secondary);
-		border-color: var(--lumi-color-border);
+	.ren-radio--disabled .ren-radio__visual {
+		background: var(--ren-color-background-secondary);
+		border-color: var(--ren-color-border);
 	}
 
-	.lumi-radio--disabled.lumi-radio--checked .lumi-radio__visual {
-		border-color: var(--lumi-color-border);
+	.ren-radio--disabled.ren-radio--checked .ren-radio__visual {
+		border-color: var(--ren-color-border);
 	}
 
-	.lumi-radio--disabled.lumi-radio--checked .lumi-radio__circle {
-		background: var(--lumi-color-text-muted);
+	.ren-radio--disabled.ren-radio--checked .ren-radio__circle {
+		background: var(--ren-color-text-muted);
 	}
 
 	/* ── Option list wrapper (pages use on parent div) ─────────── */
-	:global(.lumi-radio-option-list) {
+	:global(.ren-radio-option-list) {
 		width: 100%;
 		display: flex;
 		flex-direction: column;
-		gap: var(--lumi-space-sm);
+		gap: var(--ren-space-sm);
 	}
 
-	:global(.lumi-radio-option-list--gap-2xs) {
-		gap: var(--lumi-space-2xs);
+	:global(.ren-radio-option-list--gap-2xs) {
+		gap: var(--ren-space-2xs);
 	}
 </style>

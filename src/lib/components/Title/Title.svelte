@@ -18,91 +18,91 @@
 </script>
 
 <div
-	class={['lumi-title', `lumi-title--${size}`, className]}
-	style:--title-color="var(--lumi-color-{color})"
-	style:--title-icon-color="var(--lumi-color-{iconColor ?? color})"
+	class={['ren-title', `ren-title--${size}`, className]}
+	style:--title-color="var(--ren-color-{color})"
+	style:--title-icon-color="var(--ren-color-{iconColor ?? color})"
 >
 	{#if icon}
-		<span class="lumi-title__icon" aria-hidden="true">
+		<span class="ren-title__icon" aria-hidden="true">
 			<Icon {icon} {size} />
 		</span>
 	{/if}
 
-	<div class="lumi-title__content">
-		<svelte:element this={headingTag} {id} class="lumi-title__text">
+	<div class="ren-title__content">
+		<svelte:element this={headingTag} {id} class="ren-title__text">
 			{title}
 		</svelte:element>
 
 		{#if subtitle}
-			<p class="lumi-title__subtitle">{subtitle}</p>
+			<p class="ren-title__subtitle">{subtitle}</p>
 		{/if}
 	</div>
 </div>
 
 <style>
-	.lumi-title {
+	.ren-title {
 		display: flex;
 		align-items: center;
-		line-height: var(--lumi-line-height-normal);
-		gap: var(--lumi-space-sm);
+		line-height: var(--ren-line-height-normal);
+		gap: var(--ren-space-sm);
 		color: var(--title-color);
 	}
 
-	.lumi-title__icon {
+	.ren-title__icon {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		flex-shrink: 0;
 		color: var(--title-icon-color);
-		opacity: var(--lumi-opacity-hover);
+		opacity: var(--ren-opacity-hover);
 	}
 
-	.lumi-title__content {
+	.ren-title__content {
 		flex: 1;
 		min-width: 0;
 		display: flex;
 		flex-direction: column;
 	}
 
-	.lumi-title__text {
+	.ren-title__text {
 		margin: 0;
-		font-weight: var(--lumi-font-weight-bold);
+		font-weight: var(--ren-font-weight-bold);
 		color: inherit;
-		line-height: var(--lumi-line-height-tight);
+		line-height: var(--ren-line-height-tight);
 	}
 
-	.lumi-title__subtitle {
-		margin: var(--lumi-space-2xs) 0 0 0;
-		font-weight: var(--lumi-font-weight-normal);
-		color: var(--lumi-color-text-muted);
-		line-height: var(--lumi-line-height-normal);
-		font-size: var(--lumi-font-size-sm);
+	.ren-title__subtitle {
+		margin: var(--ren-space-2xs) 0 0 0;
+		font-weight: var(--ren-font-weight-normal);
+		color: var(--ren-color-text-muted);
+		line-height: var(--ren-line-height-normal);
+		font-size: var(--ren-font-size-sm);
 	}
 
 	/* Sizes */
-	.lumi-title--sm .lumi-title__text {
-		font-size: var(--lumi-font-size-base);
+	.ren-title--sm .ren-title__text {
+		font-size: var(--ren-font-size-base);
 	}
-	.lumi-title--sm .lumi-title__subtitle {
-		font-size: var(--lumi-font-size-xs);
+	.ren-title--sm .ren-title__subtitle {
+		font-size: var(--ren-font-size-xs);
 	}
-	.lumi-title--md .lumi-title__text {
-		font-size: var(--lumi-font-size-lg);
+	.ren-title--md .ren-title__text {
+		font-size: var(--ren-font-size-lg);
 	}
-	.lumi-title--lg .lumi-title__text {
-		font-size: var(--lumi-font-size-xl);
+	.ren-title--lg .ren-title__text {
+		font-size: var(--ren-font-size-xl);
 	}
-	.lumi-title--xl .lumi-title__text {
-		font-size: var(--lumi-font-size-2xl);
+	.ren-title--xl .ren-title__text {
+		font-size: var(--ren-font-size-2xl);
 	}
 
 	/* Responsive */
 	@media (max-width: 48rem) {
-		.lumi-title--xl .lumi-title__text {
-			font-size: var(--lumi-font-size-xl);
+		.ren-title--xl .ren-title__text {
+			font-size: var(--ren-font-size-xl);
 		}
-		.lumi-title--lg .lumi-title__text {
-			font-size: var(--lumi-font-size-lg);
+		.ren-title--lg .ren-title__text {
+			font-size: var(--ren-font-size-lg);
 		}
 	}
 </style>

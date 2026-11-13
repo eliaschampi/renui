@@ -1,7 +1,7 @@
-import type { LumiColor, LumiControlSize } from '../config';
+import type { RenColor, RenControlSize } from '../config';
 
-export type SliderColor = LumiColor;
-export type SliderSize = LumiControlSize;
+export type SliderColor = RenColor;
+export type SliderSize = RenControlSize;
 
 export interface SliderProps {
 	/** Form field name */

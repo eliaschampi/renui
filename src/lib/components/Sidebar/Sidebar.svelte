@@ -5,7 +5,7 @@
 </script>
 
 <script lang="ts">
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import type { SidebarProps } from './types';
 
 	const {
@@ -17,154 +17,153 @@
 		header
 	}: SidebarProps = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 </script>
 
 <nav
 	class={[
-		'lumi-sidebar',
-		collapsed && 'lumi-sidebar--collapsed',
-		mobileOpen && 'lumi-sidebar--mobile-open',
+		'ren-sidebar',
+		collapsed && 'ren-sidebar--collapsed',
+		mobileOpen && 'ren-sidebar--mobile-open',
 		className
 	]}
 	aria-label={ariaLabel ?? i18n.t.sidebar}
 >
 	{#if header}
-		<header class="lumi-sidebar__header">
-			<div class="lumi-sidebar__header-content">{@render header()}</div>
+		<header class="ren-sidebar__header">
+			<div class="ren-sidebar__header-content">{@render header()}</div>
 		</header>
 	{/if}
 
-	<div class="lumi-sidebar__body lumi-scrollbar">
-		<div class="lumi-sidebar__items">{@render children?.()}</div>
+	<div class="ren-sidebar__body ren-scrollbar">
+		<div class="ren-sidebar__items">{@render children?.()}</div>
 	</div>
 </nav>
 
 <style>
-	.lumi-sidebar {
-		--lumi-surface-radius-local: var(--lumi-layout-floating-radius);
+	.ren-sidebar {
+		--ren-surface-radius-local: var(--ren-layout-floating-radius);
 		grid-area: sidebar;
 		position: sticky;
 		top: 0;
 		align-self: start;
 		display: flex;
 		flex-direction: column;
-		width: var(--lumi-sidebar-width);
+		width: var(--ren-sidebar-width);
 		height: calc(
-			100dvh -
-				max(var(--lumi-layout-shell-padding), var(--lumi-safe-area-top)) -
-				max(var(--lumi-layout-shell-padding), var(--lumi-safe-area-bottom))
+			100dvh - max(var(--ren-layout-shell-padding), var(--ren-safe-area-top)) -
+				max(var(--ren-layout-shell-padding), var(--ren-safe-area-bottom))
 		);
 		margin: 0;
 		transition:
-			width var(--lumi-duration-base) var(--lumi-easing-default),
-			transform var(--lumi-duration-base) var(--lumi-easing-default),
-			box-shadow var(--lumi-duration-base) var(--lumi-easing-default),
-			visibility 0s linear var(--lumi-duration-base);
+			width var(--ren-duration-base) var(--ren-easing-default),
+			transform var(--ren-duration-base) var(--ren-easing-default),
+			box-shadow var(--ren-duration-base) var(--ren-easing-default),
+			visibility 0s linear var(--ren-duration-base);
 		overflow: hidden;
-		z-index: var(--lumi-z-sidebar);
+		z-index: var(--ren-z-sidebar);
 	}
 
-	.lumi-sidebar--collapsed {
-		width: var(--lumi-sidebar-width-collapsed);
+	.ren-sidebar--collapsed {
+		width: var(--ren-sidebar-width-collapsed);
 	}
 
-	.lumi-sidebar__header {
+	.ren-sidebar__header {
 		position: relative;
-		padding: var(--lumi-space-md);
+		padding: var(--ren-space-md);
 		flex-shrink: 0;
-		min-height: calc(var(--lumi-space-5xl) + var(--lumi-space-3xl));
+		min-height: calc(var(--ren-space-5xl) + var(--ren-space-3xl));
 		display: flex;
 		align-items: flex-end;
-		background: var(--lumi-color-primary-bg);
+		background: var(--ren-color-primary-bg);
 		background-size: cover;
 		background-position: center;
-		border-bottom: var(--lumi-border-width-thin) solid var(--lumi-color-border);
+		border-bottom: var(--ren-border-width-thin) solid var(--ren-color-border);
 	}
 
-	.lumi-sidebar__header-content {
+	.ren-sidebar__header-content {
 		position: relative;
 		z-index: 1;
 		width: 100%;
 	}
 
-	.lumi-sidebar--collapsed .lumi-sidebar__header {
-		min-height: var(--lumi-sidebar-width-collapsed);
-		padding: var(--lumi-space-sm);
+	.ren-sidebar--collapsed .ren-sidebar__header {
+		min-height: var(--ren-sidebar-width-collapsed);
+		padding: var(--ren-space-sm);
 		align-items: center;
 	}
 
-	.lumi-sidebar__body {
+	.ren-sidebar__body {
 		flex: 1;
 		overflow-y: auto;
 		overflow-x: hidden;
-		padding: var(--lumi-space-md);
+		padding: var(--ren-space-md);
 	}
 
-	.lumi-sidebar__items {
+	.ren-sidebar__items {
 		display: flex;
 		flex-direction: column;
-		gap: var(--lumi-space-xs);
+		gap: var(--ren-space-xs);
 	}
 
-	:global(.lumi-sidebar-subitems) {
+	:global(.ren-sidebar-subitems) {
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		gap: var(--lumi-space-2xs);
-		margin: calc(var(--lumi-space-2xs) * -1) 0 var(--lumi-space-xs)
-			var(--lumi-sidebar-subitem-indent);
-		padding-left: var(--lumi-space-sm);
+		gap: var(--ren-space-2xs);
+		margin: calc(var(--ren-space-2xs) * -1) 0 var(--ren-space-xs)
+			var(--ren-sidebar-subitem-indent);
+		padding-left: var(--ren-space-sm);
 	}
 
-	:global(.lumi-sidebar-subitems)::before {
+	:global(.ren-sidebar-subitems)::before {
 		content: '';
 		position: absolute;
-		inset-block: var(--lumi-space-2xs);
+		inset-block: var(--ren-space-2xs);
 		left: 0;
-		width: var(--lumi-border-width-thin);
-		border-radius: var(--lumi-radius-full);
+		width: var(--ren-border-width-thin);
+		border-radius: var(--ren-radius-full);
 		background: linear-gradient(
 			145deg,
-			color-mix(in srgb, var(--lumi-color-primary) 16%, transparent),
-			color-mix(in srgb, var(--lumi-color-primary) 4%, transparent)
+			color-mix(in srgb, var(--ren-color-primary) 16%, transparent),
+			color-mix(in srgb, var(--ren-color-primary) 4%, transparent)
 		);
 	}
 
 	/* Mobile responsive behavior */
 	@media (max-width: 64rem) {
-		.lumi-sidebar {
+		.ren-sidebar {
 			position: fixed;
-			top: max(var(--lumi-sidebar-mobile-offset), var(--lumi-safe-area-top));
-			left: max(var(--lumi-sidebar-mobile-offset), var(--lumi-safe-area-left));
+			top: max(var(--ren-sidebar-mobile-offset), var(--ren-safe-area-top));
+			left: max(var(--ren-sidebar-mobile-offset), var(--ren-safe-area-left));
 			height: min(
-				var(--lumi-sidebar-mobile-height),
+				var(--ren-sidebar-mobile-height),
 				calc(
 					100dvh -
-						max(var(--lumi-sidebar-mobile-offset), var(--lumi-safe-area-top)) -
-						max(var(--lumi-sidebar-mobile-offset), var(--lumi-safe-area-bottom))
+						max(var(--ren-sidebar-mobile-offset), var(--ren-safe-area-top)) -
+						max(var(--ren-sidebar-mobile-offset), var(--ren-safe-area-bottom))
 				)
 			);
 			transform: translateX(
 				min(
-					var(--lumi-sidebar-mobile-closed-shift),
-					calc(-100% - var(--lumi-safe-area-left))
+					var(--ren-sidebar-mobile-closed-shift),
+					calc(-100% - var(--ren-safe-area-left))
 				)
 			);
 			width: min(
-				var(--lumi-sidebar-mobile-width),
+				var(--ren-sidebar-mobile-width),
 				calc(
 					100vw -
-						max(var(--lumi-sidebar-mobile-offset), var(--lumi-safe-area-left)) -
-						max(var(--lumi-sidebar-mobile-offset), var(--lumi-safe-area-right))
+						max(var(--ren-sidebar-mobile-offset), var(--ren-safe-area-left)) -
+						max(var(--ren-sidebar-mobile-offset), var(--ren-safe-area-right))
 				)
 			);
 			visibility: hidden;
-			--lumi-surface-radius-local: var(--lumi-layout-floating-radius-tablet);
-			--lumi-surface-shadow: var(--lumi-shadow-lg);
+			--ren-surface-radius-local: var(--ren-layout-floating-radius-tablet);
+			--ren-surface-shadow: var(--ren-shadow-lg);
 		}
 
-		.lumi-sidebar.lumi-sidebar--mobile-open {
+		.ren-sidebar.ren-sidebar--mobile-open {
 			transform: translateX(0);
 			visibility: visible;
 			transition-delay: 0s;
@@ -172,19 +171,19 @@
 	}
 
 	@media (max-width: 48rem) {
-		.lumi-sidebar {
-			--lumi-sidebar-mobile-offset: var(--lumi-layout-shell-padding-mobile);
-			--lumi-sidebar-mobile-height: calc(
-				100dvh - (var(--lumi-sidebar-mobile-offset) * 2)
+		.ren-sidebar {
+			--ren-sidebar-mobile-offset: var(--ren-layout-shell-padding-mobile);
+			--ren-sidebar-mobile-height: calc(
+				100dvh - (var(--ren-sidebar-mobile-offset) * 2)
 			);
-			--lumi-sidebar-mobile-width: min(
-				var(--lumi-sidebar-width-mobile),
-				calc(100vw - (var(--lumi-sidebar-mobile-offset) * 2))
+			--ren-sidebar-mobile-width: min(
+				var(--ren-sidebar-width-mobile),
+				calc(100vw - (var(--ren-sidebar-mobile-offset) * 2))
 			);
-			--lumi-sidebar-mobile-closed-shift: calc(
-				-100% - var(--lumi-sidebar-mobile-offset)
+			--ren-sidebar-mobile-closed-shift: calc(
+				-100% - var(--ren-sidebar-mobile-offset)
 			);
-			--lumi-surface-radius-local: var(--lumi-layout-floating-radius-mobile);
+			--ren-surface-radius-local: var(--ren-layout-floating-radius-mobile);
 		}
 	}
 </style>

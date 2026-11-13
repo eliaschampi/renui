@@ -1,5 +1,5 @@
 import type { Snippet } from 'svelte';
-import type { LumiColor } from '../config';
+import type { RenColor } from '../config';
 
 export type MessageAlign = 'start' | 'end';
 export type MessageVariant = 'soft' | 'filled' | 'outline' | 'ghost';
@@ -18,7 +18,7 @@ export interface MessageProps {
 	/** Bubble accent
 	 * @default "primary" when aligned to the end, otherwise neutral
 	 */
-	color?: LumiColor;
+	color?: RenColor;
 
 	/** Sender name shown above the bubble */
 	name?: string;

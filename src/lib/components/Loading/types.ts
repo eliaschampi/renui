@@ -1,8 +1,8 @@
 import type { Snippet } from 'svelte';
-import type { LumiColor, LumiControlSize } from '../config';
+import type { RenColor, RenControlSize } from '../config';
 
-export type LoadingColor = LumiColor;
-export type LoadingSize = LumiControlSize;
+export type LoadingColor = RenColor;
+export type LoadingSize = RenControlSize;
 
 export interface LoadingProps {
 	/** Size variant */

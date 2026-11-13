@@ -1,9 +1,9 @@
 import type { Snippet } from 'svelte';
 import type { IconSource } from '../../utils/icons';
-import type { LumiColor, LumiCompactSize } from '../config';
+import type { RenColor, RenCompactSize } from '../config';
 
-export type ListSize = LumiCompactSize;
-export type ListColor = LumiColor;
+export type ListSize = RenCompactSize;
+export type ListColor = RenColor;
 export type ListMaxHeight = 'sm' | 'md' | 'lg';
 
 /** Plain text or a snippet for rich content. */

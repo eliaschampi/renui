@@ -1,8 +1,8 @@
 import type { Snippet } from 'svelte';
 import type { IconSource } from '../../utils/icons';
-import type { LumiColor, LumiControlSize } from '../config';
+import type { RenColor, RenControlSize } from '../config';
 
-export type ContextSize = LumiControlSize;
+export type ContextSize = RenControlSize;
 
 export interface ContextProps {
 	/** Minimum menu width @default "md" */
@@ -38,7 +38,7 @@ export interface ContextItemProps {
 	disabled?: boolean;
 
 	/** Semantic accent, e.g. `danger` for destructive items */
-	color?: LumiColor;
+	color?: RenColor;
 
 	class?: string;
 

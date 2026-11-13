@@ -1,4 +1,4 @@
-// Lumi UI - Sidebar Component
+// RenUI - Sidebar Component
 
 export { default as Sidebar } from './Sidebar.svelte';
 export { default as SidebarHeader } from './SidebarHeader.svelte';

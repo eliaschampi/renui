@@ -12,9 +12,9 @@
 
 <span
 	class={[
-		'lumi-icon-badge',
-		`lumi-icon-badge--${size}`,
-		`lumi-tone lumi-tone--${color}`,
+		'ren-icon-badge',
+		`ren-icon-badge--${size}`,
+		`ren-tone ren-tone--${color}`,
 		className
 	]}
 	aria-hidden="true"
@@ -25,49 +25,49 @@
 <style>
 	/* Icon tile: a soft-to-strong wash of its tone, lit from the top corner like
 	   every other toned surface, with the glyph in the tone ink. */
-	.lumi-icon-badge {
+	.ren-icon-badge {
 		display: inline-flex;
 		flex-shrink: 0;
 		align-items: center;
 		justify-content: center;
-		border-radius: var(--lumi-radius-tile);
-		color: var(--lumi-tone-ink);
+		border-radius: var(--ren-radius-tile);
+		color: var(--ren-tone-ink);
 		background: linear-gradient(
 			145deg,
-			var(--lumi-tone-soft),
-			var(--lumi-tone-strong)
+			var(--ren-tone-soft),
+			var(--ren-tone-strong)
 		);
 	}
 
 	/* Follows the interactive surface around it, never its own hover: the badge
 	   is not a control. Transform only, so the motion stays on the compositor. */
-	.lumi-icon-badge :global(.lumi-icon) {
+	.ren-icon-badge :global(.ren-icon) {
 		transform: translateY(
-				calc(var(--lumi-surface-hover) * var(--lumi-interactive-lift) * 2)
+				calc(var(--ren-surface-hover) * var(--ren-interactive-lift) * 2)
 			)
-			rotate(calc(var(--lumi-surface-hover) * var(--lumi-motion-scale) * -8deg));
+			rotate(calc(var(--ren-surface-hover) * var(--ren-motion-scale) * -8deg));
 		transition:
-			transform var(--lumi-duration-base) var(--lumi-easing-default),
-			color var(--lumi-duration-fast) var(--lumi-easing-default);
+			transform var(--ren-duration-base) var(--ren-easing-default),
+			color var(--ren-duration-fast) var(--ren-easing-default);
 	}
 
-	.lumi-icon-badge--sm {
-		width: var(--lumi-space-xl);
-		height: var(--lumi-space-xl);
+	.ren-icon-badge--sm {
+		width: var(--ren-space-xl);
+		height: var(--ren-space-xl);
 	}
 
-	.lumi-icon-badge--md {
-		width: var(--lumi-space-2xl);
-		height: var(--lumi-space-2xl);
+	.ren-icon-badge--md {
+		width: var(--ren-space-2xl);
+		height: var(--ren-space-2xl);
 	}
 
-	.lumi-icon-badge--lg {
-		width: var(--lumi-space-3xl);
-		height: var(--lumi-space-3xl);
+	.ren-icon-badge--lg {
+		width: var(--ren-space-3xl);
+		height: var(--ren-space-3xl);
 	}
 
-	.lumi-icon-badge--xl {
-		width: var(--lumi-space-4xl);
-		height: var(--lumi-space-4xl);
+	.ren-icon-badge--xl {
+		width: var(--ren-space-4xl);
+		height: var(--ren-space-4xl);
 	}
 </style>

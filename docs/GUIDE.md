@@ -1,4 +1,4 @@
-# Lumi UI Guide
+# RenUI Guide
 
 Complete product documentation. Component selection lives in [Components](./COMPONENTS.md). Source (`types.ts`, `.svelte`, CSS) is authoritative for exact APIs.
 
@@ -9,7 +9,7 @@ Complete product documentation. Component selection lives in [Components](./COMP
 ## 1. Install
 
 ```bash
-pnpm add @lumi-ui/svelte
+pnpm add @renui/svelte
 ```
 
 Supported Svelte versions: [`peerDependencies`](../package.json). No Tailwind, Bootstrap, provider, or CSS-in-JS required.
@@ -18,32 +18,32 @@ Supported Svelte versions: [`peerDependencies`](../package.json). No Tailwind, B
 
 [`package.json`](../package.json) is authoritative.
 
-| Import                                                    | Source                                                      | Contract                                                                                                      |
-| --------------------------------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `@lumi-ui/svelte`                                         | [`src/lib/index.ts`](../src/lib/index.ts)                   | Components, shared types, icon registry API, locale API, formatters, portal action, config                    |
-| `@lumi-ui/svelte/icons`                                   | [`icons.ts`](../src/lib/icons.ts)                           | Optional curated `lumiIcons` map for string icon names                                                        |
-| `@lumi-ui/svelte/drive`                                   | [`drive.ts`](../src/lib/drive.ts)                           | Pure Drive helpers, types and Drive copy (not the UI components)                                              |
-| `@lumi-ui/svelte/color-scheme`                            | [`color-scheme/index.ts`](../src/lib/color-scheme/index.ts) | Pre-paint script, controller, pure policy, types                                                              |
-| `@lumi-ui/svelte/styles`                                  | [`styles/index.css`](../src/lib/styles/index.css)           | Tokens + core (base, layout, utilities)                                                                       |
-| `@lumi-ui/svelte/styles/tokens.base.css`                  | [`tokens.base.css`](../src/lib/styles/tokens.base.css)      | Token contract only                                                                                           |
-| `@lumi-ui/svelte/styles/core.css`                         | [`core.css`](../src/lib/styles/core.css)                    | `base.css` + `layout.css` + `utilities.css`                                                                   |
-| `@lumi-ui/svelte/styles/base.css`                         | [`base.css`](../src/lib/styles/base.css)                    | Reset, control contracts, surfaces and shared recipes (spinner, skeleton, switcher, icon, sr-only)            |
-| `@lumi-ui/svelte/styles/layout.css`                       | [`layout.css`](../src/lib/styles/layout.css)                | App and dashboard shells, page sidebar, two-column layouts, toast portal                                      |
-| `@lumi-ui/svelte/styles/utilities.css`                    | [`utilities.css`](../src/lib/styles/utilities.css)          | Flex, grid, stack, text, spacing and display helpers                                                          |
-| `@lumi-ui/svelte/styles/patterns.css`                     | [`patterns.css`](../src/lib/styles/patterns.css)            | Opt-in operative compositions (filter summary, toolbars, metric lists…)                                       |
-| `@lumi-ui/svelte/styles/{switcher,skeleton,floating}.css` | [`styles/`](../src/lib/styles)                              | Recipes the components that use them import themselves; import one only to use its classes in your own markup |
+| Import                                                  | Source                                                      | Contract                                                                                                      |
+| ------------------------------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `@renui/svelte`                                         | [`src/lib/index.ts`](../src/lib/index.ts)                   | Components, shared types, icon registry API, locale API, formatters, portal action, config                    |
+| `@renui/svelte/icons`                                   | [`icons.ts`](../src/lib/icons.ts)                           | Optional curated `renIcons` map for string icon names                                                         |
+| `@renui/svelte/drive`                                   | [`drive.ts`](../src/lib/drive.ts)                           | Pure Drive helpers, types and Drive copy (not the UI components)                                              |
+| `@renui/svelte/color-scheme`                            | [`color-scheme/index.ts`](../src/lib/color-scheme/index.ts) | Pre-paint script, controller, pure policy, types                                                              |
+| `@renui/svelte/styles`                                  | [`styles/index.css`](../src/lib/styles/index.css)           | Tokens + core (base, layout, utilities)                                                                       |
+| `@renui/svelte/styles/tokens.base.css`                  | [`tokens.base.css`](../src/lib/styles/tokens.base.css)      | Token contract only                                                                                           |
+| `@renui/svelte/styles/core.css`                         | [`core.css`](../src/lib/styles/core.css)                    | `base.css` + `layout.css` + `utilities.css`                                                                   |
+| `@renui/svelte/styles/base.css`                         | [`base.css`](../src/lib/styles/base.css)                    | Reset, control contracts, surfaces and shared recipes (spinner, skeleton, switcher, icon, sr-only)            |
+| `@renui/svelte/styles/layout.css`                       | [`layout.css`](../src/lib/styles/layout.css)                | App and dashboard shells, page sidebar, two-column layouts, toast portal                                      |
+| `@renui/svelte/styles/utilities.css`                    | [`utilities.css`](../src/lib/styles/utilities.css)          | Flex, grid, stack, text, spacing and display helpers                                                          |
+| `@renui/svelte/styles/patterns.css`                     | [`patterns.css`](../src/lib/styles/patterns.css)            | Opt-in operative compositions (filter summary, toolbars, metric lists…)                                       |
+| `@renui/svelte/styles/{switcher,skeleton,floating}.css` | [`styles/`](../src/lib/styles)                              | Recipes the components that use them import themselves; import one only to use its classes in your own markup |
 
 Drive UI components are root exports. Add a subpath only for cohesive optional capability—not mere convenience.
 
 ### Load styles once
 
-At the application root, import Lumi styles, then brand overrides:
+At the application root, import RenUI styles, then brand overrides:
 
 ```svelte
 <!-- src/routes/+layout.svelte -->
 <script lang="ts">
-	import '@lumi-ui/svelte/styles';
-	import '../lumi-theme.css';
+	import '@renui/svelte/styles';
+	import '../ren-theme.css';
 
 	const { children } = $props();
 </script>
@@ -52,28 +52,28 @@ At the application root, import Lumi styles, then brand overrides:
 ```
 
 ```css
-/* src/lumi-theme.css — most products need only these two seeds */
+/* src/ren-theme.css — most products need only these two seeds */
 :root {
-	--lumi-brand-primary: #7c3aed;
-	--lumi-brand-secondary: #0f766e;
+	--ren-brand-primary: #7c3aed;
+	--ren-brand-secondary: #0f766e;
 }
 ```
 
-Lumi derives semantic states, surfaces, and light/dark values. Advanced seeds: [§3 Theming](#3-theming-and-color-scheme).
+RenUI derives semantic states, surfaces, and light/dark values. Advanced seeds: [§3 Theming](#3-theming-and-color-scheme).
 
-Every global stylesheet declares the same cascade-layer order (`lumi.tokens, lumi.base, lumi.components, lumi.layout, lumi.patterns, lumi.utilities`), so **unlayered consumer CSS always wins** over Lumi globals regardless of import order or selector specificity. Component styles are scoped and unlayered; restyle components through their tokens and props, never by patching internals.
+Every global stylesheet declares the same cascade-layer order (`ren.tokens, ren.base, ren.components, ren.layout, ren.patterns, ren.utilities`), so **unlayered consumer CSS always wins** over RenUI globals regardless of import order or selector specificity. Component styles are scoped and unlayered; restyle components through their tokens and props, never by patching internals.
 
 **Lean public pages.** Pages that only render components (storefronts, landing pages) need tokens + base; add utilities or layout only when markup uses them. Load `patterns.css` in the layouts that use it (dashboards, auth), not at the root:
 
 ```ts
 // src/routes/+layout.svelte — public, SEO-sensitive tree
-import '@lumi-ui/svelte/styles/tokens.base.css';
-import '@lumi-ui/svelte/styles/base.css';
-import '@lumi-ui/svelte/styles/utilities.css';
+import '@renui/svelte/styles/tokens.base.css';
+import '@renui/svelte/styles/base.css';
+import '@renui/svelte/styles/utilities.css';
 
 // src/routes/(dashboard)/+layout.svelte — app tree
-import '@lumi-ui/svelte/styles/layout.css';
-import '@lumi-ui/svelte/styles/patterns.css';
+import '@renui/svelte/styles/layout.css';
+import '@renui/svelte/styles/patterns.css';
 ```
 
 ### Icons
@@ -83,7 +83,7 @@ Pass Lucide components. Deep imports keep each page to the icons it renders:
 ```svelte
 <script lang="ts">
 	import Search from '@lucide/svelte/icons/search';
-	import { Button } from '@lumi-ui/svelte';
+	import { Button } from '@renui/svelte';
 </script>
 
 <Button icon={Search} aria-label="Search" />
@@ -92,25 +92,25 @@ Pass Lucide components. Deep imports keep each page to the icons it renders:
 Icon props also accept a string name resolved through a registry that is **empty by default**. Apps that store icon names as data register them once, in the layout that needs them (never the barrel `@lucide/svelte`):
 
 ```ts
-import { registerIcons } from '@lumi-ui/svelte';
-import { lumiIcons } from '@lumi-ui/svelte/icons'; // the curated 0.x map, same keys
+import { registerIcons } from '@renui/svelte';
+import { renIcons } from '@renui/svelte/icons'; // the curated 0.x map, same keys
 
-registerIcons(lumiIcons); // or registerIcons({ house: House, users: Users })
+registerIcons(renIcons); // or registerIcons({ house: House, users: Users })
 ```
 
 Registration is idempotent and request-safe (static configuration). An unknown name renders nothing and warns once in development.
 
 ### Language and formatting
 
-Built-in copy (accessible names, empty states, pagination, placeholders) defaults to **English** with `en-US` / `USD` formatting. Spanish ships as `lumiEs` and costs nothing until imported. Set both once at the root; components read them from Svelte context, so SSR requests stay isolated:
+Built-in copy (accessible names, empty states, pagination, placeholders) defaults to **English** with `en-US` / `USD` formatting. Spanish ships as `renEs` and costs nothing until imported. Set both once at the root; components read them from Svelte context, so SSR requests stay isolated:
 
 ```svelte
 <script lang="ts">
-	import { lumiEs, setLumiLocale } from '@lumi-ui/svelte';
-	import { lumiDriveEs } from '@lumi-ui/svelte/drive'; // only if you render Drive
+	import { renEs, setRenLocale } from '@renui/svelte';
+	import { renDriveEs } from '@renui/svelte/drive'; // only if you render Drive
 
-	const messages = { ...lumiEs, ...lumiDriveEs }; // keep the object stable
-	setLumiLocale({
+	const messages = { ...renEs, ...renDriveEs }; // keep the object stable
+	setRenLocale({
 		locale: 'es-PE',
 		currency: 'PEN',
 		timeZone: 'America/Lima',
@@ -120,18 +120,18 @@ Built-in copy (accessible names, empty states, pagination, placeholders) default
 ```
 
 - Partial `messages` override single keys; missing keys fall back to English.
-- Pass a function to follow reactive state: `setLumiLocale(() => (lang === 'es' ? es : en))`.
+- Pass a function to follow reactive state: `setRenLocale(() => (lang === 'es' ? es : en))`.
 - Explicit props (`placeholder`, `closeLabel`, `noDataText`…) always win over locale copy.
 - `formatNumber(value, { locale, style: 'currency', currency })`, `formatDate(value, { locale, timeZone })` and `getInitials(name)` are the same cached, pure helpers components use; prefer them to per-app copies.
 
 ### Local package development
 
 ```bash
-pnpm add @lumi-ui/svelte@link:../lumi-ui
-cd ../lumi-ui && pnpm run package
+pnpm add @renui/svelte@link:../renui
+cd ../renui && pnpm run package
 ```
 
-Repackage after public export changes. Runnable showcase: [`lumi-web`](https://github.com/eliaschampi/lumi).
+Repackage after public export changes. Runnable showcase: [`renweb`](https://github.com/eliaschampi/renweb).
 
 ---
 
@@ -139,17 +139,17 @@ Repackage after public export changes. Runnable showcase: [`lumi-web`](https://g
 
 ```svelte
 <script lang="ts">
-	import { Button, Card, Input, PageHeader } from '@lumi-ui/svelte';
+	import { Button, Card, Input, PageHeader } from '@renui/svelte';
 
 	let name = $state('');
 </script>
 
-<div class="lumi-stack lumi-stack--lg">
+<div class="ren-stack ren-stack--lg">
 	<PageHeader title="Workspace" subtitle="A clean starting point">
 		{#snippet actions()}<Button variant="filled">Create</Button>{/snippet}
 	</PageHeader>
 
-	<div class="lumi-grid lumi-grid--responsive">
+	<div class="ren-grid ren-grid--responsive">
 		<Card title="Profile" spaced>
 			<Input bind:value={name} name="name" label="Display name" />
 			<Button variant="filled" disabled={!name.trim()}>Save</Button>
@@ -167,42 +167,42 @@ Root exports components and public shared types. Choose primitives: [Components]
 
 ## 3. Theming and color scheme
 
-Brand identity is CSS data. Light/dark/system preference is optional behavior from `@lumi-ui/svelte/color-scheme`.
+Brand identity is CSS data. Light/dark/system preference is optional behavior from `@renui/svelte/color-scheme`.
 
 ### Brand seeds
 
-| Seed                     | Role                                      |
-| ------------------------ | ----------------------------------------- |
-| `--lumi-brand-primary`   | Primary actions, focus, active navigation |
-| `--lumi-brand-secondary` | Supporting identity and contrast          |
+| Seed                    | Role                                      |
+| ----------------------- | ----------------------------------------- |
+| `--ren-brand-primary`   | Primary actions, focus, active navigation |
+| `--ren-brand-secondary` | Supporting identity and contrast          |
 
 Brand seeds also provide the stable filled surface. Dark mode derives a brighter accent without changing that solid.
 
 ### Status seeds
 
-Feedback states are seeds too. Lumi derives the soft `-bg` and a brighter dark-mode accent from them.
+Feedback states are seeds too. RenUI derives the soft `-bg` and a brighter dark-mode accent from them.
 
-| Seed                    | Default (OKLCH)       | Role                                              |
-| ----------------------- | --------------------- | ------------------------------------------------- |
-| `--lumi-status-success` | `oklch(54% 0.16 158)` | Confirmations, positive state                     |
-| `--lumi-status-warning` | `oklch(80% 0.17 80)`  | Caution, needs attention                          |
-| `--lumi-status-danger`  | `oklch(56% 0.205 24)` | Destructive actions, errors, blocking             |
-| `--lumi-status-info`    | `oklch(52% 0.15 210)` | Neutral information (distinct from brand primary) |
+| Seed                   | Default (OKLCH)       | Role                                              |
+| ---------------------- | --------------------- | ------------------------------------------------- |
+| `--ren-status-success` | `oklch(54% 0.16 158)` | Confirmations, positive state                     |
+| `--ren-status-warning` | `oklch(80% 0.17 80)`  | Caution, needs attention                          |
+| `--ren-status-danger`  | `oklch(56% 0.205 24)` | Destructive actions, errors, blocking             |
+| `--ren-status-info`    | `oklch(52% 0.15 210)` | Neutral information (distinct from brand primary) |
 
 Defaults share a perceptually balanced OKLCH system in [`tokens.base.css`](../src/lib/styles/tokens.base.css). Warning keeps a bright amber **solid** (black content) and derives a darker on-surface accent for text/indicators. Accent tints and state backgrounds mix in OKLCH so chroma stays even across hues.
 
-Default identity: azure primary and orchid secondary, with ink and canvas derived from the primary hue at low chroma. The accent family shares `--lumi-accent-lightness` and `--lumi-accent-chroma-max`; exact seeds live in `tokens.base.css`.
+Default identity: azure primary and orchid secondary, with ink and canvas derived from the primary hue at low chroma. The accent family shares `--ren-accent-lightness` and `--ren-accent-chroma-max`; exact seeds live in `tokens.base.css`.
 
 ### Semantic background/foreground contract
 
 The foreground belongs to the effective background, not to light or dark mode. Every public role (`primary`, `secondary`, `success`, `warning`, `danger`, `info`) exposes the same family:
 
-| Token                            | Responsibility                            |
-| -------------------------------- | ----------------------------------------- |
-| `--lumi-color-{role}`            | Accent for border, focus, icon, indicator |
-| `--lumi-color-{role}-solid`      | High-presence chromatic surface           |
-| `--lumi-color-{role}-foreground` | Content on `solid`                        |
-| `--lumi-color-{role}-bg`         | Low-intensity soft surface                |
+| Token                           | Responsibility                            |
+| ------------------------------- | ----------------------------------------- |
+| `--ren-color-{role}`            | Accent for border, focus, icon, indicator |
+| `--ren-color-{role}-solid`      | High-presence chromatic surface           |
+| `--ren-color-{role}-foreground` | Content on `solid`                        |
+| `--ren-color-{role}-bg`         | Low-intensity soft surface                |
 
 Components consume the semantic family while products override only brand or status seeds. Use `solid + foreground` for filled surfaces; the default foreground is white except warning, which uses black.
 
@@ -212,7 +212,7 @@ Components consume the semantic family while products override only brand or sta
 
 | Layer           | Owns                                                                |
 | --------------- | ------------------------------------------------------------------- |
-| Consumer        | Brand seeds; may consume public `--lumi-*` semantic tokens          |
+| Consumer        | Brand seeds; may consume public `--ren-*` semantic tokens           |
 | Components      | Semantic tokens only (not application palettes)                     |
 | `core.css`      | Reset, shells, layouts, and utilities ([§5](#5-core-css-reference)) |
 | `patterns.css`  | Reusable composition patterns ([§5](#shared-css-patterns))          |
@@ -224,14 +224,14 @@ Do not target component selectors. Do not redefine success/warning/danger/info a
 /* Valid product composition */
 .account-summary {
 	display: grid;
-	gap: var(--lumi-space-md);
-	border-radius: var(--lumi-radius-xl);
+	gap: var(--ren-space-md);
+	border-radius: var(--ren-radius-xl);
 }
 ```
 
 ### Optional color-scheme runtime
 
-Without the optional entry, CSS still supports default Lumi appearance. Add a controller only when users choose `system`, `light`, or `dark`.
+Without the optional entry, CSS still supports default RenUI appearance. Add a controller only when users choose `system`, `light`, or `dark`.
 
 Keep controller and pre-paint options in **one** object—both must match or server pre-paint and mounted controller disagree:
 
@@ -240,7 +240,7 @@ Keep controller and pre-paint options in **one** object—both must match or ser
 import {
 	createColorScheme,
 	type ColorSchemeOptions
-} from '@lumi-ui/svelte/color-scheme';
+} from '@renui/svelte/color-scheme';
 
 export const colorSchemeOptions = {
 	storageKey: 'product-color-scheme',
@@ -254,7 +254,7 @@ export const colorScheme = createColorScheme(colorSchemeOptions);
 <!-- root layout -->
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { ColorSchemeScript } from '@lumi-ui/svelte/color-scheme';
+	import { ColorSchemeScript } from '@renui/svelte/color-scheme';
 	import { colorScheme, colorSchemeOptions } from '$lib/color-scheme.svelte';
 
 	onMount(colorScheme.start);
@@ -285,22 +285,22 @@ The component emits a small inline script: strict `script-src` must authorize it
 
 ### `/color-scheme` exports
 
-Full surface of the optional `@lumi-ui/svelte/color-scheme` subpath. Pure policy helpers and constants are exported for apps that build a custom selector or validate a stored value without instantiating the controller.
+Full surface of the optional `@renui/svelte/color-scheme` subpath. Pure policy helpers and constants are exported for apps that build a custom selector or validate a stored value without instantiating the controller.
 
-| Symbol                                                                                                                  | Kind             | Use                                                            |
-| ----------------------------------------------------------------------------------------------------------------------- | ---------------- | -------------------------------------------------------------- |
-| `createColorScheme(options?)`                                                                                           | factory          | Returns a `ColorSchemeController` (table above)                |
-| `ColorSchemeScript`                                                                                                     | Svelte component | Pre-paint resolver; accepts the same `ColorSchemeOptions`      |
-| `createColorSchemeBootScript(options)`                                                                                  | function         | Inline script body string for a nonce-gated CSP boundary       |
-| `COLOR_SCHEME_PREFERENCES`, `DEFAULT_COLOR_SCHEME_PREFERENCE`, `DEFAULT_COLOR_SCHEME_STORAGE_KEY`                       | constants        | `['system','light','dark']`, `'system'`, `'lumi-color-scheme'` |
-| `parseColorSchemePreference`, `resolveColorScheme`                                                                      | pure helpers     | Validate a stored string; resolve a preference against the OS  |
-| `ColorSchemeController`, `ColorSchemeOptions`, `ColorSchemePreference`, `ColorSchemeScriptProps`, `ResolvedColorScheme` | types            | Public type contracts                                          |
+| Symbol                                                                                                                  | Kind             | Use                                                           |
+| ----------------------------------------------------------------------------------------------------------------------- | ---------------- | ------------------------------------------------------------- |
+| `createColorScheme(options?)`                                                                                           | factory          | Returns a `ColorSchemeController` (table above)               |
+| `ColorSchemeScript`                                                                                                     | Svelte component | Pre-paint resolver; accepts the same `ColorSchemeOptions`     |
+| `createColorSchemeBootScript(options)`                                                                                  | function         | Inline script body string for a nonce-gated CSP boundary      |
+| `COLOR_SCHEME_PREFERENCES`, `DEFAULT_COLOR_SCHEME_PREFERENCE`, `DEFAULT_COLOR_SCHEME_STORAGE_KEY`                       | constants        | `['system','light','dark']`, `'system'`, `'ren-color-scheme'` |
+| `parseColorSchemePreference`, `resolveColorScheme`                                                                      | pure helpers     | Validate a stored string; resolve a preference against the OS |
+| `ColorSchemeController`, `ColorSchemeOptions`, `ColorSchemePreference`, `ColorSchemeScriptProps`, `ResolvedColorScheme` | types            | Public type contracts                                         |
 
 Source: [`color-scheme/index.ts`](../src/lib/color-scheme/index.ts).
 
 ### Theming verification
 
-- Brand CSS loads after Lumi styles.
+- Brand CSS loads after RenUI styles.
 - Every `solid + foreground` pair passes 4.5:1 in light and dark.
 - Required indicators, checks, thumbs, focus, and borders pass 3:1 against adjacent colors.
 - Brand and status seeds pass with their paired solid foreground.
@@ -317,16 +317,16 @@ Components own behavior and accessibility. CSS classes own page composition—do
 
 ### Choose a structure
 
-| Need                   | Start with                                                 |
-| ---------------------- | ---------------------------------------------------------- |
-| App navigation shell   | `.lumi-dashboard-layout` + `Sidebar` + `Navbar`            |
-| Standard page rhythm   | `.lumi-stack` + `PageHeader` + `Card` / `DashboardSection` |
-| Filters beside results | `.lumi-layout--two-columns` + `PageSidebar`                |
-| Fluid cards            | `.lumi-grid .lumi-grid--responsive`                        |
-| Dashboard card grid    | `.lumi-grid .lumi-grid--cards`                             |
-| Fixed desktop columns  | `.lumi-grid` + `--columns-2-lg` … `--columns-4-lg`         |
-| Focused / auth task    | `.lumi-centered-layout` + `.lumi-centered-card`            |
-| Bounded content        | `.lumi-container` + one size modifier                      |
+| Need                   | Start with                                                |
+| ---------------------- | --------------------------------------------------------- |
+| App navigation shell   | `.ren-dashboard-layout` + `Sidebar` + `Navbar`            |
+| Standard page rhythm   | `.ren-stack` + `PageHeader` + `Card` / `DashboardSection` |
+| Filters beside results | `.ren-layout--two-columns` + `PageSidebar`                |
+| Fluid cards            | `.ren-grid .ren-grid--responsive`                         |
+| Dashboard card grid    | `.ren-grid .ren-grid--cards`                              |
+| Fixed desktop columns  | `.ren-grid` + `--columns-2-lg` … `--columns-4-lg`         |
+| Focused / auth task    | `.ren-centered-layout` + `.ren-centered-card`             |
+| Bounded content        | `.ren-container` + one size modifier                      |
 
 ### Dashboard shell
 
@@ -347,23 +347,23 @@ Grid areas: `sidebar`, `navbar`, `content`. Keep shell classes and component pro
 </script>
 
 <div
-	class="lumi-dashboard-layout"
-	class:lumi-sidebar--is-collapsed={collapsed}
-	class:lumi-sidebar--mobile-open={mobileOpen}
+	class="ren-dashboard-layout"
+	class:ren-sidebar--is-collapsed={collapsed}
+	class:ren-sidebar--mobile-open={mobileOpen}
 >
 	<Sidebar {collapsed} {mobileOpen}>...</Sidebar>
 	<Navbar ontogglesidebar={toggleSidebar} />
-	<main class="lumi-dashboard-layout__content">{@render children?.()}</main>
+	<main class="ren-dashboard-layout__content">{@render children?.()}</main>
 	<button
 		type="button"
-		class="lumi-mobile-overlay lumi-border--none"
+		class="ren-mobile-overlay ren-border--none"
 		aria-label="Close navigation"
 		onclick={() => (mobileOpen = false)}
 	></button>
 </div>
 ```
 
-At `64rem` and below, core switches the shell to navbar/content and `Sidebar` uses fixed mobile presentation. Keep viewport state aligned with that breakpoint. Closed mobile navigation is excluded from keyboard navigation. Full shell: the [`lumi-web`](https://github.com/eliaschampi/lumi) showcase. Breakpoints: [§5 Responsive effects](#responsive-effects).
+At `64rem` and below, core switches the shell to navbar/content and `Sidebar` uses fixed mobile presentation. Keep viewport state aligned with that breakpoint. Closed mobile navigation is excluded from keyboard navigation. Full shell: the [`renweb`](https://github.com/eliaschampi/renweb) showcase. Breakpoints: [§5 Responsive effects](#responsive-effects).
 
 ### Compact navigation groups
 
@@ -371,7 +371,7 @@ Use `SidebarItem` for a single destination. For a compact group of destinations,
 
 ```svelte
 <script lang="ts">
-	import { Button, Dropdown, DropdownItem, SidebarItem } from '@lumi-ui/svelte';
+	import { Button, Dropdown, DropdownItem, SidebarItem } from '@renui/svelte';
 </script>
 
 <SidebarItem href="/overview">Overview</SidebarItem>
@@ -389,7 +389,7 @@ Spread all trigger props onto the Button so the menu retains its trigger ID, exp
 ### Standard page
 
 ```svelte
-<div class="lumi-stack lumi-stack--lg">
+<div class="ren-stack ren-stack--lg">
 	<PageHeader title="Records" subtitle="Current workspace">
 		{#snippet actions()}<Button variant="filled">Create</Button>{/snippet}
 	</PageHeader>
@@ -404,17 +404,17 @@ Spread all trigger props onto the Button so the menu retains its trigger ID, exp
 
 ### Page sidebar
 
-`PageSidebar` reuses one sidebar snippet for desktop surface and mobile drawer. The trigger **must** sit inside `.lumi-page-sidebar__header-actions` (public composition contract). Desktop aside hides at `64rem`.
+`PageSidebar` reuses one sidebar snippet for desktop surface and mobile drawer. The trigger **must** sit inside `.ren-page-sidebar__header-actions` (public composition contract). Desktop aside hides at `64rem`.
 
-The mobile drawer portals to the document body, locks page scrolling, contains keyboard focus, closes with Escape and restores focus to its trigger. It shares modal ownership with `Dialog`, so closing a nested dialog returns focus to the drawer. Resizing above `64rem` releases modal resources. Shells, containers, navigation and modal surfaces respect `--lumi-safe-area-top/right/bottom/left`, defaulting to the device safe-area insets. For edge-to-edge iOS/iPadOS layouts, set `viewport-fit=cover` in the viewport meta tag so the browser exposes nonzero safe-area values.
+The mobile drawer portals to the document body, locks page scrolling, contains keyboard focus, closes with Escape and restores focus to its trigger. It shares modal ownership with `Dialog`, so closing a nested dialog returns focus to the drawer. Resizing above `64rem` releases modal resources. Shells, containers, navigation and modal surfaces respect `--ren-safe-area-top/right/bottom/left`, defaulting to the device safe-area insets. For edge-to-edge iOS/iPadOS layouts, set `viewport-fit=cover` in the viewport meta tag so the browser exposes nonzero safe-area values.
 
 ```svelte
 <PageHeader title="Records">
 	{#snippet actions()}
-		<div class="lumi-page-sidebar__header-actions">
+		<div class="ren-page-sidebar__header-actions">
 			<Button
 				variant="border"
-				class="lumi-page-sidebar__mobile-trigger"
+				class="ren-page-sidebar__mobile-trigger"
 				onclick={() => (filtersOpen = true)}
 			>
 				Filters
@@ -423,17 +423,17 @@ The mobile drawer portals to the document body, locks page scrolling, contains k
 	{/snippet}
 </PageHeader>
 
-<div class="lumi-layout--two-columns lumi-page-sidebar-layout">
+<div class="ren-layout--two-columns ren-page-sidebar-layout">
 	<PageSidebar bind:mobileOpen={filtersOpen} mobileTitle="Filters">
 		{#snippet sidebar()}...{/snippet}
 	</PageSidebar>
-	<section class="lumi-layout--content-right">...</section>
+	<section class="ren-layout--content-right">...</section>
 </div>
 ```
 
 ### Grids, flex, stack, containers
 
-Always include `.lumi-grid`; a modifier alone does not set `display: grid`.
+Always include `.ren-grid`; a modifier alone does not set `display: grid`.
 
 | Content behavior                      | Modifier                            |
 | ------------------------------------- | ----------------------------------- |
@@ -442,31 +442,31 @@ Always include `.lumi-grid`; a modifier alone does not set `display: grid`.
 | Weighted identity/content columns     | `--identity-split`                  |
 | Exact column count                    | `--columns-1` … `--columns-4`       |
 | Exact columns on large screens only   | `--columns-2-lg` … `--columns-4-lg` |
-| Full-row child                        | `.lumi-grid-item--span-all`         |
+| Full-row child                        | `.ren-grid-item--span-all`          |
 
 Tokenized gaps: `2xs`–`xxl`. Responsive collapse differs by family—see [grid contract](#grid-contract).
 
 ```svelte
 <div
-	class="lumi-flex lumi-flex--wrap lumi-align-items--center lumi-justify--between lumi-flex--gap-sm"
+	class="ren-flex ren-flex--wrap ren-align-items--center ren-justify--between ren-flex--gap-sm"
 >
 	...
 </div>
-<div class="lumi-stack lumi-stack--md">...</div>
-<main class="lumi-container">...</main>
-<main class="lumi-centered-layout">
-	<Card class="lumi-centered-card lumi-centered-card--md">...</Card>
+<div class="ren-stack ren-stack--md">...</div>
+<main class="ren-container">...</main>
+<main class="ren-centered-layout">
+	<Card class="ren-centered-card ren-centered-card--md">...</Card>
 </main>
 ```
 
 - **Flex** — direction, wrap, alignment, justification, gaps, item growth, mobile stacking.
-- **Stack** — canonical vertical rhythm via `.lumi-stack` + `.lumi-stack--*`.
+- **Stack** — canonical vertical rhythm via `.ren-stack` + `.ren-stack--*`.
 - **Container** — sizes `sm`–`2xl` always; `wide` / `ultrawide` only from `80rem` / `96rem`.
 
 ### Composition rules
 
 - Prefer a canonical shell/grid/flex/stack before writing page CSS.
-- Tokenize genuinely new application composition with `--lumi-*`.
+- Tokenize genuinely new application composition with `--ren-*`.
 - Keep overlays portaled and independent of page overflow.
 - Do not nest full dashboard shells or duplicate `PageSidebar` drawer markup.
 - Use the showcase for complete pages; recipes stay on contracts.
@@ -480,8 +480,8 @@ Family-level map of composition CSS. Shells and utilities: [`core.css`](../src/l
 ### Import and scope
 
 ```ts
-import '@lumi-ui/svelte/styles'; // tokens.base.css → core.css (base, layout, utilities)
-import '@lumi-ui/svelte/styles/patterns.css'; // opt-in compositions
+import '@renui/svelte/styles'; // tokens.base.css → core.css (base, layout, utilities)
+import '@renui/svelte/styles/patterns.css'; // opt-in compositions
 ```
 
 Direct subpaths exist when a build needs control; load tokens first. `patterns.css` is not part of the default entry. Importing `base.css` (or core) also applies global box-sizing, `html`/`body`/`#app`, selection, reduced-motion, and responsive heading rules.
@@ -490,29 +490,29 @@ Classes below are supported composition hooks. Other selectors style component i
 
 ### Shells and layouts (CSS)
 
-| Family             | Contract                                                                                                                                                                                                                                                       |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Dashboard          | `.lumi-dashboard-layout`, `__content`, `.lumi-mobile-overlay`; sync `lumi-sidebar--is-collapsed` and `lumi-sidebar--mobile-open` with `Sidebar`                                                                                                                |
-| Two column         | `.lumi-layout--two-columns` + `.lumi-layout--sidebar-left` + `.lumi-layout--content-right`; collapses at `64rem`                                                                                                                                               |
-| Page sidebar hooks | `.lumi-page-sidebar-layout`, `__header-actions`, `__mobile-trigger`, `__section`, `__label`, `__radio-group`, `__radio-option`, `__radio-description`, `__bounded-list`; drawer internals belong to `PageSidebar`                                              |
-| Scroll well        | `.lumi-scroll-well` recessed internally scrolling surface; cap and background through `--lumi-scroll-well-max-height` / `--lumi-scroll-well-bg`; holds the wheel only while it overflows, and `.lumi-scroll-contain` gives a custom scroller the same behavior |
-| Containers         | `.lumi-container` (+ `--sm`); `--ultrawide` from `96rem`                                                                                                                                                                                                       |
-| Centered task      | `.lumi-centered-layout`, `.lumi-centered-card`, `--{sm,md,lg,xl}`; combine with `Card`                                                                                                                                                                         |
-| Dashboard data     | `.lumi-dashboard-overview-grid` collapses at `68.75rem`; `.lumi-dashboard-analytics-grid` at `61.25rem`                                                                                                                                                        |
+| Family             | Contract                                                                                                                                                                                                                                                   |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Dashboard          | `.ren-dashboard-layout`, `__content`, `.ren-mobile-overlay`; sync `ren-sidebar--is-collapsed` and `ren-sidebar--mobile-open` with `Sidebar`                                                                                                                |
+| Two column         | `.ren-layout--two-columns` + `.ren-layout--sidebar-left` + `.ren-layout--content-right`; collapses at `64rem`                                                                                                                                              |
+| Page sidebar hooks | `.ren-page-sidebar-layout`, `__header-actions`, `__mobile-trigger`, `__section`, `__label`, `__radio-group`, `__radio-option`, `__radio-description`, `__bounded-list`; drawer internals belong to `PageSidebar`                                           |
+| Scroll well        | `.ren-scroll-well` recessed internally scrolling surface; cap and background through `--ren-scroll-well-max-height` / `--ren-scroll-well-bg`; holds the wheel only while it overflows, and `.ren-scroll-contain` gives a custom scroller the same behavior |
+| Containers         | `.ren-container` (+ `--sm`); `--ultrawide` from `96rem`                                                                                                                                                                                                    |
+| Centered task      | `.ren-centered-layout`, `.ren-centered-card`, `--{sm,md,lg,xl}`; combine with `Card`                                                                                                                                                                       |
+| Dashboard data     | `.ren-dashboard-overview-grid` collapses at `68.75rem`; `.ren-dashboard-analytics-grid` at `61.25rem`                                                                                                                                                      |
 
 ### Grid contract
 
-Always combine modifiers with `.lumi-grid`.
+Always combine modifiers with `.ren-grid`.
 
-| Family                           | Behavior                                                                                             |
-| -------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `.lumi-grid--responsive`         | Auto-fit from `--lumi-grid-responsive-min`; one column at `48rem`                                    |
-| `.lumi-grid--cards`              | Fluid auto-fill from `--lumi-dashboard-card-grid-min`; left-aligned; no forced one-column breakpoint |
-| `.lumi-grid--identity-split`     | Weighted identity/content split; one column at `64rem`                                               |
-| `.lumi-grid--columns-{1,2,3,4}`  | Exact count; `2–4` → auto-fit at `48rem`, one column at `30rem`                                      |
-| `.lumi-grid--columns-{2,3,4}-lg` | Explicit columns from `64rem` up                                                                     |
-| `.lumi-grid--gap-{sm,md,lg,xl}`  | Tokenized gap                                                                                        |
-| `.lumi-grid-item--span-all`      | Span all columns                                                                                     |
+| Family                          | Behavior                                                                                            |
+| ------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `.ren-grid--responsive`         | Auto-fit from `--ren-grid-responsive-min`; one column at `48rem`                                    |
+| `.ren-grid--cards`              | Fluid auto-fill from `--ren-dashboard-card-grid-min`; left-aligned; no forced one-column breakpoint |
+| `.ren-grid--identity-split`     | Weighted identity/content split; one column at `64rem`                                              |
+| `.ren-grid--columns-{1,2,3,4}`  | Exact count; `2–4` → auto-fit at `48rem`, one column at `30rem`                                     |
+| `.ren-grid--columns-{2,3,4}-lg` | Explicit columns from `64rem` up                                                                    |
+| `.ren-grid--gap-{sm,md,lg,xl}`  | Tokenized gap                                                                                       |
+| `.ren-grid-item--span-all`      | Span all columns                                                                                    |
 
 Fluid families clamp their minimum track to the containing block, so a narrow nested grid cannot create page overflow. Use `--responsive` when items should fill the row and `--cards` for variable-length collections that should preserve card measure.
 
@@ -520,40 +520,40 @@ At exactly `64rem`, both max-width shell rules and min-width `*-lg` grid rules a
 
 ### Shared CSS patterns
 
-Domain-neutral compositions in [`patterns.css`](../src/lib/styles/patterns.css) (not Svelte components; included by `@lumi-ui/svelte/styles`). Use documented BEM children; do not invent modifiers.
+Domain-neutral compositions in [`patterns.css`](../src/lib/styles/patterns.css) (not Svelte components; included by `@renui/svelte/styles`). Use documented BEM children; do not invent modifiers.
 
-| Pattern                | Families and variants                                                                                                                                                                                                                                     |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Surfaces and auth      | `.lumi-surface`, `.lumi-auth-mark`; apply `.lumi-card--ambient` and `.lumi-auth-card` via `Card class`. **Default surfaces are opaque**. Consumer-owned translucent cards can opt into `--lumi-surface-blur-filter`; built-in compositions use elevation. |
-| Shared control hooks   | `base.css` resolves the accent-aware focus recipes on the focused element, so any `--lumi-control-accent` above it applies. Text fields opt into `.lumi-autofill` + `--lumi-control-autofill-bg`.                                                         |
-| Filter summary         | `.lumi-filter-summary` + `__copy`, `__eyebrow`, `__title`, `__subtitle`, `__title-row`, `__meta`, `__actions`; `--compact`, `--split`, `--centered`, semantic color variants                                                                              |
-| Section actions        | `.lumi-section-toolbar`, `.lumi-toolbar-field`, `.lumi-form-action-row`, `.lumi-inline-filters` (each has existing child/compact variants)                                                                                                                |
-| Ranked metrics         | `.lumi-metric-rank-list` / `.lumi-metric-rank-row`; list `--dense`, `--accent-secondary`, `--scroll-capped`                                                                                                                                               |
-| Identity and selection | `.lumi-person-cell`, `.lumi-selected-panel`, `.lumi-result-list`, `.lumi-placeholder-tile`                                                                                                                                                                |
-| Context panels         | `.lumi-search-panel` + BEM children                                                                                                                                                                                                                       |
-| Collections            | `.lumi-item-row`, `.lumi-item-list`; interactive/active row variants                                                                                                                                                                                      |
-| Summaries              | `.lumi-total-box`, `.lumi-scan-result`                                                                                                                                                                                                                    |
-| Small helpers          | `.lumi-scrollbar`, `.lumi-list-item--stack-actions`                                                                                                                                                                                                       |
-| Specialized hooks      | `.lumi-drive-toolbar-card` via `Card class`; `.lumi-drive-content`, `.lumi-drive-loading`, `.lumi-navbar-branch`, `.lumi-navbar-user-dropdown`, `.lumi-brand-logo-wordmark`                                                                               |
+| Pattern                | Families and variants                                                                                                                                                                                                                                |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Surfaces and auth      | `.ren-surface`, `.ren-auth-mark`; apply `.ren-card--ambient` and `.ren-auth-card` via `Card class`. **Default surfaces are opaque**. Consumer-owned translucent cards can opt into `--ren-surface-blur-filter`; built-in compositions use elevation. |
+| Shared control hooks   | `base.css` resolves the accent-aware focus recipes on the focused element, so any `--ren-control-accent` above it applies. Text fields opt into `.ren-autofill` + `--ren-control-autofill-bg`.                                                       |
+| Filter summary         | `.ren-filter-summary` + `__copy`, `__eyebrow`, `__title`, `__subtitle`, `__title-row`, `__meta`, `__actions`; `--compact`, `--split`, `--centered`, semantic color variants                                                                          |
+| Section actions        | `.ren-section-toolbar`, `.ren-toolbar-field`, `.ren-form-action-row`, `.ren-inline-filters` (each has existing child/compact variants)                                                                                                               |
+| Ranked metrics         | `.ren-metric-rank-list` / `.ren-metric-rank-row`; list `--dense`, `--accent-secondary`, `--scroll-capped`                                                                                                                                            |
+| Identity and selection | `.ren-person-cell`, `.ren-selected-panel`, `.ren-result-list`, `.ren-placeholder-tile`                                                                                                                                                               |
+| Context panels         | `.ren-search-panel` + BEM children                                                                                                                                                                                                                   |
+| Collections            | `.ren-item-row`, `.ren-item-list`; interactive/active row variants                                                                                                                                                                                   |
+| Summaries              | `.ren-total-box`, `.ren-scan-result`                                                                                                                                                                                                                 |
+| Small helpers          | `.ren-scrollbar`, `.ren-list-item--stack-actions`                                                                                                                                                                                                    |
+| Specialized hooks      | `.ren-drive-toolbar-card` via `Card class`; `.ren-drive-content`, `.ren-drive-loading`, `.ren-navbar-branch`, `.ren-navbar-user-dropdown`, `.ren-brand-logo-wordmark`                                                                                |
 
 Chart-tooltip support and base component selectors are component-owned even when styles live in core.
 
 ### Utility families
 
-| Concern            | Classes                                                                                                                                                                                                                                   |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Flex               | `.lumi-flex`; `.lumi-flex--{column,mobile-column,wrap,nowrap,center,between}`; `.lumi-flex--gap-{2xs,xs,sm,md,lg,xl}`; `.lumi-flex-item--{auto,grow,shrink,no-shrink}`                                                                    |
-| Align              | `.lumi-align-items--{start,center,end,stretch}`; `.lumi-justify--{start,center,between,end}`                                                                                                                                              |
-| Grid               | `.lumi-grid--{responsive,cards,identity-split,columns-1…4,columns-2-lg…4-lg}`; `.lumi-grid--gap-{sm,md,lg,xl}`; `.lumi-grid-item--span-all`                                                                                               |
-| Vertical rhythm    | `.lumi-stack` with `.lumi-stack--{2xs,xs,sm,md,lg,xl}`                                                                                                                                                                                    |
-| Spacing            | `.lumi-padding--{none,2xs,xs,sm,md,lg,xl}`; `.lumi-padding-{x,y}--{2xs,xs,sm,md}`; `.lumi-margin--none`; `.lumi-margin-{top,bottom}--{2xs,xs,sm,md,lg}` (logical properties)                                                              |
-| Size               | `.lumi-width--{full,tablet-full}`, `.lumi-min-width--0`, `.lumi-min-w--{sm,lg,xl}`, `.lumi-max-w--{sm,lg,4xl,prose,full}`, `.lumi-h--full`, `.lumi-min-h--screen`                                                                         |
-| Text               | `.lumi-text--{xs,sm,lg,xl,2xl,4xl}`; `.lumi-text--{center,right}`; `.lumi-text--{muted,primary,secondary,success,warning,danger,info}`; `.lumi-font--{medium,semibold,bold}`; `.lumi-line-height--relaxed`; `.lumi-text-decoration--none` |
-| Text overflow      | `.lumi-text-ellipsis`, `.lumi-text-break`, `.lumi-text-pre-line`, `.lumi-text-clamp--{2,3}`; `.lumi-sr-only` (base) hides visually but keeps text for assistive tech                                                                      |
-| Presentation       | `.lumi-border`, `.lumi-border--{light,none}`; `.lumi-rounded--{md,lg,xl,full}`; `.lumi-shadow--sm`; `.lumi-bg--{transparent,surface,control,glass,primary}`; `.lumi-opacity--80`                                                          |
-| Display / position | `.lumi-block`, `.lumi-hidden`, `.lumi-overflow-hidden`; `.lumi-position--{relative,absolute,bottom-right}`; `.lumi-z--dropdown`                                                                                                           |
+| Concern            | Classes                                                                                                                                                                                                                             |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Flex               | `.ren-flex`; `.ren-flex--{column,mobile-column,wrap,nowrap,center,between}`; `.ren-flex--gap-{2xs,xs,sm,md,lg,xl}`; `.ren-flex-item--{auto,grow,shrink,no-shrink}`                                                                  |
+| Align              | `.ren-align-items--{start,center,end,stretch}`; `.ren-justify--{start,center,between,end}`                                                                                                                                          |
+| Grid               | `.ren-grid--{responsive,cards,identity-split,columns-1…4,columns-2-lg…4-lg}`; `.ren-grid--gap-{sm,md,lg,xl}`; `.ren-grid-item--span-all`                                                                                            |
+| Vertical rhythm    | `.ren-stack` with `.ren-stack--{2xs,xs,sm,md,lg,xl}`                                                                                                                                                                                |
+| Spacing            | `.ren-padding--{none,2xs,xs,sm,md,lg,xl}`; `.ren-padding-{x,y}--{2xs,xs,sm,md}`; `.ren-margin--none`; `.ren-margin-{top,bottom}--{2xs,xs,sm,md,lg}` (logical properties)                                                            |
+| Size               | `.ren-width--{full,tablet-full}`, `.ren-min-width--0`, `.ren-min-w--{sm,lg,xl}`, `.ren-max-w--{sm,lg,4xl,prose,full}`, `.ren-h--full`, `.ren-min-h--screen`                                                                         |
+| Text               | `.ren-text--{xs,sm,lg,xl,2xl,4xl}`; `.ren-text--{center,right}`; `.ren-text--{muted,primary,secondary,success,warning,danger,info}`; `.ren-font--{medium,semibold,bold}`; `.ren-line-height--relaxed`; `.ren-text-decoration--none` |
+| Text overflow      | `.ren-text-ellipsis`, `.ren-text-break`, `.ren-text-pre-line`, `.ren-text-clamp--{2,3}`; `.ren-sr-only` (base) hides visually but keeps text for assistive tech                                                                     |
+| Presentation       | `.ren-border`, `.ren-border--{light,none}`; `.ren-rounded--{md,lg,xl,full}`; `.ren-shadow--sm`; `.ren-bg--{transparent,surface,control,glass,primary}`; `.ren-opacity--80`                                                          |
+| Display / position | `.ren-block`, `.ren-hidden`, `.ren-overflow-hidden`; `.ren-position--{relative,absolute,bottom-right}`; `.ren-z--dropdown`                                                                                                          |
 
-The utility set is deliberately small: it covers the composition every product repeats. Anything else belongs in scoped CSS with `--lumi-*` tokens.
+The utility set is deliberately small: it covers the composition every product repeats. Anything else belongs in scoped CSS with `--ren-*` tokens.
 
 ### Responsive effects
 
@@ -567,8 +567,8 @@ The utility set is deliberately small: it covers the composition every product r
 
 ### CSS compatibility
 
-- Do not copy core or pattern declarations into app CSS; compose the public class or its `--lumi-*` token.
-- Narrow search: `rg -n "lumi-filter-summary" src/lib/styles/patterns.css`.
+- Do not copy core or pattern declarations into app CSS; compose the public class or its `--ren-*` token.
+- Narrow search: `rg -n "ren-filter-summary" src/lib/styles/patterns.css`.
 
 ---
 
@@ -578,11 +578,11 @@ Visual and interaction intent. Structural ownership: [§7 Library design](#7-lib
 
 ### Lumen
 
-Lumi uses a lightly brand-tinted canvas, crisp surfaces, and shared semantic color roles. North star: _if you remove one more line of decoration and the UI still feels complete, you are closer to Lumi._
+RenUI uses a lightly brand-tinted canvas, crisp surfaces, and shared semantic color roles. North star: _if you remove one more line of decoration and the UI still feels complete, you are closer to RenUI._
 
-1. **One accent, shared roles.** `.lumi-tone` derives soft and strong containers, readable ink, and a directional beam from the semantic accent. Hue follows the brand; lightness and chroma follow shared theme planes.
+1. **One accent, shared roles.** `.ren-tone` derives soft and strong containers, readable ink, and a directional beam from the semantic accent. Hue follows the brand; lightness and chroma follow shared theme planes.
 2. **Depth through elevation.** Opaque surfaces use thin borders and quiet contact + ambient shadows. Menus and listboxes stay legible without backdrop blur.
-3. **Color carries state.** Neutral hover uses `--lumi-color-hover`; selected and soft semantic surfaces use the tone roles. Status always includes text or an icon.
+3. **Color carries state.** Neutral hover uses `--ren-color-hover`; selected and soft semantic surfaces use the tone roles. Status always includes text or an icon.
 4. **Light follows value.** Progress and Slider use the shared beam; gradient Buttons opt into it with a restrained sun mix. Ordinary panels have no decorative gradient wash.
 5. **Geometry is shared.** Fields, switchers, cards, and floating surfaces consume their owning recipes and token scales.
 6. **Motion is brief.** Preserve focus and reduced-motion behavior; avoid decorative animation.
@@ -595,58 +595,58 @@ From recessed to floating:
 inset → surface / card → elevated → raised / overlay
 ```
 
-- **Inset / control-fill** — fields and wells. Binary active states use `--lumi-control-active-*`.
-- **Switcher track** — Tabs, SegmentedControl and ToggleGroup use `--lumi-color-surface-inset`, a quiet border and control shadow; the active pill uses a raised surface and tone ink.
+- **Inset / control-fill** — fields and wells. Binary active states use `--ren-control-active-*`.
+- **Switcher track** — Tabs, SegmentedControl and ToggleGroup use `--ren-color-surface-inset`, a quiet border and control shadow; the active pill uses a raised surface and tone ink.
 - **Surface / card** — opaque content panels; light surfaces share white and dark surfaces lift from the canvas.
 - **Elevated / raised** — sticky headers, active switcher pills and highlighted panels.
 - **Floating** — dialogs, dropdowns, context menus and tooltips use opaque surfaces and elevation.
 
-Light surfaces rely on fill and spacing: standard borders mix ink at **7%**, strong borders at **12%**, and `--lumi-control-shadow` is `none`. Dark preserves **10% / 16%** borders and `--lumi-shadow-inset` for controls. This adjustment does not change focus rings or keyboard outlines; decorative edges and focus affordances have separate roles.
+Light surfaces rely on fill and spacing: standard borders mix ink at **7%**, strong borders at **12%**, and `--ren-control-shadow` is `none`. Dark preserves **10% / 16%** borders and `--ren-shadow-inset` for controls. This adjustment does not change focus rings or keyboard outlines; decorative edges and focus affordances have separate roles.
 
-Dashboard content remains transparent by default so the canvas separates its cards. Cards retain the optional `--lumi-surface-blur-filter` hook for consumer-owned translucent treatments; Lumi's default surfaces do not require blur.
+Dashboard content remains transparent by default so the canvas separates its cards. Cards retain the optional `--ren-surface-blur-filter` hook for consumer-owned translucent treatments; RenUI's default surfaces do not require blur.
 
 ### Contrast and semantics
 
-- Text: full ink (`--lumi-color-text`) on surfaces; muted/light for secondary copy.
+- Text: full ink (`--ren-color-text`) on surfaces; muted/light for secondary copy.
 - Focus (shared contract):
-  - **Field / peer visuals** (input shell, checkbox visual, switch track): `--lumi-control-focus-shadow` with `--lumi-control-accent` on the control root. Fields pair a soft halo with their solid accent border; everything else draws a ≥ 3:1 indicator.
-  - **Keyboard affordances** (icon buttons, list/menu items, tabs, close controls): `--lumi-focus-outline` + `--lumi-focus-outline-offset` (or a positive offset when the control is free-floating).
-  - Set `--lumi-control-accent` from the semantic color; do not invent per-component focus rings.
-  - **Accent-aware recipes resolve on the focused element** (see `base.css`) or the sibling drawing for a hidden input. No component registers anywhere. `:root` holds a primary-only fallback; never put `var(--lumi-control-accent)` in a `:root` outline/shadow recipe or every control inherits baked primary.
+  - **Field / peer visuals** (input shell, checkbox visual, switch track): `--ren-control-focus-shadow` with `--ren-control-accent` on the control root. Fields pair a soft halo with their solid accent border; everything else draws a ≥ 3:1 indicator.
+  - **Keyboard affordances** (icon buttons, list/menu items, tabs, close controls): `--ren-focus-outline` + `--ren-focus-outline-offset` (or a positive offset when the control is free-floating).
+  - Set `--ren-control-accent` from the semantic color; do not invent per-component focus rings.
+  - **Accent-aware recipes resolve on the focused element** (see `base.css`) or the sibling drawing for a hidden input. No component registers anywhere. `:root` holds a primary-only fallback; never put `var(--ren-control-accent)` in a `:root` outline/shadow recipe or every control inherits baked primary.
 - Semantic states pair color with icon or text—never color alone.
 
 Components must not invent `purple`, `teal`, or product names as colors. The public color API is `primary | secondary | success | warning | danger | info` ([§3](#3-theming-and-color-scheme)).
 
-The default brand and status seeds share `--lumi-accent-lightness` and respect `--lumi-accent-chroma-max`. Warning keeps its amber lightness and paired dark foreground. Override the shared dials at the theme root to tune the family together, or override an individual seed to give one role its own identity.
+The default brand and status seeds share `--ren-accent-lightness` and respect `--ren-accent-chroma-max`. Warning keeps its amber lightness and paired dark foreground. Override the shared dials at the theme root to tune the family together, or override an individual seed to give one role its own identity.
 
 ### Geometry — space, type, radius, motion
 
-| Concern        | Tokens                                                                                                                                         | Rule                                                                                                                     |
-| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| Spacing        | `--lumi-space-2xs` … `--lumi-space-6xl` (quarter-rem base)                                                                                     | Compose from tokens; no magic numbers unless a `calc()` of tokens                                                        |
-| Typography     | Inter + system stack; scale `xs`→`4xl`; weights normal→bold                                                                                    | Root uses compact `sm`; body inherits it for dense product UI                                                            |
-| Radius         | `--lumi-radius-control`, `--lumi-radius-option`, `--lumi-radius-panel`, `--lumi-radius-tooltip`, `--lumi-surface-radius`, `--lumi-radius-full` | Choose by semantic role; do not invent per component                                                                     |
-| Motion         | `--lumi-duration-fast` … `--lumi-duration-slower`, `--lumi-duration-spin`, `--lumi-motion-scale`                                               | Fast = micro; base = UI; slow = overlays; spin = continuous ~1s; reduced motion collapses the shared dial                |
-| Control UI     | `--lumi-transition-control`, `--lumi-transition-interactive`                                                                                   | Shared color/fill/border/shadow recipe; interactive adds the tokenized transform                                         |
-| Easing         | `--lumi-easing-default`                                                                                                                        | Primary smooth-decelerate curve                                                                                          |
-| Press / lift   | `--lumi-interactive-press-scale`, `--lumi-interactive-hover-scale`, `--lumi-interactive-zoom-scale`, `--lumi-interactive-lift`                 | Subtle; never jump; flattened on touch (`hover: none`)                                                                   |
-| Surface follow | `--lumi-surface-hover` (0 or 1)                                                                                                                | An interactive surface sets 1 on hover or keyboard focus; nested tiles and glyphs move with it, never on their own hover |
+| Concern        | Tokens                                                                                                                                   | Rule                                                                                                                     |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Spacing        | `--ren-space-2xs` … `--ren-space-6xl` (quarter-rem base)                                                                                 | Compose from tokens; no magic numbers unless a `calc()` of tokens                                                        |
+| Typography     | Inter + system stack; scale `xs`→`4xl`; weights normal→bold                                                                              | Root uses compact `sm`; body inherits it for dense product UI                                                            |
+| Radius         | `--ren-radius-control`, `--ren-radius-option`, `--ren-radius-panel`, `--ren-radius-tooltip`, `--ren-surface-radius`, `--ren-radius-full` | Choose by semantic role; do not invent per component                                                                     |
+| Motion         | `--ren-duration-fast` … `--ren-duration-slower`, `--ren-duration-spin`, `--ren-motion-scale`                                             | Fast = micro; base = UI; slow = overlays; spin = continuous ~1s; reduced motion collapses the shared dial                |
+| Control UI     | `--ren-transition-control`, `--ren-transition-interactive`                                                                               | Shared color/fill/border/shadow recipe; interactive adds the tokenized transform                                         |
+| Easing         | `--ren-easing-default`                                                                                                                   | Primary smooth-decelerate curve                                                                                          |
+| Press / lift   | `--ren-interactive-press-scale`, `--ren-interactive-hover-scale`, `--ren-interactive-zoom-scale`, `--ren-interactive-lift`               | Subtle; never jump; flattened on touch (`hover: none`)                                                                   |
+| Surface follow | `--ren-surface-hover` (0 or 1)                                                                                                           | An interactive surface sets 1 on hover or keyboard focus; nested tiles and glyphs move with it, never on their own hover |
 
-Control heights share one ladder (`--lumi-control-height-xs` … `--lumi-control-height-xl`), but not every component exposes every step: **Input / Select / Textarea / NumberInput** use `xs…xl`, **Button** `sm…xl`, **Chip** `sm` (+ compact). Match the step the component actually supports. Coordinate Svelte transitions with the `--lumi-duration-*` tokens (150 / 220 / 300 ms); Lumi's own JS transitions collapse to zero under reduced motion.
+Control heights share one ladder (`--ren-control-height-xs` … `--ren-control-height-xl`), but not every component exposes every step: **Input / Select / Textarea / NumberInput** use `xs…xl`, **Button** `sm…xl`, **Chip** `sm` (+ compact). Match the step the component actually supports. Coordinate Svelte transitions with the `--ren-duration-*` tokens (150 / 220 / 300 ms); RenUI's own JS transitions collapse to zero under reduced motion.
 
 ### Interaction patterns
 
 | Pattern     | Expectation                                                                                     |
 | ----------- | ----------------------------------------------------------------------------------------------- |
 | Hover       | Soft fill/border shift; optional 1px lift—never jump (switcher options: fill only, no lift)     |
-| Tint        | Rows and options: neutral `--lumi-color-hover` on hover, tone soft/strong for selection         |
+| Tint        | Rows and options: neutral `--ren-color-hover` on hover, tone soft/strong for selection          |
 | Focus       | Visible ring/outline from shared tokens, ≥ 3:1 in every role and theme; keyboard-first          |
-| Disabled    | Reduced opacity (`--lumi-opacity-disabled`) + `pointer-events: none`; hover rules need no guard |
+| Disabled    | Reduced opacity (`--ren-opacity-disabled`) + `pointer-events: none`; hover rules need no guard  |
 | Loading     | Shared spinner recipe (18% accent track + solid arc, ~1s) or progress; block double-submit      |
 | Selection   | Binary peers: control-active fill. Switchers: elevated active pill. Cards/lists: clear vs hover |
 | Destructive | `danger` color; confirm in app logic, not red styling alone                                     |
 | Overlays    | Portal + `createFloating`; outside press and Escape close unless `persistent`                   |
-| Autofill    | Text fields use `.lumi-autofill` + `--lumi-control-autofill-bg`                                 |
+| Autofill    | Text fields use `.ren-autofill` + `--ren-control-autofill-bg`                                   |
 
 Dashboard chart tooltips portal to the page and remeasure when their content or viewport changes. Line series align by index against the first series; missing values break the curve. Smooth segments stay within adjacent values. Line and bar charts share one signed scale; donut slices stay nonnegative.
 
@@ -670,13 +670,13 @@ Good minimalism: fewer props, fewer CSS branches, shared sizes. Bad minimalism: 
 
 ## 7. Library design
 
-Lumi is a semantic Svelte 5 system shared by unrelated products—not a business-component collection.
+RenUI is a semantic Svelte 5 system shared by unrelated products—not a business-component collection.
 
 ### Principles
 
 1. **Semantic APIs over visual instructions.** Props express intent (`color`, `size`, `selected`, `disabled`, `loading`, `orientation`); tokens decide presentation.
-2. **Domain neutrality.** Components understand interaction patterns, never students, inventory, sales, enrollment, products, or cashboxes. Apps map domain state into Lumi semantics.
-3. **Tokens are the visual language.** Reusable color, spacing, geometry, shadow, layout sizing, z-index, and motion use `var(--lumi-...)`. Runtime calculations and media-query syntax are the narrow exceptions.
+2. **Domain neutrality.** Components understand interaction patterns, never students, inventory, sales, enrollment, products, or cashboxes. Apps map domain state into RenUI semantics.
+3. **Tokens are the visual language.** Reusable color, spacing, geometry, shadow, layout sizing, z-index, and motion use `var(--ren-...)`. Runtime calculations and media-query syntax are the narrow exceptions.
 4. **Composition before configuration.** Combine small components, snippets, and CSS contracts before adding flags or wrappers.
 5. **Brand and behavior are separate.** Brand seeds are CSS; user light/dark preference is an optional controller ([§3](#3-theming-and-color-scheme)).
 6. **Optional by construction.** Cohesive optional behavior uses subpaths and explicit lifecycle; no provider or import-time global store.
@@ -754,7 +754,7 @@ The root surface includes historical compositions (dashboard, Drive). Do not use
 
 ### Ownership
 
-| Lumi owns                                    | Consumer owns                                    |
+| RenUI owns                                   | Consumer owns                                    |
 | -------------------------------------------- | ------------------------------------------------ |
 | Domain-neutral interaction and accessibility | Business rules, permissions, routes, persistence |
 | Semantic component contracts                 | Domain-to-semantic mapping                       |
@@ -809,7 +809,7 @@ git diff --check
 Before a release, also:
 
 1. Re-measure the [Lightweight Contract](../README.md#lightweight-contract) budgets with `pnpm run package && pnpm run size` and `npm pack --dry-run`.
-2. Dry-run the current codemod on each consumer (`node scripts/migrate-1.0.mjs <app>`), then `svelte-check` the migrated app against the packaged build.
+2. Dry-run the current codemod on each consumer (`node scripts/migrate-2.0.mjs <app>`) until it reports no `error:` or `manual:` line, then `svelte-check` the migrated app against the packaged build.
 3. Check overlays inside a Dialog, keyboard flows and light/dark mode in a browser; SSR output alone does not cover positioning.
 
-For a locally linked consumer, package Lumi before checking that app. The [`lumi-web`](https://github.com/eliaschampi/lumi) showcase consumes the published package and needs no local link. Do not start a duplicate dev server for docs or type-only changes.
+For a locally linked consumer, package RenUI before checking that app. The [`renweb`](https://github.com/eliaschampi/renweb) showcase consumes the published package and needs no local link. Do not start a duplicate dev server for docs or type-only changes.

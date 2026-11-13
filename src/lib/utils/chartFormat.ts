@@ -1,4 +1,4 @@
-import type { LumiFormatLocale } from '../i18n/types';
+import type { RenFormatLocale } from '../i18n/types';
 import type { ChartValueFormat } from '../types/charts';
 import { numberFormat } from './format';
 
@@ -19,7 +19,7 @@ const DECIMAL = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
 
 export function formatChartPercent(
 	value: number,
-	{ locale }: LumiFormatLocale
+	{ locale }: RenFormatLocale
 ): string {
 	return numberFormat(locale, {
 		style: 'percent',
@@ -31,7 +31,7 @@ export function formatChartValue(
 	value: number,
 	valueFormat: ChartValueFormat,
 	role: ChartValueRole,
-	{ locale, currency }: LumiFormatLocale
+	{ locale, currency }: RenFormatLocale
 ): string {
 	const large = Math.abs(value) >= 1000;
 

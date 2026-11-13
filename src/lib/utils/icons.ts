@@ -3,8 +3,8 @@
  *
  * Empty by default so a component that renders an icon ships only the Lucide
  * components it imports. Pass components directly (`icon={Search}`), or
- * register names once at the app root (`registerIcons(lumiIcons)` from
- * `@lumi-ui/svelte/icons`, or any `{ name: Component }` map) for data-driven
+ * register names once at the app root (`registerIcons(renIcons)` from
+ * `@renui/svelte/icons`, or any `{ name: Component }` map) for data-driven
  * string names.
  *
  * Library code deep-imports Lucide (`@lucide/svelte/icons/<name>`), never the
@@ -54,7 +54,7 @@ export function getIcon(name: string): IconComponent | null {
 	if (DEV && !icon && !reported.has(name) && reported.size < 100) {
 		reported.add(name);
 		console.warn(
-			`[lumi-ui] Icon "${name}" is not registered. Pass the component or call registerIcons().`
+			`[renui] Icon "${name}" is not registered. Pass the component or call registerIcons().`
 		);
 	}
 	return icon ?? null;

@@ -7,7 +7,7 @@
 <script lang="ts">
 	import X from '@lucide/svelte/icons/x';
 	import { Icon } from '../Icon';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import type { ChipProps } from './types';
 
 	const {
@@ -22,27 +22,27 @@
 		onclick
 	}: ChipProps = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 	const iconSize = $derived(size === 'sm' ? 'xs' : 'sm');
 </script>
 
 {#snippet content()}
 	{#if icon}<Icon {icon} size={iconSize} />{/if}
-	<span class="lumi-chip__text">{@render children?.()}</span>
+	<span class="ren-chip__text">{@render children?.()}</span>
 {/snippet}
 
 <!-- The action and the remove control are siblings, never nested. -->
 <span
 	class={[
-		'lumi-chip',
-		`lumi-tone lumi-tone--${color}`,
-		size === 'sm' && 'lumi-chip--sm',
-		onclick && 'lumi-chip--interactive',
+		'ren-chip',
+		`ren-tone ren-tone--${color}`,
+		size === 'sm' && 'ren-chip--sm',
+		onclick && 'ren-chip--interactive',
 		className
 	]}
 >
 	{#if onclick}
-		<button type="button" class="lumi-chip__action" {onclick}>
+		<button type="button" class="ren-chip__action" {onclick}>
 			{@render content()}
 		</button>
 	{:else}
@@ -52,7 +52,7 @@
 	{#if closable}
 		<button
 			type="button"
-			class="lumi-chip__close"
+			class="ren-chip__close"
 			aria-label={closeLabel ?? i18n.t.chipRemove}
 			onclick={(event) => {
 				event.stopPropagation();
@@ -65,54 +65,54 @@
 </span>
 
 <style>
-	.lumi-chip__close :global(svg) {
-		inline-size: var(--lumi-chip-close-icon);
-		block-size: var(--lumi-chip-close-icon);
+	.ren-chip__close :global(svg) {
+		inline-size: var(--ren-chip-close-icon);
+		block-size: var(--ren-chip-close-icon);
 	}
 
-	.lumi-chip {
-		--lumi-chip-padding-block: var(--lumi-space-xs);
-		--lumi-chip-padding-inline: var(--lumi-space-sm);
-		--lumi-chip-gap: var(--lumi-space-xs);
-		--lumi-chip-font-size: var(--lumi-font-size-sm);
-		--lumi-chip-min-height: var(--lumi-control-height-sm);
-		--lumi-chip-close-size: var(--lumi-space-md);
-		--lumi-chip-close-icon: var(--lumi-icon-sm);
+	.ren-chip {
+		--ren-chip-padding-block: var(--ren-space-xs);
+		--ren-chip-padding-inline: var(--ren-space-sm);
+		--ren-chip-gap: var(--ren-space-xs);
+		--ren-chip-font-size: var(--ren-font-size-sm);
+		--ren-chip-min-height: var(--ren-control-height-sm);
+		--ren-chip-close-size: var(--ren-space-md);
+		--ren-chip-close-icon: var(--ren-icon-sm);
 		display: inline-flex;
 		align-items: center;
 		align-self: flex-start;
-		gap: var(--lumi-chip-gap);
+		gap: var(--ren-chip-gap);
 		inline-size: fit-content;
 		max-inline-size: 100%;
-		min-height: var(--lumi-chip-min-height);
-		padding: var(--lumi-chip-padding-block) var(--lumi-chip-padding-inline);
-		border-radius: var(--lumi-radius-full);
-		font-size: var(--lumi-chip-font-size);
-		font-weight: var(--lumi-font-weight-medium);
-		line-height: var(--lumi-line-height-tight);
-		transition: var(--lumi-transition-interactive);
+		min-height: var(--ren-chip-min-height);
+		padding: var(--ren-chip-padding-block) var(--ren-chip-padding-inline);
+		border-radius: var(--ren-radius-full);
+		font-size: var(--ren-chip-font-size);
+		font-weight: var(--ren-font-weight-medium);
+		line-height: var(--ren-line-height-tight);
+		transition: var(--ren-transition-interactive);
 		white-space: nowrap;
 		cursor: default;
 		user-select: none;
-		background: var(--lumi-tone-soft);
-		color: var(--lumi-tone-ink);
+		background: var(--ren-tone-soft);
+		color: var(--ren-tone-ink);
 	}
 
 	/* Size variants */
-	.lumi-chip--sm {
-		--lumi-chip-padding-block: var(--lumi-space-2xs);
-		--lumi-chip-padding-inline: var(--lumi-space-xs);
-		--lumi-chip-gap: var(--lumi-space-2xs);
-		--lumi-chip-font-size: var(--lumi-font-size-xs);
-		--lumi-chip-min-height: var(--lumi-control-height-xs);
-		--lumi-chip-close-size: var(--lumi-space-sm);
-		--lumi-chip-close-icon: var(--lumi-icon-xs);
+	.ren-chip--sm {
+		--ren-chip-padding-block: var(--ren-space-2xs);
+		--ren-chip-padding-inline: var(--ren-space-xs);
+		--ren-chip-gap: var(--ren-space-2xs);
+		--ren-chip-font-size: var(--ren-font-size-xs);
+		--ren-chip-min-height: var(--ren-control-height-xs);
+		--ren-chip-close-size: var(--ren-space-sm);
+		--ren-chip-close-icon: var(--ren-icon-xs);
 	}
 
-	.lumi-chip__action {
+	.ren-chip__action {
 		display: inline-flex;
 		align-items: center;
-		gap: var(--lumi-chip-gap);
+		gap: var(--ren-chip-gap);
 		min-width: 0;
 		padding: 0;
 		background: transparent;
@@ -122,44 +122,44 @@
 		cursor: pointer;
 	}
 
-	.lumi-chip__text {
+	.ren-chip__text {
 		min-width: 0;
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 
-	.lumi-chip__close {
+	.ren-chip__close {
 		display: inline-grid;
 		place-items: center;
-		width: var(--lumi-chip-close-size);
-		height: var(--lumi-chip-close-size);
+		width: var(--ren-chip-close-size);
+		height: var(--ren-chip-close-size);
 		padding: 0;
-		margin-inline-start: var(--lumi-space-2xs);
+		margin-inline-start: var(--ren-space-2xs);
 		background: transparent;
 		border: none;
-		border-radius: var(--lumi-radius-full);
+		border-radius: var(--ren-radius-full);
 		color: currentColor;
 		cursor: pointer;
-		transition: var(--lumi-transition-control);
+		transition: var(--ren-transition-control);
 		flex-shrink: 0;
 	}
 
-	.lumi-chip__close:hover {
+	.ren-chip__close:hover {
 		background: color-mix(in srgb, currentColor 15%, transparent);
 	}
 
-	.lumi-chip__close:focus-visible,
-	.lumi-chip__action:focus-visible {
-		outline: var(--lumi-focus-outline);
-		outline-offset: var(--lumi-focus-outline-offset);
-		border-radius: var(--lumi-radius-full);
+	.ren-chip__close:focus-visible,
+	.ren-chip__action:focus-visible {
+		outline: var(--ren-focus-outline);
+		outline-offset: var(--ren-focus-outline-offset);
+		border-radius: var(--ren-radius-full);
 	}
 
-	.lumi-chip--interactive:active {
-		transform: scale(var(--lumi-interactive-press-scale));
+	.ren-chip--interactive:active {
+		transform: scale(var(--ren-interactive-press-scale));
 	}
 
-	.lumi-chip--interactive:hover {
-		background: var(--lumi-tone-strong);
+	.ren-chip--interactive:hover {
+		background: var(--ren-tone-strong);
 	}
 </style>

@@ -65,7 +65,7 @@
 	bind:this={element}
 	use:portal
 	{...aria}
-	class={['lumi-floating', 'lumi-menu', `lumi-menu--${size}`, className]}
+	class={['ren-floating', 'ren-menu', `ren-menu--${size}`, className]}
 	{style}
 	role="menu"
 	tabindex="-1"
@@ -73,40 +73,40 @@
 	{onclick}
 	transition:scale={{ duration: motion(DURATION_FAST), start: 0.96 }}
 >
-	<div class="lumi-menu__content lumi-scrollbar">{@render children?.()}</div>
+	<div class="ren-menu__content ren-scrollbar">{@render children?.()}</div>
 </div>
 
 <style>
-	.lumi-menu {
+	.ren-menu {
 		/* Items opt into an accent with `color`; nothing leaks in from outside. */
-		--lumi-control-accent: initial;
+		--ren-control-accent: initial;
 		display: flex;
 		flex-direction: column;
-		max-inline-size: calc(var(--lumi-space-5xl) * 3 + var(--lumi-space-xl));
-		padding: var(--lumi-space-xs);
+		max-inline-size: calc(var(--ren-space-5xl) * 3 + var(--ren-space-xl));
+		padding: var(--ren-space-xs);
 		overflow: hidden;
 		outline: none;
 	}
 
-	.lumi-menu__content {
+	.ren-menu__content {
 		display: flex;
 		flex-direction: column;
-		gap: var(--lumi-space-2xs);
+		gap: var(--ren-space-2xs);
 		max-block-size: inherit;
 		overflow-y: auto;
 	}
 
-	.lumi-menu--sm {
+	.ren-menu--sm {
 		min-inline-size: calc(
-			var(--lumi-space-4xl) + var(--lumi-space-xl) + var(--lumi-space-sm)
+			var(--ren-space-4xl) + var(--ren-space-xl) + var(--ren-space-sm)
 		);
 	}
 
-	.lumi-menu--md {
-		min-inline-size: calc(var(--lumi-space-5xl) * 2 + var(--lumi-space-sm));
+	.ren-menu--md {
+		min-inline-size: calc(var(--ren-space-5xl) * 2 + var(--ren-space-sm));
 	}
 
-	.lumi-menu--lg {
-		min-inline-size: calc(var(--lumi-space-5xl) * 3);
+	.ren-menu--lg {
+		min-inline-size: calc(var(--ren-space-5xl) * 3);
 	}
 </style>

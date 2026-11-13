@@ -1,9 +1,9 @@
 <script module lang="ts">
 	import * as en from '../../i18n/en';
-	import { lumiDriveEn } from '../../i18n/drive';
+	import { renDriveEn } from '../../i18n/drive';
 
 	const COPY = {
-		...lumiDriveEn,
+		...renDriveEn,
 		cancel: en.cancel,
 		fileUploadHint: en.fileUploadHint,
 		fileUploadAddMore: en.fileUploadAddMore
@@ -17,7 +17,7 @@
 	import { Dialog } from '../Dialog';
 	import { FileUpload } from '../FileUpload';
 	import type { FileUploadFile } from '../FileUpload';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import {
 		DRIVE_IMAGE_COMPRESSION_THRESHOLD_BYTES,
 		formatFileSize,
@@ -41,7 +41,7 @@
 		onclose
 	}: Props = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 	let queue = $state<FileUploadFile[]>([]);
 	let uploading = $state(false);
 	let errorMessage = $state('');
@@ -144,14 +144,14 @@
 	persistent={uploading}
 	onclose={closeDialog}
 >
-	<div class="lumi-drive-uploader">
+	<div class="ren-drive-uploader">
 		{#if errorMessage}
 			<Alert color="warning" closable onclose={() => (errorMessage = '')}
 				>{errorMessage}</Alert
 			>
 		{/if}
 
-		<div class="lumi-drive-uploader__file-upload">
+		<div class="ren-drive-uploader__file-upload">
 			<FileUpload
 				bind:files={queue}
 				multiple
@@ -191,14 +191,14 @@
 </Dialog>
 
 <style>
-	.lumi-drive-uploader {
+	.ren-drive-uploader {
 		display: flex;
 		flex-direction: column;
-		gap: var(--lumi-space-md);
+		gap: var(--ren-space-md);
 	}
 
-	.lumi-drive-uploader__file-upload :global(.lumi-file-upload__list) {
-		max-height: var(--lumi-drive-uploader-queue-max-height);
+	.ren-drive-uploader__file-upload :global(.ren-file-upload__list) {
+		max-height: var(--ren-drive-uploader-queue-max-height);
 		overflow-y: auto;
 	}
 </style>

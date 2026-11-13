@@ -1,12 +1,12 @@
-import type { LumiColor } from '../config';
+import type { RenColor } from '../config';
 
-export type TagOptionColor = LumiColor;
+export type TagOptionColor = RenColor;
 
 export interface TagOptionProps {
 	/** Display label */
 	label: string;
 
-	/** Semantic Lumi color for the dot indicator
+	/** Semantic RenUI color for the dot indicator
 	 * @default "primary"
 	 */
 	color?: TagOptionColor;

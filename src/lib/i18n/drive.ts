@@ -1,7 +1,7 @@
-import type { LumiDriveMessages } from './types';
+import type { RenDriveMessages } from './types';
 
 /** English Drive copy (default). */
-export const lumiDriveEn: LumiDriveMessages = {
+export const renDriveEn: RenDriveMessages = {
 	driveFolder: 'Folder',
 	driveImage: 'Image',
 	driveVideo: 'Video',
@@ -55,7 +55,7 @@ export const lumiDriveEn: LumiDriveMessages = {
 };
 
 /** Spanish Drive copy. */
-export const lumiDriveEs: LumiDriveMessages = {
+export const renDriveEs: RenDriveMessages = {
 	driveFolder: 'Carpeta',
 	driveImage: 'Imagen',
 	driveVideo: 'Video',

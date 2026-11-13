@@ -6,7 +6,7 @@
 
 <script lang="ts">
 	import Search from '@lucide/svelte/icons/search';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import Button from '../Button/Button.svelte';
 	import Input from '../Input/Input.svelte';
 	import type { DateRangeFilterProps } from './types';
@@ -23,11 +23,11 @@
 		onapply
 	}: DateRangeFilterProps = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 	const size = $derived(compact ? 'sm' : 'md');
 </script>
 
-<div class={['lumi-date-range', className]}>
+<div class={['ren-date-range', className]}>
 	<Input
 		type="date"
 		bind:value={fromValue}
@@ -35,7 +35,7 @@
 		max={toValue || undefined}
 		{disabled}
 		{size}
-		class="lumi-date-range__field"
+		class="ren-date-range__field"
 	/>
 	<Input
 		type="date"
@@ -44,7 +44,7 @@
 		min={fromValue || undefined}
 		{disabled}
 		{size}
-		class="lumi-date-range__field"
+		class="ren-date-range__field"
 	/>
 	{#if onapply}
 		<Button
@@ -61,15 +61,15 @@
 
 <style>
 	/* Fields share the row and wrap below the minimum width; no media query. */
-	.lumi-date-range {
+	.ren-date-range {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: flex-end;
-		gap: var(--lumi-space-sm);
+		gap: var(--ren-space-sm);
 	}
 
-	.lumi-date-range :global(.lumi-date-range__field) {
-		flex: 1 1 var(--lumi-min-width-md);
+	.ren-date-range :global(.ren-date-range__field) {
+		flex: 1 1 var(--ren-min-width-md);
 		inline-size: auto;
 	}
 </style>

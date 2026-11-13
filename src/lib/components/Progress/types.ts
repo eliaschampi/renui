@@ -1,8 +1,8 @@
 import type { Snippet } from 'svelte';
-import type { LumiColor, LumiExtendedSize } from '../config';
+import type { RenColor, RenExtendedSize } from '../config';
 
-export type ProgressColor = LumiColor;
-export type ProgressSize = LumiExtendedSize;
+export type ProgressColor = RenColor;
+export type ProgressSize = RenExtendedSize;
 
 export interface ProgressProps {
 	/** Progress value (0-100) */

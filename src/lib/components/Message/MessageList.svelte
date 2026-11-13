@@ -13,7 +13,7 @@
 
 <script lang="ts">
 	import ArrowDown from '@lucide/svelte/icons/arrow-down';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import type { MessageListProps } from './types';
 
 	const {
@@ -25,7 +25,7 @@
 		children
 	}: MessageListProps = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 
 	let viewport: HTMLDivElement | undefined = $state();
 	let content: HTMLDivElement | undefined = $state();
@@ -115,21 +115,21 @@
 	});
 </script>
 
-<div class={['lumi-message-list', className]}>
+<div class={['ren-message-list', className]}>
 	<!-- svelte-ignore a11y_no_noninteractive_tabindex (A scrollable region must be keyboard reachable.) -->
 	<div
 		bind:this={viewport}
-		class="lumi-message-list__viewport lumi-scrollbar lumi-scroll-contain"
+		class="ren-message-list__viewport ren-scrollbar ren-scroll-contain"
 		role="region"
 		aria-label={ariaLabel || i18n.t.messages}
 		tabindex="0"
 	>
 		{#if onloadmore}
-			<div bind:this={sentinel} class="lumi-message-list__sentinel"></div>
+			<div bind:this={sentinel} class="ren-message-list__sentinel"></div>
 		{/if}
 		<div
 			bind:this={content}
-			class="lumi-message-list__content"
+			class="ren-message-list__content"
 			role="log"
 			aria-live="polite"
 			aria-relevant="additions"
@@ -140,10 +140,10 @@
 	</div>
 
 	<!-- Floats over the transcript so loading never shifts the reader's place. -->
-	<div class="lumi-message-list__status" role="status">
+	<div class="ren-message-list__status" role="status">
 		{#if loading}
-			<span class="lumi-surface lumi-message-list__pill">
-				<span class="lumi-spinner" aria-hidden="true"></span>
+			<span class="ren-surface ren-message-list__pill">
+				<span class="ren-spinner" aria-hidden="true"></span>
 				{i18n.t.messagesLoadingEarlier}
 			</span>
 		{/if}
@@ -151,8 +151,8 @@
 
 	<button
 		type="button"
-		class="lumi-surface lumi-message-list__latest"
-		class:lumi-message-list__latest--visible={!atEnd}
+		class="ren-surface ren-message-list__latest"
+		class:ren-message-list__latest--visible={!atEnd}
 		aria-label={i18n.t.messagesLatest}
 		title={i18n.t.messagesLatest}
 		inert={atEnd}
@@ -164,7 +164,7 @@
 
 <style>
 	/* Give the list a height (or a flex/grid track); it scrolls inside. */
-	.lumi-message-list {
+	.ren-message-list {
 		position: relative;
 		display: flex;
 		flex-direction: column;
@@ -172,7 +172,7 @@
 		min-block-size: 0;
 	}
 
-	.lumi-message-list__viewport {
+	.ren-message-list__viewport {
 		display: flex;
 		flex: 1;
 		flex-direction: column;
@@ -181,82 +181,82 @@
 		border-radius: inherit;
 	}
 
-	.lumi-message-list__viewport:focus-visible {
-		outline: var(--lumi-focus-outline);
-		outline-offset: var(--lumi-focus-outline-offset);
+	.ren-message-list__viewport:focus-visible {
+		outline: var(--ren-focus-outline);
+		outline-offset: var(--ren-focus-outline-offset);
 	}
 
-	.lumi-message-list__sentinel {
+	.ren-message-list__sentinel {
 		flex: none;
-		block-size: var(--lumi-border-width-thin);
+		block-size: var(--ren-border-width-thin);
 	}
 
 	/* Short conversations rest at the bottom, like a chat. */
-	.lumi-message-list__content {
+	.ren-message-list__content {
 		display: flex;
 		flex-direction: column;
 		margin-block-start: auto;
-		padding: var(--lumi-space-md);
+		padding: var(--ren-space-md);
 	}
 
-	.lumi-message-list__status {
+	.ren-message-list__status {
 		position: absolute;
-		inset-block-start: var(--lumi-space-sm);
+		inset-block-start: var(--ren-space-sm);
 		inset-inline: 0;
 		display: flex;
 		justify-content: center;
 		pointer-events: none;
 	}
 
-	.lumi-message-list__pill {
-		--lumi-surface-radius-local: var(--lumi-radius-full);
+	.ren-message-list__pill {
+		--ren-surface-radius-local: var(--ren-radius-full);
 		display: inline-flex;
 		align-items: center;
-		gap: var(--lumi-space-xs);
-		padding: var(--lumi-space-2xs) var(--lumi-space-sm);
-		font-size: var(--lumi-font-size-xs);
-		color: var(--lumi-color-text-muted);
+		gap: var(--ren-space-xs);
+		padding: var(--ren-space-2xs) var(--ren-space-sm);
+		font-size: var(--ren-font-size-xs);
+		color: var(--ren-color-text-muted);
 	}
 
-	.lumi-message-list__latest {
-		--lumi-surface-radius-local: var(--lumi-radius-full);
+	.ren-message-list__latest {
+		--ren-surface-radius-local: var(--ren-radius-full);
 		position: absolute;
-		inset-block-end: var(--lumi-space-md);
+		inset-block-end: var(--ren-space-md);
 		inset-inline: 0;
 		display: grid;
 		place-items: center;
-		inline-size: var(--lumi-control-height-sm);
-		block-size: var(--lumi-control-height-sm);
+		inline-size: var(--ren-control-height-sm);
+		block-size: var(--ren-control-height-sm);
 		margin-inline: auto;
 		padding: 0;
-		color: var(--lumi-color-text);
+		color: var(--ren-color-text);
 		cursor: pointer;
 		opacity: 0;
 		scale: 0.9;
 		pointer-events: none;
 		transition:
-			var(--lumi-transition-control),
-			opacity var(--lumi-duration-fast) var(--lumi-easing-default),
-			scale var(--lumi-duration-fast) var(--lumi-easing-default);
+			var(--ren-transition-control),
+			opacity var(--ren-duration-fast) var(--ren-easing-default),
+			scale var(--ren-duration-fast) var(--ren-easing-default);
 	}
 
-	.lumi-message-list__latest--visible {
+	.ren-message-list__latest--visible {
 		opacity: 1;
 		scale: 1;
 		pointer-events: auto;
 	}
 
-	.lumi-message-list__latest:hover {
-		color: var(--lumi-color-primary);
+	.ren-message-list__latest:hover {
+		color: var(--ren-color-primary);
 	}
 
-	.lumi-message-list__latest:focus-visible {
-		outline: var(--lumi-focus-outline);
-		outline-offset: var(--lumi-space-2xs);
+	.ren-message-list__latest:focus-visible {
+		outline: var(--ren-focus-outline);
+		outline-offset: var(--ren-space-2xs);
 	}
 
-	.lumi-message-list__latest :global(svg) {
-		inline-size: var(--lumi-icon-sm);
-		block-size: var(--lumi-icon-sm);
+	.ren-message-list__latest :global(svg) {
+		inline-size: var(--ren-icon-sm);
+		block-size: var(--ren-icon-sm);
 	}
 </style>

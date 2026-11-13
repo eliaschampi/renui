@@ -1,8 +1,8 @@
 import type { Snippet } from 'svelte';
-import type { LumiColor, LumiControlSize } from '../config';
+import type { RenColor, RenControlSize } from '../config';
 
-export type CollapseColor = LumiColor;
-export type CollapseSize = LumiControlSize;
+export type CollapseColor = RenColor;
+export type CollapseSize = RenControlSize;
 
 export interface CollapseProps {
 	title?: string;

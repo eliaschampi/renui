@@ -13,7 +13,7 @@
 	}: CollapseProps = $props();
 
 	const instanceId = $props.id();
-	const panelId = `lumi-collapse-panel-${instanceId}`;
+	const panelId = `ren-collapse-panel-${instanceId}`;
 
 	function toggle(): void {
 		open = !open;
@@ -23,25 +23,25 @@
 
 <div
 	class={[
-		'lumi-collapse',
-		size !== 'md' && `lumi-collapse--${size}`,
-		open && 'lumi-collapse--open',
-		disabled && 'lumi-collapse--disabled',
-		`lumi-tone lumi-tone--${color}`,
+		'ren-collapse',
+		size !== 'md' && `ren-collapse--${size}`,
+		open && 'ren-collapse--open',
+		disabled && 'ren-collapse--disabled',
+		`ren-tone ren-tone--${color}`,
 		className
 	]}
 >
 	<button
 		type="button"
-		class="lumi-collapse__trigger"
+		class="ren-collapse__trigger"
 		aria-expanded={open}
 		aria-controls={panelId}
 		{disabled}
 		onclick={toggle}
 	>
-		<span class="lumi-collapse__title">{title}</span>
+		<span class="ren-collapse__title">{title}</span>
 		<svg
-			class="lumi-collapse__icon"
+			class="ren-collapse__icon"
 			viewBox="0 0 24 24"
 			fill="none"
 			stroke="currentColor"
@@ -56,132 +56,132 @@
 
 	<!-- Always rendered: the grid row animates open in CSS and `inert` keeps
 	     the closed panel out of the tab order. -->
-	<div id={panelId} class="lumi-collapse__content" inert={!open}>
-		<div class="lumi-collapse__clip">
-			<div class="lumi-collapse__body">{@render children?.()}</div>
+	<div id={panelId} class="ren-collapse__content" inert={!open}>
+		<div class="ren-collapse__clip">
+			<div class="ren-collapse__body">{@render children?.()}</div>
 		</div>
 	</div>
 </div>
 
 <style>
-	.lumi-collapse {
-		--collapse-padding: var(--lumi-space-md) var(--lumi-space-lg);
-		--collapse-min-height: var(--lumi-control-height-lg);
-		--collapse-title-size: var(--lumi-font-size-base);
-		--collapse-body-padding: var(--lumi-space-lg);
+	.ren-collapse {
+		--collapse-padding: var(--ren-space-md) var(--ren-space-lg);
+		--collapse-min-height: var(--ren-control-height-lg);
+		--collapse-title-size: var(--ren-font-size-base);
+		--collapse-body-padding: var(--ren-space-lg);
 		position: relative;
 		isolation: isolate;
-		margin-block-end: var(--lumi-space-sm);
+		margin-block-end: var(--ren-space-sm);
 		overflow: hidden;
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
-		border-radius: var(--lumi-surface-radius);
-		background: var(--lumi-color-surface-raised);
-		box-shadow: var(--lumi-shadow-sm);
-		transition: var(--lumi-transition-control);
+		border: var(--ren-border-width-thin) solid var(--ren-color-border);
+		border-radius: var(--ren-surface-radius);
+		background: var(--ren-color-surface-raised);
+		box-shadow: var(--ren-shadow-sm);
+		transition: var(--ren-transition-control);
 	}
 
-	.lumi-collapse--sm {
-		--collapse-padding: var(--lumi-space-sm) var(--lumi-space-md);
-		--collapse-min-height: var(--lumi-control-height-md);
-		--collapse-title-size: var(--lumi-font-size-sm);
-		--collapse-body-padding: var(--lumi-space-md);
+	.ren-collapse--sm {
+		--collapse-padding: var(--ren-space-sm) var(--ren-space-md);
+		--collapse-min-height: var(--ren-control-height-md);
+		--collapse-title-size: var(--ren-font-size-sm);
+		--collapse-body-padding: var(--ren-space-md);
 	}
 
-	.lumi-collapse--lg {
-		--collapse-padding: var(--lumi-space-lg) var(--lumi-space-xl);
-		--collapse-min-height: var(--lumi-control-height-xl);
-		--collapse-title-size: var(--lumi-font-size-lg);
-		--collapse-body-padding: var(--lumi-space-xl);
+	.ren-collapse--lg {
+		--collapse-padding: var(--ren-space-lg) var(--ren-space-xl);
+		--collapse-min-height: var(--ren-control-height-xl);
+		--collapse-title-size: var(--ren-font-size-lg);
+		--collapse-body-padding: var(--ren-space-xl);
 	}
 
-	.lumi-collapse:hover:not(.lumi-collapse--disabled, .lumi-collapse--open) {
-		border-color: var(--lumi-color-border-strong);
+	.ren-collapse:hover:not(.ren-collapse--disabled, .ren-collapse--open) {
+		border-color: var(--ren-color-border-strong);
 	}
 
-	.lumi-collapse--open {
-		border-color: var(--lumi-color-border-interactive);
-		box-shadow: var(--lumi-shadow-md);
+	.ren-collapse--open {
+		border-color: var(--ren-color-border-interactive);
+		box-shadow: var(--ren-shadow-md);
 	}
 
-	.lumi-collapse--disabled {
-		opacity: var(--lumi-opacity-disabled);
+	.ren-collapse--disabled {
+		opacity: var(--ren-opacity-disabled);
 	}
 
-	.lumi-collapse__trigger {
+	.ren-collapse__trigger {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		gap: var(--lumi-space-md);
+		gap: var(--ren-space-md);
 		inline-size: 100%;
 		min-block-size: var(--collapse-min-height);
 		padding: var(--collapse-padding);
 		background: transparent;
 		border: 0;
-		color: var(--lumi-color-text);
+		color: var(--ren-color-text);
 		font: inherit;
 		text-align: start;
 		cursor: pointer;
-		transition: var(--lumi-transition-control);
+		transition: var(--ren-transition-control);
 	}
 
-	.lumi-collapse__trigger:disabled {
+	.ren-collapse__trigger:disabled {
 		pointer-events: none;
 	}
 
-	.lumi-collapse__trigger:hover,
-	.lumi-collapse__trigger:focus-visible {
-		background: var(--lumi-color-hover);
+	.ren-collapse__trigger:hover,
+	.ren-collapse__trigger:focus-visible {
+		background: var(--ren-color-hover);
 	}
 
-	.lumi-collapse__trigger:focus-visible {
-		outline: var(--lumi-focus-outline);
-		outline-offset: var(--lumi-focus-outline-offset);
+	.ren-collapse__trigger:focus-visible {
+		outline: var(--ren-focus-outline);
+		outline-offset: var(--ren-focus-outline-offset);
 	}
 
-	.lumi-collapse__title {
+	.ren-collapse__title {
 		font-size: var(--collapse-title-size);
-		font-weight: var(--lumi-font-weight-medium);
+		font-weight: var(--ren-font-weight-medium);
 	}
 
-	.lumi-collapse__icon {
+	.ren-collapse__icon {
 		flex-shrink: 0;
-		inline-size: var(--lumi-icon-md);
-		block-size: var(--lumi-icon-md);
-		color: var(--lumi-color-text-muted);
+		inline-size: var(--ren-icon-md);
+		block-size: var(--ren-icon-md);
+		color: var(--ren-color-text-muted);
 		transition:
-			transform var(--lumi-duration-slow) var(--lumi-easing-default),
-			color var(--lumi-duration-fast) var(--lumi-easing-default);
+			transform var(--ren-duration-slow) var(--ren-easing-default),
+			color var(--ren-duration-fast) var(--ren-easing-default);
 	}
 
-	.lumi-collapse--open .lumi-collapse__icon {
-		color: var(--lumi-control-accent);
+	.ren-collapse--open .ren-collapse__icon {
+		color: var(--ren-control-accent);
 		transform: rotate(180deg);
 	}
 
 	/* 0fr → 1fr animates to the content's real height without measuring. */
-	.lumi-collapse__content {
+	.ren-collapse__content {
 		display: grid;
 		grid-template-rows: 0fr;
-		border-block-start: var(--lumi-border-width-thin) solid transparent;
+		border-block-start: var(--ren-border-width-thin) solid transparent;
 		transition:
-			grid-template-rows var(--lumi-duration-slow) var(--lumi-easing-default),
-			border-color var(--lumi-duration-slow) var(--lumi-easing-default);
+			grid-template-rows var(--ren-duration-slow) var(--ren-easing-default),
+			border-color var(--ren-duration-slow) var(--ren-easing-default);
 	}
 
-	.lumi-collapse--open .lumi-collapse__content {
+	.ren-collapse--open .ren-collapse__content {
 		grid-template-rows: 1fr;
-		border-block-start-color: var(--lumi-color-border);
+		border-block-start-color: var(--ren-color-border);
 	}
 
-	.lumi-collapse__clip {
+	.ren-collapse__clip {
 		min-block-size: 0;
 		overflow: hidden;
 	}
 
-	.lumi-collapse__body {
+	.ren-collapse__body {
 		padding: var(--collapse-body-padding);
-		color: var(--lumi-color-text-muted);
-		font-size: var(--lumi-font-size-sm);
-		line-height: var(--lumi-line-height-relaxed);
+		color: var(--ren-color-text-muted);
+		font-size: var(--ren-font-size-sm);
+		line-height: var(--ren-line-height-relaxed);
 	}
 </style>

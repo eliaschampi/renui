@@ -1,7 +1,7 @@
-import type { LumiMessages } from './types';
+import type { RenMessages } from './types';
 
 /** Spanish copy. */
-export const lumiEs: LumiMessages = {
+export const renEs: RenMessages = {
 	close: 'Cerrar',
 	cancel: 'Cancelar',
 	apply: 'Aplicar',

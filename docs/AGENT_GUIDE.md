@@ -27,7 +27,7 @@
 ```bash
 rg --files src/lib/components
 rg "export .*Button" src/lib package.json
-rg -- "--lumi-grid|--lumi-space" src/lib/styles
+rg -- "--ren-grid|--ren-space" src/lib/styles
 rg '\$props|Snippet|aria-|role=' src/lib/components/Button
 ```
 
@@ -50,7 +50,7 @@ Do not start a duplicate dev server. Release checklist: [GUIDE §8](./GUIDE.md#8
 
 - One owner; no duplicated API or policy.
 - Public behavior typed where possible, semantic, domain-neutral, accessible.
-- Reusable presentation uses `--lumi-*` tokens.
+- Reusable presentation uses `--ren-*` tokens.
 - Browser effects are SSR-safe and clean up.
 - Exports and the owning guide match source.
 - Focused verification passes without unrelated changes.

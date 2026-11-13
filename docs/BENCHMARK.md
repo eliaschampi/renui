@@ -27,7 +27,7 @@ Times are in milliseconds. The script reports the sorted sample at index `floor(
 
 Median mount/layout is unchanged in light and decreases by **0.2 ms in dark**. Median slider-update decreases by **0.1 ms in light** and is unchanged in dark; unmount medians are unchanged. Dark mount p95 increases by **0.1 ms** and dark update p95 by **0.4 ms**. Light mount/update p95 decrease by 0.8/0.3 ms. The measured result is mixed: it does not establish a universal runtime speedup or an improvement in every metric. Repeated runs are needed to distinguish small changes from machine/browser noise.
 
-These timings **do not measure GPU paint/compositing**, network loading, hydration, user-perceived responsiveness, animation smoothness or every component. Layout is forced synchronously, but paint is not awaited. They provide no basis for claiming Lumi is the fastest library or that every application becomes faster. Re-run on representative consumer pages and target devices before drawing broader conclusions.
+These timings **do not measure GPU paint/compositing**, network loading, hydration, user-perceived responsiveness, animation smoothness or every component. Layout is forced synchronously, but paint is not awaited. They provide no basis for claiming RenUI is the fastest library or that every application becomes faster. Re-run on representative consumer pages and target devices before drawing broader conclusions.
 
 ## Reproduce
 
@@ -35,20 +35,20 @@ Install the repository dependencies, extract the baseline into a temporary direc
 
 ```bash
 pnpm install --ignore-scripts --frozen-lockfile
-lumi_baseline_dir=$(mktemp -d /tmp/lumi-baseline.XXXXXX)
-git archive f9826b8 | tar -x -C "$lumi_baseline_dir"
-pnpm --dir "$lumi_baseline_dir" install --ignore-scripts --frozen-lockfile
+ren_baseline_dir=$(mktemp -d /tmp/ren-baseline.XXXXXX)
+git archive f9826b8 | tar -x -C "$ren_baseline_dir"
+pnpm --dir "$ren_baseline_dir" install --ignore-scripts --frozen-lockfile
 ```
 
 Point `PLAYWRIGHT_MODULE` to an existing Playwright JavaScript module. The library does not add Playwright as a runtime dependency. If Playwright is not already available, install it in a separate tooling directory and install its Chromium browser:
 
 ```bash
-lumi_browser_tools=$(mktemp -d /tmp/lumi-browser-tools.XXXXXX)
-printf '{"private":true,"type":"module"}\n' > "$lumi_browser_tools/package.json"
-pnpm --dir "$lumi_browser_tools" add -D playwright
-pnpm --dir "$lumi_browser_tools" exec playwright install chromium
-PLAYWRIGHT_MODULE="$lumi_browser_tools/node_modules/playwright/index.mjs" \
-  node scripts/benchmark.mjs "$lumi_baseline_dir" > /tmp/lumi-benchmark.json
+ren_browser_tools=$(mktemp -d /tmp/ren-browser-tools.XXXXXX)
+printf '{"private":true,"type":"module"}\n' > "$ren_browser_tools/package.json"
+pnpm --dir "$ren_browser_tools" add -D playwright
+pnpm --dir "$ren_browser_tools" exec playwright install chromium
+PLAYWRIGHT_MODULE="$ren_browser_tools/node_modules/playwright/index.mjs" \
+  node scripts/benchmark.mjs "$ren_baseline_dir" > /tmp/ren-benchmark.json
 ```
 
 Optionally provide `CHROMIUM_PATH=/absolute/path/to/chromium` to choose a browser executable. Record the browser version emitted in the JSON; a different browser or toolchain can produce different timings. For repeated comparisons, retain the tooling lockfile and use the same executable. The script cleans up its fixture builds and servers; the baseline and optional tooling directories remain available for inspection.

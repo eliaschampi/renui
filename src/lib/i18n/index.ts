@@ -3,7 +3,7 @@
  *
  * English is the default and is never shipped as one dictionary: each
  * component declares the keys it renders, so bundles keep only those strings.
- * Spanish ships as `lumiEs` (+ `lumiDriveEs`) and costs nothing until imported.
+ * Spanish ships as `renEs` (+ `renDriveEs`) and costs nothing until imported.
  * Context keeps SSR requests isolated.
  *
  * The one component pattern (static `en.key` reads keep tree-shaking exact):
@@ -13,46 +13,46 @@
  *     const COPY = { close: en.close };
  *   </script>
  *   <script lang="ts">
- *     const i18n = useLumiLocale(COPY);
+ *     const i18n = useRenLocale(COPY);
  *     // markup: aria-label={closeLabel ?? i18n.t.close}
  *   </script>
  *
  * Drive is the exception: its helpers also run outside components (e.g. server
  * name validation) and need a complete default, and the subpath is admin-only,
- * so it ships `lumiDriveEn` / `lumiDriveEs` as whole dictionaries.
+ * so it ships `renDriveEn` / `renDriveEs` as whole dictionaries.
  */
 
 import { getContext, setContext } from 'svelte';
 import { DEFAULT_CURRENCY, DEFAULT_LOCALE } from '../utils/format';
 import * as en from './en';
 import type {
-	LumiDriveMessages,
-	LumiLocale,
-	LumiLocaleOptions,
-	LumiMessages
+	RenDriveMessages,
+	RenLocale,
+	RenLocaleOptions,
+	RenMessages
 } from './types';
 
-export { lumiDriveEn, lumiDriveEs } from './drive';
-export { lumiEs } from './es';
+export { renDriveEn, renDriveEs } from './drive';
+export { renEs } from './es';
 export type {
-	LumiDriveMessages,
-	LumiFormatLocale,
-	LumiLocale,
-	LumiLocaleOptions,
-	LumiMessages
+	RenDriveMessages,
+	RenFormatLocale,
+	RenLocale,
+	RenLocaleOptions,
+	RenMessages
 } from './types';
 
 /**
  * Complete English dictionary (a read-only module namespace). The second
  * half of the type rejects `en.ts` exports that are not message keys.
  */
-export const lumiEn: Readonly<LumiMessages> &
-	Record<Exclude<keyof typeof en, keyof LumiMessages>, never> = en;
+export const renEn: Readonly<RenMessages> &
+	Record<Exclude<keyof typeof en, keyof RenMessages>, never> = en;
 
-type AnyMessages = Partial<LumiMessages & LumiDriveMessages>;
-type LocaleSource = () => LumiLocaleOptions;
+type AnyMessages = Partial<RenMessages & RenDriveMessages>;
+type LocaleSource = () => RenLocaleOptions;
 
-const KEY = Symbol('lumi-locale');
+const KEY = Symbol('ren-locale');
 const NO_COPY = {};
 
 // Merged copy per (overrides, defaults) pair so reads stay allocation-free.
@@ -76,21 +76,21 @@ function withOverrides<T extends object>(defaults: T, overrides?: object): T {
 }
 
 /**
- * Set copy and formatting for every Lumi component below the calling
+ * Set copy and formatting for every RenUI component below the calling
  * component — usually the root layout. Pass a function to follow reactive
  * state. Hoist `messages` objects to module scope: merged copy is cached per
  * object, so a fresh object per call re-merges on every read.
  *
  * @example
- * const spanish = { ...lumiEs, ...lumiDriveEs };
- * setLumiLocale(() => ({
+ * const spanish = { ...renEs, ...renDriveEs };
+ * setRenLocale(() => ({
  * 	locale: lang === 'es' ? 'es-PE' : 'en-US',
  * 	timeZone: 'America/Lima',
  * 	messages: lang === 'es' ? spanish : undefined
  * }));
  */
-export function setLumiLocale(
-	options: LumiLocaleOptions | (() => LumiLocaleOptions)
+export function setRenLocale(
+	options: RenLocaleOptions | (() => RenLocaleOptions)
 ): void {
 	setContext<LocaleSource>(
 		KEY,
@@ -103,9 +103,9 @@ export function setLumiLocale(
  * component initialisation with the English defaults it renders (a stable
  * module-level object); read fields in markup or `$derived` to stay reactive.
  */
-export function useLumiLocale<T extends AnyMessages = AnyMessages>(
+export function useRenLocale<T extends AnyMessages = AnyMessages>(
 	defaults: T = NO_COPY as T
-): LumiLocale<T> {
+): RenLocale<T> {
 	const read = getContext<LocaleSource | undefined>(KEY);
 	if (!read) {
 		return { t: defaults, locale: DEFAULT_LOCALE, currency: DEFAULT_CURRENCY };

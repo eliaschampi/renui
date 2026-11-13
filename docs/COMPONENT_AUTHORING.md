@@ -1,6 +1,6 @@
 # Component Authoring Guide
 
-How to add or change Lumi UI components so the library stays **beautiful, minimal, consistent, and professional**.
+How to add or change RenUI components so the library stays **beautiful, minimal, consistent, and professional**.
 
 Read with: [GUIDE.md](./GUIDE.md) · [COMPONENTS.md](./COMPONENTS.md) · root [AGENTS.md](../AGENTS.md)
 
@@ -39,13 +39,13 @@ export type { MyComponentProps } from './types';
 ### `types.ts` template
 
 ```ts
-import type { LumiColor, LumiControlSize } from '../config';
+import type { RenColor, RenControlSize } from '../config';
 
 export interface MyComponentProps {
 	/** Semantic color */
-	color?: LumiColor;
+	color?: RenColor;
 	/** Size on the shared scale */
-	size?: LumiControlSize;
+	size?: RenControlSize;
 	/** Visual style of this component */
 	variant?: 'default' | 'soft' | 'outline';
 	disabled?: boolean;
@@ -58,13 +58,13 @@ export interface MyComponentProps {
 
 Use size aliases from `config.ts` intentionally:
 
-| Alias              | Typical use                  |
-| ------------------ | ---------------------------- |
-| `LumiSize`         | Full ladder                  |
-| `LumiCompactSize`  | `sm` \| `md` (chips)         |
-| `LumiControlSize`  | `sm` \| `md` \| `lg` (forms) |
-| `LumiDisplaySize`  | `sm`…`xl` (buttons)          |
-| `LumiExtendedSize` | `xs`…`xl` (inputs)           |
+| Alias             | Typical use                  |
+| ----------------- | ---------------------------- |
+| `RenSize`         | Full ladder                  |
+| `RenCompactSize`  | `sm` \| `md` (chips)         |
+| `RenControlSize`  | `sm` \| `md` \| `lg` (forms) |
+| `RenDisplaySize`  | `sm`…`xl` (buttons)          |
+| `RenExtendedSize` | `xs`…`xl` (inputs)           |
 
 ---
 
@@ -81,7 +81,7 @@ Use size aliases from `config.ts` intentionally:
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import X from '@lucide/svelte/icons/x'; // fixed icons: deep import, never a string
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import type { MyComponentProps } from './types';
 
 	interface Props extends MyComponentProps {
@@ -98,32 +98,31 @@ Use size aliases from `config.ts` intentionally:
 		children
 	}: Props = $props();
 
-	const i18n = useLumiLocale(COPY); // read i18n.t.* in markup or $derived
+	const i18n = useRenLocale(COPY); // read i18n.t.* in markup or $derived
 </script>
 
 <div
 	class={[
-		'lumi-my-component',
-		`lumi-my-component--${variant}`,
-		`lumi-my-component--${size}`,
-		disabled && 'lumi-my-component--disabled',
+		'ren-my-component',
+		`ren-my-component--${variant}`,
+		`ren-my-component--${size}`,
+		disabled && 'ren-my-component--disabled',
 		className
 	]}
-	style:--lumi-control-accent="var(--lumi-color-{color})"
+	style:--ren-control-accent="var(--ren-color-{color})"
 	aria-label={ariaLabel || undefined}
 	aria-disabled={disabled || undefined}
 >
 	{@render children?.()}
-	<button type="button" aria-label={i18n.t.close}
-		><X class="lumi-icon" /></button
+	<button type="button" aria-label={i18n.t.close}><X class="ren-icon" /></button
 	>
 </div>
 
 <style>
-	.lumi-my-component {
-		/* tokens only; the accent arrives through --lumi-control-accent */
-		border-radius: var(--lumi-radius-control);
-		transition: var(--lumi-transition-control);
+	.ren-my-component {
+		/* tokens only; the accent arrives through --ren-control-accent */
+		border-radius: var(--ren-radius-control);
+		transition: var(--ren-transition-control);
 	}
 </style>
 ```
@@ -134,14 +133,14 @@ Use size aliases from `config.ts` intentionally:
 | ---------------------------------------------------- | ------------------------------------------- |
 | `$props()`, `$state`, `$derived`, `$bindable`        | Svelte 4 `export let` / stores for new code |
 | Relative imports (`../Icon`, `../../actions/portal`) | `$lib`, `$app`                              |
-| BEM `lumi-*` classes                                 | Global unscoped class soup                  |
+| BEM `ren-*` classes                                  | Global unscoped class soup                  |
 | `class: className` rename                            | Clash with JS reserved `class`              |
 | Snippets for slots                                   | Legacy `$$slots`                            |
 | `class={[...]}` arrays/objects                       | `.filter(Boolean).join(' ')` builders       |
-| One `style:--lumi-control-accent` from `color`       | Six `.lumi-x--{color}` modifier blocks      |
+| One `style:--ren-control-accent` from `color`        | Six `.ren-x--{color}` modifier blocks       |
 | Lowercase callbacks (`onrowclick`)                   | Hyphenated callbacks (`onrow-click`)        |
 | Deep Lucide imports for fixed icons                  | String icon names inside the library        |
-| Copy from `useLumiLocale(COPY)`                      | Hardcoded English or Spanish defaults       |
+| Copy from `useRenLocale(COPY)`                       | Hardcoded English or Spanish defaults       |
 | Token CSS variables                                  | Hardcoded `px` colors / one-off fonts       |
 
 ---
@@ -151,7 +150,7 @@ Use size aliases from `config.ts` intentionally:
 ### Preferred semantic props
 
 ```ts
-color?: LumiColor;
+color?: RenColor;
 size?: ...;
 variant?: string;      // visual style
 orientation?: 'horizontal' | 'vertical';
@@ -195,13 +194,13 @@ oninput?: (event: Event) => void;
 ### BEM
 
 ```css
-.lumi-card {
+.ren-card {
 }
-.lumi-card--selected {
+.ren-card--selected {
 }
-.lumi-card__title {
+.ren-card__title {
 }
-.lumi-card__body {
+.ren-card__body {
 }
 ```
 
@@ -209,10 +208,10 @@ oninput?: (event: Event) => void;
 
 ```css
 /* good */
-background: var(--lumi-color-surface-card);
-box-shadow: var(--lumi-shadow-md);
-padding: var(--lumi-space-md);
-color: var(--lumi-color-text);
+background: var(--ren-color-surface-card);
+box-shadow: var(--ren-shadow-md);
+padding: var(--ren-space-md);
+color: var(--ren-color-text);
 
 /* bad */
 background: #f3f7fc;
@@ -223,12 +222,12 @@ color: #0b1220;
 
 ### Dynamic color via CSS variables
 
-Use `.lumi-tone` plus `.lumi-tone--{color}` from the semantic `color` prop (see Button). The base recipe owns accent, solid, foreground, soft, strong, ink and beam roles. Reapply `.lumi-tone` on a nested element that changes accent so its derived roles resolve locally.
+Use `.ren-tone` plus `.ren-tone--{color}` from the semantic `color` prop (see Button). The base recipe owns accent, solid, foreground, soft, strong, ink and beam roles. Reapply `.ren-tone` on a nested element that changes accent so its derived roles resolve locally.
 
 ### Background/foreground contract
 
 When a component owns a filled chromatic surface, bind both
-`--lumi-color-{role}-solid` and its paired `--lumi-color-{role}-foreground`.
+`--ren-color-{role}-solid` and its paired `--ren-color-{role}-foreground`.
 Keep accent for the component's existing borders, focus rings, and indicators.
 
 Rules:
@@ -245,26 +244,26 @@ Prefer the shared control micro-transition. Append `transform` only when the int
 
 ```css
 /* good — shared control micro-motion */
-transition: var(--lumi-transition-control);
+transition: var(--ren-transition-control);
 
 /* good — when lift/press is needed */
 transition:
-	var(--lumi-transition-control),
-	transform var(--lumi-duration-fast) var(--lumi-easing-default);
+	var(--ren-transition-control),
+	transform var(--ren-duration-fast) var(--ren-easing-default);
 
 /* bad — invents a second timing ladder per component */
 transition:
-	background-color var(--lumi-duration-base) var(--lumi-easing-default),
-	box-shadow var(--lumi-duration-base) var(--lumi-easing-default);
+	background-color var(--ren-duration-base) var(--ren-easing-default),
+	box-shadow var(--ren-duration-base) var(--ren-easing-default);
 ```
 
 ### Where CSS lives
 
-A component's required CSS lives in its scoped `<style>`, in `base.css` (recipes every page needs) or in a stylesheet the `.svelte` component imports itself (`Field/field.css`, `styles/charts.css`, `styles/switcher.css`, `styles/switcher-group.css`, `styles/skeleton.css`, `styles/floating.css`, layer `lumi.components`). Never import CSS from an `index.ts` barrel: with `sideEffects: ["**/*.css"]`, bundlers skip re-export-only modules and their CSS. Never depend on `utilities.css` or `patterns.css` — pages may not load them. Layout components may rely on `layout.css` shell classes.
+A component's required CSS lives in its scoped `<style>`, in `base.css` (recipes every page needs) or in a stylesheet the `.svelte` component imports itself (`Field/field.css`, `styles/charts.css`, `styles/switcher.css`, `styles/switcher-group.css`, `styles/skeleton.css`, `styles/floating.css`, layer `ren.components`). Never import CSS from an `index.ts` barrel: with `sideEffects: ["**/*.css"]`, bundlers skip re-export-only modules and their CSS. Never depend on `utilities.css` or `patterns.css` — pages may not load them. Layout components may rely on `layout.css` shell classes.
 
 ### Responsive
 
-Prefer layout tokens (`--lumi-layout-*`, breakpoints already used in `core.css`) over ad-hoc media queries that redefine the design system.
+Prefer layout tokens (`--ren-layout-*`, breakpoints already used in `core.css`) over ad-hoc media queries that redefine the design system.
 
 ---
 
@@ -273,7 +272,7 @@ Prefer layout tokens (`--lumi-layout-*`, breakpoints already used in `core.css`)
 Interactive components must cover what applies:
 
 - [ ] Keyboard operable (Enter/Space/Arrows/Escape as relevant)
-- [ ] Visible focus (`--lumi-control-focus-shadow` or `--lumi-focus-outline`)
+- [ ] Visible focus (`--ren-control-focus-shadow` or `--ren-focus-outline`)
 - [ ] `aria-label` / `aria-labelledby` when text is absent
 - [ ] `aria-expanded` / `aria-controls` for disclosure & menus
 - [ ] `aria-invalid` + described-by message for form errors
@@ -290,7 +289,7 @@ If the surface can be clipped by `overflow: hidden` parents:
 
 1. Apply `use:portal` (default `body`).
 2. Position with `createFloating` from `utils/floating.svelte.ts`; it follows the anchor by itself, and `onoutside` handles dismissal, so add no scroll, resize or document listeners. Geometry lives in the pure `utils/position.ts`.
-3. Use z-index tokens (`--lumi-z-dropdown`, `--lumi-z-modal`, etc.) and `.lumi-floating` for the surface.
+3. Use z-index tokens (`--ren-z-dropdown`, `--ren-z-modal`, etc.) and `.ren-floating` for the surface.
 4. On open: cancel pending close timers/transitions before rebinding target.
 5. On close: restore focus to the trigger when the user opened via keyboard/pointer interaction that expects it.
 
@@ -306,36 +305,36 @@ Forms and interactive peers should feel like one system:
 
 | Concern            | Approach                                                                                              |
 | ------------------ | ----------------------------------------------------------------------------------------------------- |
-| Heights            | `--lumi-control-height-xs` … `--lumi-control-height-xl`                                               |
-| Radius             | `--lumi-radius-control`                                                                               |
-| Fill / border      | `--lumi-color-control-*`                                                                              |
-| Accent             | `--lumi-control-accent` on the control root (drives focus fill, ring, and outline)                    |
-| Filled accent      | `solidAccent(color)` plus `--lumi-control-solid` / `-foreground` defaults on the control root         |
-| Focus (field)      | `--lumi-control-focus-shadow` on the shell / peer visual                                              |
-| Focus (affordance) | `--lumi-focus-outline` + offset                                                                       |
-| Disabled           | `opacity: var(--lumi-opacity-disabled)` + `pointer-events: none`, so hover rules need no guard        |
-| Motion             | `--lumi-transition-control` (+ `transform` only when lift/press is used)                              |
-| Autofill           | Class `lumi-autofill` + `--lumi-control-autofill-bg` (default + `:focus-within` focus fill)           |
+| Heights            | `--ren-control-height-xs` … `--ren-control-height-xl`                                                 |
+| Radius             | `--ren-radius-control`                                                                                |
+| Fill / border      | `--ren-color-control-*`                                                                               |
+| Accent             | `--ren-control-accent` on the control root (drives focus fill, ring, and outline)                     |
+| Filled accent      | `solidAccent(color)` plus `--ren-control-solid` / `-foreground` defaults on the control root          |
+| Focus (field)      | `--ren-control-focus-shadow` on the shell / peer visual                                               |
+| Focus (affordance) | `--ren-focus-outline` + offset                                                                        |
+| Disabled           | `opacity: var(--ren-opacity-disabled)` + `pointer-events: none`, so hover rules need no guard         |
+| Motion             | `--ren-transition-control` (+ `transform` only when lift/press is used)                               |
+| Autofill           | Class `ren-autofill` + `--ren-control-autofill-bg` (default + `:focus-within` focus fill)             |
 | Labels             | `FieldLabel` (accent on `:focus-within`, decorative `*` for `required`) above the shell               |
 | Validation         | `error?: FieldError` (`true` or a message) plus `hint`; render internal `FieldLabel` / `FieldMessage` |
 
-When adding a new control, **side-by-side with Input** at the sizes that control actually supports and match padding/typography. Focus recipes resolve on the focused element by themselves, so read `--lumi-focus-outline` or `--lumi-control-focus-shadow` on `:focus-visible` or on the sibling right after a hidden input; nothing needs registering. Do not invent private focus-ring or transition variables.
+When adding a new control, **side-by-side with Input** at the sizes that control actually supports and match padding/typography. Focus recipes resolve on the focused element by themselves, so read `--ren-focus-outline` or `--ren-control-focus-shadow` on `:focus-visible` or on the sibling right after a hidden input; nothing needs registering. Do not invent private focus-ring or transition variables.
 
 ### Shared visual recipes (copy peers — do not fork)
 
 One role → one CSS recipe. Match the nearest peer; do not invent a second shell, spinner, or tile.
 
-| Role                  | Peers                                    | Recipe (tokens only)                                                                                                                                                                                                                          |
-| --------------------- | ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Field / binary active | Input, Checkbox, Radio, Switch           | Control fill/border; active via `--lumi-control-active-*`; field focus via `--lumi-control-focus-shadow`                                                                                                                                      |
-| Switcher              | Tabs, SegmentedControl, ToggleGroup      | `styles/switcher.css` (+ `switcher-group.css` for SegmentedControl and ToggleGroup): recessed track (`surface-inset`, light border, `--lumi-control-shadow`); neutral hover (no lift); raised **active pill** with tone ink and quiet shadow. |
-| Spinner               | Button, Select, Table, Loading           | Global `.lumi-spinner` (base.css): `currentColor` 18% track + solid arc, `--lumi-duration-spin`; reduced motion handled globally                                                                                                              |
-| Skeleton              | Skeleton, Image, Table loading           | `styles/skeleton.css`: `.lumi-skeleton` (+ `--text`, `--rect`, `--circle`); decorative, the loading region carries `aria-busy`                                                                                                                |
-| Floating surface      | Dropdown, Context, Select                | `styles/floating.css`: `.lumi-floating` opaque raised surface                                                                                                                                                                                 |
-| Row tint              | Menu items, options, list and table rows | Neutral `--lumi-color-hover` on hover; `--lumi-tone-soft` / `--lumi-tone-strong` when selected                                                                                                                                                |
-| Field shell           | Input, NumberInput, Select, Textarea     | `Field/field.css` (`.lumi-field*`, layer `lumi.components`) with `FieldLabel` / `FieldMessage`                                                                                                                                                |
-| Icon tile             | IconBadge, InfoItem icon                 | 12% accent fill, 20% accent border, `--lumi-radius-lg`, 30% top sheen; IconBadge may keep `--lumi-shadow-sm` as a free-standing tile                                                                                                          |
-| Affordance focus      | Chip close/action, list/menu items, tabs | `--lumi-focus-outline` + offset; set `--lumi-control-accent` on the root                                                                                                                                                                      |
+| Role                  | Peers                                    | Recipe (tokens only)                                                                                                                                                                                                                         |
+| --------------------- | ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Field / binary active | Input, Checkbox, Radio, Switch           | Control fill/border; active via `--ren-control-active-*`; field focus via `--ren-control-focus-shadow`                                                                                                                                       |
+| Switcher              | Tabs, SegmentedControl, ToggleGroup      | `styles/switcher.css` (+ `switcher-group.css` for SegmentedControl and ToggleGroup): recessed track (`surface-inset`, light border, `--ren-control-shadow`); neutral hover (no lift); raised **active pill** with tone ink and quiet shadow. |
+| Spinner               | Button, Select, Table, Loading           | Global `.ren-spinner` (base.css): `currentColor` 18% track + solid arc, `--ren-duration-spin`; reduced motion handled globally                                                                                                               |
+| Skeleton              | Skeleton, Image, Table loading           | `styles/skeleton.css`: `.ren-skeleton` (+ `--text`, `--rect`, `--circle`); decorative, the loading region carries `aria-busy`                                                                                                                |
+| Floating surface      | Dropdown, Context, Select                | `styles/floating.css`: `.ren-floating` opaque raised surface                                                                                                                                                                                 |
+| Row tint              | Menu items, options, list and table rows | Neutral `--ren-color-hover` on hover; `--ren-tone-soft` / `--ren-tone-strong` when selected                                                                                                                                                  |
+| Field shell           | Input, NumberInput, Select, Textarea     | `Field/field.css` (`.ren-field*`, layer `ren.components`) with `FieldLabel` / `FieldMessage`                                                                                                                                                 |
+| Icon tile             | IconBadge, InfoItem icon                 | 12% accent fill, 20% accent border, `--ren-radius-lg`, 30% top sheen; IconBadge may keep `--ren-shadow-sm` as a free-standing tile                                                                                                           |
+| Affordance focus      | Chip close/action, list/menu items, tabs | `--ren-focus-outline` + offset; set `--ren-control-accent` on the root                                                                                                                                                                       |
 
 Surface roles: [GUIDE §6](./GUIDE.md#6-design-language).
 
@@ -344,7 +343,7 @@ Surface roles: [GUIDE §6](./GUIDE.md#6-design-language).
 ## 9. Content Defaults
 
 - Every user-visible or `aria-*` default comes from `i18n/en.ts` (+ `es.ts`, `types.ts` keep parity); explicit props override it.
-- No product copy in primitives; apps localize through `setLumiLocale`.
+- No product copy in primitives; apps localize through `setRenLocale`.
 - Avoid hard-coded asset paths like `/assets/images/...` — accept full URLs or leave image slots to the consumer.
 
 ---

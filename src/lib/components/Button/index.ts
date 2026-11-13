@@ -1,5 +1,5 @@
 /**
- * Lumi UI - Button Component
+ * RenUI - Button Component
  * Export button component and types
  */
 

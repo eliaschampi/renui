@@ -15,25 +15,25 @@
 	}: QuickAccessCardProps = $props();
 </script>
 
-<Card {href} {hoverable} class="lumi-quick-access-card {className}">
-	<div class="lumi-quick-access-card__container">
+<Card {href} {hoverable} class="ren-quick-access-card {className}">
+	<div class="ren-quick-access-card__container">
 		<IconBadge {icon} {color} size="lg" />
 		<Title {title} size="md" {color} />
-		<p class="lumi-quick-access-card__description">{description}</p>
+		<p class="ren-quick-access-card__description">{description}</p>
 	</div>
 </Card>
 
 <style>
-	.lumi-quick-access-card__container {
+	.ren-quick-access-card__container {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		text-align: center;
-		gap: var(--lumi-space-sm);
+		gap: var(--ren-space-sm);
 	}
 
-	.lumi-quick-access-card__description {
-		font-size: var(--lumi-font-size-sm);
-		color: var(--lumi-color-text-muted);
+	.ren-quick-access-card__description {
+		font-size: var(--ren-font-size-sm);
+		color: var(--ren-color-text-muted);
 	}
 </style>

@@ -1,16 +1,16 @@
-# Lumi UI
+# RenUI
 
 Lightweight Svelte 5 components with Lumen: crisp surfaces, consistent semantic tokens and **English + Spanish built in**. SSR-first, accessible, and small enough for SEO-critical storefronts — a page pays only for the components and icons it renders.
 
 ```bash
-pnpm add @lumi-ui/svelte
+pnpm add @renui/svelte
 ```
 
 ```svelte
 <script lang="ts">
 	import Search from '@lucide/svelte/icons/search';
-	import { Button, Card, Input } from '@lumi-ui/svelte';
-	import '@lumi-ui/svelte/styles';
+	import { Button, Card, Input } from '@renui/svelte';
+	import '@renui/svelte/styles';
 </script>
 
 <Card title="Profile" spaced>
@@ -19,10 +19,10 @@ pnpm add @lumi-ui/svelte
 </Card>
 ```
 
-## Why Lumi
+## Why RenUI
 
 - **Light by construction.** No runtime theme provider, no CSS-in-JS, no icon registry unless you ask for one. A `Button` is 2.6 KB gzip with its CSS, a `Tooltip` 4.1 KB, and the global stylesheet 7.5 KB, which splits further for lean pages. Overlays position themselves with no third-party engine.
-- **Bilingual.** English by default; one line switches every built-in label, placeholder and `Intl` format to Spanish (`setLumiLocale`). Unused copy never reaches the bundle.
+- **Bilingual.** English by default; one line switches every built-in label, placeholder and `Intl` format to Spanish (`setRenLocale`). Unused copy never reaches the bundle.
 - **Platform first.** Real links (`Button href`, crawlable `Pagination`), `<ul>`/`<hr>` semantics, cascade layers so your CSS wins, container queries, `inert`, native date inputs — less JavaScript, better SEO.
 - **One recipe per role.** Fields, switchers, spinners and skeletons share global recipes, so every control looks and behaves like its peers in light and dark mode.
 
@@ -30,13 +30,13 @@ pnpm add @lumi-ui/svelte
 
 ```svelte
 <script lang="ts">
-	import { lumiEs, setLumiLocale } from '@lumi-ui/svelte';
+	import { renEs, setRenLocale } from '@renui/svelte';
 
-	setLumiLocale({
+	setRenLocale({
 		locale: 'es-PE',
 		currency: 'PEN',
 		timeZone: 'America/Lima',
-		messages: lumiEs
+		messages: renEs
 	});
 </script>
 ```
@@ -45,16 +45,16 @@ Explicit props (`placeholder`, `closeLabel`, …) always win. Details: [Guide §
 
 ## Entry Points
 
-| Import                                          | Purpose                                                                   |
-| ----------------------------------------------- | ------------------------------------------------------------------------- |
-| `@lumi-ui/svelte`                               | Components, types, locale API, formatters, icon registry API, `portal`    |
-| `@lumi-ui/svelte/icons`                         | Optional curated `lumiIcons` map for string icon names                    |
-| `@lumi-ui/svelte/drive`                         | Pure Drive helpers, types and Drive copy                                  |
-| `@lumi-ui/svelte/color-scheme`                  | Optional light/dark/system controller and pre-paint script                |
-| `@lumi-ui/svelte/styles`                        | Tokens + core (base, layout, utilities), import once                      |
-| `@lumi-ui/svelte/styles/{tokens.base,base}.css` | Minimum for pages that only render components                             |
-| `@lumi-ui/svelte/styles/{layout,utilities}.css` | App shells / composition helpers, when the markup uses them               |
-| `@lumi-ui/svelte/styles/patterns.css`           | Opt-in operative compositions (filter summaries, toolbars, metric lists…) |
+| Import                                        | Purpose                                                                   |
+| --------------------------------------------- | ------------------------------------------------------------------------- |
+| `@renui/svelte`                               | Components, types, locale API, formatters, icon registry API, `portal`    |
+| `@renui/svelte/icons`                         | Optional curated `renIcons` map for string icon names                     |
+| `@renui/svelte/drive`                         | Pure Drive helpers, types and Drive copy                                  |
+| `@renui/svelte/color-scheme`                  | Optional light/dark/system controller and pre-paint script                |
+| `@renui/svelte/styles`                        | Tokens + core (base, layout, utilities), import once                      |
+| `@renui/svelte/styles/{tokens.base,base}.css` | Minimum for pages that only render components                             |
+| `@renui/svelte/styles/{layout,utilities}.css` | App shells / composition helpers, when the markup uses them               |
+| `@renui/svelte/styles/patterns.css`           | Opt-in operative compositions (filter summaries, toolbars, metric lists…) |
 
 Brand seeds and color scheme: [Guide §3](./docs/GUIDE.md#3-theming-and-color-scheme). Lean loading for public pages: [Guide §1](./docs/GUIDE.md#load-styles-once).
 
@@ -66,11 +66,11 @@ Brand seeds and color scheme: [Guide §3](./docs/GUIDE.md#3-theming-and-color-sc
 | **[Components](./docs/COMPONENTS.md)**                   | Component catalog and selection                                          |
 | **[Component authoring](./docs/COMPONENT_AUTHORING.md)** | How to build or change a component                                       |
 | **[Consumer reference](./docs/CONSUMER_REFERENCE.md)**   | Compact product integration recipes                                      |
-| **[Upgrade](./docs/UPGRADE.md)**                         | Current 1.x → 2.0 migration and archived earlier guides                  |
+| **[Upgrade](./docs/UPGRADE.md)**                         | Lumi UI 1.x → RenUI 2.0 migration and codemod                            |
 | **[Reviews](./docs/REFACTOR_REVIEW.md)**                 | Release changes and the evidence behind them                             |
 | **[AGENTS.md](./AGENTS.md)**                             | Agent rules → [Agent Guide](./docs/AGENT_GUIDE.md)                       |
 
-Version 2.0 removes legacy glass and gradient tokens. Read the [2.0 migration guide](./docs/UPGRADE.md#1x--200) before updating consumer CSS.
+RenUI was published as Lumi UI (`@lumi-ui/svelte`) until 1.2.1. Version 2.0 renames it and removes legacy glass and gradient tokens; the [2.0 migration guide](./docs/UPGRADE.md#1x--200) has a codemod that does both.
 
 ## Lightweight Contract
 
@@ -78,7 +78,7 @@ Budgets start from the 1.2.0 baseline on all 16 measured surfaces, including all
 
 | Surface                                                                                     | 1.2.0 baseline |  2.0.0 |   Budget |
 | ------------------------------------------------------------------------------------------- | -------------: | -----: | -------: |
-| Global CSS `@lumi-ui/svelte/styles`                                                         |          7,691 |  7,462 |  ≤ 7,691 |
+| Global CSS `@renui/svelte/styles`                                                           |          7,691 |  7,462 |  ≤ 7,691 |
 | Lean CSS `tokens.base.css` + `base.css`                                                     |          4,984 |  4,804 |  ≤ 4,984 |
 | `Button`                                                                                    |          2,754 |  2,586 |  ≤ 2,754 |
 | `Divider`                                                                                   |            966 |    966 |    ≤ 976 |
@@ -114,6 +114,6 @@ pnpm install --ignore-scripts
 pnpm run lint && pnpm run check && pnpm run test && pnpm run package && pnpm run size
 ```
 
-Runnable showcase: [`eliaschampi/lumi`](https://github.com/eliaschampi/lumi) ([live site](https://eliaschampi.github.io/lumi/)). Release checklist: [Guide §8](./docs/GUIDE.md#8-release-verification).
+Runnable showcase: [`eliaschampi/renweb`](https://github.com/eliaschampi/renweb) ([live site](https://eliaschampi.github.io/renweb/)). Release checklist: [Guide §8](./docs/GUIDE.md#8-release-verification).
 
 MIT licensed.

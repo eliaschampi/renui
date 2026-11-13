@@ -16,7 +16,7 @@
 	}: TooltipProps = $props();
 
 	const instanceId = $props.id();
-	const tooltipId = `lumi-tooltip-${instanceId}`;
+	const tooltipId = `ren-tooltip-${instanceId}`;
 	const FOCUSABLE =
 		'a[href], button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])';
 
@@ -46,7 +46,7 @@
 			offset: 10,
 			maxHeight: 300,
 			viewportPadding: 8,
-			zIndex: 'var(--lumi-z-tooltip)',
+			zIndex: 'var(--ren-z-tooltip)',
 			arrow: arrowRef ? { element: arrowRef, padding: 12 } : undefined
 		})
 	);
@@ -145,14 +145,14 @@
 <!-- svelte-ignore a11y_no_static_element_interactions (Hover only mirrors focus; the description is exposed through aria-describedby.) -->
 <span
 	bind:this={triggerRef}
-	class="lumi-tooltip"
+	class="ren-tooltip"
 	onpointerenter={show}
 	onpointerleave={() => hide()}
 	onfocusin={show}
 	onfocusout={() => hide(true)}
 >
 	{@render children?.()}
-	<span id={tooltipId} class="lumi-sr-only">{@render body()}</span>
+	<span id={tooltipId} class="ren-sr-only">{@render body()}</span>
 </span>
 
 {#if visible}
@@ -161,92 +161,92 @@
 		bind:this={bubbleRef}
 		use:portal
 		class={[
-			'lumi-tooltip__content',
-			`lumi-tooltip--${side}`,
-			`lumi-tone lumi-tone--${color}`,
+			'ren-tooltip__content',
+			`ren-tooltip--${side}`,
+			`ren-tone ren-tone--${color}`,
 			className
 		]}
 		style={floating.styleString}
-		style:--lumi-tooltip-arrow-x={floating.position.arrowX != null
+		style:--ren-tooltip-arrow-x={floating.position.arrowX != null
 			? `${floating.position.arrowX}px`
-			: 'calc(50% - var(--lumi-tooltip-arrow) / 2)'}
-		style:--lumi-tooltip-arrow-y={floating.position.arrowY != null
+			: 'calc(50% - var(--ren-tooltip-arrow) / 2)'}
+		style:--ren-tooltip-arrow-y={floating.position.arrowY != null
 			? `${floating.position.arrowY}px`
-			: 'calc(50% - var(--lumi-tooltip-arrow) / 2)'}
+			: 'calc(50% - var(--ren-tooltip-arrow) / 2)'}
 		aria-hidden="true"
 		onpointerenter={show}
 		onpointerleave={() => hide()}
 		transition:fade={{ duration: motion(DURATION_FAST) }}
 	>
 		{@render body()}
-		<span bind:this={arrowRef} class="lumi-tooltip__arrow"></span>
+		<span bind:this={arrowRef} class="ren-tooltip__arrow"></span>
 	</div>
 {/if}
 
 <style>
-	.lumi-tooltip {
+	.ren-tooltip {
 		display: inline-flex;
 		align-items: center;
 		position: relative;
 	}
 
-	.lumi-tooltip__content {
-		--lumi-tooltip-bg: var(--lumi-color-surface-raised);
-		--lumi-tooltip-border: color-mix(
+	.ren-tooltip__content {
+		--ren-tooltip-bg: var(--ren-color-surface-raised);
+		--ren-tooltip-border: color-mix(
 			in oklch,
-			var(--lumi-control-accent, var(--lumi-color-border-strong)) 32%,
-			var(--lumi-color-border-strong)
+			var(--ren-control-accent, var(--ren-color-border-strong)) 32%,
+			var(--ren-color-border-strong)
 		);
-		--lumi-tooltip-arrow: var(--lumi-space-xs);
-		--lumi-tooltip-tuck: calc(
-			(var(--lumi-tooltip-arrow) / 2) + var(--lumi-border-width-thin)
+		--ren-tooltip-arrow: var(--ren-space-xs);
+		--ren-tooltip-tuck: calc(
+			(var(--ren-tooltip-arrow) / 2) + var(--ren-border-width-thin)
 		);
-		padding: var(--lumi-space-xs) var(--lumi-space-sm);
-		max-width: calc(var(--lumi-space-5xl) * 3);
-		border: var(--lumi-border-width-thin) solid var(--lumi-tooltip-border);
-		border-radius: var(--lumi-radius-tooltip);
-		background: var(--lumi-tooltip-bg);
-		color: var(--lumi-color-text);
-		box-shadow: var(--lumi-shadow-md);
-		font-size: var(--lumi-font-size-xs);
-		font-weight: var(--lumi-font-weight-medium);
-		line-height: var(--lumi-line-height-snug);
+		padding: var(--ren-space-xs) var(--ren-space-sm);
+		max-width: calc(var(--ren-space-5xl) * 3);
+		border: var(--ren-border-width-thin) solid var(--ren-tooltip-border);
+		border-radius: var(--ren-radius-tooltip);
+		background: var(--ren-tooltip-bg);
+		color: var(--ren-color-text);
+		box-shadow: var(--ren-shadow-md);
+		font-size: var(--ren-font-size-xs);
+		font-weight: var(--ren-font-weight-medium);
+		line-height: var(--ren-line-height-snug);
 		text-align: center;
 	}
 
 	/* Tip edges only; square tucks under the bubble so it is one shape. */
-	.lumi-tooltip__arrow {
+	.ren-tooltip__arrow {
 		position: absolute;
-		width: var(--lumi-tooltip-arrow);
-		height: var(--lumi-tooltip-arrow);
+		width: var(--ren-tooltip-arrow);
+		height: var(--ren-tooltip-arrow);
 		box-sizing: border-box;
-		background: var(--lumi-tooltip-bg);
-		border: var(--lumi-border-width-thin) solid var(--lumi-tooltip-border);
+		background: var(--ren-tooltip-bg);
+		border: var(--ren-border-width-thin) solid var(--ren-tooltip-border);
 		border-top-color: transparent;
 		border-left-color: transparent;
 	}
 
-	.lumi-tooltip--top .lumi-tooltip__arrow {
-		top: calc(100% - var(--lumi-tooltip-tuck));
-		left: var(--lumi-tooltip-arrow-x);
+	.ren-tooltip--top .ren-tooltip__arrow {
+		top: calc(100% - var(--ren-tooltip-tuck));
+		left: var(--ren-tooltip-arrow-x);
 		transform: rotate(45deg);
 	}
 
-	.lumi-tooltip--bottom .lumi-tooltip__arrow {
-		bottom: calc(100% - var(--lumi-tooltip-tuck));
-		left: var(--lumi-tooltip-arrow-x);
+	.ren-tooltip--bottom .ren-tooltip__arrow {
+		bottom: calc(100% - var(--ren-tooltip-tuck));
+		left: var(--ren-tooltip-arrow-x);
 		transform: rotate(225deg);
 	}
 
-	.lumi-tooltip--left .lumi-tooltip__arrow {
-		left: calc(100% - var(--lumi-tooltip-tuck));
-		top: var(--lumi-tooltip-arrow-y);
+	.ren-tooltip--left .ren-tooltip__arrow {
+		left: calc(100% - var(--ren-tooltip-tuck));
+		top: var(--ren-tooltip-arrow-y);
 		transform: rotate(-45deg);
 	}
 
-	.lumi-tooltip--right .lumi-tooltip__arrow {
-		right: calc(100% - var(--lumi-tooltip-tuck));
-		top: var(--lumi-tooltip-arrow-y);
+	.ren-tooltip--right .ren-tooltip__arrow {
+		right: calc(100% - var(--ren-tooltip-tuck));
+		top: var(--ren-tooltip-arrow-y);
 		transform: rotate(135deg);
 	}
 </style>

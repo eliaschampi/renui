@@ -29,17 +29,17 @@
 
 <label
 	class={[
-		'lumi-checkbox',
-		`lumi-checkbox--${size}`,
-		(checked || indeterminate) && 'lumi-checkbox--checked',
-		disabled && 'lumi-checkbox--disabled',
-		`lumi-tone lumi-tone--${color}`,
+		'ren-checkbox',
+		`ren-checkbox--${size}`,
+		(checked || indeterminate) && 'ren-checkbox--checked',
+		disabled && 'ren-checkbox--disabled',
+		`ren-tone ren-tone--${color}`,
 		className
 	]}
 >
 	<input
 		type="checkbox"
-		class="lumi-sr-only"
+		class="ren-sr-only"
 		{id}
 		{name}
 		{value}
@@ -51,22 +51,22 @@
 		bind:indeterminate
 	/>
 
-	<span class="lumi-checkbox__visual" aria-hidden="true">
+	<span class="ren-checkbox__visual" aria-hidden="true">
 		{#if indeterminate}
 			<Minus
-				class="lumi-checkbox__icon lumi-checkbox__icon--minus"
+				class="ren-checkbox__icon ren-checkbox__icon--minus"
 				strokeWidth={3}
 			/>
 		{:else if checked}
 			<Check
-				class="lumi-checkbox__icon lumi-checkbox__icon--check"
+				class="ren-checkbox__icon ren-checkbox__icon--check"
 				strokeWidth={3}
 			/>
 		{/if}
 	</span>
 
 	{#if label || children}
-		<span class="lumi-checkbox__label">
+		<span class="ren-checkbox__label">
 			{#if children}
 				{@render children()}
 			{:else}
@@ -77,33 +77,33 @@
 </label>
 
 <style>
-	.lumi-checkbox {
-		--checkbox-size: var(--lumi-icon-md);
-		--checkbox-icon-size: var(--lumi-icon-sm);
-		--checkbox-label-size: var(--lumi-font-size-base);
-		--checkbox-radius: var(--lumi-radius-xs);
+	.ren-checkbox {
+		--checkbox-size: var(--ren-icon-md);
+		--checkbox-icon-size: var(--ren-icon-sm);
+		--checkbox-label-size: var(--ren-font-size-base);
+		--checkbox-radius: var(--ren-radius-xs);
 		position: relative;
 		display: inline-flex;
 		align-items: center;
-		gap: var(--lumi-space-sm);
+		gap: var(--ren-space-sm);
 		cursor: pointer;
 		user-select: none;
-		font-family: var(--lumi-font-family-sans);
-		transition: var(--lumi-transition-opacity);
+		font-family: var(--ren-font-family-sans);
+		transition: var(--ren-transition-opacity);
 	}
 
-	.lumi-checkbox__visual {
+	.ren-checkbox__visual {
 		position: relative;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		width: var(--checkbox-size);
 		height: var(--checkbox-size);
-		border: var(--lumi-border-width-base) solid var(--lumi-color-control-border);
+		border: var(--ren-border-width-base) solid var(--ren-color-control-border);
 		border-radius: var(--checkbox-radius);
-		background: var(--lumi-color-control-fill);
-		box-shadow: var(--lumi-control-shadow);
-		transition: var(--lumi-transition-interactive);
+		background: var(--ren-color-control-fill);
+		box-shadow: var(--ren-control-shadow);
+		transition: var(--ren-transition-interactive);
 		flex-shrink: 0;
 		overflow: hidden;
 	}
@@ -111,77 +111,77 @@
 	/* Icons mount with their state, so keyframes (not transitions) animate them.
 	   The check draws like a pen stroke from its short arm; the dash exceeds
 	   both glyphs' length in Lucide's 24-unit viewBox. */
-	:global(.lumi-checkbox__icon) {
+	:global(.ren-checkbox__icon) {
 		inline-size: var(--checkbox-icon-size);
 		block-size: var(--checkbox-icon-size);
-		color: var(--lumi-control-foreground);
+		color: var(--ren-control-foreground);
 		pointer-events: none;
 	}
 
-	:global(.lumi-checkbox__icon--check) {
+	:global(.ren-checkbox__icon--check) {
 		stroke-dasharray: 24;
-		animation: lumi-checkbox-draw var(--lumi-duration-base)
-			var(--lumi-easing-default);
+		animation: ren-checkbox-draw var(--ren-duration-base)
+			var(--ren-easing-default);
 	}
 
-	:global(.lumi-checkbox__icon--minus) {
-		animation: lumi-checkbox-grow var(--lumi-duration-fast)
-			var(--lumi-easing-default);
+	:global(.ren-checkbox__icon--minus) {
+		animation: ren-checkbox-grow var(--ren-duration-fast)
+			var(--ren-easing-default);
 	}
 
-	@keyframes -global-lumi-checkbox-draw {
+	@keyframes -global-ren-checkbox-draw {
 		from {
 			stroke-dashoffset: -24;
 		}
 	}
 
-	@keyframes -global-lumi-checkbox-grow {
+	@keyframes -global-ren-checkbox-grow {
 		from {
 			transform: scaleX(0);
 		}
 	}
 
-	.lumi-checkbox__label {
-		color: var(--lumi-color-text);
+	.ren-checkbox__label {
+		color: var(--ren-color-text);
 		font-size: var(--checkbox-label-size);
-		font-weight: var(--lumi-font-weight-medium);
-		line-height: var(--lumi-line-height-tight);
+		font-weight: var(--ren-font-weight-medium);
+		line-height: var(--ren-line-height-tight);
 		cursor: pointer;
 	}
 
-	.lumi-checkbox--sm {
-		--checkbox-size: var(--lumi-icon-sm);
-		--checkbox-icon-size: var(--lumi-icon-xs);
-		--checkbox-label-size: var(--lumi-font-size-sm);
-		--checkbox-radius: var(--lumi-radius-2xs);
+	.ren-checkbox--sm {
+		--checkbox-size: var(--ren-icon-sm);
+		--checkbox-icon-size: var(--ren-icon-xs);
+		--checkbox-label-size: var(--ren-font-size-sm);
+		--checkbox-radius: var(--ren-radius-2xs);
 	}
 
-	.lumi-checkbox--checked .lumi-checkbox__visual {
-		background: var(--lumi-control-solid);
-		border-color: var(--lumi-control-solid);
-		box-shadow: var(--lumi-control-active-shadow);
+	.ren-checkbox--checked .ren-checkbox__visual {
+		background: var(--ren-control-solid);
+		border-color: var(--ren-control-solid);
+		box-shadow: var(--ren-control-active-shadow);
 	}
 
-	input:focus-visible + .lumi-checkbox__visual {
-		box-shadow: var(--lumi-control-focus-shadow);
+	input:focus-visible + .ren-checkbox__visual {
+		box-shadow: var(--ren-control-focus-shadow);
 	}
 
-	.lumi-checkbox:not(.lumi-checkbox--checked):hover .lumi-checkbox__visual {
-		border-color: var(--lumi-control-active-border);
-		background: var(--lumi-control-active-fill);
+	.ren-checkbox:not(.ren-checkbox--checked):hover .ren-checkbox__visual {
+		border-color: var(--ren-control-active-border);
+		background: var(--ren-control-active-fill);
 	}
 
-	.lumi-checkbox:active .lumi-checkbox__visual {
-		transform: scale(var(--lumi-interactive-press-scale));
+	.ren-checkbox:active .ren-checkbox__visual {
+		transform: scale(var(--ren-interactive-press-scale));
 	}
 
-	.lumi-checkbox--disabled {
-		opacity: var(--lumi-opacity-disabled);
+	.ren-checkbox--disabled {
+		opacity: var(--ren-opacity-disabled);
 		pointer-events: none;
 	}
 
-	.lumi-checkbox--disabled:not(.lumi-checkbox--checked) .lumi-checkbox__visual {
-		background: var(--lumi-color-background-secondary);
-		border-color: var(--lumi-color-border);
+	.ren-checkbox--disabled:not(.ren-checkbox--checked) .ren-checkbox__visual {
+		background: var(--ren-color-background-secondary);
+		border-color: var(--ren-color-border);
 	}
 </style>

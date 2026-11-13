@@ -6,7 +6,7 @@
 
 <script lang="ts">
 	import { Avatar } from '../Avatar';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import type { UserInfoProps } from './types';
 
 	const {
@@ -20,115 +20,115 @@
 		class: className
 	}: UserInfoProps = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 </script>
 
 <div
 	class={[
-		'lumi-user-info',
-		size !== 'md' && `lumi-user-info--${size}`,
+		'ren-user-info',
+		size !== 'md' && `ren-user-info--${size}`,
 		className
 	]}
 >
 	<!-- Decorative: the visible name is the accessible text. -->
 	<Avatar {name} {src} {size} {color} alt="" />
-	<span class="lumi-user-info__text">
+	<span class="ren-user-info__text">
 		<svelte:element
 			this={href ? 'a' : 'span'}
 			{href}
-			class="lumi-user-info__name"
+			class="ren-user-info__name"
 		>
 			{name.trim() || i18n.t.unnamed}
 		</svelte:element>
 		{#if description}
-			<span class="lumi-user-info__description">{description}</span>
+			<span class="ren-user-info__description">{description}</span>
 		{/if}
 	</span>
 	{#if trailing}
-		<span class="lumi-user-info__trailing">{@render trailing()}</span>
+		<span class="ren-user-info__trailing">{@render trailing()}</span>
 	{/if}
 </div>
 
 <style>
-	.lumi-user-info {
-		--lumi-user-info-name: var(--lumi-font-size-sm);
-		--lumi-user-info-description: var(--lumi-font-size-xs);
+	.ren-user-info {
+		--ren-user-info-name: var(--ren-font-size-sm);
+		--ren-user-info-description: var(--ren-font-size-xs);
 		position: relative;
 		display: flex;
 		align-items: center;
-		gap: var(--lumi-space-sm);
+		gap: var(--ren-space-sm);
 		min-inline-size: 0;
 	}
 
-	.lumi-user-info--sm {
-		gap: var(--lumi-space-xs);
+	.ren-user-info--sm {
+		gap: var(--ren-space-xs);
 	}
 
-	.lumi-user-info--lg {
-		--lumi-user-info-name: var(--lumi-font-size-base);
+	.ren-user-info--lg {
+		--ren-user-info-name: var(--ren-font-size-base);
 	}
 
-	.lumi-user-info--xl {
-		--lumi-user-info-name: var(--lumi-font-size-lg);
-		--lumi-user-info-description: var(--lumi-font-size-sm);
-		gap: var(--lumi-space-md);
+	.ren-user-info--xl {
+		--ren-user-info-name: var(--ren-font-size-lg);
+		--ren-user-info-description: var(--ren-font-size-sm);
+		gap: var(--ren-space-md);
 	}
 
-	.lumi-user-info__text {
+	.ren-user-info__text {
 		display: flex;
 		flex: 1;
 		flex-direction: column;
-		gap: var(--lumi-space-2xs);
+		gap: var(--ren-space-2xs);
 		min-inline-size: 0;
 	}
 
-	.lumi-user-info__name,
-	.lumi-user-info__description {
+	.ren-user-info__name,
+	.ren-user-info__description {
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
 
-	.lumi-user-info__name {
-		color: var(--lumi-color-text);
-		font-size: var(--lumi-user-info-name);
-		font-weight: var(--lumi-font-weight-semibold);
-		line-height: var(--lumi-line-height-tight);
+	.ren-user-info__name {
+		color: var(--ren-color-text);
+		font-size: var(--ren-user-info-name);
+		font-weight: var(--ren-font-weight-semibold);
+		line-height: var(--ren-line-height-tight);
 		text-decoration: none;
 	}
 
-	.lumi-user-info__description {
-		color: var(--lumi-color-text-muted);
-		font-size: var(--lumi-user-info-description);
-		line-height: var(--lumi-line-height-normal);
+	.ren-user-info__description {
+		color: var(--ren-color-text-muted);
+		font-size: var(--ren-user-info-description);
+		line-height: var(--ren-line-height-normal);
 	}
 
 	/* Stretched link: the whole row is the target, trailing content sits above. */
-	a.lumi-user-info__name::after {
+	a.ren-user-info__name::after {
 		content: '';
 		position: absolute;
 		inset: 0;
-		border-radius: var(--lumi-radius-control);
+		border-radius: var(--ren-radius-control);
 	}
 
-	a.lumi-user-info__name:hover {
-		color: var(--lumi-color-primary);
+	a.ren-user-info__name:hover {
+		color: var(--ren-color-primary);
 	}
 
-	a.lumi-user-info__name:focus-visible {
+	a.ren-user-info__name:focus-visible {
 		outline: none;
 	}
 
-	a.lumi-user-info__name:focus-visible::after {
-		outline: var(--lumi-focus-outline);
-		outline-offset: var(--lumi-focus-outline-offset);
+	a.ren-user-info__name:focus-visible::after {
+		outline: var(--ren-focus-outline);
+		outline-offset: var(--ren-focus-outline-offset);
 	}
 
-	.lumi-user-info__trailing {
+	.ren-user-info__trailing {
 		position: relative;
 		display: inline-flex;
 		flex-shrink: 0;
 		align-items: center;
-		gap: var(--lumi-space-xs);
+		gap: var(--ren-space-xs);
 	}
 </style>

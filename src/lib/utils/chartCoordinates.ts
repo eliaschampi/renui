@@ -19,12 +19,12 @@ export const CHART_LABEL_GAP = 8;
 const ELLIPSIS = '\u2026';
 
 export const CHART_COLOR_VARS: Record<ChartColor, string> = {
-	primary: 'var(--lumi-color-primary)',
-	secondary: 'var(--lumi-color-secondary)',
-	success: 'var(--lumi-color-success)',
-	warning: 'var(--lumi-color-warning)',
-	danger: 'var(--lumi-color-danger)',
-	info: 'var(--lumi-color-info)'
+	primary: 'var(--ren-color-primary)',
+	secondary: 'var(--ren-color-secondary)',
+	success: 'var(--ren-color-success)',
+	warning: 'var(--ren-color-warning)',
+	danger: 'var(--ren-color-danger)',
+	info: 'var(--ren-color-info)'
 };
 
 /** Smallest 1-2-5 step at or above `value`, never finer than `minimum`. */

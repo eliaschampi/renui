@@ -65,7 +65,7 @@
 	import { scale } from 'svelte/transition';
 	import '../../styles/floating.css';
 	import { portal } from '../../actions/portal';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import { createFloating } from '../../utils/floating.svelte';
 	import { rovingIndex } from '../../utils/roving';
 	import { DURATION_FAST, motion } from '../config';
@@ -107,7 +107,7 @@
 	let focusedIndex = $state(-1);
 	let filterText = $state('');
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 	const floating = createFloating(
 		() => control,
 		() => listbox,
@@ -121,9 +121,9 @@
 	);
 
 	const uid = $props.id();
-	const inputId = $derived(idProp ?? `lumi-select-${uid}`);
-	const listboxId = `lumi-select-${uid}-listbox`;
-	const messageId = `lumi-select-${uid}-message`;
+	const inputId = $derived(idProp ?? `ren-select-${uid}`);
+	const listboxId = `ren-select-${uid}-listbox`;
+	const messageId = `ren-select-${uid}-message`;
 	const optionId = (index: number) => `${listboxId}-${index}`;
 
 	const normalized = $derived(
@@ -174,7 +174,7 @@
 	const invalid = $derived(Boolean(error));
 	const errorText = $derived(typeof error === 'string' ? error : '');
 	// Repeated on the portaled listbox, which does not inherit from the root.
-	const tone = $derived(`lumi-tone lumi-tone--${invalid ? 'danger' : color}`);
+	const tone = $derived(`ren-tone ren-tone--${invalid ? 'danger' : color}`);
 	const placeholderText = $derived(placeholder ?? i18n.t.selectPlaceholder);
 
 	function openList(direction?: 1 | -1): void {
@@ -297,12 +297,12 @@
 <div
 	bind:this={root}
 	class={[
-		'lumi-field',
-		'lumi-select',
-		`lumi-field--${size}`,
-		open && 'lumi-select--open',
-		invalid && 'lumi-field--invalid',
-		disabled && 'lumi-field--disabled',
+		'ren-field',
+		'ren-select',
+		`ren-field--${size}`,
+		open && 'ren-select--open',
+		invalid && 'ren-field--invalid',
+		disabled && 'ren-field--disabled',
 		tone,
 		className
 	]}
@@ -313,12 +313,12 @@
 		<FieldLabel for={inputId} {label} {required} />
 	{/if}
 
-	<div bind:this={control} class="lumi-field__control">
+	<div bind:this={control} class="ren-field__control">
 		{#if name || required}
 			<!-- Form proxy: a hidden input cannot be validated, so `required`
 			     uses a visually hidden one that sends focus to the combobox. -->
 			<input
-				class="lumi-sr-only"
+				class="ren-sr-only"
 				tabindex="-1"
 				aria-hidden="true"
 				{name}
@@ -333,7 +333,7 @@
 			bind:this={input}
 			id={inputId}
 			type="text"
-			class="lumi-field__input lumi-autofill"
+			class="ren-field__input ren-autofill"
 			readonly={!searchable}
 			{disabled}
 			placeholder={placeholderText}
@@ -358,11 +358,11 @@
 		/>
 
 		{#if loading}
-			<span class="lumi-spinner lumi-select__spinner" aria-hidden="true"></span>
+			<span class="ren-spinner ren-select__spinner" aria-hidden="true"></span>
 		{:else if showClear}
 			<button
 				type="button"
-				class="lumi-field__button"
+				class="ren-field__button"
 				aria-label={i18n.t.selectClear}
 				onclick={clearValue}
 			>
@@ -371,7 +371,7 @@
 		{:else}
 			<button
 				type="button"
-				class="lumi-field__button lumi-select__arrow"
+				class="ren-field__button ren-select__arrow"
 				tabindex="-1"
 				{disabled}
 				aria-label={open ? i18n.t.selectClose : i18n.t.selectOpen}
@@ -387,7 +387,7 @@
 			bind:this={listbox}
 			use:portal
 			id={listboxId}
-			class="lumi-floating lumi-select__listbox lumi-select__listbox--{size} lumi-scrollbar {tone}"
+			class="ren-floating ren-select__listbox ren-select__listbox--{size} ren-scrollbar {tone}"
 			style={floating.styleString}
 			transition:scale={{ duration: motion(DURATION_FAST), start: 0.96 }}
 			role={loading || visible.length === 0 ? 'status' : 'listbox'}
@@ -396,13 +396,13 @@
 			onmousedown={(event) => event.preventDefault()}
 		>
 			{#if loading}
-				<div class="lumi-select__empty">
-					<span class="lumi-spinner lumi-select__spinner" aria-hidden="true"
+				<div class="ren-select__empty">
+					<span class="ren-spinner ren-select__spinner" aria-hidden="true"
 					></span>
 					{i18n.t.selectLoading}
 				</div>
 			{:else if visible.length === 0}
-				<div class="lumi-select__empty">{noDataText ?? i18n.t.selectEmpty}</div>
+				<div class="ren-select__empty">{noDataText ?? i18n.t.selectEmpty}</div>
 			{:else}
 				{#each visible as option, index (option.key)}
 					{@const isSelected = option.key === selected?.key}
@@ -411,10 +411,10 @@
 					<div
 						id={optionId(index)}
 						class={[
-							'lumi-select__option',
-							isSelected && 'lumi-select__option--selected',
-							focusedIndex === index && 'lumi-select__option--focused',
-							option.disabled && 'lumi-select__option--disabled'
+							'ren-select__option',
+							isSelected && 'ren-select__option--selected',
+							focusedIndex === index && 'ren-select__option--focused',
+							option.disabled && 'ren-select__option--disabled'
 						]}
 						role="option"
 						tabindex="-1"
@@ -425,7 +425,7 @@
 							if (!option.disabled) focusedIndex = index;
 						}}
 					>
-						<span class="lumi-select__label">{option.label}</span>
+						<span class="ren-select__label">{option.label}</span>
 						{#if isSelected}
 							<Icon icon={Check} size="sm" />
 						{/if}
@@ -439,83 +439,83 @@
 </div>
 
 <style>
-	.lumi-select .lumi-field__control {
+	.ren-select .ren-field__control {
 		cursor: pointer;
 	}
 
-	.lumi-select .lumi-field__input[readonly] {
+	.ren-select .ren-field__input[readonly] {
 		cursor: pointer;
 		text-overflow: ellipsis;
 	}
 
-	.lumi-select__arrow :global(.lumi-icon) {
-		transition: transform var(--lumi-duration-fast) var(--lumi-easing-default);
+	.ren-select__arrow :global(.ren-icon) {
+		transition: transform var(--ren-duration-fast) var(--ren-easing-default);
 	}
 
-	.lumi-select--open .lumi-select__arrow :global(.lumi-icon) {
+	.ren-select--open .ren-select__arrow :global(.ren-icon) {
 		transform: rotate(180deg);
 	}
 
-	.lumi-select__spinner {
-		--lumi-spinner-size: var(--lumi-icon-sm);
-		margin-inline: var(--lumi-field-pad-x);
-		color: var(--lumi-control-accent);
+	.ren-select__spinner {
+		--ren-spinner-size: var(--ren-icon-sm);
+		margin-inline: var(--ren-field-pad-x);
+		color: var(--ren-control-accent);
 	}
 
 	/* Portaled listbox (floating glass surface). */
-	.lumi-select__listbox {
-		--lumi-select-font: var(--lumi-font-size-base);
-		--lumi-select-pad: var(--lumi-space-xs) var(--lumi-space-sm);
+	.ren-select__listbox {
+		--ren-select-font: var(--ren-font-size-base);
+		--ren-select-pad: var(--ren-space-xs) var(--ren-space-sm);
 		display: flex;
 		flex-direction: column;
-		gap: var(--lumi-space-2xs);
-		padding: var(--lumi-space-xs);
+		gap: var(--ren-space-2xs);
+		padding: var(--ren-space-xs);
 		overflow-y: auto;
 		overscroll-behavior: contain;
-		font-family: var(--lumi-font-family-sans);
-		font-size: var(--lumi-select-font);
+		font-family: var(--ren-font-family-sans);
+		font-size: var(--ren-select-font);
 	}
 
-	.lumi-select__listbox--xs,
-	.lumi-select__listbox--sm {
-		--lumi-select-font: var(--lumi-font-size-sm);
-		--lumi-select-pad: var(--lumi-space-2xs) var(--lumi-space-xs);
+	.ren-select__listbox--xs,
+	.ren-select__listbox--sm {
+		--ren-select-font: var(--ren-font-size-sm);
+		--ren-select-pad: var(--ren-space-2xs) var(--ren-space-xs);
 	}
 
-	.lumi-select__listbox--lg,
-	.lumi-select__listbox--xl {
-		--lumi-select-font: var(--lumi-font-size-lg);
-		--lumi-select-pad: var(--lumi-space-sm) var(--lumi-space-md);
+	.ren-select__listbox--lg,
+	.ren-select__listbox--xl {
+		--ren-select-font: var(--ren-font-size-lg);
+		--ren-select-pad: var(--ren-space-sm) var(--ren-space-md);
 	}
 
-	.lumi-select__option {
+	.ren-select__option {
 		display: flex;
 		align-items: center;
-		gap: var(--lumi-space-xs);
-		padding: var(--lumi-select-pad);
-		color: var(--lumi-color-text);
-		border-radius: var(--lumi-radius-control);
+		gap: var(--ren-space-xs);
+		padding: var(--ren-select-pad);
+		color: var(--ren-color-text);
+		border-radius: var(--ren-radius-control);
 		cursor: pointer;
 		user-select: none;
-		transition: var(--lumi-transition-control);
+		transition: var(--ren-transition-control);
 	}
 
-	.lumi-select__option--focused {
-		background: var(--lumi-color-hover);
+	.ren-select__option--focused {
+		background: var(--ren-color-hover);
 	}
 
-	.lumi-select__option--selected {
-		color: var(--lumi-tone-ink);
-		font-weight: var(--lumi-font-weight-semibold);
-		background: var(--lumi-tone-soft);
+	.ren-select__option--selected {
+		color: var(--ren-tone-ink);
+		font-weight: var(--ren-font-weight-semibold);
+		background: var(--ren-tone-soft);
 	}
 
-	.lumi-select__option--disabled {
-		opacity: var(--lumi-opacity-disabled);
+	.ren-select__option--disabled {
+		opacity: var(--ren-opacity-disabled);
 		pointer-events: none;
 	}
 
-	.lumi-select__label {
+	.ren-select__label {
 		flex: 1;
 		min-width: 0;
 		overflow: hidden;
@@ -523,13 +523,13 @@
 		white-space: nowrap;
 	}
 
-	.lumi-select__empty {
+	.ren-select__empty {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: var(--lumi-space-sm);
-		padding: var(--lumi-space-lg) var(--lumi-space-md);
-		font-size: var(--lumi-font-size-sm);
-		color: var(--lumi-color-text-muted);
+		gap: var(--ren-space-sm);
+		padding: var(--ren-space-lg) var(--ren-space-md);
+		font-size: var(--ren-font-size-sm);
+		color: var(--ren-color-text-muted);
 	}
 </style>

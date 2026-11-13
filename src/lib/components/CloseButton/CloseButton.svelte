@@ -12,7 +12,7 @@
 <!-- Internal: the one dismiss control shared by Alert, Notification and Dialog. -->
 <button
 	type="button"
-	class={['lumi-close-button', className]}
+	class={['ren-close-button', className]}
 	aria-label={label}
 	{onclick}
 >
@@ -29,38 +29,38 @@
 </button>
 
 <style>
-	.lumi-close-button svg {
-		inline-size: var(--lumi-icon-sm);
-		block-size: var(--lumi-icon-sm);
+	.ren-close-button svg {
+		inline-size: var(--ren-icon-sm);
+		block-size: var(--ren-icon-sm);
 	}
 
-	.lumi-close-button {
+	.ren-close-button {
 		display: inline-grid;
 		flex-shrink: 0;
 		place-items: center;
-		inline-size: var(--lumi-space-xl);
-		block-size: var(--lumi-space-xl);
+		inline-size: var(--ren-space-xl);
+		block-size: var(--ren-space-xl);
 		padding: 0;
 		background: transparent;
 		border: 0;
-		border-radius: var(--lumi-radius-full);
+		border-radius: var(--ren-radius-full);
 		/* Follows the surface it sits on: tone ink on an alert, text elsewhere. */
 		color: color-mix(in srgb, currentColor 68%, transparent);
 		cursor: pointer;
-		transition: var(--lumi-transition-interactive);
+		transition: var(--ren-transition-interactive);
 	}
 
-	.lumi-close-button:hover {
-		background: var(--lumi-color-hover);
+	.ren-close-button:hover {
+		background: var(--ren-color-hover);
 		color: inherit;
 	}
 
-	.lumi-close-button:active {
-		transform: scale(var(--lumi-interactive-press-scale));
+	.ren-close-button:active {
+		transform: scale(var(--ren-interactive-press-scale));
 	}
 
-	.lumi-close-button:focus-visible {
-		outline: var(--lumi-focus-outline);
-		outline-offset: var(--lumi-focus-outline-offset);
+	.ren-close-button:focus-visible {
+		outline: var(--ren-focus-outline);
+		outline-offset: var(--ren-focus-outline-offset);
 	}
 </style>

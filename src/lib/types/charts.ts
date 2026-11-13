@@ -1,6 +1,6 @@
-import type { LumiColor } from '../components/config';
+import type { RenColor } from '../components/config';
 
-export type ChartColor = LumiColor;
+export type ChartColor = RenColor;
 export type ChartValueFormat = 'number' | 'currency' | 'score' | 'ratio';
 
 export interface ChartSeriesPoint {

@@ -27,7 +27,7 @@
 		useChartWidth
 	} from '../../utils/chartLayout.svelte';
 	import '../../styles/charts.css';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import type { DashboardChartProps } from './types';
 
 	const {
@@ -42,7 +42,7 @@
 		class: className
 	}: DashboardChartProps = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 
 	const layout = useChartWidth();
 	const gutter = useChartGutter(() => layout.chartW);
@@ -226,36 +226,36 @@
 	}
 </script>
 
-<div bind:this={layout.root} class={['lumi-line-chart', className]}>
+<div bind:this={layout.root} class={['ren-line-chart', className]}>
 	{#if normalizedSeries.length > 1}
 		<div
-			class="lumi-line-chart__legend"
+			class="ren-line-chart__legend"
 			role="group"
 			aria-label={i18n.t.chartSeries}
 		>
 			{#each normalizedSeries as s (s.key)}
 				<button
 					type="button"
-					class="lumi-line-chart__legend-item"
-					class:lumi-line-chart__legend-item--hidden={hiddenSeries.has(s.key)}
+					class="ren-line-chart__legend-item"
+					class:ren-line-chart__legend-item--hidden={hiddenSeries.has(s.key)}
 					aria-pressed={!hiddenSeries.has(s.key)}
 					aria-label={s.label}
 					onclick={() => toggleSeries(s.key)}
 				>
 					<span
-						class="lumi-line-chart__legend-dot"
+						class="ren-line-chart__legend-dot"
 						style:background={CHART_COLOR_VARS[s.color]}
 					></span>
-					<span class="lumi-line-chart__legend-label">{s.label}</span>
+					<span class="ren-line-chart__legend-label">{s.label}</span>
 				</button>
 			{/each}
 		</div>
 	{/if}
 
-	<div class="lumi-line-chart__plot" style:height="{height}px">
+	<div class="ren-line-chart__plot" style:height="{height}px">
 		{#if !scale.hasValues}
-			<div class="lumi-chart-empty">
-				<p class="lumi-chart-empty__text">
+			<div class="ren-chart-empty">
+				<p class="ren-chart-empty__text">
 					{emptyMessage ?? i18n.t.chartEmpty}
 				</p>
 			</div>
@@ -264,7 +264,7 @@
 			<svg
 				viewBox="0 0 {chartW} {chartH}"
 				preserveAspectRatio="xMidYMid meet"
-				class="lumi-chart-svg"
+				class="ren-chart-svg"
 				role="img"
 				aria-label={ariaLabel ?? i18n.t.chart}
 				aria-describedby={hoveredEntries.length > 0
@@ -298,7 +298,7 @@
 						y1={tick.y}
 						x2={chartW - CHART_PADDING.right}
 						y2={tick.y}
-						class="lumi-chart-grid"
+						class="ren-chart-grid"
 					/>
 				{/each}
 				<g use:gutter.measure>
@@ -307,7 +307,7 @@
 							x={gutter.left - CHART_LABEL_GAP}
 							y={tick.y + 3}
 							text-anchor="end"
-							class="lumi-chart-label"
+							class="ren-chart-label"
 						>
 							{tick.label}
 						</text>
@@ -328,7 +328,7 @@
 							y={chartH - 8}
 							text-anchor="middle"
 							visibility="hidden"
-							class="lumi-chart-label"
+							class="ren-chart-label"
 						>
 							{truncateAxisLabel(xl.label, xLabelMaxLength)}
 						</text>
@@ -349,7 +349,7 @@
 						stroke={sp.strokeColor}
 						stroke-linecap="round"
 						stroke-linejoin="round"
-						class="lumi-line-chart__line"
+						class="ren-line-chart__line"
 					/>
 					{#each sp.lonePoints as point, index (`${sp.key}-${index}`)}
 						<circle
@@ -357,7 +357,7 @@
 							cy={point.y}
 							r="4"
 							fill={sp.strokeColor}
-							class="lumi-line-chart__dot"
+							class="ren-line-chart__dot"
 						/>
 					{/each}
 				{/each}
@@ -368,7 +368,7 @@
 						y1={CHART_PADDING.top}
 						x2={scaleX(activeIndex)}
 						y2={CHART_PADDING.top + plotH}
-						class="lumi-chart-crosshair"
+						class="ren-chart-crosshair"
 					/>
 					{#each hoveredEntries as entry (entry.key)}
 						<circle
@@ -376,7 +376,7 @@
 							cy={scaleY(entry.point.value)}
 							r="4"
 							fill={CHART_COLOR_VARS[entry.color]}
-							class="lumi-line-chart__dot"
+							class="ren-line-chart__dot"
 						/>
 					{/each}
 				{/if}
@@ -387,7 +387,7 @@
 					width={plotW}
 					height={plotH}
 					fill="transparent"
-					class="lumi-chart-hit"
+					class="ren-chart-hit"
 					aria-hidden="true"
 					onpointerenter={setHover}
 					onpointermove={setHover}
@@ -401,20 +401,19 @@
 	<div
 		role="tooltip"
 		id={`${instanceId}-tooltip`}
-		class="lumi-chart-tooltip"
+		class="ren-chart-tooltip"
 		use:chartTooltip={hover.anchor}
 	>
-		<span class="lumi-chart-tooltip__title"
-			>{hoveredEntries[0].point.label}</span
+		<span class="ren-chart-tooltip__title">{hoveredEntries[0].point.label}</span
 		>
 		{#each hoveredEntries as entry (entry.key)}
-			<div class="lumi-chart-tooltip__row">
+			<div class="ren-chart-tooltip__row">
 				<span
-					class="lumi-chart-tooltip__dot"
+					class="ren-chart-tooltip__dot"
 					style:background={CHART_COLOR_VARS[entry.color]}
 				></span>
-				<span class="lumi-chart-tooltip__label">{entry.label}</span>
-				<span class="lumi-chart-tooltip__value"
+				<span class="ren-chart-tooltip__label">{entry.label}</span>
+				<span class="ren-chart-tooltip__value"
 					>{formatChartValue(
 						entry.point.value,
 						valueFormat,
@@ -428,79 +427,79 @@
 {/if}
 
 <style>
-	.lumi-line-chart {
+	.ren-line-chart {
 		width: 100%;
 		min-width: 0;
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		gap: var(--lumi-space-sm);
+		gap: var(--ren-space-sm);
 	}
 
-	.lumi-line-chart__legend {
+	.ren-line-chart__legend {
 		display: flex;
 		flex-wrap: wrap;
-		gap: var(--lumi-space-2xs) var(--lumi-space-xs);
+		gap: var(--ren-space-2xs) var(--ren-space-xs);
 		min-width: 0;
 	}
 
-	.lumi-line-chart__legend-item {
+	.ren-line-chart__legend-item {
 		display: inline-flex;
 		min-width: 0;
 		align-items: center;
-		gap: var(--lumi-space-2xs);
-		padding: var(--lumi-space-2xs) var(--lumi-space-xs);
+		gap: var(--ren-space-2xs);
+		padding: var(--ren-space-2xs) var(--ren-space-xs);
 		background: transparent;
-		border: var(--lumi-border-width-thin) solid transparent;
-		border-radius: var(--lumi-radius-full);
+		border: var(--ren-border-width-thin) solid transparent;
+		border-radius: var(--ren-radius-full);
 		cursor: pointer;
-		transition: var(--lumi-transition-control);
+		transition: var(--ren-transition-control);
 		user-select: none;
 	}
 
-	.lumi-line-chart__legend-item:hover {
-		background: var(--lumi-color-surface);
+	.ren-line-chart__legend-item:hover {
+		background: var(--ren-color-surface);
 	}
 
-	.lumi-line-chart__legend-item:focus-visible {
-		outline: var(--lumi-focus-outline);
-		outline-offset: var(--lumi-focus-outline-offset);
+	.ren-line-chart__legend-item:focus-visible {
+		outline: var(--ren-focus-outline);
+		outline-offset: var(--ren-focus-outline-offset);
 	}
 
-	.lumi-line-chart__legend-item--hidden {
-		opacity: var(--lumi-opacity-muted);
+	.ren-line-chart__legend-item--hidden {
+		opacity: var(--ren-opacity-muted);
 	}
 
-	.lumi-line-chart__legend-dot {
-		width: var(--lumi-space-xs);
-		min-width: var(--lumi-space-xs);
-		height: var(--lumi-space-xs);
-		border-radius: var(--lumi-radius-full);
+	.ren-line-chart__legend-dot {
+		width: var(--ren-space-xs);
+		min-width: var(--ren-space-xs);
+		height: var(--ren-space-xs);
+		border-radius: var(--ren-radius-full);
 	}
 
-	.lumi-line-chart__legend-label {
-		font-size: var(--lumi-font-size-xs);
-		color: var(--lumi-color-text-muted);
+	.ren-line-chart__legend-label {
+		font-size: var(--ren-font-size-xs);
+		color: var(--ren-color-text-muted);
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 
-	.lumi-line-chart__plot {
+	.ren-line-chart__plot {
 		width: 100%;
 		min-width: 0;
 		position: relative;
 	}
 
-	.lumi-line-chart__line {
+	.ren-line-chart__line {
 		pointer-events: none;
 		vector-effect: non-scaling-stroke;
-		stroke-width: var(--lumi-border-width-thick);
+		stroke-width: var(--ren-border-width-thick);
 	}
 
-	.lumi-line-chart__dot {
-		stroke: var(--lumi-color-surface);
-		stroke-width: var(--lumi-border-width-thick);
+	.ren-line-chart__dot {
+		stroke: var(--ren-color-surface);
+		stroke-width: var(--ren-border-width-thick);
 		pointer-events: none;
 	}
 </style>

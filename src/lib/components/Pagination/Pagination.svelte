@@ -36,7 +36,7 @@
 <script lang="ts">
 	import ChevronLeft from '@lucide/svelte/icons/chevron-left';
 	import ChevronRight from '@lucide/svelte/icons/chevron-right';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import Button from '../Button/Button.svelte';
 	import type { PaginationProps } from './types';
 
@@ -53,7 +53,7 @@
 		onpagechange
 	}: PaginationProps = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 	const total = $derived(Math.max(1, Math.floor(pages) || 1));
 	const current = $derived(Math.min(Math.max(1, Math.floor(page) || 1), total));
 	const items = $derived(
@@ -89,7 +89,7 @@
 		rel={href && rel}
 		onclick={(event) => go(event, target)}
 	>
-		<span class="lumi-pagination__label">
+		<span class="ren-pagination__label">
 			{rel === 'prev' ? i18n.t.paginationPrevious : i18n.t.paginationNext}
 		</span>
 	</Button>
@@ -97,16 +97,16 @@
 
 <nav
 	class={[
-		'lumi-pagination',
-		size === 'md' && 'lumi-pagination--md',
-		compact && 'lumi-pagination--compact',
+		'ren-pagination',
+		size === 'md' && 'ren-pagination--md',
+		compact && 'ren-pagination--compact',
 		className
 	]}
 	aria-label={ariaLabel ?? i18n.t.pagination}
 >
 	{@render step(current - 1, 'prev')}
 
-	<ol class="lumi-pagination__pages">
+	<ol class="ren-pagination__pages">
 		{#each items as item, index (item || `gap-${index}`)}
 			<li>
 				{#if item}
@@ -115,7 +115,7 @@
 						{size}
 						{disabled}
 						href={href?.(item)}
-						class="lumi-pagination__page"
+						class="ren-pagination__page"
 						aria-label={i18n.t.paginationPage(item)}
 						aria-current={item === current ? 'page' : undefined}
 						onclick={(event) => go(event, item)}
@@ -123,15 +123,15 @@
 						{item}
 					</Button>
 				{:else}
-					<span class="lumi-pagination__gap" aria-hidden="true">…</span>
+					<span class="ren-pagination__gap" aria-hidden="true">…</span>
 				{/if}
 			</li>
 		{/each}
 	</ol>
 
-	<span class="lumi-pagination__status" aria-live="polite">
+	<span class="ren-pagination__status" aria-live="polite">
 		<span aria-hidden="true">{current} / {total}</span>
-		<span class="lumi-sr-only">{i18n.t.paginationStatus(current, total)}</span>
+		<span class="ren-sr-only">{i18n.t.paginationStatus(current, total)}</span>
 	</span>
 
 	{@render step(current + 1, 'next')}
@@ -139,73 +139,73 @@
 
 <style>
 	/* Numbers collapse to a "2 / 5" status in narrow containers. */
-	.lumi-pagination {
+	.ren-pagination {
 		container-type: inline-size;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: var(--lumi-space-xs);
+		gap: var(--ren-space-xs);
 		inline-size: 100%;
 		font-variant-numeric: tabular-nums;
 	}
 
-	.lumi-pagination--md {
-		--lumi-pagination-size: var(--lumi-control-height-md);
+	.ren-pagination--md {
+		--ren-pagination-size: var(--ren-control-height-md);
 	}
 
-	.lumi-pagination__pages {
+	.ren-pagination__pages {
 		display: flex;
 		align-items: center;
-		gap: var(--lumi-space-2xs);
+		gap: var(--ren-space-2xs);
 		margin: 0;
 		padding: 0;
 		list-style: none;
 	}
 
-	.lumi-pagination :global(.lumi-pagination__page) {
-		min-inline-size: var(--lumi-pagination-size, var(--lumi-control-height-sm));
-		padding-inline: var(--lumi-space-xs);
+	.ren-pagination :global(.ren-pagination__page) {
+		min-inline-size: var(--ren-pagination-size, var(--ren-control-height-sm));
+		padding-inline: var(--ren-space-xs);
 	}
 
-	.lumi-pagination__gap {
+	.ren-pagination__gap {
 		display: inline-grid;
 		place-items: center;
-		min-inline-size: var(--lumi-space-lg);
-		color: var(--lumi-color-text-muted);
+		min-inline-size: var(--ren-space-lg);
+		color: var(--ren-color-text-muted);
 	}
 
 	/* Announces page changes only in compact or narrow layouts, where shown. */
-	.lumi-pagination__status {
+	.ren-pagination__status {
 		display: none;
 		flex: none;
-		padding-inline: var(--lumi-space-sm);
+		padding-inline: var(--ren-space-sm);
 		white-space: nowrap;
-		font-size: var(--lumi-font-size-sm);
-		font-weight: var(--lumi-font-weight-medium);
-		color: var(--lumi-color-text-muted);
+		font-size: var(--ren-font-size-sm);
+		font-weight: var(--ren-font-weight-medium);
+		color: var(--ren-color-text-muted);
 	}
 
-	.lumi-pagination--compact .lumi-pagination__pages {
+	.ren-pagination--compact .ren-pagination__pages {
 		display: none;
 	}
 
-	.lumi-pagination--compact .lumi-pagination__status {
+	.ren-pagination--compact .ren-pagination__status {
 		display: inline;
 	}
 
 	@container (max-width: 30rem) {
-		.lumi-pagination__pages {
+		.ren-pagination__pages {
 			display: none;
 		}
 
-		.lumi-pagination__status {
+		.ren-pagination__status {
 			display: inline;
 		}
 	}
 
 	/* Too narrow for words: the steps keep their names for assistive tech. */
 	@container (max-width: 19rem) {
-		.lumi-pagination__label {
+		.ren-pagination__label {
 			position: absolute;
 			inline-size: 1px;
 			block-size: 1px;

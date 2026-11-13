@@ -24,25 +24,25 @@
 
 <li
 	class={[
-		'lumi-list-item',
-		interactive && 'lumi-list-item--interactive',
-		selected && 'lumi-list-item--selected',
-		disabled && 'lumi-list-item--disabled',
+		'ren-list-item',
+		interactive && 'ren-list-item--interactive',
+		selected && 'ren-list-item--selected',
+		disabled && 'ren-list-item--disabled',
 		className
 	]}
 >
 	{#if leading}
-		<span class="lumi-list-item__leading">{@render leading()}</span>
+		<span class="ren-list-item__leading">{@render leading()}</span>
 	{:else if icon}
-		<Icon {icon} size="var(--lumi-list-icon-size, var(--lumi-icon-sm))" />
+		<Icon {icon} size="var(--ren-list-icon-size, var(--ren-icon-sm))" />
 	{/if}
 
-	<span class="lumi-list-item__content">
+	<span class="ren-list-item__content">
 		<!-- The title is the single target; ::after stretches it over the row. -->
 		{#if href && !disabled}
 			<a
 				{href}
-				class="lumi-list-item__title lumi-list-item__target"
+				class="ren-list-item__title ren-list-item__target"
 				aria-current={selected || undefined}
 				{onclick}
 			>
@@ -51,7 +51,7 @@
 		{:else if onclick}
 			<button
 				type="button"
-				class="lumi-list-item__title lumi-list-item__target"
+				class="ren-list-item__title ren-list-item__target"
 				aria-current={selected || undefined}
 				{disabled}
 				{onclick}
@@ -59,137 +59,134 @@
 				{@render text(title ?? '')}
 			</button>
 		{:else if title}
-			<span class="lumi-list-item__title">{@render text(title)}</span>
+			<span class="ren-list-item__title">{@render text(title)}</span>
 		{/if}
 		{#if description}
-			<span class="lumi-list-item__description">
+			<span class="ren-list-item__description">
 				{@render text(description)}
 			</span>
 		{/if}
 	</span>
 
 	{#if trailing}
-		<span class="lumi-list-item__trailing">{@render trailing()}</span>
+		<span class="ren-list-item__trailing">{@render trailing()}</span>
 	{/if}
 </li>
 
 <style>
-	.lumi-list-item {
-		--lumi-list-item-accent: var(
-			--lumi-control-accent,
-			var(--lumi-color-primary)
-		);
+	.ren-list-item {
+		--ren-list-item-accent: var(--ren-control-accent, var(--ren-color-primary));
 		position: relative;
 		display: flex;
 		align-items: center;
-		gap: var(--lumi-space-md);
-		min-block-size: calc(var(--lumi-space-xxl) + var(--lumi-space-2xs));
+		gap: var(--ren-space-md);
+		min-block-size: calc(var(--ren-space-xxl) + var(--ren-space-2xs));
 		padding: var(
-			--lumi-list-item-padding,
-			var(--lumi-space-sm) var(--lumi-space-md)
+			--ren-list-item-padding,
+			var(--ren-space-sm) var(--ren-space-md)
 		);
-		border-radius: var(--lumi-radius-control);
-		color: var(--lumi-color-text);
-		line-height: var(--lumi-line-height-normal);
-		transition: var(--lumi-transition-interactive);
+		border-radius: var(--ren-radius-control);
+		color: var(--ren-color-text);
+		line-height: var(--ren-line-height-normal);
+		transition: var(--ren-transition-interactive);
 	}
 
-	.lumi-list-item > :global(.lumi-icon) {
-		color: var(--lumi-color-text-muted);
+	.ren-list-item > :global(.ren-icon) {
+		color: var(--ren-color-text-muted);
 	}
 
-	.lumi-list-item__leading {
+	.ren-list-item__leading {
 		display: inline-flex;
 		flex-shrink: 0;
 	}
 
-	.lumi-list-item__content {
+	.ren-list-item__content {
 		display: flex;
 		flex: 1;
 		flex-direction: column;
-		gap: var(--lumi-space-2xs);
+		gap: var(--ren-space-2xs);
 		min-inline-size: 0;
 	}
 
-	.lumi-list-item__title {
+	.ren-list-item__title {
 		overflow: hidden;
 		color: inherit;
 		font: inherit;
-		font-size: var(--lumi-font-size-sm);
-		font-weight: var(--lumi-font-weight-medium);
-		line-height: var(--lumi-line-height-tight);
+		font-size: var(--ren-font-size-sm);
+		font-weight: var(--ren-font-weight-medium);
+		line-height: var(--ren-line-height-tight);
 		text-align: start;
 		text-decoration: none;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
 
-	button.lumi-list-item__title {
+	button.ren-list-item__title {
 		padding: 0;
 		background: none;
 		border: 0;
 		cursor: pointer;
 	}
 
-	.lumi-list-item__target::after {
+	.ren-list-item__target::after {
 		content: '';
 		position: absolute;
 		inset: 0;
 		border-radius: inherit;
 	}
 
-	.lumi-list-item__target:focus-visible {
+	.ren-list-item__target:focus-visible {
 		outline: none;
 	}
 
-	.lumi-list-item__target:focus-visible::after {
-		outline: var(--lumi-focus-outline);
-		outline-offset: var(--lumi-focus-outline-offset);
+	.ren-list-item__target:focus-visible::after {
+		outline: var(--ren-focus-outline);
+		outline-offset: var(--ren-focus-outline-offset);
 	}
 
-	.lumi-list-item__description {
-		color: var(--lumi-color-text-muted);
-		font-size: var(--lumi-font-size-xs);
+	.ren-list-item__description {
+		color: var(--ren-color-text-muted);
+		font-size: var(--ren-font-size-xs);
 	}
 
 	/* Above the stretched target so actions stay independently clickable. */
-	.lumi-list-item__trailing {
+	.ren-list-item__trailing {
 		position: relative;
 		display: flex;
 		flex-shrink: 0;
 		align-items: center;
-		gap: var(--lumi-space-sm);
+		gap: var(--ren-space-sm);
 		margin-inline-start: auto;
 	}
 
-	.lumi-list-item--interactive:hover {
-		background: var(--lumi-color-hover);
-		transform: translateY(var(--lumi-interactive-lift));
+	.ren-list-item--interactive:hover {
+		background: var(--ren-color-hover);
+		transform: translateY(var(--ren-interactive-lift));
 	}
 
-	.lumi-list-item--interactive:hover > :global(.lumi-icon) {
+	.ren-list-item--interactive:hover > :global(.ren-icon) {
 		color: inherit;
 	}
 
-	.lumi-list-item--interactive:active {
+	.ren-list-item--interactive:active {
 		transform: none;
 	}
 
-	.lumi-list-item--selected,
-	.lumi-list-item--selected:hover {
-		background: var(--lumi-tone-soft, var(--lumi-color-primary-bg));
+	.ren-list-item--selected,
+	.ren-list-item--selected:hover {
+		background: var(--ren-tone-soft, var(--ren-color-primary-bg));
 		transform: none;
 	}
 
-	.lumi-list-item--selected .lumi-list-item__title {
-		font-weight: var(--lumi-font-weight-semibold);
+	.ren-list-item--selected .ren-list-item__title {
+		font-weight: var(--ren-font-weight-semibold);
 	}
 
-	.lumi-list-item--selected > :global(.lumi-icon) {
-		color: var(--lumi-list-item-accent);
+	.ren-list-item--selected > :global(.ren-icon) {
+		color: var(--ren-list-item-accent);
 	}
 
-	.lumi-list-item--disabled {
-		opacity: var(--lumi-opacity-disabled);
+	.ren-list-item--disabled {
+		opacity: var(--ren-opacity-disabled);
 	}
 </style>

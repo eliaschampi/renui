@@ -1,5 +1,5 @@
 /**
- * Lumi UI - Card Component
+ * RenUI - Card Component
  */
 
 export { default as Card } from './Card.svelte';

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { lumiEs, Pagination, setLumiLocale } from '../../src/lib';
+	import { renEs, Pagination, setRenLocale } from '../../src/lib';
 
-	setLumiLocale({ locale: 'es-PE', currency: 'PEN', messages: lumiEs });
+	setRenLocale({ locale: 'es-PE', currency: 'PEN', messages: renEs });
 </script>
 
 <Pagination page={2} pages={5} href={(page) => `?page=${page}`} />

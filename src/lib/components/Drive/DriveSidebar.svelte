@@ -1,8 +1,8 @@
 <script module lang="ts">
 	import * as en from '../../i18n/en';
-	import { lumiDriveEn } from '../../i18n/drive';
+	import { renDriveEn } from '../../i18n/drive';
 
-	const COPY = { ...lumiDriveEn, close: en.close };
+	const COPY = { ...renDriveEn, close: en.close };
 </script>
 
 <script lang="ts">
@@ -11,7 +11,7 @@
 	import { List, ListItem } from '../List';
 	import { Progress } from '../Progress';
 	import { SegmentedControl } from '../SegmentedControl';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import {
 		formatFileSize,
 		getDriveMenuOptions,
@@ -49,7 +49,7 @@
 		onclose
 	}: Props = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 	const menuOptions = $derived(getDriveMenuOptions(i18n.t));
 	const scopeOptions = $derived(getDriveScopeSegmentOptions(i18n.t));
 	const effectiveScope = $derived(currentScope ?? 'shared');
@@ -64,16 +64,16 @@
 </script>
 
 {#if closable}
-	<div class="lumi-drive-sidebar__header">
-		<span class="lumi-drive-sidebar__title">{i18n.t.driveTitle}</span>
+	<div class="ren-drive-sidebar__header">
+		<span class="ren-drive-sidebar__title">{i18n.t.driveTitle}</span>
 		<CloseButton label={i18n.t.close} onclick={onclose} />
 	</div>
 {/if}
 
 {#if showScopeControl}
-	<div class="lumi-page-sidebar__section">
-		<p class="lumi-page-sidebar__label">{i18n.t.driveScope}</p>
-		<div class="lumi-drive-sidebar__scope">
+	<div class="ren-page-sidebar__section">
+		<p class="ren-page-sidebar__label">{i18n.t.driveScope}</p>
+		<div class="ren-drive-sidebar__scope">
 			<SegmentedControl
 				value={effectiveScope}
 				options={scopeOptions}
@@ -90,12 +90,12 @@
 	</div>
 {/if}
 
-<div class="lumi-page-sidebar__section">
-	<p class="lumi-page-sidebar__label">{i18n.t.driveNavigation}</p>
+<div class="ren-page-sidebar__section">
+	<p class="ren-page-sidebar__label">{i18n.t.driveNavigation}</p>
 	<List
 		size="sm"
 		color="primary"
-		class="lumi-drive-sidebar__nav lumi-scroll-contain"
+		class="ren-drive-sidebar__nav ren-scroll-contain"
 	>
 		<ListItem
 			title={i18n.t.driveMyDrive}
@@ -125,48 +125,48 @@
 	</List>
 </div>
 
-<div class="lumi-page-sidebar__section">
-	<p class="lumi-page-sidebar__label">{i18n.t.driveStorage}</p>
+<div class="ren-page-sidebar__section">
+	<p class="ren-page-sidebar__label">{i18n.t.driveStorage}</p>
 	<Progress value={storageInfo.percentage} color={storageColor} />
-	<div class="lumi-drive-sidebar__storage-meta">
-		<span class="lumi-drive-sidebar__meta">
+	<div class="ren-drive-sidebar__storage-meta">
+		<span class="ren-drive-sidebar__meta">
 			{i18n.t.driveStorageUsage(
 				formatFileSize(storageInfo.used),
 				formatFileSize(storageInfo.total)
 			)}
 		</span>
-		<span class="lumi-drive-sidebar__meta">{storageInfo.percentage}%</span>
+		<span class="ren-drive-sidebar__meta">{storageInfo.percentage}%</span>
 	</div>
 </div>
 
 <style>
-	.lumi-drive-sidebar__title {
-		font-size: var(--lumi-font-size-sm);
-		font-weight: var(--lumi-font-weight-bold);
+	.ren-drive-sidebar__title {
+		font-size: var(--ren-font-size-sm);
+		font-weight: var(--ren-font-weight-bold);
 	}
 
-	.lumi-drive-sidebar__meta {
-		color: var(--lumi-color-text-muted);
-		font-size: var(--lumi-font-size-xs);
+	.ren-drive-sidebar__meta {
+		color: var(--ren-color-text-muted);
+		font-size: var(--ren-font-size-xs);
 	}
 
-	:global(.lumi-drive-sidebar__nav) {
-		max-height: var(--lumi-drive-sidebar-nav-max-height);
+	:global(.ren-drive-sidebar__nav) {
+		max-height: var(--ren-drive-sidebar-nav-max-height);
 		overflow-x: hidden;
 		overflow-y: auto;
 	}
 
-	.lumi-drive-sidebar__scope {
+	.ren-drive-sidebar__scope {
 		width: 100%;
 	}
 
-	.lumi-drive-sidebar__header {
+	.ren-drive-sidebar__header {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 	}
 
-	.lumi-drive-sidebar__storage-meta {
+	.ren-drive-sidebar__storage-meta {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;

@@ -5,7 +5,7 @@
 </script>
 
 <script lang="ts">
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import type { LoadingProps } from './types';
 
 	const {
@@ -16,44 +16,44 @@
 		children
 	}: LoadingProps = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 </script>
 
 <div
 	class={[
-		'lumi-loading',
-		size !== 'md' && `lumi-loading--${size}`,
-		`lumi-tone lumi-tone--${color}`,
+		'ren-loading',
+		size !== 'md' && `ren-loading--${size}`,
+		`ren-tone ren-tone--${color}`,
 		className
 	]}
 	role="status"
 	aria-label={text || children ? undefined : i18n.t.loading}
 >
-	<span class="lumi-loading__indicator" aria-hidden="true">
-		<span class="lumi-spinner lumi-loading__ring"></span>
-		<span class="lumi-loading__core"></span>
+	<span class="ren-loading__indicator" aria-hidden="true">
+		<span class="ren-spinner ren-loading__ring"></span>
+		<span class="ren-loading__core"></span>
 	</span>
 
 	{#if text || children}
-		<span class="lumi-loading__text">
+		<span class="ren-loading__text">
 			{#if children}{@render children()}{:else}{text}{/if}
 		</span>
 	{/if}
 </div>
 
 <style>
-	.lumi-loading {
+	.ren-loading {
 		display: inline-flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		gap: var(--lumi-space-md);
-		color: var(--lumi-control-accent);
-		--loading-ring-size: var(--lumi-space-3xl);
-		--loading-core-size: var(--lumi-space-lg);
+		gap: var(--ren-space-md);
+		color: var(--ren-control-accent);
+		--loading-ring-size: var(--ren-space-3xl);
+		--loading-core-size: var(--ren-space-lg);
 	}
 
-	.lumi-loading__indicator {
+	.ren-loading__indicator {
 		position: relative;
 		display: grid;
 		place-items: center;
@@ -61,44 +61,44 @@
 		block-size: var(--loading-ring-size);
 	}
 
-	.lumi-loading__ring {
+	.ren-loading__ring {
 		position: absolute;
 		inset: 0;
-		--lumi-spinner-size: 100%;
+		--ren-spinner-size: 100%;
 	}
 
-	.lumi-loading__core {
+	.ren-loading__core {
 		inline-size: var(--loading-core-size);
 		block-size: var(--loading-core-size);
-		border-radius: var(--lumi-radius-full);
+		border-radius: var(--ren-radius-full);
 		background: currentColor;
-		box-shadow: 0 0 var(--lumi-space-md)
+		box-shadow: 0 0 var(--ren-space-md)
 			color-mix(in srgb, currentColor 35%, transparent);
-		animation: lumi-loading-pulse var(--lumi-duration-shimmer)
-			var(--lumi-easing-in-out) infinite;
+		animation: ren-loading-pulse var(--ren-duration-shimmer)
+			var(--ren-easing-in-out) infinite;
 	}
 
-	.lumi-loading__text {
-		font-size: var(--lumi-font-size-sm);
-		font-weight: var(--lumi-font-weight-medium);
-		color: var(--lumi-color-text-muted);
+	.ren-loading__text {
+		font-size: var(--ren-font-size-sm);
+		font-weight: var(--ren-font-weight-medium);
+		color: var(--ren-color-text-muted);
 		text-align: center;
-		line-height: var(--lumi-line-height-normal);
+		line-height: var(--ren-line-height-normal);
 	}
 
-	.lumi-loading--sm {
-		--loading-ring-size: var(--lumi-space-xxl);
-		--loading-core-size: var(--lumi-space-sm);
-		gap: var(--lumi-space-sm);
+	.ren-loading--sm {
+		--loading-ring-size: var(--ren-space-xxl);
+		--loading-core-size: var(--ren-space-sm);
+		gap: var(--ren-space-sm);
 	}
 
-	.lumi-loading--lg {
-		--loading-ring-size: var(--lumi-space-4xl);
-		--loading-core-size: var(--lumi-space-xl);
-		gap: var(--lumi-space-lg);
+	.ren-loading--lg {
+		--loading-ring-size: var(--ren-space-4xl);
+		--loading-core-size: var(--ren-space-xl);
+		gap: var(--ren-space-lg);
 	}
 
-	@keyframes lumi-loading-pulse {
+	@keyframes ren-loading-pulse {
 		0%,
 		100% {
 			transform: scale(0.78);

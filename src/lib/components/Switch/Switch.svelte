@@ -25,18 +25,18 @@
 
 <label
 	class={[
-		'lumi-switch',
-		`lumi-switch--${size}`,
-		checked && 'lumi-switch--checked',
-		disabled && 'lumi-switch--disabled',
-		`lumi-tone lumi-tone--${color}`,
+		'ren-switch',
+		`ren-switch--${size}`,
+		checked && 'ren-switch--checked',
+		disabled && 'ren-switch--disabled',
+		`ren-tone ren-tone--${color}`,
 		className
 	]}
 >
 	<input
 		type="checkbox"
 		role="switch"
-		class="lumi-sr-only"
+		class="ren-sr-only"
 		{id}
 		{name}
 		{value}
@@ -47,12 +47,12 @@
 		onchange={handleChange}
 	/>
 
-	<span class="lumi-switch__track" aria-hidden="true">
-		<span class="lumi-switch__thumb"></span>
+	<span class="ren-switch__track" aria-hidden="true">
+		<span class="ren-switch__thumb"></span>
 	</span>
 
 	{#if label || children}
-		<span class="lumi-switch__label">
+		<span class="ren-switch__label">
 			{#if children}
 				{@render children()}
 			{:else}
@@ -63,119 +63,118 @@
 </label>
 
 <style>
-	.lumi-switch {
-		--switch-track-w: calc(var(--lumi-space-xxl) + var(--lumi-space-2xs));
-		--switch-track-h: var(--lumi-space-lg);
-		--switch-inset: var(--lumi-border-width-thick);
+	.ren-switch {
+		--switch-track-w: calc(var(--ren-space-xxl) + var(--ren-space-2xs));
+		--switch-track-h: var(--ren-space-lg);
+		--switch-inset: var(--ren-border-width-thick);
 		--switch-thumb: calc(var(--switch-track-h) - var(--switch-inset) * 2);
 		--switch-travel: calc(var(--switch-track-w) - var(--switch-track-h));
-		--switch-stretch: var(--lumi-space-2xs);
-		--switch-label-size: var(--lumi-font-size-base);
+		--switch-stretch: var(--ren-space-2xs);
+		--switch-label-size: var(--ren-font-size-base);
 
 		position: relative;
 		display: inline-flex;
 		align-items: center;
-		gap: var(--lumi-space-sm);
+		gap: var(--ren-space-sm);
 		cursor: pointer;
 		user-select: none;
-		font-family: var(--lumi-font-family-sans);
+		font-family: var(--ren-font-family-sans);
 	}
 
-	.lumi-switch__track {
+	.ren-switch__track {
 		display: flex;
 		align-items: center;
 		width: var(--switch-track-w);
 		height: var(--switch-track-h);
 		padding: var(--switch-inset);
 		box-sizing: border-box;
-		background: var(--lumi-color-control-fill);
+		background: var(--ren-color-control-fill);
 		box-shadow:
-			inset 0 0 0 var(--lumi-border-width-base) var(--lumi-color-control-border),
-			var(--lumi-control-shadow);
-		border-radius: var(--lumi-radius-full);
-		transition: var(--lumi-transition-control);
+			inset 0 0 0 var(--ren-border-width-base) var(--ren-color-control-border),
+			var(--ren-control-shadow);
+		border-radius: var(--ren-radius-full);
+		transition: var(--ren-transition-control);
 		flex-shrink: 0;
 	}
 
-	.lumi-switch__thumb {
+	.ren-switch__thumb {
 		width: var(--switch-thumb);
 		height: var(--switch-thumb);
-		background: var(--lumi-color-white);
+		background: var(--ren-color-white);
 		box-sizing: border-box;
-		border: var(--lumi-border-width-thin) solid
-			color-mix(in srgb, var(--lumi-color-text) 10%, transparent);
-		border-radius: var(--lumi-radius-full);
-		box-shadow: var(--lumi-shadow-sm);
+		border: var(--ren-border-width-thin) solid
+			color-mix(in srgb, var(--ren-color-text) 10%, transparent);
+		border-radius: var(--ren-radius-full);
+		box-shadow: var(--ren-shadow-sm);
 		flex-shrink: 0;
 		transition:
-			transform var(--lumi-duration-fast) var(--lumi-easing-default),
-			width var(--lumi-duration-fast) var(--lumi-easing-default);
+			transform var(--ren-duration-fast) var(--ren-easing-default),
+			width var(--ren-duration-fast) var(--ren-easing-default);
 	}
 
-	.lumi-switch__label {
-		color: var(--lumi-color-text);
+	.ren-switch__label {
+		color: var(--ren-color-text);
 		font-size: var(--switch-label-size);
-		font-weight: var(--lumi-font-weight-medium);
-		line-height: var(--lumi-line-height-tight);
+		font-weight: var(--ren-font-weight-medium);
+		line-height: var(--ren-line-height-tight);
 	}
 
 	/* Checked pairs the role's solid with its foreground thumb (≥ 3:1). */
-	.lumi-switch--checked .lumi-switch__track {
-		background: var(--lumi-control-solid);
-		box-shadow: var(--lumi-control-active-shadow);
+	.ren-switch--checked .ren-switch__track {
+		background: var(--ren-control-solid);
+		box-shadow: var(--ren-control-active-shadow);
 	}
 
-	.lumi-switch--checked .lumi-switch__thumb {
-		background: var(--lumi-control-foreground);
+	.ren-switch--checked .ren-switch__thumb {
+		background: var(--ren-control-foreground);
 		border-color: transparent;
 		transform: translateX(var(--switch-travel));
 	}
 
-	.lumi-switch:not(.lumi-switch--checked):hover .lumi-switch__track {
+	.ren-switch:not(.ren-switch--checked):hover .ren-switch__track {
 		box-shadow:
-			inset 0 0 0 var(--lumi-border-width-base)
-				var(--lumi-control-active-border),
-			var(--lumi-control-shadow);
-		background: var(--lumi-control-active-fill);
+			inset 0 0 0 var(--ren-border-width-base) var(--ren-control-active-border),
+			var(--ren-control-shadow);
+		background: var(--ren-control-active-fill);
 	}
 
-	.lumi-switch:hover .lumi-switch__thumb {
-		box-shadow: var(--lumi-shadow-md);
+	.ren-switch:hover .ren-switch__thumb {
+		box-shadow: var(--ren-shadow-md);
 	}
 
-	.lumi-switch:active .lumi-switch__thumb {
+	.ren-switch:active .ren-switch__thumb {
 		width: calc(var(--switch-thumb) + var(--switch-stretch));
 	}
 
-	.lumi-switch--checked:active .lumi-switch__thumb {
+	.ren-switch--checked:active .ren-switch__thumb {
 		transform: translateX(calc(var(--switch-travel) - var(--switch-stretch)));
 	}
 
-	input:focus-visible + .lumi-switch__track {
-		box-shadow: var(--lumi-control-focus-shadow);
+	input:focus-visible + .ren-switch__track {
+		box-shadow: var(--ren-control-focus-shadow);
 	}
 
-	.lumi-switch--sm {
-		--switch-track-w: calc(var(--lumi-space-xl) + var(--lumi-space-2xs));
-		--switch-track-h: var(--lumi-icon-md);
-		--switch-label-size: var(--lumi-font-size-sm);
-		gap: var(--lumi-space-xs);
+	.ren-switch--sm {
+		--switch-track-w: calc(var(--ren-space-xl) + var(--ren-space-2xs));
+		--switch-track-h: var(--ren-icon-md);
+		--switch-label-size: var(--ren-font-size-sm);
+		gap: var(--ren-space-xs);
 	}
 
-	.lumi-switch--lg {
-		--switch-track-w: calc(var(--lumi-space-3xl) + var(--lumi-space-2xs));
-		--switch-track-h: calc(var(--lumi-space-lg) + var(--lumi-space-2xs));
-		--switch-label-size: var(--lumi-font-size-lg);
-		gap: var(--lumi-space-md);
+	.ren-switch--lg {
+		--switch-track-w: calc(var(--ren-space-3xl) + var(--ren-space-2xs));
+		--switch-track-h: calc(var(--ren-space-lg) + var(--ren-space-2xs));
+		--switch-label-size: var(--ren-font-size-lg);
+		gap: var(--ren-space-md);
 	}
 
-	.lumi-switch--disabled {
-		opacity: var(--lumi-opacity-disabled);
+	.ren-switch--disabled {
+		opacity: var(--ren-opacity-disabled);
 		pointer-events: none;
 	}
 
-	.lumi-switch--disabled:not(.lumi-switch--checked) .lumi-switch__track {
-		background: var(--lumi-color-border);
+	.ren-switch--disabled:not(.ren-switch--checked) .ren-switch__track {
+		background: var(--ren-color-border);
 		box-shadow: none;
 	}
 </style>

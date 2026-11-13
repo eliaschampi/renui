@@ -1,7 +1,7 @@
 import type { Snippet } from 'svelte';
-import type { LumiColor } from '../config';
+import type { RenColor } from '../config';
 
-export type TooltipColor = LumiColor;
+export type TooltipColor = RenColor;
 export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right';
 
 export interface TooltipProps {

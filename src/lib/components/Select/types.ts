@@ -1,4 +1,4 @@
-import type { LumiColor, LumiExtendedSize } from '../config';
+import type { RenColor, RenExtendedSize } from '../config';
 import type { FieldError } from '../Field';
 
 export type SelectValue = string | number | Record<string, unknown>;
@@ -14,7 +14,7 @@ export interface SelectOption {
 /** An option object, or a primitive used as both value and label. */
 export type SelectOptionInput = SelectOption | string | number;
 
-export type SelectSize = LumiExtendedSize;
+export type SelectSize = RenExtendedSize;
 export type SelectSearchMode = 'client' | 'server';
 
 export interface SelectProps {
@@ -34,7 +34,7 @@ export interface SelectProps {
 	/** @default 'md' */
 	size?: SelectSize;
 	/** Accent while focused @default 'primary' */
-	color?: LumiColor;
+	color?: RenColor;
 	disabled?: boolean;
 	required?: boolean;
 	/** Type to filter the options */

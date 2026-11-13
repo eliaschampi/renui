@@ -9,7 +9,7 @@
 	import { DURATION_BASE, motion } from '../config';
 	import StatusSurface from '../Notification/StatusSurface.svelte';
 	import { statusRole } from '../Notification/status';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import type { AlertProps } from './types';
 
 	let {
@@ -24,7 +24,7 @@
 		onclose
 	}: AlertProps = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 </script>
 
 {#if active}
@@ -33,7 +33,7 @@
 		{title}
 		{icon}
 		{children}
-		class={className ? `lumi-alert ${className}` : 'lumi-alert'}
+		class={className ? `ren-alert ${className}` : 'ren-alert'}
 		role={statusRole(color)}
 		closeLabel={closable ? (closeLabel ?? i18n.t.alertDismiss) : undefined}
 		motion={fade}

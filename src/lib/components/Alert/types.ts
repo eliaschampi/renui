@@ -1,7 +1,7 @@
 import type { Snippet } from 'svelte';
-import type { LumiColor } from '../config';
+import type { RenColor } from '../config';
 
-export type AlertColor = LumiColor;
+export type AlertColor = RenColor;
 
 export interface AlertProps {
 	/** @default "info" */

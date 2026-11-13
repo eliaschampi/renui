@@ -1,12 +1,12 @@
 <script module lang="ts">
-	import { lumiDriveEn } from '../../i18n/drive';
+	import { renDriveEn } from '../../i18n/drive';
 
-	const COPY = lumiDriveEn;
+	const COPY = renDriveEn;
 </script>
 
 <script lang="ts">
 	import { Icon } from '../Icon';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import { Image } from '../Image';
 	import {
 		driveTagColorCssVar,
@@ -46,7 +46,7 @@
 		serveUrl = getDriveServeUrl
 	}: Props = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 	let isDragging = $state(false);
 	let isDropTarget = $state(false);
 	let dragCounter = $state(0);
@@ -59,10 +59,10 @@
 	const typeLabel = $derived(getDriveTypeLabel(file.type, i18n.t));
 
 	const cardClasses = $derived([
-		'lumi-drive-file-card',
-		selected && 'lumi-drive-file-card--selected',
-		isDragging && 'lumi-drive-file-card--dragging',
-		isDropTarget && file.type === 'dir' && 'lumi-drive-file-card--drop-target'
+		'ren-drive-file-card',
+		selected && 'ren-drive-file-card--selected',
+		isDragging && 'ren-drive-file-card--dragging',
+		isDropTarget && file.type === 'dir' && 'ren-drive-file-card--drop-target'
 	]);
 
 	function handleClick() {
@@ -199,10 +199,10 @@
 	ontouchmove={clearLongPress}
 	onkeydown={handleKeydown}
 >
-	<div class="lumi-drive-file-card__preview">
+	<div class="ren-drive-file-card__preview">
 		{#if file.type === 'img'}
 			<Image
-				class="lumi-drive-file-card__image"
+				class="ren-drive-file-card__image"
 				src={previewUrl}
 				alt={file.name}
 				loading="lazy"
@@ -211,34 +211,34 @@
 				errorLabel={file.name}
 			/>
 		{:else}
-			<div class="lumi-drive-file-card__icon-scene">
+			<div class="ren-drive-file-card__icon-scene">
 				<Icon
 					icon={getFileIcon(file.type)}
-					size="var(--lumi-drive-file-icon-size)"
+					size="var(--ren-drive-file-icon-size)"
 					color={getFileColor(file.type)}
 				/>
 			</div>
 		{/if}
-		<span class="lumi-drive-file-card__kind">{typeLabel}</span>
+		<span class="ren-drive-file-card__kind">{typeLabel}</span>
 		{#if tagOption}
-			<span class="lumi-drive-file-card__tag">
+			<span class="ren-drive-file-card__tag">
 				<span
-					class="lumi-drive-file-card__tag-dot"
+					class="ren-drive-file-card__tag-dot"
 					style:--drive-tag-color={driveTagColorCssVar(tagOption.color)}
 				></span>
 			</span>
 		{/if}
 	</div>
 
-	<div class="lumi-drive-file-card__content">
-		<div class="lumi-drive-file-card__name" title={file.name}>
+	<div class="ren-drive-file-card__content">
+		<div class="ren-drive-file-card__name" title={file.name}>
 			{file.name}
 		</div>
-		<div class="lumi-drive-file-card__meta">
-			<span class="lumi-drive-file-card__type">{typeLabel}</span>
+		<div class="ren-drive-file-card__meta">
+			<span class="ren-drive-file-card__type">{typeLabel}</span>
 			{#if file.type !== 'dir'}
-				<span class="lumi-drive-file-card__separator">•</span>
-				<span class="lumi-drive-file-card__size"
+				<span class="ren-drive-file-card__separator">•</span>
+				<span class="ren-drive-file-card__size"
 					>{formatFileSize(file.size)}</span
 				>
 			{/if}
@@ -247,83 +247,83 @@
 </button>
 
 <style>
-	.lumi-drive-file-card {
-		--drive-file-card-padding: var(--lumi-drive-file-card-padding);
+	.ren-drive-file-card {
+		--drive-file-card-padding: var(--ren-drive-file-card-padding);
 		display: flex;
 		flex-direction: column;
 		align-items: stretch;
-		gap: var(--lumi-space-xs);
+		gap: var(--ren-space-xs);
 		width: 100%;
 		min-width: 0;
 		padding: var(--drive-file-card-padding);
-		background: var(--lumi-color-surface-card);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
-		border-radius: var(--lumi-surface-radius);
+		background: var(--ren-color-surface-card);
+		border: var(--ren-border-width-thin) solid var(--ren-color-border);
+		border-radius: var(--ren-surface-radius);
 		cursor: pointer;
 		transition:
-			transform var(--lumi-duration-fast) var(--lumi-easing-default),
-			box-shadow var(--lumi-duration-fast) var(--lumi-easing-default),
-			border-color var(--lumi-duration-fast) var(--lumi-easing-default),
-			background-color var(--lumi-duration-fast) var(--lumi-easing-default);
+			transform var(--ren-duration-fast) var(--ren-easing-default),
+			box-shadow var(--ren-duration-fast) var(--ren-easing-default),
+			border-color var(--ren-duration-fast) var(--ren-easing-default),
+			background-color var(--ren-duration-fast) var(--ren-easing-default);
 		text-align: left;
 		position: relative;
 		overflow: hidden;
-		box-shadow: var(--lumi-shadow-sm);
+		box-shadow: var(--ren-shadow-sm);
 	}
 
-	.lumi-drive-file-card:hover {
-		transform: translateY(var(--lumi-interactive-lift));
-		border-color: var(--lumi-color-border-interactive);
-		background: var(--lumi-color-surface-card-hover);
-		box-shadow: var(--lumi-shadow-md);
+	.ren-drive-file-card:hover {
+		transform: translateY(var(--ren-interactive-lift));
+		border-color: var(--ren-color-border-interactive);
+		background: var(--ren-color-surface-card-hover);
+		box-shadow: var(--ren-shadow-md);
 	}
 
-	.lumi-drive-file-card:focus-visible {
+	.ren-drive-file-card:focus-visible {
 		outline: none;
-		border-color: var(--lumi-color-border-interactive);
-		box-shadow: var(--lumi-focus-ring), var(--lumi-shadow-md);
+		border-color: var(--ren-color-border-interactive);
+		box-shadow: var(--ren-focus-ring), var(--ren-shadow-md);
 	}
 
-	.lumi-drive-file-card--selected {
-		border-color: var(--lumi-color-primary);
-		background: var(--lumi-color-primary-bg);
-		box-shadow: var(--lumi-shadow-md);
+	.ren-drive-file-card--selected {
+		border-color: var(--ren-color-primary);
+		background: var(--ren-color-primary-bg);
+		box-shadow: var(--ren-shadow-md);
 	}
 
-	.lumi-drive-file-card--dragging {
+	.ren-drive-file-card--dragging {
 		opacity: 0.5;
 	}
 
-	.lumi-drive-file-card--drop-target {
-		border: var(--lumi-border-width-thin) dashed var(--lumi-color-primary);
-		background: var(--lumi-color-primary-bg);
-		transform: scale(var(--lumi-interactive-hover-scale));
+	.ren-drive-file-card--drop-target {
+		border: var(--ren-border-width-thin) dashed var(--ren-color-primary);
+		background: var(--ren-color-primary-bg);
+		transform: scale(var(--ren-interactive-hover-scale));
 	}
 
-	.lumi-drive-file-card__preview {
+	.ren-drive-file-card__preview {
 		position: relative;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		width: 100%;
-		aspect-ratio: var(--lumi-drive-file-preview-ratio);
-		border-radius: var(--lumi-radius-panel);
-		background: var(--lumi-color-surface-inset);
+		aspect-ratio: var(--ren-drive-file-preview-ratio);
+		border-radius: var(--ren-radius-panel);
+		background: var(--ren-color-surface-inset);
 		overflow: hidden;
 	}
 
-	.lumi-drive-file-card__preview :global(.lumi-drive-file-card__image) {
+	.ren-drive-file-card__preview :global(.ren-drive-file-card__image) {
 		width: 100%;
 		height: 100%;
 	}
 
-	.lumi-drive-file-card:hover
-		.lumi-drive-file-card__preview
-		:global(.lumi-drive-file-card__image img) {
-		transform: scale(var(--lumi-card-media-hover-scale));
+	.ren-drive-file-card:hover
+		.ren-drive-file-card__preview
+		:global(.ren-drive-file-card__image img) {
+		transform: scale(var(--ren-card-media-hover-scale));
 	}
 
-	.lumi-drive-file-card__icon-scene {
+	.ren-drive-file-card__icon-scene {
 		width: 100%;
 		height: 100%;
 		display: flex;
@@ -331,54 +331,54 @@
 		justify-content: center;
 	}
 
-	.lumi-drive-file-card__kind {
+	.ren-drive-file-card__kind {
 		position: absolute;
-		left: var(--lumi-space-xs);
-		top: var(--lumi-space-xs);
+		left: var(--ren-space-xs);
+		top: var(--ren-space-xs);
 		display: inline-flex;
 		align-items: center;
-		padding: var(--lumi-space-2xs) var(--lumi-space-xs);
-		border-radius: var(--lumi-radius-full);
-		font-size: var(--lumi-font-size-xs);
-		font-weight: var(--lumi-font-weight-medium);
-		color: var(--lumi-color-text-muted);
-		background: var(--lumi-color-surface-raised);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
+		padding: var(--ren-space-2xs) var(--ren-space-xs);
+		border-radius: var(--ren-radius-full);
+		font-size: var(--ren-font-size-xs);
+		font-weight: var(--ren-font-weight-medium);
+		color: var(--ren-color-text-muted);
+		background: var(--ren-color-surface-raised);
+		border: var(--ren-border-width-thin) solid var(--ren-color-border);
 	}
 
-	.lumi-drive-file-card__tag {
+	.ren-drive-file-card__tag {
 		position: absolute;
-		right: var(--lumi-space-xs);
-		bottom: var(--lumi-space-xs);
-		width: var(--lumi-space-lg);
-		height: var(--lumi-space-lg);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
-		background: var(--lumi-color-surface-raised);
-		border-radius: var(--lumi-radius-full);
+		right: var(--ren-space-xs);
+		bottom: var(--ren-space-xs);
+		width: var(--ren-space-lg);
+		height: var(--ren-space-lg);
+		border: var(--ren-border-width-thin) solid var(--ren-color-border);
+		background: var(--ren-color-surface-raised);
+		border-radius: var(--ren-radius-full);
 		display: flex;
 		align-items: center;
 		justify-content: center;
 	}
 
-	.lumi-drive-file-card__tag-dot {
-		width: var(--lumi-drive-tag-dot-size);
-		height: var(--lumi-drive-tag-dot-size);
-		border-radius: var(--lumi-radius-full);
-		background: var(--drive-tag-color, var(--lumi-color-border));
+	.ren-drive-file-card__tag-dot {
+		width: var(--ren-drive-tag-dot-size);
+		height: var(--ren-drive-tag-dot-size);
+		border-radius: var(--ren-radius-full);
+		background: var(--drive-tag-color, var(--ren-color-border));
 	}
 
-	.lumi-drive-file-card__content {
+	.ren-drive-file-card__content {
 		padding: 0;
 		min-width: 0;
 	}
 
-	.lumi-drive-file-card__name {
+	.ren-drive-file-card__name {
 		width: 100%;
-		font-size: var(--lumi-font-size-sm);
-		font-weight: var(--lumi-font-weight-medium);
-		line-height: var(--lumi-line-height-tight);
-		color: var(--lumi-color-text);
-		min-height: calc(var(--lumi-font-size-sm) * 2.4);
+		font-size: var(--ren-font-size-sm);
+		font-weight: var(--ren-font-weight-medium);
+		line-height: var(--ren-line-height-tight);
+		color: var(--ren-color-text);
+		min-height: calc(var(--ren-font-size-sm) * 2.4);
 		display: -webkit-box;
 		overflow: hidden;
 		overflow-wrap: anywhere;
@@ -387,27 +387,27 @@
 		line-clamp: 2;
 	}
 
-	.lumi-drive-file-card__meta {
+	.ren-drive-file-card__meta {
 		display: flex;
 		align-items: center;
-		gap: var(--lumi-space-2xs);
+		gap: var(--ren-space-2xs);
 	}
 
-	.lumi-drive-file-card__type,
-	.lumi-drive-file-card__size {
-		font-size: var(--lumi-font-size-xs);
-		color: var(--lumi-color-text-muted);
-		letter-spacing: var(--lumi-letter-spacing-wide);
+	.ren-drive-file-card__type,
+	.ren-drive-file-card__size {
+		font-size: var(--ren-font-size-xs);
+		color: var(--ren-color-text-muted);
+		letter-spacing: var(--ren-letter-spacing-wide);
 	}
 
-	.lumi-drive-file-card__separator {
-		font-size: var(--lumi-font-size-xs);
-		color: var(--lumi-color-text-muted);
+	.ren-drive-file-card__separator {
+		font-size: var(--ren-font-size-xs);
+		color: var(--ren-color-text-muted);
 	}
 
 	@media (max-width: 40rem) {
-		.lumi-drive-file-card {
-			--drive-file-card-padding: var(--lumi-drive-file-card-padding-mobile);
+		.ren-drive-file-card {
+			--drive-file-card-padding: var(--ren-drive-file-card-padding-mobile);
 		}
 	}
 </style>

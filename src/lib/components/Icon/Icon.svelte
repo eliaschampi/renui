@@ -4,8 +4,8 @@
 
 	function paint(color: string): string | undefined {
 		if (color === 'inherit') return undefined;
-		if (color === 'muted') return 'var(--lumi-color-text-muted)';
-		return ROLE.test(color) ? `var(--lumi-color-${color})` : color;
+		if (color === 'muted') return 'var(--ren-color-text-muted)';
+		return ROLE.test(color) ? `var(--ren-color-${color})` : color;
 	}
 </script>
 
@@ -27,10 +27,10 @@
 	const style = $derived.by(() => {
 		const tint = paint(color);
 		const length =
-			size === 'md' ? '' : SCALE.test(size) ? `var(--lumi-icon-${size})` : size;
+			size === 'md' ? '' : SCALE.test(size) ? `var(--ren-icon-${size})` : size;
 		const rules = [
-			length && `--lumi-icon-size: ${length}`,
-			tint && `--lumi-icon-color: ${tint}`
+			length && `--ren-icon-size: ${length}`,
+			tint && `--ren-icon-color: ${tint}`
 		].filter(Boolean);
 		return rules.length ? rules.join('; ') : undefined;
 	});
@@ -39,7 +39,7 @@
 {#if Resolved}
 	<!-- Lucide hides the icon unless an aria-* key is present, so spread conditionally. -->
 	<Resolved
-		class={className ? `lumi-icon ${className}` : 'lumi-icon'}
+		class={className ? `ren-icon ${className}` : 'ren-icon'}
 		{style}
 		strokeWidth={stroke}
 		{...ariaLabel ? { role: 'img', 'aria-label': ariaLabel } : {}}

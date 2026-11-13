@@ -1,12 +1,12 @@
 /* Floating surface shared by menus and listboxes; imported by those components.
    Opaque and raised: the page behind never competes with the options on top. */
-@layer lumi.tokens, lumi.base, lumi.components, lumi.layout, lumi.patterns, lumi.utilities;
+@layer ren.tokens, ren.base, ren.components, ren.layout, ren.patterns, ren.utilities;
 
-@layer lumi.components {
-	.lumi-floating {
-		background: var(--lumi-color-surface-raised);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
-		border-radius: var(--lumi-surface-radius);
-		box-shadow: var(--lumi-shadow-md);
+@layer ren.components {
+	.ren-floating {
+		background: var(--ren-color-surface-raised);
+		border: var(--ren-border-width-thin) solid var(--ren-color-border);
+		border-radius: var(--ren-surface-radius);
+		box-shadow: var(--ren-shadow-md);
 	}
 }

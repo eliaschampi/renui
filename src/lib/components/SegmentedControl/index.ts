@@ -1,4 +1,4 @@
-// Lumi UI - SegmentedControl Component
+// RenUI - SegmentedControl Component
 
 export { default as SegmentedControl } from './SegmentedControl.svelte';
 export type {

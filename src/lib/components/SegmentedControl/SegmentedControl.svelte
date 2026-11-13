@@ -7,7 +7,7 @@
 <script lang="ts">
 	import '../../styles/switcher.css';
 	import '../../styles/switcher-group.css';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import Icon from '../Icon/Icon.svelte';
 	import type { SegmentedControlProps } from './types';
 
@@ -28,9 +28,9 @@
 
 	let root: HTMLDivElement | undefined = $state();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 	const uid = $props.id();
-	const name = `lumi-sc-${uid}`;
+	const name = `ren-sc-${uid}`;
 
 	function select(next: string | number): void {
 		value = next;
@@ -49,7 +49,7 @@
 		void value;
 		const track = root;
 		const option = track?.querySelector<HTMLElement>(
-			'.lumi-switcher__option--active'
+			'.ren-switcher__option--active'
 		);
 		if (!track || !option || track.scrollWidth <= track.clientWidth) return;
 		const box = option.getBoundingClientRect();
@@ -63,14 +63,14 @@
 <div
 	bind:this={root}
 	class={[
-		'lumi-switcher',
-		'lumi-segmented-control',
-		size === 'sm' && 'lumi-switcher--sm',
-		orientation === 'vertical' && 'lumi-switcher--vertical',
-		disabled && 'lumi-switcher--disabled',
-		fullWidth && 'lumi-switcher--full',
-		iconOnly && 'lumi-segmented-control--icon-only',
-		`lumi-tone lumi-tone--${color}`,
+		'ren-switcher',
+		'ren-segmented-control',
+		size === 'sm' && 'ren-switcher--sm',
+		orientation === 'vertical' && 'ren-switcher--vertical',
+		disabled && 'ren-switcher--disabled',
+		fullWidth && 'ren-switcher--full',
+		iconOnly && 'ren-segmented-control--icon-only',
+		`ren-tone ren-tone--${color}`,
 		className
 	]}
 	role="radiogroup"
@@ -80,14 +80,14 @@
 	{#each options as option (option.value)}
 		<label
 			class={[
-				'lumi-switcher__option',
-				value === option.value && 'lumi-switcher__option--active',
-				option.disabled && 'lumi-switcher__option--disabled'
+				'ren-switcher__option',
+				value === option.value && 'ren-switcher__option--active',
+				option.disabled && 'ren-switcher__option--disabled'
 			]}
 		>
 			<input
 				type="radio"
-				class="lumi-sr-only"
+				class="ren-sr-only"
 				{name}
 				value={option.value}
 				checked={value === option.value}
@@ -101,24 +101,24 @@
 				<Icon icon={option.icon} size="sm" />
 			{/if}
 			{#if option.label}
-				<span class="lumi-switcher__label">{option.label}</span>
+				<span class="ren-switcher__label">{option.label}</span>
 			{/if}
 		</label>
 	{/each}
 </div>
 
 <style>
-	/* Shell, options and active pill come from the shared .lumi-switcher recipe. */
-	.lumi-segmented-control--icon-only > .lumi-switcher__option {
-		padding: var(--lumi-segmented-control-icon-only-padding);
+	/* Shell, options and active pill come from the shared .ren-switcher recipe. */
+	.ren-segmented-control--icon-only > .ren-switcher__option {
+		padding: var(--ren-segmented-control-icon-only-padding);
 	}
 
 	@media (max-width: 48rem) {
-		.lumi-segmented-control.lumi-switcher--full:not(.lumi-switcher--vertical)
-			> .lumi-switcher__option {
+		.ren-segmented-control.ren-switcher--full:not(.ren-switcher--vertical)
+			> .ren-switcher__option {
 			flex: 1 0 max-content;
 			min-width: max-content;
-			padding: var(--lumi-space-xs) var(--lumi-space-sm);
+			padding: var(--ren-space-xs) var(--ren-space-sm);
 		}
 	}
 </style>

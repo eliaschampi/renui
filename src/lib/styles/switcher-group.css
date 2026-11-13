@@ -1,42 +1,42 @@
 /* What SegmentedControl and ToggleGroup add to the switcher recipe; Tabs needs
    none of it, so it stays out of switcher.css. */
-@layer lumi.tokens, lumi.base, lumi.components, lumi.layout, lumi.patterns, lumi.utilities;
+@layer ren.tokens, ren.base, ren.components, ren.layout, ren.patterns, ren.utilities;
 
-@layer lumi.components {
-	.lumi-switcher--full {
+@layer ren.components {
+	.ren-switcher--full {
 		display: flex;
 		width: 100%;
 	}
 
-	.lumi-switcher--full > .lumi-switcher__option {
+	.ren-switcher--full > .ren-switcher__option {
 		flex: 1 1 0;
 		min-width: 0;
 	}
 
-	.lumi-switcher--disabled {
-		opacity: var(--lumi-opacity-disabled);
+	.ren-switcher--disabled {
+		opacity: var(--ren-opacity-disabled);
 		pointer-events: none;
 	}
 
-	.lumi-switcher--sm > .lumi-switcher__option {
-		min-height: var(--lumi-control-height-xs);
-		padding: var(--lumi-space-2xs) var(--lumi-space-sm);
-		font-size: var(--lumi-font-size-xs);
+	.ren-switcher--sm > .ren-switcher__option {
+		min-height: var(--ren-control-height-xs);
+		padding: var(--ren-space-2xs) var(--ren-space-sm);
+		font-size: var(--ren-font-size-xs);
 	}
 
 	/* Spelled out: an option wrapping a hidden input is not the focused element,
 	   so the shared recipe does not resolve on it. */
-	.lumi-switcher__option:has(> input:focus-visible) {
-		outline: var(--lumi-border-width-thick) solid
+	.ren-switcher__option:has(> input:focus-visible) {
+		outline: var(--ren-border-width-thick) solid
 			color-mix(
 				in srgb,
-				var(--lumi-control-accent) var(--lumi-focus-outline-strength),
+				var(--ren-control-accent) var(--ren-focus-outline-strength),
 				transparent
 			);
-		outline-offset: var(--lumi-focus-outline-offset);
+		outline-offset: var(--ren-focus-outline-offset);
 	}
 
-	.lumi-switcher__label {
+	.ren-switcher__label {
 		max-width: 100%;
 		overflow: hidden;
 		text-overflow: ellipsis;

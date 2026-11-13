@@ -11,7 +11,7 @@
 		type FloatingReference
 	} from '../../utils/floating.svelte';
 	import MenuSurface from '../Dropdown/MenuSurface.svelte';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import type { ContextProps } from './types';
 
 	const {
@@ -23,7 +23,7 @@
 		children
 	}: ContextProps = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 
 	let menuElement: HTMLDivElement | undefined = $state();
 	let surface: MenuSurface | undefined = $state();

@@ -6,7 +6,7 @@
 
 <script lang="ts">
 	import '../../styles/skeleton.css';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import type { ImageProps } from './types';
 
 	const {
@@ -28,7 +28,7 @@
 		onerror
 	}: ImageProps = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 
 	// Keyed by URL so a new `src` starts fresh without an effect. The image is
 	// never hidden while loading: server-rendered pixels paint before hydration.
@@ -38,18 +38,18 @@
 
 <div
 	class={[
-		'lumi-image',
-		ratio && 'lumi-image--ratio',
-		fit === 'contain' && 'lumi-image--contain',
-		zoom && 'lumi-image--zoom',
-		loadedSrc !== src && failedSrc !== src && 'lumi-skeleton',
+		'ren-image',
+		ratio && 'ren-image--ratio',
+		fit === 'contain' && 'ren-image--contain',
+		zoom && 'ren-image--zoom',
+		loadedSrc !== src && failedSrc !== src && 'ren-skeleton',
 		className
 	]}
-	style:--lumi-image-radius={radius === 'lg'
+	style:--ren-image-radius={radius === 'lg'
 		? undefined
 		: radius === 'none'
 			? '0'
-			: `var(--lumi-radius-${radius})`}
+			: `var(--ren-radius-${radius})`}
 	style:aspect-ratio={ratio ??
 		(width && height ? `${width} / ${height}` : undefined)}
 	style:inline-size={width && !ratio ? `${width}px` : undefined}
@@ -57,7 +57,7 @@
 >
 	{#if failedSrc === src}
 		<div
-			class="lumi-image__error"
+			class="ren-image__error"
 			role={alt ? 'img' : undefined}
 			aria-label={alt || undefined}
 		>
@@ -103,19 +103,19 @@
 <style>
 	/* The frame shows the shared skeleton until the image reports load; the
 	   background only applies once loaded (letterboxing for `contain`). */
-	.lumi-image {
+	.ren-image {
 		position: relative;
 		display: inline-block;
 		max-inline-size: 100%;
 		overflow: hidden;
-		border-radius: var(--lumi-image-radius, var(--lumi-radius-lg));
+		border-radius: var(--ren-image-radius, var(--ren-radius-lg));
 	}
 
-	.lumi-image:not(.lumi-skeleton) {
-		background: var(--lumi-color-background-secondary);
+	.ren-image:not(.ren-skeleton) {
+		background: var(--ren-color-background-secondary);
 	}
 
-	.lumi-image--ratio {
+	.ren-image--ratio {
 		display: block;
 		inline-size: 100%;
 	}
@@ -125,33 +125,33 @@
 		inline-size: 100%;
 		block-size: 100%;
 		object-fit: cover;
-		transition: transform var(--lumi-duration-slow) var(--lumi-easing-default);
+		transition: transform var(--ren-duration-slow) var(--ren-easing-default);
 	}
 
-	.lumi-image--contain img {
+	.ren-image--contain img {
 		object-fit: contain;
 	}
 
-	.lumi-image--zoom:hover img {
-		transform: scale(var(--lumi-interactive-zoom-scale));
+	.ren-image--zoom:hover img {
+		transform: scale(var(--ren-interactive-zoom-scale));
 	}
 
-	.lumi-image__error {
+	.ren-image__error {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		gap: var(--lumi-space-xs);
+		gap: var(--ren-space-xs);
 		block-size: 100%;
-		min-block-size: var(--lumi-space-4xl);
-		padding: var(--lumi-space-md);
-		color: var(--lumi-color-text-muted);
-		font-size: var(--lumi-font-size-xs);
+		min-block-size: var(--ren-space-4xl);
+		padding: var(--ren-space-md);
+		color: var(--ren-color-text-muted);
+		font-size: var(--ren-font-size-xs);
 		text-align: center;
 	}
 
-	.lumi-image__error svg {
-		inline-size: var(--lumi-icon-lg);
-		block-size: var(--lumi-icon-lg);
+	.ren-image__error svg {
+		inline-size: var(--ren-icon-lg);
+		block-size: var(--ren-icon-lg);
 	}
 </style>

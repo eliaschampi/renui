@@ -11,15 +11,15 @@
 
 <!-- Always mounted so the live region announces messages as they appear. -->
 <div
-	class="lumi-field-message"
-	class:lumi-field-message--visible={!!text}
+	class="ren-field-message"
+	class:ren-field-message--visible={!!text}
 	aria-live="polite"
 >
 	{#if text}
 		<span
 			{id}
-			class="lumi-field-message__text"
-			class:lumi-field-message__text--error={!!error}
+			class="ren-field-message__text"
+			class:ren-field-message__text--error={!!error}
 		>
 			{text}
 		</span>
@@ -27,31 +27,31 @@
 </div>
 
 <style>
-	.lumi-field-message {
+	.ren-field-message {
 		display: grid;
 		grid-template-rows: 0fr;
 		margin-block-start: 0;
 		overflow: hidden;
 		transition:
-			grid-template-rows var(--lumi-duration-base) var(--lumi-easing-default),
-			margin-block-start var(--lumi-duration-base) var(--lumi-easing-default);
+			grid-template-rows var(--ren-duration-base) var(--ren-easing-default),
+			margin-block-start var(--ren-duration-base) var(--ren-easing-default);
 	}
 
-	.lumi-field-message--visible {
+	.ren-field-message--visible {
 		grid-template-rows: 1fr;
-		margin-block-start: var(--lumi-space-xs);
+		margin-block-start: var(--ren-space-xs);
 	}
 
-	.lumi-field-message__text {
+	.ren-field-message__text {
 		min-height: 0;
 		overflow: hidden;
-		padding-block-start: var(--lumi-space-2xs);
-		font-size: var(--lumi-font-size-xs);
-		color: var(--lumi-color-text-muted);
+		padding-block-start: var(--ren-space-2xs);
+		font-size: var(--ren-font-size-xs);
+		color: var(--ren-color-text-muted);
 	}
 
-	.lumi-field-message__text--error {
-		font-weight: var(--lumi-font-weight-medium);
-		color: var(--lumi-color-danger);
+	.ren-field-message__text--error {
+		font-weight: var(--ren-font-weight-medium);
+		color: var(--ren-color-danger);
 	}
 </style>

@@ -1,8 +1,8 @@
 import type { IconSource } from '../../utils/icons';
 import type { Snippet } from 'svelte';
-import type { LumiColor } from '../config';
+import type { RenColor } from '../config';
 
-export type TabsColor = LumiColor;
+export type TabsColor = RenColor;
 export type TabsOrientation = 'horizontal' | 'vertical';
 
 export interface Tab {

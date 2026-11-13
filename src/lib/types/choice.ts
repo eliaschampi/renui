@@ -1,7 +1,7 @@
 import type { IconSource } from '../utils/icons';
 
 /** One visible choice in an option group (SegmentedControl, ToggleGroup). */
-export interface LumiChoiceOption {
+export interface RenChoiceOption {
 	/** Unique value */
 	value: string | number;
 

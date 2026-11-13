@@ -14,20 +14,20 @@
 	}: SidebarItemProps = $props();
 
 	const classes = $derived([
-		'lumi-sidebar-item lumi-tone',
-		level === 'sub' && 'lumi-sidebar-item--sub',
-		current && 'lumi-sidebar-item--active',
-		collapsed && 'lumi-sidebar-item--collapsed',
+		'ren-sidebar-item ren-tone',
+		level === 'sub' && 'ren-sidebar-item--sub',
+		current && 'ren-sidebar-item--active',
+		collapsed && 'ren-sidebar-item--collapsed',
 		className
 	]);
 </script>
 
 {#snippet content()}
 	{#if icon}
-		<span class="lumi-sidebar-item__icon">{@render icon()}</span>
+		<span class="ren-sidebar-item__icon">{@render icon()}</span>
 	{/if}
 	<!-- Collapsed rails keep the label for assistive tech. -->
-	<span class={collapsed ? 'lumi-sr-only' : 'lumi-sidebar-item__text'}>
+	<span class={collapsed ? 'ren-sr-only' : 'ren-sidebar-item__text'}>
 		{@render children?.()}
 	</span>
 {/snippet}
@@ -54,100 +54,100 @@
 {/if}
 
 <style>
-	.lumi-sidebar-item {
+	.ren-sidebar-item {
 		font: inherit;
-		font-size: var(--lumi-font-size-sm);
-		font-weight: var(--lumi-font-weight-medium);
+		font-size: var(--ren-font-size-sm);
+		font-weight: var(--ren-font-weight-medium);
 		letter-spacing: normal;
 		position: relative;
 		display: flex;
 		align-items: center;
-		gap: var(--lumi-space-md);
-		padding: var(--lumi-space-sm) var(--lumi-space-md);
-		min-height: var(--lumi-sidebar-item-height);
-		border-radius: var(--lumi-radius-control);
-		color: var(--lumi-color-text-muted);
+		gap: var(--ren-space-md);
+		padding: var(--ren-space-sm) var(--ren-space-md);
+		min-height: var(--ren-sidebar-item-height);
+		border-radius: var(--ren-radius-control);
+		color: var(--ren-color-text-muted);
 		text-decoration: none;
 		background: transparent;
 		border: 0;
 		cursor: pointer;
 		text-align: start;
-		transition: var(--lumi-transition-control);
+		transition: var(--ren-transition-control);
 		width: 100%;
 	}
 
-	.lumi-sidebar-item--sub {
-		gap: var(--lumi-space-sm);
-		min-height: var(--lumi-sidebar-subitem-height);
-		padding: var(--lumi-space-xs) var(--lumi-space-sm);
+	.ren-sidebar-item--sub {
+		gap: var(--ren-space-sm);
+		min-height: var(--ren-sidebar-subitem-height);
+		padding: var(--ren-space-xs) var(--ren-space-sm);
 	}
 
 	/* Neutral wash on hover; the current page settles into the soft tone. */
-	.lumi-sidebar-item:hover,
-	.lumi-sidebar-item:focus-visible {
-		color: var(--lumi-color-text);
-		background: var(--lumi-color-hover);
+	.ren-sidebar-item:hover,
+	.ren-sidebar-item:focus-visible {
+		color: var(--ren-color-text);
+		background: var(--ren-color-hover);
 	}
 
-	.lumi-sidebar-item:focus-visible {
-		outline: var(--lumi-focus-outline);
-		outline-offset: var(--lumi-focus-outline-offset);
+	.ren-sidebar-item:focus-visible {
+		outline: var(--ren-focus-outline);
+		outline-offset: var(--ren-focus-outline-offset);
 	}
 
-	.lumi-sidebar-item.lumi-sidebar-item--active {
-		color: var(--lumi-tone-ink);
-		font-weight: var(--lumi-font-weight-semibold);
-		background: var(--lumi-tone-soft);
+	.ren-sidebar-item.ren-sidebar-item--active {
+		color: var(--ren-tone-ink);
+		font-weight: var(--ren-font-weight-semibold);
+		background: var(--ren-tone-soft);
 	}
 
-	.lumi-sidebar-item__icon {
+	.ren-sidebar-item__icon {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		flex-shrink: 0;
-		width: var(--lumi-icon-md);
-		height: var(--lumi-icon-md);
+		width: var(--ren-icon-md);
+		height: var(--ren-icon-md);
 	}
 
-	.lumi-sidebar-item--sub .lumi-sidebar-item__icon {
-		width: var(--lumi-sidebar-subitem-icon-size);
-		height: var(--lumi-sidebar-subitem-icon-size);
-		opacity: var(--lumi-sidebar-subitem-icon-opacity);
+	.ren-sidebar-item--sub .ren-sidebar-item__icon {
+		width: var(--ren-sidebar-subitem-icon-size);
+		height: var(--ren-sidebar-subitem-icon-size);
+		opacity: var(--ren-sidebar-subitem-icon-opacity);
 	}
 
-	.lumi-sidebar-item__text {
+	.ren-sidebar-item__text {
 		flex: 1;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		line-height: var(--lumi-line-height-normal);
+		line-height: var(--ren-line-height-normal);
 	}
 
-	.lumi-sidebar-item :global(.lumi-sidebar-nav-label) {
+	.ren-sidebar-item :global(.ren-sidebar-nav-label) {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		gap: var(--lumi-space-xs);
+		gap: var(--ren-space-xs);
 		width: 100%;
 		min-width: 0;
 	}
 
-	.lumi-sidebar-item :global(.lumi-sidebar-nav-label > span) {
+	.ren-sidebar-item :global(.ren-sidebar-nav-label > span) {
 		min-width: 0;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
 
-	.lumi-sidebar-item--collapsed {
+	.ren-sidebar-item--collapsed {
 		justify-content: center;
-		padding-left: var(--lumi-space-sm);
-		padding-right: var(--lumi-space-sm);
+		padding-left: var(--ren-space-sm);
+		padding-right: var(--ren-space-sm);
 	}
 
 	/* Compact group rails keep the current wash without the link-ink icon. */
-	.lumi-sidebar-item--collapsed.lumi-sidebar-item--active[aria-expanded]
-		.lumi-sidebar-item__icon {
-		color: var(--lumi-color-text);
+	.ren-sidebar-item--collapsed.ren-sidebar-item--active[aria-expanded]
+		.ren-sidebar-item__icon {
+		color: var(--ren-color-text);
 	}
 </style>

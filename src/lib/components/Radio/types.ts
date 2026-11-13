@@ -1,8 +1,8 @@
 import type { Snippet } from 'svelte';
-import type { LumiColor, LumiCompactSize } from '../config';
+import type { RenColor, RenCompactSize } from '../config';
 
-export type RadioSize = LumiCompactSize;
-export type RadioColor = LumiColor;
+export type RadioSize = RenCompactSize;
+export type RadioColor = RenColor;
 
 export interface RadioProps {
 	/** Selected value (bindable) */

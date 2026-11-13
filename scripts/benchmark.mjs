@@ -19,7 +19,7 @@ if (!process.argv[2] || !process.env.PLAYWRIGHT_MODULE) {
 	);
 }
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE);
-const root = realpathSync(mkdtempSync(join(tmpdir(), 'lumi-benchmark-')));
+const root = realpathSync(mkdtempSync(join(tmpdir(), 'ren-benchmark-')));
 const servers = [];
 let browser;
 try {
@@ -32,7 +32,7 @@ try {
 		join(root, 'Fixture.svelte'),
 		`
 <script>
-import { Button, Chip, Card, Progress, Slider } from '@lumi-ui/svelte';
+import { Button, Chip, Card, Progress, Slider } from '@renui/svelte';
 let { value = 25 } = $props();
 const colors = ['primary', 'secondary', 'success', 'warning', 'danger', 'info'];
 </script>
@@ -47,7 +47,7 @@ const colors = ['primary', 'secondary', 'success', 'warning', 'danger', 'info'];
 		`
 import { mount, unmount, flushSync } from 'svelte';
 import Fixture from './Fixture.svelte';
-import '@lumi-ui/styles';
+import '@renui/styles';
 window.measure = async () => {
  const target = document.getElementById('app');
  const start = performance.now();
@@ -74,8 +74,8 @@ window.ready = true;`
 			plugins: [svelte({ configFile: false })],
 			resolve: {
 				alias: {
-					'@lumi-ui/svelte': join(source, 'src/lib/index.ts'),
-					'@lumi-ui/styles': join(source, 'src/lib/styles/index.css')
+					'@renui/svelte': join(source, 'src/lib/index.ts'),
+					'@renui/styles': join(source, 'src/lib/styles/index.css')
 				}
 			},
 			build: { outDir, emptyOutDir: true }

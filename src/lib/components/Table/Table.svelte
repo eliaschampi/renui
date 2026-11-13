@@ -13,7 +13,7 @@
 
 	const SKELETON_ROWS = 3;
 	const INTERACTIVE =
-		'.lumi-table__td--select, button, a, label, input, select, textarea, summary, [role="button"], [role="link"], [contenteditable]:not([contenteditable="false"])';
+		'.ren-table__td--select, button, a, label, input, select, textarea, summary, [role="button"], [role="link"], [contenteditable]:not([contenteditable="false"])';
 
 	/** Whether an event started inside a nested control that owns it. */
 	function fromControl(event: Event): boolean {
@@ -33,7 +33,7 @@
 	import Inbox from '@lucide/svelte/icons/inbox';
 	import Search from '@lucide/svelte/icons/search';
 	import '../../styles/skeleton.css';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import Checkbox from '../Checkbox/Checkbox.svelte';
 	import Icon from '../Icon/Icon.svelte';
 	import Input from '../Input/Input.svelte';
@@ -73,7 +73,7 @@
 		row
 	}: TableProps<TRow> = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 	let query = $state('');
 	let localPage = $state(1);
 
@@ -206,16 +206,16 @@
 
 <div
 	class={[
-		'lumi-table',
-		layout === 'fixed' && 'lumi-table--layout-fixed',
-		compact && 'lumi-table--compact',
-		stripe && 'lumi-table--stripe',
-		hover && 'lumi-table--hover',
+		'ren-table',
+		layout === 'fixed' && 'ren-table--layout-fixed',
+		compact && 'ren-table--compact',
+		stripe && 'ren-table--stripe',
+		hover && 'ren-table--hover',
 		className
 	]}
 >
 	{#if search || header}
-		<div class="lumi-table__header">
+		<div class="ren-table__header">
 			{@render header?.()}
 			{#if search}
 				<Input
@@ -224,20 +224,20 @@
 					size="sm"
 					icon={Search}
 					placeholder={searchPlaceholder ?? i18n.t.search}
-					class="lumi-table__search"
+					class="ren-table__search"
 					oninput={handleSearch}
 				/>
 			{/if}
 		</div>
 	{/if}
 
-	<div class="lumi-table__wrapper" aria-busy={loading || undefined}>
-		<table class="lumi-table__content" aria-label={ariaLabel}>
+	<div class="ren-table__wrapper" aria-busy={loading || undefined}>
+		<table class="ren-table__content" aria-label={ariaLabel}>
 			{#if selectable || thead}
-				<thead class="lumi-table__thead">
+				<thead class="ren-table__thead">
 					<tr>
 						{#if selectable}
-							<th class="lumi-table__th lumi-table__th--select" scope="col">
+							<th class="ren-table__th ren-table__th--select" scope="col">
 								<Checkbox
 									aria-label={i18n.t.tableSelectAll}
 									checked={pageSelected > 0 && pageSelected === rows.length}
@@ -252,7 +252,7 @@
 					</tr>
 				</thead>
 			{/if}
-			<tbody class="lumi-table__tbody">
+			<tbody class="ren-table__tbody">
 				{#if loading}
 					<!-- Skeleton rows render below the table, keeping column widths. -->
 				{:else if data}
@@ -260,9 +260,9 @@
 						{@const checked = isSelected(item)}
 						<tr
 							class={[
-								'lumi-table__row',
-								checked && 'lumi-table__row--selected',
-								primaryAction && 'lumi-table__row--clickable'
+								'ren-table__row',
+								checked && 'ren-table__row--selected',
+								primaryAction && 'ren-table__row--clickable'
 							]}
 							tabindex={keyboardRows ? 0 : undefined}
 							onclick={(event) => {
@@ -279,7 +279,7 @@
 							onkeydown={(event) => handleRowKeydown(event, item, index)}
 						>
 							{#if selectable}
-								<td class="lumi-table__td lumi-table__td--select">
+								<td class="ren-table__td ren-table__td--select">
 									<Checkbox
 										aria-label={i18n.t.tableSelectRow(index + 1)}
 										{checked}
@@ -293,7 +293,7 @@
 							{:else}
 								{#each Object.entries(item) as [field, cell] (field)}
 									{#if field !== 'id' && field !== 'key'}
-										<td class="lumi-table__td">{cell}</td>
+										<td class="ren-table__td">{cell}</td>
 									{/if}
 								{/each}
 							{/if}
@@ -306,16 +306,16 @@
 		</table>
 
 		{#if loading}
-			<div class="lumi-table__loading" role="status">
-				<span class="lumi-sr-only">{i18n.t.loading}</span>
+			<div class="ren-table__loading" role="status">
+				<span class="ren-sr-only">{i18n.t.loading}</span>
 				{#each { length: SKELETON_ROWS }, index (index)}
-					<span class="lumi-skeleton lumi-skeleton--text" aria-hidden="true"
+					<span class="ren-skeleton ren-skeleton--text" aria-hidden="true"
 					></span>
 				{/each}
 			</div>
 		{:else if data && total === 0}
-			<div class="lumi-table__empty" role="status">
-				<span class="lumi-table__empty-icon" aria-hidden="true">
+			<div class="ren-table__empty" role="status">
+				<span class="ren-table__empty-icon" aria-hidden="true">
 					<Icon icon={Inbox} size="xl" />
 				</span>
 				{emptyText}
@@ -324,8 +324,8 @@
 	</div>
 
 	{#if pagination && total > 0}
-		<div class="lumi-table__footer">
-			<span class="lumi-table__range">
+		<div class="ren-table__footer">
+			<span class="ren-table__range">
 				{i18n.t.paginationRange(
 					(page - 1) * pageSize + 1,
 					Math.min(page * pageSize, total),
@@ -337,7 +337,7 @@
 					{page}
 					{pages}
 					disabled={loading}
-					class="lumi-table__pagination"
+					class="ren-table__pagination"
 					onpagechange={goTo}
 				/>
 			{/if}
@@ -346,197 +346,196 @@
 </div>
 
 <style>
-	.lumi-table {
-		--lumi-table-column-main-width: 48%;
-		--lumi-table-column-main-min-width: 10rem;
-		--lumi-table-column-actions-width: calc(
-			var(--lumi-space-6xl) + var(--lumi-space-xl)
+	.ren-table {
+		--ren-table-column-main-width: 48%;
+		--ren-table-column-main-min-width: 10rem;
+		--ren-table-column-actions-width: calc(
+			var(--ren-space-6xl) + var(--ren-space-xl)
 		);
-		--lumi-table-column-compact-width: calc(
-			var(--lumi-space-6xl) + var(--lumi-space-2xs)
+		--ren-table-column-compact-width: calc(
+			var(--ren-space-6xl) + var(--ren-space-2xs)
 		);
-		--lumi-table-cell-padding: var(--lumi-space-md) var(--lumi-space-lg);
-		--lumi-table-cell-font: var(--lumi-font-size-sm);
-		--lumi-table-row-hover: color-mix(
+		--ren-table-cell-padding: var(--ren-space-md) var(--ren-space-lg);
+		--ren-table-cell-font: var(--ren-font-size-sm);
+		--ren-table-row-hover: color-mix(
 			in srgb,
-			var(--lumi-color-text) var(--lumi-state-hover-strength),
-			var(--lumi-color-surface-card)
+			var(--ren-color-text) var(--ren-state-hover-strength),
+			var(--ren-color-surface-card)
 		);
-		--lumi-table-row-selected: var(--lumi-color-primary-bg);
+		--ren-table-row-selected: var(--ren-color-primary-bg);
 		display: flex;
 		flex-direction: column;
-		gap: var(--lumi-space-md);
+		gap: var(--ren-space-md);
 		inline-size: 100%;
 		min-inline-size: 0;
-		font-family: var(--lumi-font-family-sans);
+		font-family: var(--ren-font-family-sans);
 	}
 
-	.lumi-table--compact {
-		--lumi-table-cell-padding: var(--lumi-space-sm) var(--lumi-space-md);
-		--lumi-table-cell-font: var(--lumi-font-size-xs);
+	.ren-table--compact {
+		--ren-table-cell-padding: var(--ren-space-sm) var(--ren-space-md);
+		--ren-table-cell-font: var(--ren-font-size-xs);
 	}
 
 	/* Header toolbar: wraps to a column on its own when space runs out. */
-	.lumi-table__header {
+	.ren-table__header {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
 		justify-content: space-between;
-		gap: var(--lumi-space-md);
+		gap: var(--ren-space-md);
 	}
 
-	.lumi-table__header :global(.lumi-table__search) {
-		flex: 1 1 var(--lumi-min-width-md);
-		max-inline-size: var(--lumi-centered-card-width-sm);
+	.ren-table__header :global(.ren-table__search) {
+		flex: 1 1 var(--ren-min-width-md);
+		max-inline-size: var(--ren-centered-card-width-sm);
 	}
 
-	.lumi-table__wrapper {
+	.ren-table__wrapper {
 		position: relative;
 		inline-size: 100%;
 		overflow-x: auto;
-		background: var(--lumi-color-surface-card);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
-		border-radius: var(--lumi-surface-radius);
-		box-shadow: var(--lumi-shadow-sm);
+		background: var(--ren-color-surface-card);
+		border: var(--ren-border-width-thin) solid var(--ren-color-border);
+		border-radius: var(--ren-surface-radius);
+		box-shadow: var(--ren-shadow-sm);
 	}
 
-	.lumi-table__content {
+	.ren-table__content {
 		inline-size: 100%;
 		border-collapse: collapse;
 	}
 
-	.lumi-table--layout-fixed .lumi-table__content {
+	.ren-table--layout-fixed .ren-table__content {
 		table-layout: fixed;
 		/* Honor column minimums; the wrapper scrolls past 100%. */
 		min-inline-size: max(100%, min-content);
 	}
 
-	.lumi-table--layout-fixed :global(.lumi-table-column--main) {
-		inline-size: var(--lumi-table-column-main-width);
-		min-inline-size: var(--lumi-table-column-main-min-width);
+	.ren-table--layout-fixed :global(.ren-table-column--main) {
+		inline-size: var(--ren-table-column-main-width);
+		min-inline-size: var(--ren-table-column-main-min-width);
 	}
 
-	.lumi-table--layout-fixed :global(th.lumi-table-column--actions) {
-		inline-size: var(--lumi-table-column-actions-width);
+	.ren-table--layout-fixed :global(th.ren-table-column--actions) {
+		inline-size: var(--ren-table-column-actions-width);
 	}
 
-	.lumi-table--layout-fixed :global(th.lumi-table-column--compact) {
-		inline-size: var(--lumi-table-column-compact-width);
+	.ren-table--layout-fixed :global(th.ren-table-column--compact) {
+		inline-size: var(--ren-table-column-compact-width);
 	}
 
-	.lumi-table__thead {
-		background: var(--lumi-color-surface-inset);
-		border-block-end: var(--lumi-border-width-thin) solid
-			var(--lumi-color-border);
+	.ren-table__thead {
+		background: var(--ren-color-surface-inset);
+		border-block-end: var(--ren-border-width-thin) solid var(--ren-color-border);
 	}
 
-	.lumi-table__th,
-	.lumi-table__thead :global(th) {
-		padding: var(--lumi-table-cell-padding);
-		font-size: var(--lumi-font-size-xs);
-		font-weight: var(--lumi-font-weight-semibold);
-		letter-spacing: var(--lumi-letter-spacing-wide);
-		color: var(--lumi-color-text-muted);
+	.ren-table__th,
+	.ren-table__thead :global(th) {
+		padding: var(--ren-table-cell-padding);
+		font-size: var(--ren-font-size-xs);
+		font-weight: var(--ren-font-weight-semibold);
+		letter-spacing: var(--ren-letter-spacing-wide);
+		color: var(--ren-color-text-muted);
 		text-align: start;
 		white-space: nowrap;
 	}
 
-	.lumi-table__td,
-	.lumi-table__tbody :global(td) {
-		padding: var(--lumi-table-cell-padding);
-		font-size: var(--lumi-table-cell-font);
-		color: var(--lumi-color-text);
+	.ren-table__td,
+	.ren-table__tbody :global(td) {
+		padding: var(--ren-table-cell-padding);
+		font-size: var(--ren-table-cell-font);
+		color: var(--ren-color-text);
 		vertical-align: middle;
 	}
 
-	.lumi-table__th--select,
-	.lumi-table__td--select {
-		inline-size: var(--lumi-space-3xl);
-		padding-inline-end: var(--lumi-space-xs);
+	.ren-table__th--select,
+	.ren-table__td--select {
+		inline-size: var(--ren-space-3xl);
+		padding-inline-end: var(--ren-space-xs);
 		text-align: center;
 	}
 
 	/* Rows: hairline separators; neutral wash on hover, soft tone when selected. */
-	.lumi-table__row {
-		border-block-end: var(--lumi-border-width-thin) solid
-			var(--lumi-color-border-light);
-		transition: var(--lumi-transition-control);
+	.ren-table__row {
+		border-block-end: var(--ren-border-width-thin) solid
+			var(--ren-color-border-light);
+		transition: var(--ren-transition-control);
 	}
 
-	.lumi-table__row:last-child {
+	.ren-table__row:last-child {
 		border-block-end: 0;
 	}
 
-	.lumi-table__row--clickable {
+	.ren-table__row--clickable {
 		cursor: pointer;
 	}
 
-	.lumi-table__row:focus-visible {
-		outline: var(--lumi-focus-outline);
-		outline-offset: calc(var(--lumi-border-width-thick) * -1);
+	.ren-table__row:focus-visible {
+		outline: var(--ren-focus-outline);
+		outline-offset: calc(var(--ren-border-width-thick) * -1);
 	}
 
-	.lumi-table--hover .lumi-table__row:hover {
-		background: var(--lumi-table-row-hover);
+	.ren-table--hover .ren-table__row:hover {
+		background: var(--ren-table-row-hover);
 	}
 
-	.lumi-table--stripe .lumi-table__row:nth-child(even) {
+	.ren-table--stripe .ren-table__row:nth-child(even) {
 		background: color-mix(
 			in srgb,
-			var(--lumi-color-text) 4%,
-			var(--lumi-color-surface-card)
+			var(--ren-color-text) 4%,
+			var(--ren-color-surface-card)
 		);
 	}
 
-	.lumi-table .lumi-table__row.lumi-table__row--selected {
-		background: var(--lumi-table-row-selected);
+	.ren-table .ren-table__row.ren-table__row--selected {
+		background: var(--ren-table-row-selected);
 	}
 
-	.lumi-table__loading {
+	.ren-table__loading {
 		display: flex;
 		flex-direction: column;
-		gap: var(--lumi-space-md);
-		padding: var(--lumi-table-cell-padding);
+		gap: var(--ren-space-md);
+		padding: var(--ren-table-cell-padding);
 	}
 
 	/* Empty state */
-	.lumi-table__empty {
+	.ren-table__empty {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: var(--lumi-space-md);
-		padding: var(--lumi-space-4xl) var(--lumi-space-lg);
-		font-size: var(--lumi-font-size-sm);
-		font-weight: var(--lumi-font-weight-medium);
-		color: var(--lumi-color-text-muted);
+		gap: var(--ren-space-md);
+		padding: var(--ren-space-4xl) var(--ren-space-lg);
+		font-size: var(--ren-font-size-sm);
+		font-weight: var(--ren-font-weight-medium);
+		color: var(--ren-color-text-muted);
 	}
 
-	.lumi-table__empty-icon {
+	.ren-table__empty-icon {
 		display: inline-grid;
 		place-items: center;
-		padding: var(--lumi-space-sm);
-		color: var(--lumi-color-primary);
-		background: var(--lumi-color-primary-bg);
-		border-radius: var(--lumi-radius-full);
+		padding: var(--ren-space-sm);
+		color: var(--ren-color-primary);
+		background: var(--ren-color-primary-bg);
+		border-radius: var(--ren-radius-full);
 	}
 
 	/* Footer: range on the start edge, pages on the end edge; wraps naturally. */
-	.lumi-table__footer {
+	.ren-table__footer {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
 		justify-content: space-between;
-		gap: var(--lumi-space-sm) var(--lumi-space-md);
+		gap: var(--ren-space-sm) var(--ren-space-md);
 	}
 
-	.lumi-table__range {
-		font-size: var(--lumi-font-size-xs);
-		color: var(--lumi-color-text-muted);
+	.ren-table__range {
+		font-size: var(--ren-font-size-xs);
+		color: var(--ren-color-text-muted);
 	}
 
 	/* The pagination is an inline-size container, so it has no intrinsic width
 	   for `flex-wrap` to see: the basis is what sends it to its own line. */
-	.lumi-table__footer :global(.lumi-table__pagination) {
+	.ren-table__footer :global(.ren-table__pagination) {
 		flex: 1 1 19rem;
 		inline-size: auto;
 		justify-content: flex-end;

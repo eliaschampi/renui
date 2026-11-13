@@ -1,4 +1,4 @@
-// Lumi UI - Dialog Component
+// RenUI - Dialog Component
 
 export { default as Dialog } from './Dialog.svelte';
 export type { DialogProps, DialogSize } from './types';

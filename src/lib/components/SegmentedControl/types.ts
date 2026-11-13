@@ -1,10 +1,10 @@
-import type { LumiChoiceOption } from '../../types/choice';
-import type { LumiColor, LumiCompactSize } from '../config';
+import type { RenChoiceOption } from '../../types/choice';
+import type { RenColor, RenCompactSize } from '../config';
 
 /** One segment; shares its shape with ToggleGroup options. */
-export type SegmentedControlOption = LumiChoiceOption;
+export type SegmentedControlOption = RenChoiceOption;
 
-export type SegmentedControlColor = LumiColor;
+export type SegmentedControlColor = RenColor;
 
 export interface SegmentedControlProps {
 	/** Selected value (bindable); `''` when cleared */
@@ -13,7 +13,7 @@ export interface SegmentedControlProps {
 	/** Accent of the active segment @default 'primary' */
 	color?: SegmentedControlColor;
 	/** @default 'md' */
-	size?: LumiCompactSize;
+	size?: RenCompactSize;
 	disabled?: boolean;
 	/** Stretch segments across the available width */
 	fullWidth?: boolean;

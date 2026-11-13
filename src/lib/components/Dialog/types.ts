@@ -1,7 +1,7 @@
 import type { Snippet } from 'svelte';
-import type { LumiDisplaySize } from '../config';
+import type { RenDisplaySize } from '../config';
 
-export type DialogSize = LumiDisplaySize;
+export type DialogSize = RenDisplaySize;
 
 export interface DialogProps {
 	/** Visible state (bindable) */

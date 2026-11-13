@@ -13,7 +13,7 @@
 	import { registerModal } from '../../utils/modal';
 	import { Card } from '../Card';
 	import { CloseButton } from '../CloseButton';
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import type { PageSidebarProps } from './types';
 
 	let {
@@ -28,15 +28,13 @@
 		onclose
 	}: PageSidebarProps = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 	// Below the layout breakpoint the sidebar becomes a portaled modal drawer.
 	const mobile = new MediaQuery('max-width: 64rem', false);
 	const title = $derived(mobileTitle ?? i18n.t.pageSidebarTitle);
 	const closeLabel = $derived(mobileAriaLabel ?? i18n.t.pageSidebarClose);
 	const cardClass = $derived(
-		className
-			? `lumi-page-sidebar__card ${className}`
-			: 'lumi-page-sidebar__card'
+		className ? `ren-page-sidebar__card ${className}` : 'ren-page-sidebar__card'
 	);
 	let modalElement: HTMLDivElement | undefined = $state();
 
@@ -52,11 +50,11 @@
 </script>
 
 <aside
-	class="lumi-layout--sidebar-left lumi-page-sidebar__desktop"
+	class="ren-layout--sidebar-left ren-page-sidebar__desktop"
 	data-variant={variant || undefined}
 >
 	<Card spaced class={cardClass}>
-		<div class="lumi-page-sidebar__content">{@render sidebar?.()}</div>
+		<div class="ren-page-sidebar__content">{@render sidebar?.()}</div>
 	</Card>
 </aside>
 
@@ -64,7 +62,7 @@
 	<div
 		use:portal={'body'}
 		bind:this={modalElement}
-		class="lumi-page-sidebar__modal"
+		class="ren-page-sidebar__modal"
 		role="dialog"
 		aria-modal="true"
 		aria-label={title || closeLabel}
@@ -72,23 +70,20 @@
 	>
 		<button
 			type="button"
-			class="lumi-page-sidebar__backdrop"
+			class="ren-page-sidebar__backdrop"
 			onclick={closeMobileSidebar}
 			aria-label={closeLabel}
 			tabindex="-1"
 		></button>
-		<aside
-			class="lumi-page-sidebar__drawer"
-			data-variant={variant || undefined}
-		>
+		<aside class="ren-page-sidebar__drawer" data-variant={variant || undefined}>
 			<Card spaced class={cardClass}>
 				{#if !hideMobileHeader}
-					<div class="lumi-page-sidebar__drawer-header">
-						<p class="lumi-page-sidebar__drawer-title">{title}</p>
+					<div class="ren-page-sidebar__drawer-header">
+						<p class="ren-page-sidebar__drawer-title">{title}</p>
 						<CloseButton label={closeLabel} onclick={closeMobileSidebar} />
 					</div>
 				{/if}
-				<div class="lumi-page-sidebar__content">
+				<div class="ren-page-sidebar__content">
 					{@render (drawer ?? sidebar)?.()}
 				</div>
 			</Card>
@@ -97,7 +92,7 @@
 {/if}
 
 <style>
-	.lumi-page-sidebar__drawer-title {
-		font-weight: var(--lumi-font-weight-semibold);
+	.ren-page-sidebar__drawer-title {
+		font-weight: var(--ren-font-weight-semibold);
 	}
 </style>

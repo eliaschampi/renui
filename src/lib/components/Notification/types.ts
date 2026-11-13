@@ -1,6 +1,6 @@
-import type { LumiColor } from '../config';
+import type { RenColor } from '../config';
 
-export type NotificationColor = Exclude<LumiColor, 'secondary'>;
+export type NotificationColor = Exclude<RenColor, 'secondary'>;
 
 export interface NotificationProps {
 	/** @default "primary" */

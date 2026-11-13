@@ -9,7 +9,7 @@
 </script>
 
 <script lang="ts" generics="TItem">
-	import { useLumiLocale } from '../../i18n';
+	import { useRenLocale } from '../../i18n';
 	import Select from './Select.svelte';
 	import type { SelectOption, SelectProps } from './types';
 
@@ -84,7 +84,7 @@
 		...field
 	}: RemoteSelectProps<TItem> = $props();
 
-	const i18n = useLumiLocale(COPY);
+	const i18n = useRenLocale(COPY);
 	let loading = $state(false);
 	let errorMessage = $state('');
 	let results = $state<TItem[]>([]);
