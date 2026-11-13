@@ -26,7 +26,7 @@
 
 	interface Props {
 		open: boolean;
-		onupload?: (file: File, customName?: string) => Promise<void>;
+		onupload?: (file: File) => Promise<void>;
 		oncomplete?: (summary: {
 			uploaded: number;
 			failed: number;
@@ -70,11 +70,8 @@
 	});
 
 	function closeDialog(): void {
-		if (uploading) {
-			return;
-		}
-
-		resetDialogState();
+		// Dismissal stays available during upload; the queue clears when it settles.
+		if (!uploading) resetDialogState();
 		open = false;
 		onclose?.();
 	}
@@ -131,8 +128,11 @@
 
 		if (failedCount === 0) {
 			resetDialogState();
-			open = false;
-			onclose?.();
+			// A dismissal during upload already called onclose.
+			if (open) {
+				open = false;
+				onclose?.();
+			}
 		}
 	}
 </script>
@@ -142,6 +142,7 @@
 	title={i18n.t.driveUploadTitle}
 	size="md"
 	persistent={uploading}
+	onclose={closeDialog}
 >
 	<div class="lumi-drive-uploader">
 		{#if errorMessage}
@@ -196,7 +197,7 @@
 		gap: var(--lumi-space-md);
 	}
 
-	.lumi-drive-uploader__file-upload :global(.lumi-file-upload__file-list) {
+	.lumi-drive-uploader__file-upload :global(.lumi-file-upload__list) {
 		max-height: var(--lumi-drive-uploader-queue-max-height);
 		overflow-y: auto;
 	}

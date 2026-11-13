@@ -373,6 +373,7 @@
 				type="button"
 				class="lumi-field__button lumi-select__arrow"
 				tabindex="-1"
+				{disabled}
 				aria-label={open ? i18n.t.selectClose : i18n.t.selectOpen}
 				onclick={handleTrigger}
 			>

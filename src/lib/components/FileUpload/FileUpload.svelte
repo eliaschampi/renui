@@ -199,14 +199,15 @@
 						</button>
 					{/if}
 					{#if item.status === 'uploading' || item.status === 'success'}
+						{@const inProgress = item.status === 'uploading'}
 						<span
 							class="lumi-file-upload__progress"
 							style:inline-size="{item.progress}%"
-							role="progressbar"
-							aria-label={item.file.name}
-							aria-valuenow={item.progress}
-							aria-valuemin={0}
-							aria-valuemax={100}
+							role={inProgress ? 'progressbar' : undefined}
+							aria-label={inProgress ? item.file.name : undefined}
+							aria-valuenow={inProgress ? item.progress : undefined}
+							aria-valuemin={inProgress ? 0 : undefined}
+							aria-valuemax={inProgress ? 100 : undefined}
 						></span>
 					{/if}
 				</li>

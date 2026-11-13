@@ -130,17 +130,17 @@ These six are root exports. Pure helpers/types: `@lumi-ui/svelte/drive` — [Gui
 
 Non-component root exports from `@lumi-ui/svelte`. Use these to compose custom UI and keep product code type-safe against the same semantic scales components use.
 
-| Export                                                                                                  | Kind          | Use                                                                                                   |
-| ------------------------------------------------------------------------------------------------------- | ------------- | ----------------------------------------------------------------------------------------------------- |
-| `registerIcons(map)`, `getIcon(name)`, `hasIcon(name)`                                                  | functions     | Opt-in string icon registry (empty by default); curated map: `lumiIcons` from `@lumi-ui/svelte/icons` |
-| `setLumiLocale(options)`, `lumiEn`, `lumiEs`                                                            | i18n          | Built-in copy and `Intl` locale/currency/time zone through context (English default)                  |
-| `formatNumber`, `formatDate`, `getInitials`                                                             | functions     | Cached, pure formatters and initials helper used by components                                        |
-| `createToaster(options)`                                                                                | factory       | Explicit toast queue for `Toaster`                                                                    |
-| `portal`                                                                                                | Svelte action | `use:portal={'css-selector'}` or `use:portal={element}`; default target is `document.body`            |
-| `LumiColor`, `LumiChoiceOption`                                                                         | type          | `'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger' \| 'info'`                            |
-| `LumiSize`, `LumiCompactSize`, `LumiControlSize`, `LumiDisplaySize`, `LumiExtendedSize`, `LumiIconSize` | types         | Semantic size unions consumed by component `size` props                                               |
-| `ChartColor`, `ChartSeriesPoint`, `ChartValueFormat`                                                    | types         | Chart data contracts shared with `DashboardChart`                                                     |
-| `FieldError`                                                                                            | type          | `error` prop of `Input`, `Textarea`, `Select`, `NumberInput`: `true` or a message                     |
+| Export                                                                                  | Kind          | Use                                                                                                   |
+| --------------------------------------------------------------------------------------- | ------------- | ----------------------------------------------------------------------------------------------------- |
+| `registerIcons(map)`, `getIcon(name)`, `hasIcon(name)`                                  | functions     | Opt-in string icon registry (empty by default); curated map: `lumiIcons` from `@lumi-ui/svelte/icons` |
+| `setLumiLocale(options)`, `lumiEn`, `lumiEs`                                            | i18n          | Built-in copy and `Intl` locale/currency/time zone through context (English default)                  |
+| `formatNumber`, `formatDate`, `getInitials`                                             | functions     | Cached, pure formatters and initials helper used by components                                        |
+| `createToaster(options)`                                                                | factory       | Explicit toast queue for `Toaster`                                                                    |
+| `portal`                                                                                | Svelte action | `use:portal={'css-selector'}` or `use:portal={element}`; default target is `document.body`            |
+| `LumiColor`, `LumiChoiceOption`                                                         | type          | `'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger' \| 'info'`                            |
+| `LumiSize`, `LumiCompactSize`, `LumiControlSize`, `LumiDisplaySize`, `LumiExtendedSize` | types         | Semantic size unions consumed by component `size` props                                               |
+| `ChartColor`, `ChartSeriesPoint`, `ChartValueFormat`                                    | types         | Chart data contracts shared with `DashboardChart`                                                     |
+| `FieldError`                                                                            | type          | `error` prop of `Input`, `Textarea`, `Select`, `NumberInput`: `true` or a message                     |
 
 Contracts: [`config.ts`](../src/lib/components/config.ts), [`portal.ts`](../src/lib/actions/portal.ts), [`icons.ts`](../src/lib/utils/icons.ts), [`i18n`](../src/lib/i18n/index.ts), [`format.ts`](../src/lib/utils/format.ts), [`charts.ts`](../src/lib/types/charts.ts).
 

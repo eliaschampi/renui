@@ -144,4 +144,10 @@
 		padding-left: var(--lumi-space-sm);
 		padding-right: var(--lumi-space-sm);
 	}
+
+	/* Compact group rails keep the current wash without the link-ink icon. */
+	.lumi-sidebar-item--collapsed.lumi-sidebar-item--active[aria-expanded]
+		.lumi-sidebar-item__icon {
+		color: var(--lumi-color-text);
+	}
 </style>

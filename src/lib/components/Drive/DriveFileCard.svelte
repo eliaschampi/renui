@@ -174,6 +174,7 @@
 
 	function handleKeydown(event: KeyboardEvent) {
 		if (event.key === 'Enter') {
+			event.preventDefault();
 			handleDblClick();
 		}
 	}
@@ -182,6 +183,7 @@
 <button
 	type="button"
 	class={cardClasses}
+	aria-pressed={selected}
 	draggable={!isTrash}
 	onclick={handleClick}
 	ondblclick={handleDblClick}

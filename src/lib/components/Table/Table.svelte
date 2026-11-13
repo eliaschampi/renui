@@ -125,7 +125,6 @@
 
 	const primaryAction = $derived(onrowclick ?? onrowdblclick);
 	const keyboardRows = $derived(!!primaryAction || !!onrowcontextmenu);
-	const showSelection = $derived(selectable || selected.length > 0);
 	const emptyText = $derived(
 		search && query.trim()
 			? (noResultsText ?? i18n.t.noResults)
@@ -266,7 +265,6 @@
 								primaryAction && 'lumi-table__row--clickable'
 							]}
 							tabindex={keyboardRows ? 0 : undefined}
-							aria-selected={showSelection ? checked : undefined}
 							onclick={(event) => {
 								if (!event.defaultPrevented && !fromControl(event)) {
 									onrowclick?.(item, index);

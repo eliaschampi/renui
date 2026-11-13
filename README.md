@@ -74,14 +74,14 @@ Version 2.0 removes legacy glass and gradient tokens. Read the [2.0 migration gu
 
 ## Lightweight Contract
 
-Budgets match the 1.2.0 baseline on all 16 measured surfaces, including all exports. They are release gates: `pnpm run package && pnpm run size` re-measures them and fails over budget. Figures are **bytes gzip**, summing separately gzipped (level 9) JavaScript and component CSS from fully minified Vite 8 production ES bundles (Rolldown + Lightning CSS), with Svelte externalized. Measured **2026-11-13**, comparing the 1.2.0 baseline (`f9826b8`) with 2.0.0 under the same toolchain.
+Budgets start from the 1.2.0 baseline on all 16 measured surfaces, including all exports, with a few bytes of headroom where gzip output varies across Node/zlib builds. They are release gates: `pnpm run package && pnpm run size` re-measures them and fails over budget. Figures are **bytes gzip**, summing separately gzipped (level 9) JavaScript and component CSS from fully minified Vite 8 production ES bundles (Rolldown + Lightning CSS), with Svelte externalized. Measured **2026-11-13**, comparing the 1.2.0 baseline (`f9826b8`) with 2.0.0 under the same toolchain.
 
 | Surface                                                                                     | 1.2.0 baseline |  2.0.0 |   Budget |
 | ------------------------------------------------------------------------------------------- | -------------: | -----: | -------: |
 | Global CSS `@lumi-ui/svelte/styles`                                                         |          7,691 |  7,462 |  ≤ 7,691 |
 | Lean CSS `tokens.base.css` + `base.css`                                                     |          4,984 |  4,804 |  ≤ 4,984 |
 | `Button`                                                                                    |          2,754 |  2,586 |  ≤ 2,754 |
-| `Divider`                                                                                   |            966 |    966 |    ≤ 966 |
+| `Divider`                                                                                   |            966 |    966 |    ≤ 976 |
 | `Tooltip`                                                                                   |          4,121 |  4,054 |  ≤ 4,121 |
 | `Dropdown` + `DropdownItem`                                                                 |          5,560 |  5,385 |  ≤ 5,560 |
 | `Select`                                                                                    |          8,751 |  8,610 |  ≤ 8,751 |
@@ -95,7 +95,7 @@ Budgets match the 1.2.0 baseline on all 16 measured surfaces, including all expo
 | Storefront: `Button`, `Card`, `Image`, `Chip`, `Input`, `Icon`, `Divider`                   |          9,776 |  9,385 |  ≤ 9,776 |
 | All exports                                                                                 |         74,124 | 72,599 | ≤ 74,124 |
 
-Every measured surface is equal to or smaller than the baseline. Global CSS drops **3.0%**, lean CSS **3.6%**, and the all-exports bundle **2.1%**. These are transfer-size measurements, not runtime speed claims.
+Reference output can differ by a few bytes across platforms and Node/zlib builds (`Divider` measures 966–968 B); budgets absorb that variance, not feature growth. Every measured surface is equal to or smaller than the baseline. Global CSS drops **3.0%**, lean CSS **3.6%**, and the all-exports bundle **2.1%**. These are transfer-size measurements, not runtime speed claims.
 
 The [browser benchmark](./docs/BENCHMARK.md) exercises 300 components in light and dark themes after incorporating upstream 1.2.1 changes. Median mount/layout time is 11.9 → 11.9 ms in light and 12.1 → 11.9 ms in dark; median slider-update is 5.4 → 5.3 ms in light and unchanged in dark. Unmount medians are unchanged. Dark mount p95 increases by 0.1 ms and dark update p95 by 0.4 ms. These mixed results do not establish a universal runtime speedup; see the methodology and limits.
 

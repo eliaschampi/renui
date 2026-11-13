@@ -23,12 +23,14 @@
 
 <nav class={['lumi-navbar', className]}>
 	<div class="lumi-navbar__left">
-		<Button
-			variant="ghost"
-			icon={Menu}
-			aria-label={i18n.t.sidebarToggle}
-			onclick={ontogglesidebar}
-		/>
+		{#if ontogglesidebar}
+			<Button
+				variant="ghost"
+				icon={Menu}
+				aria-label={i18n.t.sidebarToggle}
+				onclick={ontogglesidebar}
+			/>
+		{/if}
 		{#if title}
 			<div class="lumi-navbar__title">{@render title()}</div>
 		{/if}

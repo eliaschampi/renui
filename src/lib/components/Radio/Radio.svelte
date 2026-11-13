@@ -55,7 +55,9 @@
 		disabled={disabled || busy}
 		{required}
 		aria-label={ariaLabel}
-		aria-labelledby={description && !ariaLabel ? labelId : undefined}
+		aria-labelledby={description && !ariaLabel && (label || children)
+			? labelId
+			: undefined}
 		aria-describedby={description ? descriptionId : undefined}
 		onchange={handleChange}
 	/>

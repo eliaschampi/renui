@@ -217,6 +217,13 @@
 		}
 	}
 
+	/* The timer still dismisses; the beam cannot animate truthfully in 1ms. */
+	@media (prefers-reduced-motion: reduce) {
+		.lumi-status--timed::after {
+			display: none;
+		}
+	}
+
 	@media (max-width: 48rem) {
 		.lumi-status--floating {
 			inline-size: 100%;

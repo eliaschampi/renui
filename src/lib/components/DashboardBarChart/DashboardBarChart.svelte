@@ -92,6 +92,7 @@
 		const bounds = (
 			event.currentTarget as SVGRectElement
 		).getBoundingClientRect();
+		if (!bounds.width) return;
 		const index = Math.min(
 			data.length - 1,
 			Math.max(

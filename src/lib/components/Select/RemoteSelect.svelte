@@ -144,6 +144,8 @@
 
 	async function search(text: string): Promise<void> {
 		const controller = (request = new AbortController());
+		const isCurrent = () =>
+			request === controller && !controller.signal.aborted;
 		const params = new URLSearchParams();
 		for (const [key, entry] of Object.entries({
 			...getSearchParams?.(),
@@ -161,17 +163,18 @@
 				message?: unknown;
 				items?: TItem[];
 			};
+			if (!isCurrent()) return;
 			if (!response.ok) {
 				// Only a server-provided message is user-facing copy.
 				fail(typeof payload.message === 'string' ? payload.message : '');
-			} else if (text === query) {
+			} else {
 				results = payload.items ?? [];
 			}
 		} catch {
 			// Network and parse failures never surface their raw text.
-			if (!controller.signal.aborted) fail('');
+			if (isCurrent()) fail('');
 		} finally {
-			if (!controller.signal.aborted) loading = false;
+			if (isCurrent()) loading = false;
 		}
 	}
 
