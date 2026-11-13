@@ -27,9 +27,9 @@
 		size !== 'md' && `lumi-collapse--${size}`,
 		open && 'lumi-collapse--open',
 		disabled && 'lumi-collapse--disabled',
+		`lumi-tone lumi-tone--${color}`,
 		className
 	]}
-	style:--lumi-control-accent="var(--lumi-color-{color})"
 >
 	<button
 		type="button"
@@ -73,10 +73,9 @@
 		isolation: isolate;
 		margin-block-end: var(--lumi-space-sm);
 		overflow: hidden;
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border-glass);
+		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
 		border-radius: var(--lumi-surface-radius);
-		background:
-			var(--lumi-gradient-subtle), var(--lumi-color-surface-glass-strong);
+		background: var(--lumi-color-surface-raised);
 		box-shadow: var(--lumi-shadow-sm);
 		transition: var(--lumi-transition-control);
 	}
@@ -93,17 +92,6 @@
 		--collapse-min-height: var(--lumi-control-height-xl);
 		--collapse-title-size: var(--lumi-font-size-lg);
 		--collapse-body-padding: var(--lumi-space-xl);
-	}
-
-	.lumi-collapse::before {
-		content: '';
-		position: absolute;
-		inset: 0;
-		z-index: -1;
-		border-radius: inherit;
-		background: var(--lumi-gradient-card-sheen);
-		opacity: var(--lumi-card-sheen-opacity);
-		pointer-events: none;
 	}
 
 	.lumi-collapse:hover:not(.lumi-collapse--disabled, .lumi-collapse--open) {
@@ -142,11 +130,7 @@
 
 	.lumi-collapse__trigger:hover,
 	.lumi-collapse__trigger:focus-visible {
-		background: color-mix(
-			in srgb,
-			var(--lumi-color-surface-glass) 55%,
-			transparent
-		);
+		background: var(--lumi-color-hover);
 	}
 
 	.lumi-collapse__trigger:focus-visible {
@@ -186,7 +170,7 @@
 
 	.lumi-collapse--open .lumi-collapse__content {
 		grid-template-rows: 1fr;
-		border-block-start-color: var(--lumi-color-border-glass);
+		border-block-start-color: var(--lumi-color-border);
 	}
 
 	.lumi-collapse__clip {

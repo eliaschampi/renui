@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Check from '@lucide/svelte/icons/check';
 	import Minus from '@lucide/svelte/icons/minus';
-	import { solidAccent } from '../config';
 	import type { CheckboxProps } from './types';
 
 	let {
@@ -34,9 +33,9 @@
 		`lumi-checkbox--${size}`,
 		(checked || indeterminate) && 'lumi-checkbox--checked',
 		disabled && 'lumi-checkbox--disabled',
+		`lumi-tone lumi-tone--${color}`,
 		className
 	]}
-	style={solidAccent(color)}
 >
 	<input
 		type="checkbox"
@@ -83,9 +82,6 @@
 		--checkbox-icon-size: var(--lumi-icon-sm);
 		--checkbox-label-size: var(--lumi-font-size-base);
 		--checkbox-radius: var(--lumi-radius-xs);
-		--lumi-control-accent: var(--lumi-color-primary);
-		--lumi-control-solid: var(--lumi-color-primary-solid);
-		--lumi-control-foreground: var(--lumi-color-primary-foreground);
 		position: relative;
 		display: inline-flex;
 		align-items: center;

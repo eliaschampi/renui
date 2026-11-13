@@ -77,9 +77,9 @@
 		vertical && 'lumi-switcher--vertical',
 		fullWidth && 'lumi-switcher--full',
 		disabled && 'lumi-switcher--disabled',
+		`lumi-tone lumi-tone--${color}`,
 		className
 	]}
-	style:--lumi-control-accent="var(--lumi-color-{color})"
 	role="group"
 	aria-label={ariaLabel || i18n.t.options}
 >

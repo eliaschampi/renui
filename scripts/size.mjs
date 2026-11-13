@@ -1,5 +1,6 @@
 // Re-measures the Lightweight Contract in README.md and fails over budget:
 //   pnpm run package && pnpm run size
+// Caps are the measured 1.2.0 baseline, including the full export surface.
 // Fully minified Vite production ES bundles (Rolldown + Lightning CSS) with
 // Svelte external; JavaScript and CSS gzip (level 9) separately, then sum.
 import {
@@ -20,22 +21,22 @@ const named = (...names) =>
 	`export { ${names.join(', ')} } from '@lumi-ui/svelte';`;
 
 const CSS = [
-	['Global CSS (`/styles`)', ['index.css'], 7_800],
-	['Lean CSS (`tokens.base` + `base`)', ['tokens.base.css', 'base.css'], 5_100]
+	['Global CSS (`/styles`)', ['index.css'], 7_691],
+	['Lean CSS (`tokens.base` + `base`)', ['tokens.base.css', 'base.css'], 4_984]
 ];
 
 const BUNDLES = [
-	['Button', named('Button'), 3_000],
-	['Divider', named('Divider'), 1_000],
-	['Tooltip', named('Tooltip'), 4_300],
-	['Dropdown', named('Dropdown', 'DropdownItem'), 5_800],
-	['Select', named('Select'), 9_000],
-	['Tabs', named('Tabs'), 3_500],
-	['SegmentedControl', named('SegmentedControl'), 3_500],
-	['ToggleGroup', named('ToggleGroup'), 3_500],
-	['Skeleton', named('Skeleton'), 3_500],
-	['Message', named('Message'), 3_500],
-	['MessageList', named('MessageList'), 3_500],
+	['Button', named('Button'), 2_754],
+	['Divider', named('Divider'), 966],
+	['Tooltip', named('Tooltip'), 4_121],
+	['Dropdown', named('Dropdown', 'DropdownItem'), 5_560],
+	['Select', named('Select'), 8_751],
+	['Tabs', named('Tabs'), 3_197],
+	['SegmentedControl', named('SegmentedControl'), 2_872],
+	['ToggleGroup', named('ToggleGroup'), 3_021],
+	['Skeleton', named('Skeleton'), 1_089],
+	['Message', named('Message'), 1_585],
+	['MessageList', named('MessageList'), 3_070],
 	[
 		'Form and table set',
 		named(
@@ -47,14 +48,14 @@ const BUNDLES = [
 			'Input',
 			'Table'
 		),
-		15_500
+		15_156
 	],
 	[
 		'Storefront set',
 		named('Button', 'Card', 'Image', 'Chip', 'Input', 'Icon', 'Divider'),
-		10_000
+		9_776
 	],
-	['All exports', `export * from '@lumi-ui/svelte';`, Infinity]
+	['All exports', `export * from '@lumi-ui/svelte';`, 74_124]
 ];
 
 const gzip = (path) => gzipSync(readFileSync(path), { level: 9 }).length;

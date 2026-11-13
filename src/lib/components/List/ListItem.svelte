@@ -163,11 +163,7 @@
 	}
 
 	.lumi-list-item--interactive:hover {
-		background: color-mix(
-			in srgb,
-			var(--lumi-list-item-accent) var(--lumi-state-hover-strength),
-			transparent
-		);
+		background: var(--lumi-color-hover);
 		transform: translateY(var(--lumi-interactive-lift));
 	}
 
@@ -181,23 +177,8 @@
 
 	.lumi-list-item--selected,
 	.lumi-list-item--selected:hover {
-		background: color-mix(
-			in srgb,
-			var(--lumi-list-item-accent) var(--lumi-state-bg-strength),
-			transparent
-		);
-		box-shadow: var(--lumi-shadow-sm);
+		background: var(--lumi-tone-soft, var(--lumi-color-primary-bg));
 		transform: none;
-	}
-
-	.lumi-list-item--selected::before {
-		content: '';
-		position: absolute;
-		inset-block: var(--lumi-space-xs);
-		inset-inline-start: var(--lumi-space-2xs);
-		inline-size: var(--lumi-border-width-thick);
-		border-radius: var(--lumi-radius-full);
-		background: var(--lumi-list-item-accent);
 	}
 
 	.lumi-list-item--selected .lumi-list-item__title {

@@ -209,7 +209,7 @@ oninput?: (event: Event) => void;
 
 ```css
 /* good */
-background: var(--lumi-gradient-card);
+background: var(--lumi-color-surface-card);
 box-shadow: var(--lumi-shadow-md);
 padding: var(--lumi-space-md);
 color: var(--lumi-color-text);
@@ -223,7 +223,7 @@ color: #0b1220;
 
 ### Dynamic color via CSS variables
 
-Prefer setting accent vars from the semantic `color` prop (see Button `styleVars` pattern) instead of generating huge modifier matrices for every color.
+Use `.lumi-tone` plus `.lumi-tone--{color}` from the semantic `color` prop (see Button). The base recipe owns accent, solid, foreground, soft, strong, ink and beam roles. Reapply `.lumi-tone` on a nested element that changes accent so its derived roles resolve locally.
 
 ### Background/foreground contract
 
@@ -325,17 +325,17 @@ When adding a new control, **side-by-side with Input** at the sizes that control
 
 One role → one CSS recipe. Match the nearest peer; do not invent a second shell, spinner, or tile.
 
-| Role                  | Peers                                    | Recipe (tokens only)                                                                                                                                                                                                                                                                                   |
-| --------------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Field / binary active | Input, Checkbox, Radio, Switch           | Control fill/border; active via `--lumi-control-active-*`; field focus via `--lumi-control-focus-shadow`                                                                                                                                                                                               |
-| Switcher              | Tabs, SegmentedControl, ToggleGroup      | `styles/switcher.css` (+ `switcher-group.css` for SegmentedControl and ToggleGroup): glass shell (`surface-glass-strong` + `background-hover`, glass/strong border, `--lumi-control-shadow`); hover tint (no lift); elevated **active pill** (surface-card gradient + quiet shadow). Not control-fill. |
-| Spinner               | Button, Select, Table, Loading           | Global `.lumi-spinner` (base.css): `currentColor` 18% track + solid arc, `--lumi-duration-spin`; reduced motion handled globally                                                                                                                                                                       |
-| Skeleton              | Skeleton, Image, Table loading           | `styles/skeleton.css`: `.lumi-skeleton` (+ `--text`, `--rect`, `--circle`); decorative, the loading region carries `aria-busy`                                                                                                                                                                         |
-| Floating surface      | Dropdown, Context, Select                | `styles/floating.css`: `.lumi-floating` frosted glass                                                                                                                                                                                                                                                  |
-| Row tint              | Menu items, options, list and table rows | `--lumi-state-hover-strength` on hover, `--lumi-state-bg-strength` when selected                                                                                                                                                                                                                       |
-| Field shell           | Input, NumberInput, Select, Textarea     | `Field/field.css` (`.lumi-field*`, layer `lumi.components`) with `FieldLabel` / `FieldMessage`                                                                                                                                                                                                         |
-| Icon tile             | IconBadge, InfoItem icon                 | 12% accent fill, 20% accent border, `--lumi-radius-lg`, 30% top sheen; IconBadge may keep `--lumi-shadow-sm` as a free-standing tile                                                                                                                                                                   |
-| Affordance focus      | Chip close/action, list/menu items, tabs | `--lumi-focus-outline` + offset; set `--lumi-control-accent` on the root                                                                                                                                                                                                                               |
+| Role                  | Peers                                    | Recipe (tokens only)                                                                                                                                                                                                                          |
+| --------------------- | ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Field / binary active | Input, Checkbox, Radio, Switch           | Control fill/border; active via `--lumi-control-active-*`; field focus via `--lumi-control-focus-shadow`                                                                                                                                      |
+| Switcher              | Tabs, SegmentedControl, ToggleGroup      | `styles/switcher.css` (+ `switcher-group.css` for SegmentedControl and ToggleGroup): recessed track (`surface-inset`, light border, `--lumi-control-shadow`); neutral hover (no lift); raised **active pill** with tone ink and quiet shadow. |
+| Spinner               | Button, Select, Table, Loading           | Global `.lumi-spinner` (base.css): `currentColor` 18% track + solid arc, `--lumi-duration-spin`; reduced motion handled globally                                                                                                              |
+| Skeleton              | Skeleton, Image, Table loading           | `styles/skeleton.css`: `.lumi-skeleton` (+ `--text`, `--rect`, `--circle`); decorative, the loading region carries `aria-busy`                                                                                                                |
+| Floating surface      | Dropdown, Context, Select                | `styles/floating.css`: `.lumi-floating` opaque raised surface                                                                                                                                                                                 |
+| Row tint              | Menu items, options, list and table rows | Neutral `--lumi-color-hover` on hover; `--lumi-tone-soft` / `--lumi-tone-strong` when selected                                                                                                                                                |
+| Field shell           | Input, NumberInput, Select, Textarea     | `Field/field.css` (`.lumi-field*`, layer `lumi.components`) with `FieldLabel` / `FieldMessage`                                                                                                                                                |
+| Icon tile             | IconBadge, InfoItem icon                 | 12% accent fill, 20% accent border, `--lumi-radius-lg`, 30% top sheen; IconBadge may keep `--lumi-shadow-sm` as a free-standing tile                                                                                                          |
+| Affordance focus      | Chip close/action, list/menu items, tabs | `--lumi-focus-outline` + offset; set `--lumi-control-accent` on the root                                                                                                                                                                      |
 
 Surface roles: [GUIDE §6](./GUIDE.md#6-design-language).
 
@@ -375,14 +375,14 @@ Release command sequence: [GUIDE §8](./GUIDE.md#8-release-verification).
 
 Rate 1–5. Ship only if each ≥ 4.
 
-| Dimension       | 5 means                                        |
-| --------------- | ---------------------------------------------- |
-| **Beauty**      | Calm glass; no visual noise; aligns with peers |
-| **Minimalism**  | Smallest API that solves the job               |
-| **Consistency** | Props, sizes, tokens, BEM match the system     |
-| **Reuse**       | Works in any product without domain forks      |
-| **A11y**        | Keyboard + SR + focus are correct              |
-| **Code**        | Typed, Runes, relative imports, no hacks       |
+| Dimension       | 5 means                                            |
+| --------------- | -------------------------------------------------- |
+| **Beauty**      | Lumen surfaces; no visual noise; aligns with peers |
+| **Minimalism**  | Smallest API that solves the job                   |
+| **Consistency** | Props, sizes, tokens, BEM match the system         |
+| **Reuse**       | Works in any product without domain forks          |
+| **A11y**        | Keyboard + SR + focus are correct                  |
+| **Code**        | Typed, Runes, relative imports, no hacks           |
 
 ---
 

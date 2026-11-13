@@ -109,9 +109,9 @@ Check both themes before adopting:
 - Filled text is at least 4.5:1 against every solid and gradient stop.
 - Required icons, thumbs, checks, focus rings, and borders are at least 3:1.
 - Hover/active states do not change to an unpaired background.
-- Neutral `.lumi-bg--surface`, `--control`, `--background`, and `--glass` utilities restore neutral ink inside a solid ancestor.
+- Neutral `.lumi-bg--surface`, `--control`, `--background`, and `--glass` utilities restore neutral ink inside a solid ancestor. The legacy `--glass` class now uses an opaque surface.
 
-`--lumi-color-canvas` and `--lumi-color-neutral` are the optional page/ink seeds. When overriding them, calibrate both `:root` and `[data-theme='dark']`; base backgrounds and Cards derive from the neutral surface ladder, while the app canvas may add restrained brand accents.
+`--lumi-color-canvas` and `--lumi-color-neutral` are the optional page/ink seeds. When overriding them, calibrate both `:root` and `[data-theme='dark']`; base backgrounds and Cards derive from the neutral surface ladder, while the default canvas follows the primary hue at low chroma.
 
 ### Color-scheme controller (optional dark/light)
 
@@ -158,7 +158,7 @@ One controller per app. CSP: authorize the inline script hash or use `createColo
 	gap: var(--lumi-space-md); /* spacing: 2xs…6xl */
 	border-radius: var(
 		--lumi-radius-xl
-	); /* or --lumi-control-radius, --lumi-surface-radius */
+	); /* or --lumi-radius-control, --lumi-surface-radius */
 	box-shadow: var(--lumi-shadow-md);
 	color: var(
 		--lumi-color-text

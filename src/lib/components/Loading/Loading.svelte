@@ -20,8 +20,12 @@
 </script>
 
 <div
-	class={['lumi-loading', size !== 'md' && `lumi-loading--${size}`, className]}
-	style:--lumi-control-accent="var(--lumi-color-{color})"
+	class={[
+		'lumi-loading',
+		size !== 'md' && `lumi-loading--${size}`,
+		`lumi-tone lumi-tone--${color}`,
+		className
+	]}
 	role="status"
 	aria-label={text || children ? undefined : i18n.t.loading}
 >

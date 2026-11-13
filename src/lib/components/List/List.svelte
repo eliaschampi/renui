@@ -17,9 +17,9 @@
 		'lumi-list',
 		size === 'sm' && 'lumi-list--sm',
 		maxHeight && `lumi-list--max-${maxHeight}`,
+		color && `lumi-tone lumi-tone--${color}`,
 		className
 	]}
-	style:--lumi-control-accent={color && `var(--lumi-color-${color})`}
 	role="list"
 	inert={disabled || undefined}
 >
@@ -36,12 +36,8 @@
 		inline-size: 100%;
 		padding: var(--lumi-space-xs);
 		list-style: none;
-		background: color-mix(
-			in srgb,
-			var(--lumi-color-surface-glass-strong) 78%,
-			var(--lumi-color-background-hover) 22%
-		);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border-glass);
+		background: var(--lumi-color-surface-inset);
+		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
 		border-radius: var(--lumi-surface-radius);
 	}
 

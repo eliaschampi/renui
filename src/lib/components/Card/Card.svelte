@@ -113,7 +113,10 @@
 
 <style>
 	.lumi-card {
-		--lumi-surface-bg: var(--lumi-card-surface-bg, var(--lumi-gradient-card));
+		--lumi-surface-bg: var(
+			--lumi-card-surface-bg,
+			var(--lumi-color-surface-card)
+		);
 		--lumi-surface-shadow: var(
 			--lumi-card-surface-shadow,
 			var(--lumi-shadow-sm)
@@ -132,17 +135,6 @@
 		text-decoration: none;
 		padding: 0;
 		isolation: isolate;
-	}
-
-	.lumi-card::before {
-		content: '';
-		position: absolute;
-		inset: 0;
-		border-radius: inherit;
-		pointer-events: none;
-		background: var(--lumi-gradient-card-sheen);
-		opacity: var(--lumi-card-sheen-opacity);
-		z-index: 0;
 	}
 
 	.lumi-card > * {
@@ -166,7 +158,7 @@
 	.lumi-card--hoverable:hover {
 		transform: translateY(var(--lumi-interactive-lift));
 		border-color: var(--lumi-color-border-interactive);
-		background: var(--lumi-gradient-card-hover);
+		background: var(--lumi-color-surface-card-hover);
 		box-shadow: var(--lumi-shadow-md);
 	}
 
@@ -204,8 +196,7 @@
 		flex-shrink: 0;
 		position: relative;
 		background: var(--lumi-color-background-secondary);
-		border-bottom: var(--lumi-border-width-thin) solid
-			var(--lumi-color-border-glass);
+		border-bottom: var(--lumi-border-width-thin) solid var(--lumi-color-border);
 	}
 
 	.lumi-card__media :global(.lumi-card__image) {
@@ -260,13 +251,7 @@
 
 	.lumi-card__footer {
 		padding-top: var(--lumi-space-md);
-		border-top: var(--lumi-border-width-thin) solid
-			var(--lumi-color-border-glass);
-		background: color-mix(
-			in srgb,
-			var(--lumi-color-surface-glass-strong) 86%,
-			transparent
-		);
+		border-top: var(--lumi-border-width-thin) solid var(--lumi-color-border);
 	}
 
 	/* Typography */

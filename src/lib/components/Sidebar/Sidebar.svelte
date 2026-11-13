@@ -42,11 +42,6 @@
 
 <style>
 	.lumi-sidebar {
-		--lumi-surface-bg: color-mix(
-			in srgb,
-			var(--lumi-color-surface-card) 92%,
-			var(--lumi-color-background) 8%
-		);
 		--lumi-surface-radius-local: var(--lumi-layout-floating-radius);
 		grid-area: sidebar;
 		position: sticky;
@@ -81,20 +76,10 @@
 		min-height: calc(var(--lumi-space-5xl) + var(--lumi-space-3xl));
 		display: flex;
 		align-items: flex-end;
-		background:
-			var(--lumi-gradient-sidebar-header), var(--lumi-color-surface-card);
+		background: var(--lumi-color-primary-bg);
 		background-size: cover;
 		background-position: center;
-		border-bottom: var(--lumi-border-width-thin) solid
-			var(--lumi-color-border-glass);
-	}
-
-	.lumi-sidebar__header::before {
-		content: '';
-		position: absolute;
-		inset: 0;
-		z-index: 0;
-		background: var(--lumi-sidebar-header-veil);
+		border-bottom: var(--lumi-border-width-thin) solid var(--lumi-color-border);
 	}
 
 	.lumi-sidebar__header-content {

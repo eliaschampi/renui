@@ -70,9 +70,9 @@
 		disabled && 'lumi-switcher--disabled',
 		fullWidth && 'lumi-switcher--full',
 		iconOnly && 'lumi-segmented-control--icon-only',
+		`lumi-tone lumi-tone--${color}`,
 		className
 	]}
-	style:--lumi-control-accent="var(--lumi-color-{color})"
 	role="radiogroup"
 	aria-label={ariaLabel ?? i18n.t.options}
 	aria-orientation={orientation}

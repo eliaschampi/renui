@@ -160,9 +160,13 @@
 	<div
 		bind:this={bubbleRef}
 		use:portal
-		class={['lumi-tooltip__content', `lumi-tooltip--${side}`, className]}
+		class={[
+			'lumi-tooltip__content',
+			`lumi-tooltip--${side}`,
+			`lumi-tone lumi-tone--${color}`,
+			className
+		]}
 		style={floating.styleString}
-		style:--lumi-control-accent="var(--lumi-color-{color})"
 		style:--lumi-tooltip-arrow-x={floating.position.arrowX != null
 			? `${floating.position.arrowX}px`
 			: 'calc(50% - var(--lumi-tooltip-arrow) / 2)'}

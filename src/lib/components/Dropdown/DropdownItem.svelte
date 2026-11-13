@@ -51,9 +51,9 @@
 		'lumi-dropdown-item',
 		selected && 'lumi-dropdown-item--selected',
 		disabled && 'lumi-dropdown-item--disabled',
+		color && `lumi-tone lumi-tone--${color}`,
 		className
 	]}
-	style:--lumi-control-accent={color && `var(--lumi-color-${color})`}
 	role={selected === undefined ? 'menuitem' : 'menuitemradio'}
 	aria-checked={selected}
 	aria-disabled={disabled || undefined}
@@ -93,11 +93,7 @@
 
 	.lumi-dropdown-item:hover,
 	.lumi-dropdown-item:focus-visible {
-		background: color-mix(
-			in srgb,
-			var(--lumi-dropdown-item-accent) var(--lumi-state-hover-strength),
-			transparent
-		);
+		background: var(--lumi-color-hover);
 	}
 
 	/* Same lift and press as list rows and buttons. */

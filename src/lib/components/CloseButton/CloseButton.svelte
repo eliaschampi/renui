@@ -42,17 +42,17 @@
 		block-size: var(--lumi-space-xl);
 		padding: 0;
 		background: transparent;
-		border: var(--lumi-border-width-thin) solid transparent;
+		border: 0;
 		border-radius: var(--lumi-radius-full);
-		color: var(--lumi-color-text-muted);
+		/* Follows the surface it sits on: tone ink on an alert, text elsewhere. */
+		color: color-mix(in srgb, currentColor 68%, transparent);
 		cursor: pointer;
 		transition: var(--lumi-transition-interactive);
 	}
 
 	.lumi-close-button:hover {
-		background: var(--lumi-color-background-hover);
-		border-color: var(--lumi-color-border-light);
-		color: var(--lumi-color-text);
+		background: var(--lumi-color-hover);
+		color: inherit;
 	}
 
 	.lumi-close-button:active {

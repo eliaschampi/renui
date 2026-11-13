@@ -174,7 +174,7 @@
 	const invalid = $derived(Boolean(error));
 	const errorText = $derived(typeof error === 'string' ? error : '');
 	// Repeated on the portaled listbox, which does not inherit from the root.
-	const accent = $derived(`var(--lumi-color-${invalid ? 'danger' : color})`);
+	const tone = $derived(`lumi-tone lumi-tone--${invalid ? 'danger' : color}`);
 	const placeholderText = $derived(placeholder ?? i18n.t.selectPlaceholder);
 
 	function openList(direction?: 1 | -1): void {
@@ -303,10 +303,10 @@
 		open && 'lumi-select--open',
 		invalid && 'lumi-field--invalid',
 		disabled && 'lumi-field--disabled',
+		tone,
 		className
 	]}
 	style:width
-	style:--lumi-control-accent={accent}
 	onfocusout={handleFocusOut}
 >
 	{#if label}
@@ -386,10 +386,9 @@
 			bind:this={listbox}
 			use:portal
 			id={listboxId}
-			class="lumi-floating lumi-select__listbox lumi-select__listbox--{size} lumi-scrollbar"
+			class="lumi-floating lumi-select__listbox lumi-select__listbox--{size} lumi-scrollbar {tone}"
 			style={floating.styleString}
 			transition:scale={{ duration: motion(DURATION_FAST), start: 0.96 }}
-			style:--lumi-control-accent={accent}
 			role={loading || visible.length === 0 ? 'status' : 'listbox'}
 			aria-label={label || placeholderText}
 			aria-busy={loading || undefined}
@@ -501,16 +500,13 @@
 	}
 
 	.lumi-select__option--focused {
-		background: color-mix(
-			in srgb,
-			var(--lumi-control-accent) var(--lumi-state-hover-strength),
-			transparent
-		);
+		background: var(--lumi-color-hover);
 	}
 
 	.lumi-select__option--selected {
-		color: var(--lumi-control-accent);
+		color: var(--lumi-tone-ink);
 		font-weight: var(--lumi-font-weight-semibold);
+		background: var(--lumi-tone-soft);
 	}
 
 	.lumi-select__option--disabled {

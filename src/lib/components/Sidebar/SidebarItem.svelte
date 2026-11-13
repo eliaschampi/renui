@@ -14,7 +14,7 @@
 	}: SidebarItemProps = $props();
 
 	const classes = $derived([
-		'lumi-sidebar-item',
+		'lumi-sidebar-item lumi-tone',
 		level === 'sub' && 'lumi-sidebar-item--sub',
 		current && 'lumi-sidebar-item--active',
 		collapsed && 'lumi-sidebar-item--collapsed',
@@ -59,17 +59,6 @@
 		font-size: var(--lumi-font-size-sm);
 		font-weight: var(--lumi-font-weight-medium);
 		letter-spacing: normal;
-		--lumi-control-accent: var(--lumi-color-primary);
-		--sidebar-item-hover-bg: color-mix(
-			in srgb,
-			var(--lumi-color-primary) var(--lumi-state-hover-strength),
-			transparent
-		);
-		--sidebar-item-active-bg: linear-gradient(
-			145deg,
-			color-mix(in srgb, var(--lumi-color-primary) 5.5%, transparent),
-			color-mix(in srgb, var(--lumi-color-primary) 1.8%, transparent)
-		);
 		position: relative;
 		display: flex;
 		align-items: center;
@@ -80,7 +69,7 @@
 		color: var(--lumi-color-text-muted);
 		text-decoration: none;
 		background: transparent;
-		border: var(--lumi-border-width-thin) solid transparent;
+		border: 0;
 		cursor: pointer;
 		text-align: start;
 		transition: var(--lumi-transition-control);
@@ -88,71 +77,27 @@
 	}
 
 	.lumi-sidebar-item--sub {
-		--sidebar-item-active-bg: color-mix(
-			in srgb,
-			var(--lumi-color-primary) var(--lumi-state-bg-strength),
-			transparent
-		);
 		gap: var(--lumi-space-sm);
 		min-height: var(--lumi-sidebar-subitem-height);
 		padding: var(--lumi-space-xs) var(--lumi-space-sm);
-		border-radius: var(--lumi-radius-control);
 	}
 
-	.lumi-sidebar-item::before {
-		content: '';
-		position: absolute;
-		inset-inline-start: var(--lumi-space-2xs);
-		inset-block: var(--lumi-space-xs);
-		width: var(--lumi-border-width-thick);
-		border-radius: var(--lumi-radius-full);
-		background: var(--lumi-color-primary);
-		opacity: 0;
-		transform: scaleY(0.6);
-		transition:
-			opacity var(--lumi-duration-fast) var(--lumi-easing-default),
-			transform var(--lumi-duration-fast) var(--lumi-easing-default);
-	}
-
-	.lumi-sidebar-item:hover:not(.lumi-sidebar-item--active) {
-		background: var(--sidebar-item-hover-bg);
+	/* Neutral wash on hover; the current page settles into the soft tone. */
+	.lumi-sidebar-item:hover,
+	.lumi-sidebar-item:focus-visible {
 		color: var(--lumi-color-text);
-		border-color: color-mix(
-			in srgb,
-			var(--lumi-color-primary) 18%,
-			transparent
-		);
+		background: var(--lumi-color-hover);
 	}
 
 	.lumi-sidebar-item:focus-visible {
-		background: var(--sidebar-item-hover-bg);
 		outline: var(--lumi-focus-outline);
 		outline-offset: var(--lumi-focus-outline-offset);
 	}
 
-	.lumi-sidebar-item--active {
-		background: var(--sidebar-item-active-bg);
-		color: var(--lumi-color-primary);
-		border-color: color-mix(
-			in srgb,
-			var(--lumi-color-primary) 24%,
-			var(--lumi-color-border)
-		);
-		box-shadow: var(--lumi-shadow-sm);
-	}
-
-	.lumi-sidebar-item--sub.lumi-sidebar-item--active {
-		box-shadow: none;
-	}
-
-	.lumi-sidebar-item--active::before {
-		opacity: 1;
-		transform: scaleY(1);
-	}
-
-	.lumi-sidebar-item--active:hover {
-		background: var(--sidebar-item-active-bg);
-		color: var(--lumi-color-primary);
+	.lumi-sidebar-item.lumi-sidebar-item--active {
+		color: var(--lumi-tone-ink);
+		font-weight: var(--lumi-font-weight-semibold);
+		background: var(--lumi-tone-soft);
 	}
 
 	.lumi-sidebar-item__icon {
@@ -198,9 +143,5 @@
 		justify-content: center;
 		padding-left: var(--lumi-space-sm);
 		padding-right: var(--lumi-space-sm);
-	}
-
-	.lumi-sidebar-item--collapsed::before {
-		display: none;
 	}
 </style>

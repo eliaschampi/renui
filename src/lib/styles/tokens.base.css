@@ -1,9 +1,11 @@
 /* Lumi UI - Base Design Tokens */
-/* Default theme: Azure × Orchid on warm paper.
-   Architecture: curated seeds own identity; semantic tokens own component behavior.
-   Override brand/status/neutral seeds — never reassign derived --lumi-color-* tokens.
-   Neutral ramps use sRGB (warm surface character). Accent tints and semantic state
-   backgrounds mix in OKLCH so chroma stays even across hues. */
+/* Lumen: one accent in, five roles out.
+   Seeds own identity: two brand hues, four status hues, and a light pair (sun,
+   dusk). Everything else is derived. A toned element (.lumi-tone, base.css)
+   reads its accent and resolves soft / strong / ink on the fixed OKLCH planes
+   below, plus a beam for anything that measures — so every hue, including a
+   product's own brand, lands with the same weight and the same contrast.
+   Override seeds and plane dials; never reassign derived --lumi-color-* tokens. */
 @layer lumi.tokens, lumi.base, lumi.components, lumi.layout, lumi.patterns, lumi.utilities;
 
 @layer lumi.tokens {
@@ -15,8 +17,7 @@
 		/* ========================================================================== */
 
 		/* --- SEEDS --------------------------------------------------------------- */
-		/* Public identity: brand primary + secondary after importing Lumi styles.
-		   All chromatic roles share one lightness plane (--lumi-accent-lightness) and
+		/* All chromatic roles share one lightness plane (--lumi-accent-lightness) and
 		   a chroma ceiling (--lumi-accent-chroma-max) so no accent outweighs another.
 		   Every chroma below is inside the sRGB gamut at that lightness — requesting
 		   more makes the browser clip and silently shift hue. Rebrand by moving hue. */
@@ -28,19 +29,18 @@
 		--lumi-brand-secondary: oklch(
 			var(--lumi-accent-lightness) min(0.21, var(--lumi-accent-chroma-max)) 310
 		); /* orchid — ceiling-capped */
-		/* Surface seeds: one source of truth for ink + page canvas. */
-		--lumi-color-neutral: rgb(34 28 26); /* warm ink */
-		--lumi-color-canvas: rgb(247 243 237); /* warm paper */
+		/* Neutrals carry the brand hue at a whisper of chroma: one seed tints the
+		   ink, the canvas and (through the ink) every border and shadow. */
+		--lumi-color-neutral: oklch(from var(--lumi-brand-primary) 21% 0.03 h);
+		--lumi-color-canvas: oklch(from var(--lumi-brand-primary) 97.2% 0.008 h);
+		/* The light pair. A beam leans toward the sun at its head and toward dusk at
+		   its tail, on the shorter hue arc — one light source for every accent. */
+		--lumi-sun: oklch(88% 0.17 95);
+		--lumi-dusk: oklch(38% 0.16 285);
 		/* Single dark-mode accent lift. */
 		--lumi-dark-accent-mix: 70%;
 		--lumi-color-primary: var(--lumi-brand-primary);
 		--lumi-color-primary-solid: var(--lumi-brand-primary);
-		/* Accent tints in OKLCH keep chroma (sRGB mixes go chalky). */
-		--lumi-color-primary-50: color-mix(
-			in oklch,
-			var(--lumi-color-primary) 10%,
-			var(--lumi-color-white)
-		);
 		--lumi-color-secondary: var(--lumi-brand-secondary);
 		--lumi-color-secondary-solid: var(--lumi-brand-secondary);
 
@@ -62,7 +62,8 @@
 			var(--lumi-accent-lightness) min(0.09, var(--lumi-accent-chroma-max)) 210
 		);
 
-		/* Consumed accents: light = seed; dark applies --lumi-dark-accent-mix. */
+		/* Consumed accents (line, icon, focus on a neutral surface): light = seed;
+		   dark applies --lumi-dark-accent-mix. */
 		--lumi-color-success: var(--lumi-status-success);
 		--lumi-color-warning: color-mix(
 			in oklch,
@@ -76,15 +77,18 @@
 		--lumi-color-warning-solid: var(--lumi-status-warning);
 		--lumi-color-danger-solid: var(--lumi-status-danger);
 		--lumi-color-info-solid: var(--lumi-status-info);
-		--lumi-color-gray-400: color-mix(
-			in srgb,
-			var(--lumi-color-text) 45%,
-			var(--lumi-color-surface)
-		);
 		--lumi-color-white: rgb(255, 255, 255);
 		--lumi-color-black: rgb(0, 0, 0);
 		/* Elevation key tracks neutral ink — hue-true shadows without dual RGB seeds. */
 		--lumi-color-shadow-key: var(--lumi-color-neutral);
+
+		/* --- TONE PLANES --------------------------------------------------------- */
+		/* "lightness chroma" of each derived role; .lumi-tone keeps only the hue of
+		   its accent. soft = tinted container, strong = its hover / pressed /
+		   selected step, ink = content on either (≥ 7:1 on soft). */
+		--lumi-tone-soft-lc: 93.5% 0.042;
+		--lumi-tone-strong-lc: 88.5% 0.068;
+		--lumi-tone-ink-lc: 37% 0.12;
 
 		/* --- DERIVED TEXT -------------------------------------------------------- */
 		--lumi-color-text: var(--lumi-color-neutral);
@@ -124,57 +128,43 @@
 			var(--lumi-color-background) 88%,
 			var(--lumi-color-text)
 		);
+		/* Neutral hover wash for rows, options and quiet controls. Translucent ink,
+		   so it reads on any surface; color is reserved for selection. */
+		--lumi-color-hover: color-mix(
+			in srgb,
+			var(--lumi-color-text) var(--lumi-state-hover-strength),
+			transparent
+		);
 
 		/* --- DERIVED SURFACE LADDER --------------------------------------------- */
+		/* Light: recessed wells sit below the canvas, every raised surface is the
+		   same clean white and depth comes from elevation. Dark lifts each step. */
 		--lumi-color-surface-inset: color-mix(
 			in srgb,
 			var(--lumi-color-background) 95%,
 			var(--lumi-color-text)
 		);
-		--lumi-color-surface: color-mix(
-			in srgb,
-			var(--lumi-color-white) 78%,
-			var(--lumi-color-background)
-		);
+		--lumi-color-surface: var(--lumi-color-white);
 		--lumi-color-surface-card: var(--lumi-color-surface);
-		--lumi-color-surface-elevated: color-mix(
-			in srgb,
-			var(--lumi-color-white) 92%,
-			var(--lumi-color-background)
-		);
-		--lumi-color-surface-raised: var(--lumi-color-white);
-		--lumi-color-surface-overlay: var(--lumi-color-white);
-		--lumi-color-surface-card-hover: var(--lumi-color-white);
-		--lumi-color-surface-glass: color-mix(
-			in srgb,
-			var(--lumi-color-surface) 88%,
-			transparent
-		);
-		--lumi-color-surface-glass-strong: color-mix(
-			in srgb,
-			var(--lumi-color-surface-raised) 94%,
-			transparent
-		);
+		--lumi-color-surface-card-hover: var(--lumi-color-surface);
+		--lumi-color-surface-elevated: var(--lumi-color-surface);
+		--lumi-color-surface-raised: var(--lumi-color-surface);
+		--lumi-color-surface-overlay: var(--lumi-color-surface);
 
 		/* --- DERIVED BORDERS / RINGS --------------------------------------------- */
 		--lumi-color-border: color-mix(
 			in srgb,
-			var(--lumi-color-text) 10%,
+			var(--lumi-color-text) 7%,
 			transparent
 		);
 		--lumi-color-border-strong: color-mix(
 			in srgb,
-			var(--lumi-color-text) 16%,
+			var(--lumi-color-text) 12%,
 			transparent
 		);
 		--lumi-color-border-light: color-mix(
 			in srgb,
 			var(--lumi-color-border) 60%,
-			transparent
-		);
-		--lumi-color-border-glass: color-mix(
-			in srgb,
-			var(--lumi-color-border) 82%,
 			transparent
 		);
 		--lumi-color-border-interactive: color-mix(
@@ -200,126 +190,36 @@
 			var(--lumi-color-surface) 20%
 		);
 		/* --- DERIVED STATE BACKGROUNDS ------------------------------------------- */
-		/* One hue-preserving tint strength; OKLCH keeps equal visual weight across hues.
-		   Rows, options and steppers read the same two steps: hover, then selected. */
-		--lumi-state-bg-strength: 12%;
-		--lumi-state-hover-strength: 8%;
-		--lumi-color-success-bg: color-mix(
-			in oklch,
-			var(--lumi-color-success) var(--lumi-state-bg-strength),
-			var(--lumi-color-surface)
+		/* Soft status surfaces for app CSS, on the same plane as .lumi-tone. */
+		--lumi-state-hover-strength: 6%;
+		--lumi-color-primary-bg: oklch(
+			from var(--lumi-color-primary) var(--lumi-tone-soft-lc) h
 		);
-		--lumi-color-warning-bg: color-mix(
-			in oklch,
-			var(--lumi-color-warning) var(--lumi-state-bg-strength),
-			var(--lumi-color-surface)
+		--lumi-color-secondary-bg: oklch(
+			from var(--lumi-color-secondary) var(--lumi-tone-soft-lc) h
 		);
-		--lumi-color-danger-bg: color-mix(
-			in oklch,
-			var(--lumi-color-danger) var(--lumi-state-bg-strength),
-			var(--lumi-color-surface)
+		--lumi-color-success-bg: oklch(
+			from var(--lumi-color-success) var(--lumi-tone-soft-lc) h
 		);
-		--lumi-color-info-bg: color-mix(
-			in oklch,
-			var(--lumi-color-info) var(--lumi-state-bg-strength),
-			var(--lumi-color-surface)
+		--lumi-color-warning-bg: oklch(
+			from var(--lumi-color-warning) var(--lumi-tone-soft-lc) h
 		);
-		--lumi-color-primary-bg: color-mix(
-			in oklch,
-			var(--lumi-color-primary) var(--lumi-state-bg-strength),
-			var(--lumi-color-surface)
+		--lumi-color-danger-bg: oklch(
+			from var(--lumi-color-danger) var(--lumi-tone-soft-lc) h
 		);
-		--lumi-color-secondary-bg: color-mix(
-			in oklch,
-			var(--lumi-color-secondary) var(--lumi-state-bg-strength),
-			var(--lumi-color-surface)
+		--lumi-color-info-bg: oklch(
+			from var(--lumi-color-info) var(--lumi-tone-soft-lc) h
 		);
 
-		/* --- DERIVED GRADIENTS / FX ---------------------------------------------- */
-		--lumi-gradient-app:
-			radial-gradient(
-				circle at 8% 0%,
-				color-mix(in srgb, var(--lumi-color-primary) 4%, transparent),
-				transparent 36%
-			),
-			linear-gradient(
-				145deg,
-				var(--lumi-color-background) 0%,
-				var(--lumi-color-background-secondary) 100%
-			);
-		--lumi-app-background-accent: linear-gradient(transparent, transparent);
-		--lumi-app-pattern-size: var(--lumi-space-3xl);
-		--lumi-app-pattern-line-color: color-mix(
-			in srgb,
-			var(--lumi-color-primary) 4.5%,
-			transparent
-		);
-
+		/* --- DERIVED SURFACES / FX ----------------------------------------------- */
 		/* Cards float directly over the app canvas; tint the content well only
 		   when a theme wants a visible panel. */
 		--lumi-dashboard-content-bg: transparent;
-		--lumi-gradient-card:
-			linear-gradient(
-				145deg,
-				color-mix(in srgb, var(--lumi-color-primary) 1.2%, transparent) 0%,
-				transparent 68%
-			),
-			var(--lumi-color-surface-card);
-		--lumi-gradient-card-hover:
-			linear-gradient(
-				145deg,
-				color-mix(in srgb, var(--lumi-color-primary) 2.2%, transparent) 0%,
-				transparent 68%
-			),
-			var(--lumi-color-surface-card-hover);
-		--lumi-gradient-card-sheen: linear-gradient(
-			145deg,
-			color-mix(in srgb, var(--lumi-color-surface-raised) 36%, transparent),
-			transparent 40%
-		);
-		--lumi-card-sheen-opacity: 0.28;
-		--lumi-floating-surface-bg:
-			linear-gradient(
-				145deg,
-				color-mix(in srgb, var(--lumi-color-primary) 1.8%, transparent) 0%,
-				transparent 28%
-			),
-			var(--lumi-color-surface-glass-strong);
-		--lumi-floating-surface-border: var(--lumi-color-border-glass);
-		--lumi-floating-surface-shadow: var(--lumi-shadow-md);
-		/* Form controls read recessed: the fill is darker than the surface, so the
-		   light logic must agree. Raised affordances use --lumi-shadow-*. */
-		--lumi-control-shadow: var(--lumi-shadow-inset);
+		/* Quiet filled controls in light mode; dark adds the inset depth below.
+		   Focus keeps its own accent border and halo. */
+		--lumi-control-shadow: none;
 		--lumi-control-focus-shadow:
 			var(--lumi-focus-ring), var(--lumi-control-shadow);
-
-		--lumi-gradient-sidebar-header: linear-gradient(
-			145deg,
-			color-mix(
-					in oklch,
-					var(--lumi-color-surface-raised) 88%,
-					var(--lumi-color-primary-50)
-				)
-				0%,
-			var(--lumi-color-surface-card) 54%,
-			color-mix(
-					in oklch,
-					var(--lumi-color-background-secondary) 72%,
-					var(--lumi-color-surface-card)
-				)
-				100%
-		);
-		--lumi-gradient-subtle: linear-gradient(
-			145deg,
-			color-mix(in oklch, var(--lumi-color-primary) 1.2%, transparent) 0%,
-			transparent 70%
-		);
-		--lumi-gradient-glass-sidebar: var(--lumi-gradient-subtle);
-		--lumi-sidebar-header-veil: linear-gradient(
-			180deg,
-			color-mix(in oklch, var(--lumi-color-white) 62%, transparent) 0%,
-			color-mix(in oklch, var(--lumi-color-surface-card) 78%, transparent) 100%
-		);
 
 		/* ========================================================================== */
 		/* SPACING SYSTEM - quarter-rem base unit                                     */
@@ -394,7 +294,6 @@
 		--lumi-radius-tile: var(--lumi-radius-lg); /* icon tiles, badges, thumbs */
 		--lumi-radius-panel: var(--lumi-radius-xl); /* blocks nested in a surface */
 		--lumi-radius-tooltip: var(--lumi-radius-lg); /* every floating bubble */
-		--lumi-control-radius: var(--lumi-radius-control); /* deprecated alias */
 		/* Soft halo around a field, whose solid border carries the contrast. */
 		--lumi-control-focus-ring-strength: 26%;
 		/* Outline: :root is a primary fallback only (explicit primary — never
@@ -422,7 +321,6 @@
 				color-mix(in srgb, var(--lumi-color-background) 88%, transparent),
 			0 0 0 calc(var(--lumi-border-width-thick) * 2) var(--lumi-color-primary);
 		--lumi-surface-radius: var(--lumi-radius-2xl);
-		--lumi-surface-saturation: 1.04;
 
 		/* ========================================================================== */
 		/* ELEVATION ENGINE - soft depth, three stacked layers, no hard edge          */
@@ -549,14 +447,10 @@
 		--lumi-border-width-thin: 1px;
 		--lumi-border-width-base: 1.5px;
 		--lumi-border-width-thick: 2px;
-		/* Semantic accent rail (Alert, Notification). Wider than a border, narrower
-		   than a bar — it belongs to the border scale, not the spacing scale. */
-		--lumi-border-width-accent: 3px;
 
 		/* ========================================================================== */
-		/* BLUR SYSTEM - reserved for translucent overlays                            */
+		/* OVERLAY                                                                    */
 		/* ========================================================================== */
-		--lumi-blur-sm: 6px;
 		--lumi-color-overlay: color-mix(
 			in oklch,
 			var(--lumi-color-text) 42%,
@@ -699,8 +593,7 @@
 		--lumi-drive-preview-audio-max-width: 27.5rem;
 		--lumi-drive-preview-title-max-width: 20rem;
 		--lumi-scroll-well-max-height: min(34rem, 62dvh);
-		--lumi-scroll-well-bg:
-			var(--lumi-gradient-subtle), var(--lumi-color-surface-inset);
+		--lumi-scroll-well-bg: var(--lumi-color-surface-inset);
 		--lumi-page-sidebar-list-max-height: min(18rem, 42dvh);
 		--lumi-page-sidebar-list-bg: var(--lumi-scroll-well-bg);
 
@@ -726,27 +619,35 @@
 	[data-theme='dark'] {
 		color-scheme: dark;
 
+		/* Dark surfaces retain their edge definition; light relies on fill. */
+		--lumi-color-border: color-mix(
+			in srgb,
+			var(--lumi-color-text) 10%,
+			transparent
+		);
+		--lumi-color-border-strong: color-mix(
+			in srgb,
+			var(--lumi-color-text) 16%,
+			transparent
+		);
+		--lumi-control-shadow: var(--lumi-shadow-inset);
+
 		/* --- SEEDS ---------------------------------------------------------------- */
-		--lumi-color-neutral: rgb(250 248 245); /* warm-white ink */
-		--lumi-color-canvas: rgb(14 12 12); /* warm black */
+		--lumi-color-neutral: oklch(from var(--lumi-brand-primary) 96% 0.008 h);
+		--lumi-color-canvas: oklch(from var(--lumi-brand-primary) 15.5% 0.016 h);
 		/* Dark elevation sits on black for depth without muddy shadows. */
 		--lumi-color-shadow-key: var(--lumi-color-black);
+		/* Accents brighten by --lumi-dark-accent-mix; override a light seed and dark tracks it. */
 		--lumi-color-primary: color-mix(
 			in oklch,
 			var(--lumi-brand-primary) var(--lumi-dark-accent-mix),
 			var(--lumi-color-white)
-		);
-		--lumi-color-primary-50: color-mix(
-			in oklch,
-			var(--lumi-color-primary) 18%,
-			var(--lumi-color-black)
 		);
 		--lumi-color-secondary: color-mix(
 			in oklch,
 			var(--lumi-brand-secondary) var(--lumi-dark-accent-mix),
 			var(--lumi-color-white)
 		);
-		/* Accents brighten by --lumi-dark-accent-mix; override a light seed and dark tracks it. */
 		--lumi-color-success: color-mix(
 			in oklch,
 			var(--lumi-status-success) var(--lumi-dark-accent-mix),
@@ -767,11 +668,13 @@
 			var(--lumi-status-info) var(--lumi-dark-accent-mix),
 			var(--lumi-color-white)
 		);
-		--lumi-color-gray-400: color-mix(
-			in srgb,
-			var(--lumi-color-text) 60%,
-			var(--lumi-color-surface)
-		);
+
+		/* --- TONE PLANES ---------------------------------------------------------- */
+		/* Same roles, mirrored: deep pigment containers, luminous ink. */
+		--lumi-tone-soft-lc: 29% 0.06;
+		--lumi-tone-strong-lc: 35% 0.085;
+		--lumi-tone-ink-lc: 87% 0.085;
+
 		/* --- DERIVED TEXT ------------------------------------------------------- */
 		--lumi-color-placeholder: color-mix(
 			in srgb,
@@ -804,11 +707,6 @@
 			var(--lumi-color-background) 94%,
 			var(--lumi-lift)
 		);
-		--lumi-color-surface-card: color-mix(
-			in srgb,
-			var(--lumi-color-background) 92.5%,
-			var(--lumi-lift)
-		);
 		--lumi-color-surface-card-hover: color-mix(
 			in srgb,
 			var(--lumi-color-background) 92%,
@@ -824,20 +722,12 @@
 			var(--lumi-color-background) 87%,
 			var(--lumi-lift)
 		);
-		--lumi-color-surface-overlay: color-mix(
-			in srgb,
-			var(--lumi-color-surface-raised) 98%,
-			transparent
-		);
+		--lumi-color-surface-overlay: var(--lumi-color-surface-raised);
+
 		/* --- DERIVED BORDERS / RINGS --------------------------------------------- */
 		--lumi-color-border-light: color-mix(
 			in srgb,
 			var(--lumi-color-border) 56%,
-			transparent
-		);
-		--lumi-color-border-glass: color-mix(
-			in srgb,
-			var(--lumi-color-text) 8%,
 			transparent
 		);
 		--lumi-color-border-interactive: color-mix(
@@ -860,66 +750,18 @@
 		--lumi-control-focus-ring-strength: 28%;
 
 		/* --- DERIVED STATE BACKGROUNDS / OVERLAY --------------------------------- */
-		--lumi-state-bg-strength: 16%;
-		--lumi-state-hover-strength: 11%;
+		--lumi-state-hover-strength: 8%;
 		--lumi-color-overlay: color-mix(
 			in oklch,
 			var(--lumi-color-background) 82%,
 			transparent
 		);
 
-		/* --- DERIVED GRADIENTS / FX ---------------------------------------------- */
-		--lumi-gradient-app:
-			radial-gradient(
-				circle at 8% 0%,
-				color-mix(in srgb, var(--lumi-color-primary) 3.5%, transparent),
-				transparent 36%
-			),
-			linear-gradient(
-				145deg,
-				var(--lumi-color-background) 0%,
-				var(--lumi-color-background-secondary) 100%
-			);
-		--lumi-app-pattern-line-color: color-mix(
-			in srgb,
-			var(--lumi-color-white) 4%,
-			transparent
-		);
-		--lumi-gradient-card-sheen: linear-gradient(
-			180deg,
-			color-mix(in srgb, var(--lumi-color-white) 4%, transparent) 0%,
-			transparent 28%
-		);
-		--lumi-card-sheen-opacity: 0.18;
-		--lumi-floating-surface-bg:
-			linear-gradient(
-				145deg,
-				color-mix(in srgb, var(--lumi-color-primary) 1.5%, transparent) 0%,
-				transparent 28%
-			),
-			var(--lumi-color-surface-glass-strong);
-		--lumi-floating-surface-shadow: var(--lumi-shadow-md);
 		/* Elevation: geometry is shared with light; only the three dials move. The rim
 		   drops to a faint sheen because there is no white to catch, and the key is
 		   pure black so depth reads without milky haze. */
 		--lumi-elevation-rim-strength: 9%;
 		--lumi-elevation-contact-strength: 18%;
 		--lumi-elevation-ambient-strength: 26%;
-		--lumi-gradient-sidebar-header: linear-gradient(
-			145deg,
-			color-mix(
-					in oklch,
-					var(--lumi-color-surface-raised) 88%,
-					var(--lumi-color-primary-50)
-				)
-				0%,
-			var(--lumi-color-surface-card) 52%,
-			var(--lumi-color-surface-inset) 100%
-		);
-		--lumi-sidebar-header-veil: linear-gradient(
-			180deg,
-			color-mix(in oklch, var(--lumi-color-white) 8%, transparent) 0%,
-			color-mix(in oklch, var(--lumi-color-surface-card) 84%, transparent) 100%
-		);
 	}
 }

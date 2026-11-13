@@ -9,32 +9,12 @@
 @layer lumi.tokens {
 	/* Tokens only these patterns read; they ship with the opt-in file. */
 	:root {
-		--lumi-blur-md: 12px;
-		--lumi-color-surface-card-glass: color-mix(
-			in srgb,
-			var(--lumi-color-surface-card) 94%,
-			transparent
-		);
-		--lumi-color-surface-card-glass-border: var(--lumi-color-border-glass);
 		--lumi-drive-content-min-height: 26.25rem;
 		--lumi-drive-loading-min-height: 13.75rem;
-		--lumi-gradient-glass-total-summary: linear-gradient(
-			145deg,
-			color-mix(in oklch, var(--lumi-color-primary) 2.5%, transparent) 0%,
-			transparent 70%
-		);
 		--lumi-grid-analytics-primary-min: 0;
 		--lumi-grid-analytics-secondary-min: 20rem;
 		--lumi-max-width-xs: 20rem;
 		--lumi-radius-pill: var(--lumi-radius-full);
-	}
-
-	[data-theme='dark'] {
-		--lumi-gradient-glass-total-summary: linear-gradient(
-			145deg,
-			color-mix(in oklch, var(--lumi-color-primary) 2.2%, transparent) 0%,
-			transparent 70%
-		);
 	}
 }
 
@@ -43,13 +23,7 @@
 	/* AUTH SURFACE PATTERN */
 	/* ========================================================================== */
 	.lumi-auth-card {
-		--lumi-card-surface-bg: var(--lumi-color-surface-card-glass);
 		--lumi-card-surface-shadow: var(--lumi-shadow-xl);
-		--lumi-surface-border: var(--lumi-border-width-thin) solid
-			var(--lumi-color-surface-card-glass-border);
-		--lumi-surface-blur: var(--lumi-blur-md);
-		--lumi-surface-blur-filter: blur(var(--lumi-surface-blur))
-			saturate(var(--lumi-surface-saturation));
 	}
 
 	.lumi-auth-mark {
@@ -60,10 +34,9 @@
 		height: var(--lumi-control-height-xl);
 		padding: var(--lumi-space-xs);
 		border-radius: var(--lumi-radius-panel);
-		border: var(--lumi-border-width-thin) solid
-			var(--lumi-floating-surface-border);
-		background: var(--lumi-floating-surface-bg);
-		box-shadow: var(--lumi-floating-surface-shadow);
+		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
+		background: var(--lumi-color-surface-raised);
+		box-shadow: var(--lumi-shadow-md);
 		color: var(--lumi-color-primary);
 		flex: 0 0 auto;
 	}
@@ -95,34 +68,19 @@
 		row-gap: var(--lumi-space-2xs);
 		align-items: start;
 		padding: var(--lumi-space-lg);
-		border: var(--lumi-border-width-thin) solid
-			color-mix(
-				in srgb,
-				var(--lumi-filter-summary-accent, var(--lumi-color-primary)) 8%,
-				var(--lumi-color-border)
-			);
+		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
 		border-radius: var(--lumi-surface-radius);
+		/* A wash of the summary tone, lit from the top corner. */
 		background:
 			linear-gradient(
 				145deg,
-				color-mix(
-						in srgb,
-						var(--lumi-filter-summary-accent, var(--lumi-color-primary)) 5%,
-						transparent
-					)
-					0%,
-				color-mix(
-						in srgb,
-						var(--lumi-filter-summary-accent-2, var(--lumi-color-warning)) 2%,
-						transparent
-					)
-					100%
+				oklch(
+					from var(--lumi-filter-summary-accent, var(--lumi-color-primary))
+						var(--lumi-tone-soft-lc) h
+				),
+				transparent 62%
 			),
-			color-mix(
-				in srgb,
-				var(--lumi-color-surface-inset) 14%,
-				var(--lumi-color-surface-glass-strong)
-			);
+			var(--lumi-color-surface-raised);
 		box-shadow: var(--lumi-shadow-sm);
 	}
 
@@ -147,32 +105,26 @@
 
 	.lumi-filter-summary--primary {
 		--lumi-filter-summary-accent: var(--lumi-color-primary);
-		--lumi-filter-summary-accent-2: var(--lumi-color-info);
 	}
 
 	.lumi-filter-summary--secondary {
 		--lumi-filter-summary-accent: var(--lumi-color-secondary);
-		--lumi-filter-summary-accent-2: var(--lumi-color-primary);
 	}
 
 	.lumi-filter-summary--success {
 		--lumi-filter-summary-accent: var(--lumi-color-success);
-		--lumi-filter-summary-accent-2: var(--lumi-color-info);
 	}
 
 	.lumi-filter-summary--warning {
 		--lumi-filter-summary-accent: var(--lumi-color-warning);
-		--lumi-filter-summary-accent-2: var(--lumi-color-primary);
 	}
 
 	.lumi-filter-summary--danger {
 		--lumi-filter-summary-accent: var(--lumi-color-danger);
-		--lumi-filter-summary-accent-2: var(--lumi-color-warning);
 	}
 
 	.lumi-filter-summary--info {
 		--lumi-filter-summary-accent: var(--lumi-color-info);
-		--lumi-filter-summary-accent-2: var(--lumi-color-primary);
 	}
 
 	.lumi-filter-summary--centered {
@@ -444,10 +396,9 @@
 	.lumi-selected-panel {
 		justify-content: space-between;
 		padding: var(--lumi-space-md);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border-glass);
+		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
 		border-radius: var(--lumi-radius-panel);
-		background:
-			var(--lumi-gradient-subtle), var(--lumi-color-surface-glass-strong);
+		background: var(--lumi-color-surface-raised);
 		box-shadow: var(--lumi-shadow-sm);
 	}
 
@@ -489,9 +440,9 @@
 		gap: var(--lumi-space-2xs);
 		max-block-size: calc(var(--lumi-space-6xl) * 2);
 		padding: var(--lumi-space-xs);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border-glass);
+		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
 		border-radius: var(--lumi-radius-panel);
-		background: var(--lumi-color-surface-glass-strong);
+		background: var(--lumi-color-surface-raised);
 		box-shadow: inset 0 var(--lumi-border-width-thin) 0
 			var(--lumi-color-border-light);
 		overflow-x: hidden;
@@ -506,9 +457,9 @@
 		place-items: center;
 		width: var(--lumi-placeholder-tile-size-md);
 		height: var(--lumi-placeholder-tile-size-md);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border-glass);
+		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
 		border-radius: var(--lumi-radius-tile);
-		background: var(--lumi-color-surface-glass);
+		background: var(--lumi-color-surface);
 		flex: 0 0 auto;
 	}
 
@@ -527,10 +478,8 @@
 		align-items: end;
 		padding: var(--lumi-space-lg);
 		border-radius: var(--lumi-surface-radius);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border-glass);
-		background:
-			var(--lumi-gradient-glass-search-panel, var(--lumi-gradient-subtle)),
-			var(--lumi-color-surface-glass-strong);
+		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
+		background: var(--lumi-color-surface-raised);
 		box-shadow: var(--lumi-shadow-sm);
 	}
 
@@ -566,7 +515,7 @@
 		gap: var(--lumi-space-md);
 		padding: var(--lumi-space-sm) var(--lumi-space-md);
 		border-radius: var(--lumi-radius-panel);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border-glass);
+		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
 		background: var(--lumi-color-surface-card);
 		box-shadow: var(--lumi-shadow-sm);
 	}
@@ -575,9 +524,6 @@
 		width: 100%;
 		cursor: pointer;
 		text-align: left;
-		background:
-			var(--lumi-gradient-glass-item-row, var(--lumi-gradient-subtle)),
-			var(--lumi-color-surface-card);
 		transition: var(--lumi-transition-interactive);
 	}
 
@@ -646,24 +592,14 @@
 		gap: var(--lumi-space-md);
 		padding: var(--lumi-space-md);
 		border-radius: var(--lumi-radius-panel);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border-glass);
-		background:
-			var(--lumi-gradient-glass-total-summary), var(--lumi-color-surface-card);
+		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
+		background: var(--lumi-color-surface-card);
 		box-shadow: var(--lumi-shadow-sm);
 	}
 
 	.lumi-drive-toolbar-card {
-		--lumi-card-surface-bg: color-mix(
-			in srgb,
-			var(--lumi-color-surface) 92%,
-			transparent
-		);
 		--lumi-surface-border: var(--lumi-border-width-thin) solid
 			var(--lumi-color-border-light);
-		/* Translucent cards opt into blur; plain cards stay free of backdrop cost. */
-		--lumi-surface-blur: var(--lumi-blur-sm);
-		--lumi-surface-blur-filter: blur(var(--lumi-surface-blur))
-			saturate(var(--lumi-surface-saturation));
 	}
 
 	.lumi-drive-content {

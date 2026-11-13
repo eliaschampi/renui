@@ -16,9 +16,9 @@
 	class={[
 		'lumi-tag-option',
 		selected && 'lumi-tag-option--selected',
+		`lumi-tone lumi-tone--${color}`,
 		className
 	]}
-	style:--lumi-control-accent="var(--lumi-color-{color})"
 	aria-pressed={selected}
 	{disabled}
 	{onclick}
@@ -36,7 +36,7 @@
 		padding: var(--lumi-space-md);
 		border: var(--lumi-border-width-thin) solid var(--lumi-color-border-light);
 		border-radius: var(--lumi-radius-option);
-		background: var(--lumi-color-surface);
+		background: transparent;
 		color: var(--lumi-color-text);
 		font-family: inherit;
 		font-size: var(--lumi-font-size-sm);
@@ -46,16 +46,8 @@
 	}
 
 	.lumi-tag-option:hover {
-		border-color: color-mix(
-			in srgb,
-			var(--lumi-control-accent) 26%,
-			var(--lumi-color-border)
-		);
-		background: color-mix(
-			in srgb,
-			var(--lumi-control-accent) var(--lumi-state-hover-strength),
-			var(--lumi-color-surface)
-		);
+		border-color: var(--lumi-color-border-strong);
+		background: var(--lumi-color-hover);
 	}
 
 	.lumi-tag-option:active {
@@ -68,24 +60,13 @@
 	}
 
 	.lumi-tag-option--selected {
-		border-color: color-mix(
-			in srgb,
-			var(--lumi-control-accent) 40%,
-			var(--lumi-color-border)
-		);
-		background: color-mix(
-			in srgb,
-			var(--lumi-control-accent) var(--lumi-state-bg-strength),
-			var(--lumi-color-surface)
-		);
+		border-color: transparent;
+		color: var(--lumi-tone-ink);
+		background: var(--lumi-tone-soft);
 	}
 
 	.lumi-tag-option--selected:hover {
-		background: color-mix(
-			in srgb,
-			var(--lumi-control-accent) 14%,
-			var(--lumi-color-surface)
-		);
+		background: var(--lumi-tone-strong);
 	}
 
 	.lumi-tag-option:disabled {

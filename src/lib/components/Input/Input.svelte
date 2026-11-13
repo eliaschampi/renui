@@ -75,9 +75,9 @@
 		`lumi-field--${size}`,
 		invalid && 'lumi-field--invalid',
 		disabled && 'lumi-field--disabled',
+		`lumi-tone lumi-tone--${invalid ? 'danger' : color}`,
 		className
 	]}
-	style:--lumi-control-accent="var(--lumi-color-{invalid ? 'danger' : color})"
 >
 	{#if label}
 		<FieldLabel for={id} {label} required={!!required} />

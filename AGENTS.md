@@ -28,15 +28,15 @@ Documentation explains intent; exports, TypeScript contracts, component source, 
 
 ## Library Layers
 
-| Path                                                             | Role                                                                                                                          |
-| ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `src/lib/components`                                             | Public Svelte surface; new entries must be primitive and reusable                                                             |
-| `src/lib/styles/tokens.base.css`                                 | Default token contract and product identity (azure primary, orchid secondary, warm-paper surfaces; curated OKLCH seeds)       |
-| `src/lib/styles/base.css`                                        | Reset, focus and control contracts, recipes every page needs (spinner, icon, sr-only); `core.css` = base + layout + utilities |
-| `src/lib/styles/{switcher,switcher-group,skeleton,floating}.css` | Recipes a few components share; imported by those components, layer `lumi.components`                                         |
-| `src/lib/i18n`                                                   | Built-in copy (English default, Spanish) and locale/currency/time-zone context                                                |
-| `src/lib/styles/patterns.css`                                    | Domain-neutral reusable composition patterns                                                                                  |
-| `src/lib/actions`, `src/lib/utils`                               | Internal primitives shared by components                                                                                      |
+| Path                                                             | Role                                                                                                                                        |
+| ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/lib/components`                                             | Public Svelte surface; new entries must be primitive and reusable                                                                           |
+| `src/lib/styles/tokens.base.css`                                 | Default token contract and product identity (azure primary, orchid secondary, brand-tinted canvas and opaque surfaces; curated OKLCH seeds) |
+| `src/lib/styles/base.css`                                        | Reset, focus and control contracts, recipes every page needs (spinner, icon, sr-only); `core.css` = base + layout + utilities               |
+| `src/lib/styles/{switcher,switcher-group,skeleton,floating}.css` | Recipes a few components share; imported by those components, layer `lumi.components`                                                       |
+| `src/lib/i18n`                                                   | Built-in copy (English default, Spanish) and locale/currency/time-zone context                                                              |
+| `src/lib/styles/patterns.css`                                    | Domain-neutral reusable composition patterns                                                                                                |
+| `src/lib/actions`, `src/lib/utils`                               | Internal primitives shared by components                                                                                                    |
 
 Entry points, ownership, principles: [Guide §7](./docs/GUIDE.md#7-library-design).
 

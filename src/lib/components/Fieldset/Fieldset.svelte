@@ -24,22 +24,12 @@
 		padding: var(--lumi-space-md);
 		margin: 0;
 		min-width: 0;
-		background:
-			var(--lumi-gradient-subtle),
-			color-mix(
-				in srgb,
-				var(--lumi-color-surface-inset) 22%,
-				var(--lumi-color-surface-card)
-			);
+		background: var(--lumi-color-surface-card);
 		position: relative;
 	}
 
 	.lumi-fieldset__legend {
-		background: color-mix(
-			in srgb,
-			var(--lumi-color-surface-inset) 22%,
-			var(--lumi-color-surface-card)
-		);
+		background: var(--lumi-color-surface-card);
 		color: var(--lumi-color-text-muted);
 		padding: 0 var(--lumi-space-sm);
 		font-size: var(--lumi-font-size-sm);

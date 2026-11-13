@@ -1,6 +1,6 @@
 # Lumi UI Documentation
 
-Six documents cover the library. Source remains authoritative for exact APIs.
+These documents cover the library. Source remains authoritative for exact APIs.
 
 | Document                                            | Covers                                                                                            |
 | --------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
@@ -8,8 +8,10 @@ Six documents cover the library. Source remains authoritative for exact APIs.
 | **[Components](./COMPONENTS.md)**                   | Every root-exported component, selection matrix, contracts                                        |
 | **[Component authoring](./COMPONENT_AUTHORING.md)** | How to build or change a component: skeleton, prop contract, CSS, a11y, pre-merge checklist       |
 | **[Consumer reference](./CONSUMER_REFERENCE.md)**   | Compact setup, theming, layout classes, and component usage for product apps                      |
-| **[Upgrade](./UPGRADE.md)**                         | Consumer migration notes and codemods through 1.0.0                                               |
-| **[1.0 review](./REFACTOR_REVIEW.md)**              | What changed in 1.0, measured evidence, remaining considerations                                  |
+| **[Upgrade](./UPGRADE.md)**                         | Current 1.x → 2.0 migration; earlier notes in its linked archive                                  |
+| **[Release reviews](./REFACTOR_REVIEW.md)**         | Release changes, measured evidence, remaining considerations                                      |
+
+[Browser benchmark](./BENCHMARK.md): reproducible 1.2.0 → 2.0.0 runtime comparison and measurement limits.
 
 Coding agents: [AGENTS.md](../AGENTS.md) → [Agent Guide](./AGENT_GUIDE.md). Working pages: the [`lumi-web`](https://github.com/eliaschampi/lumi) showcase.
 

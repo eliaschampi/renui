@@ -459,7 +459,7 @@
 	}
 
 	.lumi-line-chart__legend-item:hover {
-		background: var(--lumi-color-surface-glass);
+		background: var(--lumi-color-surface);
 	}
 
 	.lumi-line-chart__legend-item:focus-visible {

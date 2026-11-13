@@ -1,9 +1,9 @@
 import type { LumiColor } from '../config';
 
-// Lucide glyph paths (24×24, stroke 2), inlined so status surfaces ship no
-// icon runtime. A full circle is drawn as a path to keep one element type.
-const CIRCLE = 'M22 12a10 10 0 1 1-20 0a10 10 0 1 1 20 0';
-const INFO = [CIRCLE, 'M12 16v-4', 'M12 8h.01'];
+// Seal glyphs (24×24, round stroke), inlined so status surfaces ship no icon
+// runtime. They sit on a solid disc, so each is the bare mark, drawn to fill
+// the box: shape tells the status apart where color cannot.
+const INFO = ['M12 19v-8', 'M12 5.5h.01'];
 
 /** One status glyph per semantic color, shared by Alert, Notification and Toaster. */
 export const STATUS_GLYPHS: Record<LumiColor, string[]> = {
@@ -12,13 +12,9 @@ export const STATUS_GLYPHS: Record<LumiColor, string[]> = {
 		'M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326'
 	],
 	secondary: INFO,
-	success: [CIRCLE, 'm9 12 2 2 4-4'],
-	warning: [
-		'm21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3',
-		'M12 9v4',
-		'M12 17h.01'
-	],
-	danger: [CIRCLE, 'm15 9-6 6', 'm9 9 6 6'],
+	success: ['m5 12.5 4.5 4.5L19 7.5'],
+	warning: ['M12 5v8', 'M12 18.5h.01'],
+	danger: ['m6.5 6.5 11 11', 'm17.5 6.5-11 11'],
 	info: INFO
 };
 

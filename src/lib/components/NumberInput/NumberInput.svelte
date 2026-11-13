@@ -101,9 +101,9 @@
 		`lumi-field--${size}`,
 		invalid && 'lumi-field--invalid',
 		disabled && 'lumi-field--disabled',
+		`lumi-tone lumi-tone--${invalid ? 'danger' : color}`,
 		className
 	]}
-	style:--lumi-control-accent="var(--lumi-color-{invalid ? 'danger' : color})"
 >
 	{#if label}
 		<FieldLabel for={id} {label} required={!!required} />
@@ -173,8 +173,7 @@
 	.lumi-number-input .lumi-field__button {
 		inline-size: var(--lumi-field-height);
 		padding: 0;
-		border-inline: var(--lumi-border-width-thin) solid
-			var(--lumi-color-border-glass);
+		border-inline: var(--lumi-border-width-thin) solid var(--lumi-color-border);
 	}
 
 	.lumi-number-input .lumi-field__button:first-child {
@@ -186,11 +185,7 @@
 	}
 
 	.lumi-number-input .lumi-field__button:hover {
-		background: color-mix(
-			in srgb,
-			var(--lumi-control-accent) var(--lumi-state-hover-strength),
-			transparent
-		);
+		background: var(--lumi-color-hover);
 	}
 
 	.lumi-number-input .lumi-field__button:disabled {

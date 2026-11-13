@@ -191,7 +191,7 @@ Feedback states are seeds too. Lumi derives the soft `-bg` and a brighter dark-m
 
 Defaults share a perceptually balanced OKLCH system in [`tokens.base.css`](../src/lib/styles/tokens.base.css). Warning keeps a bright amber **solid** (black content) and derives a darker on-surface accent for text/indicators. Accent tints and state backgrounds mix in OKLCH so chroma stays even across hues.
 
-Default identity: azure primary (`oklch(55% 0.205 257)`), orchid secondary (`oklch(56% 0.2 310)`), warm ink (`rgb(34 28 26)`), and warm-paper canvas (`rgb(247 243 237)`).
+Default identity: azure primary and orchid secondary, with ink and canvas derived from the primary hue at low chroma. The accent family shares `--lumi-accent-lightness` and `--lumi-accent-chroma-max`; exact seeds live in `tokens.base.css`.
 
 ### Semantic background/foreground contract
 
@@ -365,6 +365,27 @@ Grid areas: `sidebar`, `navbar`, `content`. Keep shell classes and component pro
 
 At `64rem` and below, core switches the shell to navbar/content and `Sidebar` uses fixed mobile presentation. Keep viewport state aligned with that breakpoint. Closed mobile navigation is excluded from keyboard navigation. Full shell: the [`lumi-web`](https://github.com/eliaschampi/lumi) showcase. Breakpoints: [§5 Responsive effects](#responsive-effects).
 
+### Compact navigation groups
+
+Use `SidebarItem` for a single destination. For a compact group of destinations, compose `Dropdown` with a `Button` trigger and `DropdownItem href` links. The menu portals out of the navigation container, preserving its keyboard navigation, dismissal and focus restoration. Keep labels and routes in the consuming app; no additional library API is needed.
+
+```svelte
+<script lang="ts">
+	import { Button, Dropdown, DropdownItem, SidebarItem } from '@lumi-ui/svelte';
+</script>
+
+<SidebarItem href="/overview">Overview</SidebarItem>
+<Dropdown placement="right-start">
+	{#snippet trigger(props)}
+		<Button {...props} variant="ghost">Workspace</Button>
+	{/snippet}
+	<DropdownItem href="/workspace/files">Files</DropdownItem>
+	<DropdownItem href="/workspace/settings">Settings</DropdownItem>
+</Dropdown>
+```
+
+Spread all trigger props onto the Button so the menu retains its trigger ID, expanded state and event handlers. Use links for navigation; reserve `selected` for a checked menu choice. The menu flips and shifts when space is limited, so verify placement in the consumer's mobile navigation as well.
+
 ### Standard page
 
 ```svelte
@@ -501,19 +522,19 @@ At exactly `64rem`, both max-width shell rules and min-width `*-lg` grid rules a
 
 Domain-neutral compositions in [`patterns.css`](../src/lib/styles/patterns.css) (not Svelte components; included by `@lumi-ui/svelte/styles`). Use documented BEM children; do not invent modifiers.
 
-| Pattern                | Families and variants                                                                                                                                                                                                                                                                                                                                           |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Surfaces and auth      | `.lumi-surface`, `.lumi-auth-mark`; apply `.lumi-card--ambient` and `.lumi-auth-card` via `Card class`. **Plain cards do not blur** (`backdrop-filter: none`); glass/translucent cards must set `--lumi-surface-blur-filter` (`.lumi-auth-card`, `.lumi-drive-toolbar-card` do). This is a minor CSS migration if you previously relied on every card blurring. |
-| Shared control hooks   | `base.css` resolves the accent-aware focus recipes on the focused element, so any `--lumi-control-accent` above it applies. Text fields opt into `.lumi-autofill` + `--lumi-control-autofill-bg`.                                                                                                                                                               |
-| Filter summary         | `.lumi-filter-summary` + `__copy`, `__eyebrow`, `__title`, `__subtitle`, `__title-row`, `__meta`, `__actions`; `--compact`, `--split`, `--centered`, semantic color variants                                                                                                                                                                                    |
-| Section actions        | `.lumi-section-toolbar`, `.lumi-toolbar-field`, `.lumi-form-action-row`, `.lumi-inline-filters` (each has existing child/compact variants)                                                                                                                                                                                                                      |
-| Ranked metrics         | `.lumi-metric-rank-list` / `.lumi-metric-rank-row`; list `--dense`, `--accent-secondary`, `--scroll-capped`                                                                                                                                                                                                                                                     |
-| Identity and selection | `.lumi-person-cell`, `.lumi-selected-panel`, `.lumi-result-list`, `.lumi-placeholder-tile`                                                                                                                                                                                                                                                                      |
-| Context panels         | `.lumi-search-panel` + BEM children                                                                                                                                                                                                                                                                                                                             |
-| Collections            | `.lumi-item-row`, `.lumi-item-list`; interactive/active row variants                                                                                                                                                                                                                                                                                            |
-| Summaries              | `.lumi-total-box`, `.lumi-scan-result`                                                                                                                                                                                                                                                                                                                          |
-| Small helpers          | `.lumi-scrollbar`, `.lumi-list-item--stack-actions`                                                                                                                                                                                                                                                                                                             |
-| Specialized hooks      | `.lumi-drive-toolbar-card` via `Card class`; `.lumi-drive-content`, `.lumi-drive-loading`, `.lumi-navbar-branch`, `.lumi-navbar-user-dropdown`, `.lumi-brand-logo-wordmark`                                                                                                                                                                                     |
+| Pattern                | Families and variants                                                                                                                                                                                                                                     |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Surfaces and auth      | `.lumi-surface`, `.lumi-auth-mark`; apply `.lumi-card--ambient` and `.lumi-auth-card` via `Card class`. **Default surfaces are opaque**. Consumer-owned translucent cards can opt into `--lumi-surface-blur-filter`; built-in compositions use elevation. |
+| Shared control hooks   | `base.css` resolves the accent-aware focus recipes on the focused element, so any `--lumi-control-accent` above it applies. Text fields opt into `.lumi-autofill` + `--lumi-control-autofill-bg`.                                                         |
+| Filter summary         | `.lumi-filter-summary` + `__copy`, `__eyebrow`, `__title`, `__subtitle`, `__title-row`, `__meta`, `__actions`; `--compact`, `--split`, `--centered`, semantic color variants                                                                              |
+| Section actions        | `.lumi-section-toolbar`, `.lumi-toolbar-field`, `.lumi-form-action-row`, `.lumi-inline-filters` (each has existing child/compact variants)                                                                                                                |
+| Ranked metrics         | `.lumi-metric-rank-list` / `.lumi-metric-rank-row`; list `--dense`, `--accent-secondary`, `--scroll-capped`                                                                                                                                               |
+| Identity and selection | `.lumi-person-cell`, `.lumi-selected-panel`, `.lumi-result-list`, `.lumi-placeholder-tile`                                                                                                                                                                |
+| Context panels         | `.lumi-search-panel` + BEM children                                                                                                                                                                                                                       |
+| Collections            | `.lumi-item-row`, `.lumi-item-list`; interactive/active row variants                                                                                                                                                                                      |
+| Summaries              | `.lumi-total-box`, `.lumi-scan-result`                                                                                                                                                                                                                    |
+| Small helpers          | `.lumi-scrollbar`, `.lumi-list-item--stack-actions`                                                                                                                                                                                                       |
+| Specialized hooks      | `.lumi-drive-toolbar-card` via `Card class`; `.lumi-drive-content`, `.lumi-drive-loading`, `.lumi-navbar-branch`, `.lumi-navbar-user-dropdown`, `.lumi-brand-logo-wordmark`                                                                               |
 
 Chart-tooltip support and base component selectors are component-owned even when styles live in core.
 
@@ -555,34 +576,34 @@ The utility set is deliberately small: it covers the composition every product r
 
 Visual and interaction intent. Structural ownership: [§7 Library design](#7-library-design). Exact tokens: [`tokens.base.css`](../src/lib/styles/tokens.base.css).
 
-### Calm glass
+### Lumen
 
-Lumi is a premium, minimal product shell—not a generic kit and not loud SaaS gradients. North star: _if you remove one more line of decoration and the UI still feels complete, you are closer to Lumi._
+Lumi uses a lightly brand-tinted canvas, crisp surfaces, and shared semantic color roles. North star: _if you remove one more line of decoration and the UI still feels complete, you are closer to Lumi._
 
-1. **Layered light, not heavy chrome.** Surfaces float over a softly tinted canvas; borders are thin and low-contrast.
-2. **Elevation is quiet.** Shadows use the neutral ink key (`--lumi-color-shadow-key`) with contact + ambient layers; avoid pure-black blobs.
-3. **Glass is restrained.** Blur and translucency appear on overlays (menus and listboxes through `.lumi-floating`), shells, and **opt-in** glass cards—never as a noisy texture soup. Plain cards stay crisp (`backdrop-filter: none` unless `--lumi-surface-blur-filter` is set).
-4. **Disciplined gradients.** Card washes keep the `145deg` axis; the app canvas may layer one faint primary radial accent over its neutral gradient—subtle, not neon.
-5. **Sheen is optional polish.** Top-edge inset highlights simulate liquid glass; keep opacity low.
-6. **No arbitrary decoration.** No confetti backgrounds, no multi-colored borders, no bounce-heavy motion.
+1. **One accent, shared roles.** `.lumi-tone` derives soft and strong containers, readable ink, and a directional beam from the semantic accent. Hue follows the brand; lightness and chroma follow shared theme planes.
+2. **Depth through elevation.** Opaque surfaces use thin borders and quiet contact + ambient shadows. Menus and listboxes stay legible without backdrop blur.
+3. **Color carries state.** Neutral hover uses `--lumi-color-hover`; selected and soft semantic surfaces use the tone roles. Status always includes text or an icon.
+4. **Light follows value.** Progress and Slider use the shared beam; gradient Buttons opt into it with a restrained sun mix. Ordinary panels have no decorative gradient wash.
+5. **Geometry is shared.** Fields, switchers, cards, and floating surfaces consume their owning recipes and token scales.
+6. **Motion is brief.** Preserve focus and reduced-motion behavior; avoid decorative animation.
 
 ### Surface ladder
 
 From recessed to floating:
 
 ```txt
-inset → surface → card → elevated → raised / overlay / glass
+inset → surface / card → elevated → raised / overlay
 ```
 
-- **Inset / control-fill** — text fields, checkbox/radio/switch peers, wells (recessed scroll areas use `.lumi-scroll-well`; binary active uses `--lumi-control-active-*`)
-- **Switcher shell** — Tabs nav and SegmentedControl track: quiet glass mix + glass/strong border + `--lumi-control-shadow` (not control-fill)
-- **Surface / card** — content panels
-- **Elevated / raised** — sticky headers, highlighted panels; exclusive switcher **active pill** (surface-card gradient + quiet shadow)
-- **Glass / floating** — dialogs, dropdowns, context menus, tooltips
+- **Inset / control-fill** — fields and wells. Binary active states use `--lumi-control-active-*`.
+- **Switcher track** — Tabs, SegmentedControl and ToggleGroup use `--lumi-color-surface-inset`, a quiet border and control shadow; the active pill uses a raised surface and tone ink.
+- **Surface / card** — opaque content panels; light surfaces share white and dark surfaces lift from the canvas.
+- **Elevated / raised** — sticky headers, active switcher pills and highlighted panels.
+- **Floating** — dialogs, dropdowns, context menus and tooltips use opaque surfaces and elevation.
 
-Do not style Tabs and SegmentedControl as inset fields. Binary peers (checkbox/radio/switch) and exclusive switchers are different roles; keep one recipe per role.
+Light surfaces rely on fill and spacing: standard borders mix ink at **7%**, strong borders at **12%**, and `--lumi-control-shadow` is `none`. Dark preserves **10% / 16%** borders and `--lumi-shadow-inset` for controls. This adjustment does not change focus rings or keyboard outlines; decorative edges and focus affordances have separate roles.
 
-Dashboard content background is intentionally translucent so cards stay visibly elevated above the shell. Do not solid-fill the main content until cards disappear into a flat slab.
+Dashboard content remains transparent by default so the canvas separates its cards. Cards retain the optional `--lumi-surface-blur-filter` hook for consumer-owned translucent treatments; Lumi's default surfaces do not require blur.
 
 ### Contrast and semantics
 
@@ -600,16 +621,16 @@ The default brand and status seeds share `--lumi-accent-lightness` and respect `
 
 ### Geometry — space, type, radius, motion
 
-| Concern        | Tokens                                                                                                                                                                                        | Rule                                                                                                                     |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| Spacing        | `--lumi-space-2xs` … `--lumi-space-6xl` (quarter-rem base)                                                                                                                                    | Compose from tokens; no magic numbers unless a `calc()` of tokens                                                        |
-| Typography     | Inter + system stack; scale `xs`→`4xl`; weights normal→bold                                                                                                                                   | Root uses compact `sm`; body inherits it for dense product UI                                                            |
-| Radius         | `--lumi-radius-control` (alias `--lumi-control-radius` still resolves), `--lumi-radius-option`, `--lumi-radius-panel`, `--lumi-radius-tooltip`, `--lumi-surface-radius`, `--lumi-radius-full` | Choose by semantic role; do not invent per component                                                                     |
-| Motion         | `--lumi-duration-fast` … `--lumi-duration-slower`, `--lumi-duration-spin`, `--lumi-motion-scale`                                                                                              | Fast = micro; base = UI; slow = overlays; spin = continuous ~1s; reduced motion collapses the shared dial                |
-| Control UI     | `--lumi-transition-control`, `--lumi-transition-interactive`                                                                                                                                  | Shared color/fill/border/shadow recipe; interactive adds the tokenized transform                                         |
-| Easing         | `--lumi-easing-default`                                                                                                                                                                       | Primary smooth-decelerate curve                                                                                          |
-| Press / lift   | `--lumi-interactive-press-scale`, `--lumi-interactive-hover-scale`, `--lumi-interactive-zoom-scale`, `--lumi-interactive-lift`                                                                | Subtle; never jump; flattened on touch (`hover: none`)                                                                   |
-| Surface follow | `--lumi-surface-hover` (0 or 1)                                                                                                                                                               | An interactive surface sets 1 on hover or keyboard focus; nested tiles and glyphs move with it, never on their own hover |
+| Concern        | Tokens                                                                                                                                         | Rule                                                                                                                     |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Spacing        | `--lumi-space-2xs` … `--lumi-space-6xl` (quarter-rem base)                                                                                     | Compose from tokens; no magic numbers unless a `calc()` of tokens                                                        |
+| Typography     | Inter + system stack; scale `xs`→`4xl`; weights normal→bold                                                                                    | Root uses compact `sm`; body inherits it for dense product UI                                                            |
+| Radius         | `--lumi-radius-control`, `--lumi-radius-option`, `--lumi-radius-panel`, `--lumi-radius-tooltip`, `--lumi-surface-radius`, `--lumi-radius-full` | Choose by semantic role; do not invent per component                                                                     |
+| Motion         | `--lumi-duration-fast` … `--lumi-duration-slower`, `--lumi-duration-spin`, `--lumi-motion-scale`                                               | Fast = micro; base = UI; slow = overlays; spin = continuous ~1s; reduced motion collapses the shared dial                |
+| Control UI     | `--lumi-transition-control`, `--lumi-transition-interactive`                                                                                   | Shared color/fill/border/shadow recipe; interactive adds the tokenized transform                                         |
+| Easing         | `--lumi-easing-default`                                                                                                                        | Primary smooth-decelerate curve                                                                                          |
+| Press / lift   | `--lumi-interactive-press-scale`, `--lumi-interactive-hover-scale`, `--lumi-interactive-zoom-scale`, `--lumi-interactive-lift`                 | Subtle; never jump; flattened on touch (`hover: none`)                                                                   |
+| Surface follow | `--lumi-surface-hover` (0 or 1)                                                                                                                | An interactive surface sets 1 on hover or keyboard focus; nested tiles and glyphs move with it, never on their own hover |
 
 Control heights share one ladder (`--lumi-control-height-xs` … `--lumi-control-height-xl`), but not every component exposes every step: **Input / Select / Textarea / NumberInput** use `xs…xl`, **Button** `sm…xl`, **Chip** `sm` (+ compact). Match the step the component actually supports. Coordinate Svelte transitions with the `--lumi-duration-*` tokens (150 / 220 / 300 ms); Lumi's own JS transitions collapse to zero under reduced motion.
 
@@ -618,7 +639,7 @@ Control heights share one ladder (`--lumi-control-height-xs` … `--lumi-control
 | Pattern     | Expectation                                                                                     |
 | ----------- | ----------------------------------------------------------------------------------------------- |
 | Hover       | Soft fill/border shift; optional 1px lift—never jump (switcher options: fill only, no lift)     |
-| Tint        | Rows and options: `--lumi-state-hover-strength` on hover, `--lumi-state-bg-strength` selected   |
+| Tint        | Rows and options: neutral `--lumi-color-hover` on hover, tone soft/strong for selection         |
 | Focus       | Visible ring/outline from shared tokens, ≥ 3:1 in every role and theme; keyboard-first          |
 | Disabled    | Reduced opacity (`--lumi-opacity-disabled`) + `pointer-events: none`; hover rules need no guard |
 | Loading     | Shared spinner recipe (18% accent track + solid arc, ~1s) or progress; block double-submit      |

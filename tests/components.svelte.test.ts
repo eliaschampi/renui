@@ -22,7 +22,6 @@ import {
 	ToggleGroup,
 	Tooltip
 } from '../src/lib';
-import { solidAccent } from '../src/lib/components/config';
 import { rovingIndex } from '../src/lib/utils/roving';
 import ContextMenu from './fixtures/ContextMenu.svelte';
 import DialogToaster from './fixtures/DialogToaster.svelte';
@@ -406,12 +405,11 @@ describe('control contract', () => {
 		);
 	});
 
-	it('writes no inline accent for the primary default', () => {
-		expect(solidAccent('primary')).toBeUndefined();
-		expect(solidAccent('danger')).toContain(
-			'--lumi-control-solid:var(--lumi-color-danger-solid)'
-		);
-		const target = render(Switch, { label: 'On' });
-		expect(target.querySelector('label')?.hasAttribute('style')).toBe(false);
+	it('carries its accent as tone classes, never as inline style', () => {
+		const target = render(Switch, { label: 'On', color: 'danger' });
+		const label = target.querySelector('label');
+		expect(label?.classList.contains('lumi-tone')).toBe(true);
+		expect(label?.classList.contains('lumi-tone--danger')).toBe(true);
+		expect(label?.hasAttribute('style')).toBe(false);
 	});
 });

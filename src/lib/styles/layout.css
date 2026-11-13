@@ -121,11 +121,9 @@
 	}
 
 	.lumi-page-sidebar__card {
-		--lumi-page-sidebar-gradient: var(--lumi-gradient-glass-sidebar);
 		height: 100%;
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border-glass);
-		background:
-			var(--lumi-page-sidebar-gradient), var(--lumi-color-surface-card);
+		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
+		background: var(--lumi-color-surface-card);
 		box-shadow: var(--lumi-shadow-sm);
 	}
 
@@ -158,7 +156,7 @@
 		overscroll-behavior: contain;
 		padding: var(--lumi-space-xs);
 		border-radius: var(--lumi-radius-panel);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border-glass);
+		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
 		background: var(--lumi-page-sidebar-list-bg);
 	}
 
@@ -173,7 +171,7 @@
 		overscroll-behavior: contain;
 		padding: var(--lumi-space-sm);
 		border-radius: var(--lumi-radius-panel);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border-glass);
+		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
 		background: var(--lumi-scroll-well-bg);
 	}
 
@@ -420,28 +418,19 @@
 .lumi-page-sidebar__radio-group .lumi-radio {
 	width: 100%;
 	padding: var(--lumi-space-sm) var(--lumi-space-md);
-	border: var(--lumi-border-width-thin) solid var(--lumi-color-border-glass);
+	border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
 	border-radius: var(--lumi-radius-option);
 	background: var(--lumi-color-surface-card);
 	transition: var(--lumi-transition-colors);
 }
 
 .lumi-page-sidebar__radio-group .lumi-radio:not(.lumi-radio--disabled):hover {
-	border-color: var(--lumi-color-border-interactive);
-	background: color-mix(
-		in srgb,
-		var(--lumi-color-primary) 8%,
-		var(--lumi-color-surface-card)
-	);
+	border-color: var(--lumi-color-border-strong);
 }
 
 .lumi-page-sidebar__radio-group .lumi-radio--checked {
-	border-color: var(--lumi-color-border-interactive);
-	background: color-mix(
-		in srgb,
-		var(--lumi-color-primary) 12%,
-		var(--lumi-color-surface-card)
-	);
+	border-color: transparent;
+	background: var(--lumi-color-primary-bg);
 }
 
 @media (max-width: 64rem) {

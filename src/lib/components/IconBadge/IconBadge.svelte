@@ -14,39 +14,29 @@
 	class={[
 		'lumi-icon-badge',
 		`lumi-icon-badge--${size}`,
-		color === 'warning' && 'lumi-icon-badge--warning',
+		`lumi-tone lumi-tone--${color}`,
 		className
 	]}
-	style:--lumi-control-accent="var(--lumi-color-{color})"
 	aria-hidden="true"
 >
 	<Icon {icon} {size} />
 </span>
 
 <style>
-	/* Shared icon-tile recipe (same fill/border/radius/rim as InfoItem icon);
-	   the standalone badge adds the quiet elevation, whose rim is the sheen. */
+	/* Icon tile: a soft-to-strong wash of its tone, lit from the top corner like
+	   every other toned surface, with the glyph in the tone ink. */
 	.lumi-icon-badge {
-		--icon-badge-bg-strength: 12%;
-		--icon-badge-border-strength: 20%;
 		display: inline-flex;
 		flex-shrink: 0;
 		align-items: center;
 		justify-content: center;
 		border-radius: var(--lumi-radius-tile);
-		color: var(--lumi-control-accent);
-		background: color-mix(
-			in srgb,
-			var(--lumi-control-accent) var(--icon-badge-bg-strength),
-			transparent
+		color: var(--lumi-tone-ink);
+		background: linear-gradient(
+			145deg,
+			var(--lumi-tone-soft),
+			var(--lumi-tone-strong)
 		);
-		border: var(--lumi-border-width-thin) solid
-			color-mix(
-				in srgb,
-				var(--lumi-control-accent) var(--icon-badge-border-strength),
-				transparent
-			);
-		box-shadow: var(--lumi-shadow-sm);
 	}
 
 	/* Follows the interactive surface around it, never its own hover: the badge
@@ -79,11 +69,5 @@
 	.lumi-icon-badge--xl {
 		width: var(--lumi-space-4xl);
 		height: var(--lumi-space-4xl);
-	}
-
-	/* Amber needs a little more fill to read as a tile. */
-	.lumi-icon-badge--warning {
-		--icon-badge-bg-strength: 17%;
-		--icon-badge-border-strength: 24%;
 	}
 </style>

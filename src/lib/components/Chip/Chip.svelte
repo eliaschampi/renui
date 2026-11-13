@@ -35,11 +35,11 @@
 <span
 	class={[
 		'lumi-chip',
+		`lumi-tone lumi-tone--${color}`,
 		size === 'sm' && 'lumi-chip--sm',
 		onclick && 'lumi-chip--interactive',
 		className
 	]}
-	style:--lumi-control-accent="var(--lumi-color-{color})"
 >
 	{#if onclick}
 		<button type="button" class="lumi-chip__action" {onclick}>
@@ -94,16 +94,8 @@
 		white-space: nowrap;
 		cursor: default;
 		user-select: none;
-		background: color-mix(
-			in oklch,
-			var(--lumi-control-accent) var(--lumi-state-bg-strength),
-			var(--lumi-color-surface)
-		);
-		color: var(--lumi-control-accent);
-		border: var(--lumi-border-width-thin) solid
-			color-mix(in srgb, var(--lumi-control-accent) 24%, transparent);
-		box-shadow: inset 0 var(--lumi-border-width-thin) 0
-			color-mix(in srgb, var(--lumi-color-white) 18%, transparent);
+		background: var(--lumi-tone-soft);
+		color: var(--lumi-tone-ink);
 	}
 
 	/* Size variants */
@@ -168,15 +160,6 @@
 	}
 
 	.lumi-chip--interactive:hover {
-		background: color-mix(
-			in srgb,
-			var(--lumi-control-accent) 16%,
-			var(--lumi-color-surface-card)
-		);
-		border-color: color-mix(
-			in srgb,
-			var(--lumi-control-accent) 34%,
-			transparent
-		);
+		background: var(--lumi-tone-strong);
 	}
 </style>

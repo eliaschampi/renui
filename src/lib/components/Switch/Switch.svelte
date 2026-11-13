@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { solidAccent } from '../config';
 	import type { SwitchProps } from './types';
 
 	let {
@@ -30,9 +29,9 @@
 		`lumi-switch--${size}`,
 		checked && 'lumi-switch--checked',
 		disabled && 'lumi-switch--disabled',
+		`lumi-tone lumi-tone--${color}`,
 		className
 	]}
-	style={solidAccent(color)}
 >
 	<input
 		type="checkbox"
@@ -72,9 +71,6 @@
 		--switch-travel: calc(var(--switch-track-w) - var(--switch-track-h));
 		--switch-stretch: var(--lumi-space-2xs);
 		--switch-label-size: var(--lumi-font-size-base);
-		--lumi-control-accent: var(--lumi-color-primary);
-		--lumi-control-solid: var(--lumi-color-primary-solid);
-		--lumi-control-foreground: var(--lumi-color-primary-foreground);
 
 		position: relative;
 		display: inline-flex;

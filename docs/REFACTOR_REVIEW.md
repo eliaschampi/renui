@@ -1,8 +1,20 @@
 # Reviews
 
+## 2.0 review — 2026-11-13
+
+Lumen unifies tone roles and removes default panel gradients and backdrop blur. The change is a major version because it removes legacy CSS tokens; see [Upgrade 1.x → 2.0.0](./UPGRADE.md#1x--200).
+
+| Area          | Result                                                                                                                                                                                                                                                                                                                            |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Color         | Shared soft/strong/ink planes derive from semantic hue; Progress, Slider and gradient Buttons share the beam recipe.                                                                                                                                                                                                              |
+| Surfaces      | Brand-tinted canvas, opaque panels and floating surfaces, neutral hover, consistent elevation.                                                                                                                                                                                                                                    |
+| Components    | Existing semantic props and entry points remain; tone classes replace repeated inline accent mappings.                                                                                                                                                                                                                            |
+| Compatibility | 25 legacy theme tokens removed. Consumer CSS must migrate; component API continuity does not imply CSS compatibility.                                                                                                                                                                                                             |
+| Verification  | [Size comparison](../README.md#lightweight-contract): every measured surface is equal or smaller than 1.2.0. [Browser benchmark](./BENCHMARK.md): median mount/layout increases by 0.2 ms in light and 0.1 ms in dark; median update/unmount unchanged. Dark mount/update p95 rise by 1.3/0.6 ms. No runtime speedup established. |
+
 ## 1.2 review — 2026-11-04
 
-A refactor for uniform behavior and load, with no breaking change. Migration: [Upgrade 1.1.1 → 1.2.0](./UPGRADE.md#111--120).
+A refactor for uniform behavior and load, with no breaking change. Migration: [Upgrade 1.1.1 → 1.2.0](./archive/UPGRADE-1.x.md#111--120).
 
 | Area      | Change                                                                                                                                                                                                  | Evidence                                                                                                                                                            |
 | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -31,7 +43,7 @@ Still open: a CSS `zoom` on an ancestor of the portal target offsets fixed surfa
 
 ## 1.0 review — 2026-10-17
 
-Lumi 1.0 was built by separate builders for foundation, forms/data, display/overlays and new components, each followed by an independent adversarial review and a fix round, and closed by a verification pass. Consumer evidence came from a usage audit of Faztore, Coedula and Aeduca. Migration: [Upgrade 0.6 → 1.0](./UPGRADE.md#060--100).
+Lumi 1.0 was built by separate builders for foundation, forms/data, display/overlays and new components, each followed by an independent adversarial review and a fix round, and closed by a verification pass. Consumer evidence came from a usage audit of Faztore, Coedula and Aeduca. Migration: [Upgrade 0.6 → 1.0](./archive/UPGRADE-1.x.md#060--100).
 
 ### What changed and why
 

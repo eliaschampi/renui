@@ -254,9 +254,8 @@
 		width: 100%;
 		min-width: 0;
 		padding: var(--drive-file-card-padding);
-		background: var(--lumi-gradient-card);
-		border: var(--lumi-border-width-thin) solid
-			var(--lumi-floating-surface-border);
+		background: var(--lumi-color-surface-card);
+		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
 		border-radius: var(--lumi-surface-radius);
 		cursor: pointer;
 		transition:
@@ -273,7 +272,7 @@
 	.lumi-drive-file-card:hover {
 		transform: translateY(var(--lumi-interactive-lift));
 		border-color: var(--lumi-color-border-interactive);
-		background: var(--lumi-gradient-card-hover);
+		background: var(--lumi-color-surface-card-hover);
 		box-shadow: var(--lumi-shadow-md);
 	}
 
@@ -285,14 +284,7 @@
 
 	.lumi-drive-file-card--selected {
 		border-color: var(--lumi-color-primary);
-		background:
-			linear-gradient(
-				145deg,
-				color-mix(in srgb, var(--lumi-color-primary) 5%, transparent) 0%,
-				transparent 68%,
-				transparent 100%
-			),
-			var(--lumi-color-surface-card-hover);
+		background: var(--lumi-color-primary-bg);
 		box-shadow: var(--lumi-shadow-md);
 	}
 
@@ -302,11 +294,7 @@
 
 	.lumi-drive-file-card--drop-target {
 		border: var(--lumi-border-width-thin) dashed var(--lumi-color-primary);
-		background: color-mix(
-			in srgb,
-			var(--lumi-color-primary) 10%,
-			var(--lumi-color-surface-card)
-		);
+		background: var(--lumi-color-primary-bg);
 		transform: scale(var(--lumi-interactive-hover-scale));
 	}
 
@@ -318,14 +306,7 @@
 		width: 100%;
 		aspect-ratio: var(--lumi-drive-file-preview-ratio);
 		border-radius: var(--lumi-radius-panel);
-		background:
-			linear-gradient(
-				145deg,
-				color-mix(in srgb, var(--lumi-color-primary) 5%, transparent) 0%,
-				transparent 45%,
-				color-mix(in srgb, var(--lumi-color-surface-card) 92%, transparent) 100%
-			),
-			var(--lumi-color-background-secondary);
+		background: var(--lumi-color-surface-inset);
 		overflow: hidden;
 	}
 
@@ -346,13 +327,6 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background:
-			radial-gradient(
-				circle at 50% 35%,
-				color-mix(in srgb, var(--lumi-color-surface-card) 70%, transparent) 0%,
-				transparent 70%
-			),
-			transparent;
 	}
 
 	.lumi-drive-file-card__kind {
@@ -366,12 +340,8 @@
 		font-size: var(--lumi-font-size-xs);
 		font-weight: var(--lumi-font-weight-medium);
 		color: var(--lumi-color-text-muted);
-		background: color-mix(
-			in srgb,
-			var(--lumi-color-surface-glass-strong) 90%,
-			transparent
-		);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border-glass);
+		background: var(--lumi-color-surface-raised);
+		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
 	}
 
 	.lumi-drive-file-card__tag {
@@ -380,12 +350,8 @@
 		bottom: var(--lumi-space-xs);
 		width: var(--lumi-space-lg);
 		height: var(--lumi-space-lg);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border-glass);
-		background: color-mix(
-			in srgb,
-			var(--lumi-color-surface-glass-strong) 92%,
-			transparent
-		);
+		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
+		background: var(--lumi-color-surface-raised);
 		border-radius: var(--lumi-radius-full);
 		display: flex;
 		align-items: center;

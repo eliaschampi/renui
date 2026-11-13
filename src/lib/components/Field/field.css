@@ -13,11 +13,7 @@
 		--lumi-field-pad-x: var(--lumi-space-sm);
 		--lumi-field-border: var(--lumi-color-control-border);
 		--lumi-control-autofill-bg: var(--lumi-color-control-fill);
-		--lumi-color-control-focus-fill: color-mix(
-			in srgb,
-			var(--lumi-color-control-fill) 84%,
-			var(--lumi-control-accent) 16%
-		);
+		--lumi-color-control-focus-fill: var(--lumi-color-surface-raised);
 		display: flex;
 		flex-direction: column;
 		inline-size: 100%;

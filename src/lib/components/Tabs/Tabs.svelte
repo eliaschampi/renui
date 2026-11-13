@@ -61,8 +61,12 @@
 </script>
 
 <div
-	class={['lumi-tabs', `lumi-tabs--${orientation}`, className]}
-	style:--lumi-control-accent="var(--lumi-color-{color})"
+	class={[
+		'lumi-tabs',
+		`lumi-tabs--${orientation}`,
+		`lumi-tone lumi-tone--${color}`,
+		className
+	]}
 >
 	<div
 		class={[

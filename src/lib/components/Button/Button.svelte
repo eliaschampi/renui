@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { solidAccent } from '../config';
 	import Icon from '../Icon/Icon.svelte';
 	import type { ButtonProps } from './types';
 
@@ -25,13 +24,11 @@
 	}: ButtonProps = $props();
 
 	const inert = $derived(disabled || loading);
-	const tint = $derived(
-		[solidAccent(color), style].filter(Boolean).join(';') || undefined
-	);
 	const classes = $derived([
 		'lumi-button',
 		`lumi-button--${variant}`,
 		`lumi-button--${size}`,
+		`lumi-tone lumi-tone--${color}`,
 		icon && !children && 'lumi-button--icon-only',
 		loading && 'lumi-button--loading',
 		className
@@ -64,17 +61,12 @@
 		role={inert ? 'link' : undefined}
 		aria-disabled={inert || undefined}
 		aria-busy={loading || undefined}
-		style={tint}
+		{style}
 	>
 		{@render content()}
 	</a>
 {:else if summary}
-	<summary
-		{...rest}
-		class={classes}
-		aria-busy={loading || undefined}
-		style={tint}
-	>
+	<summary {...rest} class={classes} aria-busy={loading || undefined} {style}>
 		{@render content()}
 	</summary>
 {:else}
@@ -85,7 +77,7 @@
 		disabled={inert}
 		aria-pressed={pressed}
 		aria-busy={loading || undefined}
-		style={tint}
+		{style}
 	>
 		{@render content()}
 	</button>
@@ -95,9 +87,6 @@
 	/* Semantic actions with restrained tactile depth. Disabled and loading
 	   controls drop pointer events, so hover/active rules need no guards. */
 	.lumi-button {
-		--lumi-control-accent: var(--lumi-color-primary);
-		--lumi-control-solid: var(--lumi-color-primary-solid);
-		--lumi-control-foreground: var(--lumi-color-primary-foreground);
 		--btn-icon: 1.2em;
 		--btn-lift: 0;
 		--btn-shade: var(--lumi-color-black);
@@ -105,10 +94,10 @@
 			color-mix(in srgb, var(--lumi-color-white) 26%, transparent);
 		--btn-glow: 0 var(--lumi-space-xs) var(--lumi-space-lg)
 			calc(var(--lumi-space-xs) * -1)
-			color-mix(in srgb, var(--lumi-control-solid) 22%, transparent);
+			color-mix(in oklch, var(--lumi-control-solid) 34%, transparent);
 		--btn-glow-hover: 0 var(--lumi-space-sm) var(--lumi-space-xl)
 			calc(var(--lumi-space-xs) * -1)
-			color-mix(in srgb, var(--lumi-control-solid) 28%, transparent);
+			color-mix(in oklch, var(--lumi-control-solid) 42%, transparent);
 		position: relative;
 		display: inline-flex;
 		align-items: center;
@@ -186,11 +175,6 @@
 		--btn-lift: var(--lumi-interactive-lift);
 		color: var(--lumi-control-foreground);
 		background: var(--lumi-control-solid);
-		border-color: color-mix(
-			in srgb,
-			var(--lumi-control-solid) 48%,
-			transparent
-		);
 		box-shadow: var(--btn-sheen), var(--btn-glow), var(--lumi-shadow-sm);
 	}
 
@@ -212,34 +196,25 @@
 		box-shadow: var(--lumi-shadow-sm);
 	}
 
+	/* The beam, cut diagonally and kept deep enough for its foreground. */
 	.lumi-button--gradient {
-		--btn-glow: 0 var(--lumi-space-xs) var(--lumi-space-lg)
-			calc(var(--lumi-space-xs) * -1)
-			color-mix(in srgb, var(--lumi-control-solid) 30%, transparent);
-		--btn-glow-hover: 0 var(--lumi-space-sm) var(--lumi-space-xl)
-			calc(var(--lumi-space-xs) * -1)
-			color-mix(in srgb, var(--lumi-control-solid) 36%, transparent);
-		--btn-sheen: inset 0 var(--lumi-border-width-thin) 0
-			color-mix(in srgb, var(--lumi-color-white) 18%, transparent);
-		background: linear-gradient(
-			135deg,
-			var(--lumi-control-solid),
-			color-mix(in srgb, var(--lumi-control-solid) 90%, var(--btn-shade)) 52%,
-			color-mix(in srgb, var(--lumi-control-solid) 75%, var(--btn-shade))
-		);
+		--lumi-beam-angle: 135deg;
+		--lumi-beam-sun: 4%;
+		background: var(--lumi-tone-beam);
 	}
 
-	/* Gradients shade away from the paired foreground when supported. */
+	/* Hover shades away from the paired foreground when supported. */
 	@supports (color: contrast-color(red)) {
 		.lumi-button {
 			--btn-shade: contrast-color(var(--lumi-control-foreground));
 		}
 	}
 
-	/* Quiet variants tint the accent. */
+	/* Quiet variants live on the tone roles: accent on a neutral surface, ink
+	   on a soft one; hover and press step soft → strong. */
 	.lumi-button--border {
 		color: var(--lumi-control-accent);
-		background: var(--lumi-color-surface-glass);
+		background: var(--lumi-color-surface);
 		border-color: color-mix(
 			in srgb,
 			var(--lumi-control-accent) 34%,
@@ -247,23 +222,9 @@
 		);
 	}
 
-	.lumi-button--border:hover {
-		background: var(--lumi-color-surface-glass-strong);
-		border-color: color-mix(
-			in srgb,
-			var(--lumi-control-accent) 48%,
-			var(--lumi-color-border)
-		);
-	}
-
 	.lumi-button--flat {
-		color: var(--lumi-control-accent);
-		background: color-mix(in srgb, var(--lumi-control-accent) 9%, transparent);
-		border-color: color-mix(
-			in srgb,
-			var(--lumi-control-accent) 18%,
-			transparent
-		);
+		color: var(--lumi-tone-ink);
+		background: var(--lumi-tone-soft);
 	}
 
 	.lumi-button--ghost {
@@ -271,39 +232,30 @@
 		background: transparent;
 	}
 
-	.lumi-button--flat:hover,
+	.lumi-button--border:hover,
 	.lumi-button--ghost:hover {
-		background: color-mix(in srgb, var(--lumi-control-accent) 14%, transparent);
-		border-color: color-mix(
-			in srgb,
-			var(--lumi-control-accent) 28%,
-			transparent
-		);
+		color: var(--lumi-tone-ink);
+		background: var(--lumi-tone-soft);
 	}
 
+	.lumi-button--flat:hover,
 	.lumi-button--border:active,
 	.lumi-button--flat:active,
 	.lumi-button--ghost:active {
-		background: color-mix(in srgb, var(--lumi-control-accent) 17%, transparent);
+		background: var(--lumi-tone-strong);
 	}
 
-	/* Toggle on (or an open disclosure): quiet variants settle into a tinted,
-	   pressed-in fill. */
+	/* Toggle on (or an open disclosure): quiet variants settle into the strong
+	   tone. */
 	.lumi-button[aria-pressed='true']:not(
 			.lumi-button--filled,
 			.lumi-button--gradient
 		),
 	:global(details[open])
 		> .lumi-button:not(.lumi-button--filled, .lumi-button--gradient) {
-		color: var(--lumi-control-accent);
-		background: color-mix(in srgb, var(--lumi-control-accent) 16%, transparent);
-		border-color: color-mix(
-			in srgb,
-			var(--lumi-control-accent) 45%,
-			transparent
-		);
-		box-shadow: inset 0 var(--lumi-border-width-thin) var(--lumi-space-2xs)
-			color-mix(in srgb, var(--lumi-control-accent) 18%, transparent);
+		color: var(--lumi-tone-ink);
+		background: var(--lumi-tone-strong);
+		border-color: transparent;
 	}
 
 	/* A disclosure toggle drops the native marker; the label carries the state. */

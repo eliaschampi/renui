@@ -42,11 +42,11 @@
 	class={[
 		'lumi-slider',
 		`lumi-slider--${size}`,
+		`lumi-tone lumi-tone--${color}`,
 		disabled && 'lumi-slider--disabled',
 		className
 	]}
 	style:--slider-fill="{percentage}%"
-	style:--lumi-control-accent="var(--lumi-color-{color})"
 >
 	{#if label}
 		<div class="lumi-slider__header">
@@ -88,6 +88,8 @@
 </div>
 
 <style>
+	/* A meter is a beam: the filled part of the track is the tone beam, bright
+	   where it meets the thumb; the thumb is a solid bead with a white rim. */
 	.lumi-slider {
 		display: flex;
 		flex-direction: column;
@@ -95,22 +97,17 @@
 		width: 100%;
 
 		--slider-fill: 0%;
-		--slider-track: color-mix(
-			in srgb,
-			var(--lumi-color-border-strong) 68%,
-			var(--lumi-color-surface)
-		);
-		--_track-h: var(--lumi-space-2xs);
+		--_track-h: calc(var(--lumi-space-2xs) * 1.5);
 		--_thumb-size: var(--lumi-icon-md);
 	}
 
 	.lumi-slider--sm {
-		--_track-h: var(--lumi-border-width-thick);
+		--_track-h: var(--lumi-space-2xs);
 		--_thumb-size: var(--lumi-icon-sm);
 	}
 
 	.lumi-slider--lg {
-		--_track-h: calc(var(--lumi-space-2xs) + var(--lumi-border-width-thick));
+		--_track-h: var(--lumi-space-xs);
 		--_thumb-size: var(--lumi-icon-lg);
 	}
 
@@ -124,21 +121,22 @@
 		font-size: var(--lumi-font-size-sm);
 		font-weight: var(--lumi-font-weight-semibold);
 		color: var(--lumi-color-text);
-		transition: color var(--lumi-duration-fast) var(--lumi-easing-default);
 	}
 
-	.lumi-slider:focus-within .lumi-slider__label {
-		color: var(--lumi-control-accent);
-	}
-
-	.lumi-slider__value-inline {
-		font-variant-numeric: tabular-nums;
+	/* Value read-outs are tone chips: soft fill, tone ink. */
+	.lumi-slider__value-inline,
+	.lumi-slider__value {
+		padding: var(--lumi-space-2xs) var(--lumi-space-xs);
+		color: var(--lumi-tone-ink);
 		font-size: var(--lumi-font-size-xs);
 		font-weight: var(--lumi-font-weight-bold);
-		color: var(--lumi-control-accent);
-		background: color-mix(in srgb, var(--lumi-control-accent) 12%, transparent);
-		border-radius: var(--lumi-radius-base);
-		padding: var(--lumi-space-2xs) var(--lumi-space-xs);
+		font-variant-numeric: tabular-nums;
+		background: var(--lumi-tone-soft);
+		border-radius: var(--lumi-radius-full);
+	}
+
+	.lumi-slider__value {
+		align-self: center;
 	}
 
 	.lumi-slider__control {
@@ -147,46 +145,36 @@
 		flex-direction: column;
 	}
 
+	/* Track and thumb state live on the input; both engine pseudo-elements read
+	   them. */
 	.lumi-slider__input {
+		--_thumb-scale: 1;
+		--_thumb-ring: 0 0 0 0 transparent;
+		--_fill: var(--lumi-tone-beam) 0 / var(--slider-fill) 100% no-repeat;
 		width: 100%;
 		height: var(--lumi-control-height-sm);
 		margin: 0;
 		appearance: none;
 		-webkit-appearance: none;
-		background: linear-gradient(
-			to right,
-			var(--lumi-control-accent) 0%,
-			var(--lumi-control-accent) var(--slider-fill),
-			var(--slider-track) var(--slider-fill),
-			var(--slider-track) 100%
-		);
-		background-position: center;
-		background-repeat: no-repeat;
-		background-size: 100% var(--_track-h);
+		background: none;
 		border-radius: var(--lumi-radius-full);
 		outline: var(--lumi-border-width-thick) solid transparent;
 		outline-offset: var(--lumi-focus-outline-offset);
 		cursor: pointer;
 	}
 
-	/* Thumb state lives on the input; both engine pseudo-elements read it. */
-	.lumi-slider__input {
-		--_thumb-scale: 1;
-		--_thumb-ring: 0 0 0 var(--lumi-border-width-thin)
-			color-mix(in srgb, var(--lumi-control-accent) 18%, transparent);
-		--_thumb-shadow: var(--lumi-shadow-sm);
+	:global([dir='rtl']) .lumi-slider__input {
+		--_fill: var(--lumi-tone-beam) 100% / var(--slider-fill) 100% no-repeat;
 	}
 
 	.lumi-slider__input:hover,
 	.lumi-slider__input:active {
 		--_thumb-scale: var(--lumi-interactive-zoom-scale);
-		--_thumb-shadow: var(--lumi-shadow-md);
 		--_thumb-ring: 0 0 0 var(--lumi-space-2xs)
 			color-mix(in srgb, var(--lumi-control-accent) 22%, transparent);
 	}
 
 	.lumi-slider__input:focus-visible {
-		--_thumb-shadow: var(--lumi-shadow-md);
 		--_thumb-ring: 0 0 0 var(--lumi-space-2xs)
 			color-mix(
 				in srgb,
@@ -200,14 +188,28 @@
 			color-mix(in srgb, var(--lumi-control-accent) 26%, transparent);
 	}
 
+	.lumi-slider__input::-webkit-slider-runnable-track {
+		height: var(--_track-h);
+		background: var(--_fill), var(--lumi-tone-soft);
+		border-radius: var(--lumi-radius-full);
+	}
+
+	.lumi-slider__input::-moz-range-track {
+		height: var(--_track-h);
+		background: var(--_fill), var(--lumi-tone-soft);
+		border-radius: var(--lumi-radius-full);
+	}
+
 	.lumi-slider__input::-webkit-slider-thumb {
 		appearance: none;
 		width: var(--_thumb-size);
 		height: var(--_thumb-size);
-		background: var(--lumi-color-surface);
-		border: var(--lumi-border-width-thick) solid var(--lumi-control-accent);
+		margin-top: calc((var(--_track-h) - var(--_thumb-size)) / 2);
+		background: var(--lumi-control-solid);
+		border: calc(var(--lumi-border-width-base) * 2) solid
+			var(--lumi-color-white);
 		border-radius: var(--lumi-radius-full);
-		box-shadow: var(--_thumb-shadow), var(--_thumb-ring);
+		box-shadow: var(--lumi-shadow-md), var(--_thumb-ring);
 		transform: scale(var(--_thumb-scale));
 		transition:
 			transform var(--lumi-duration-fast) var(--lumi-easing-default),
@@ -216,35 +218,39 @@
 
 	/* Same rule body; unknown pseudo-elements invalidate a shared selector list. */
 	.lumi-slider__input::-moz-range-thumb {
+		box-sizing: border-box;
 		width: var(--_thumb-size);
 		height: var(--_thumb-size);
-		background: var(--lumi-color-surface);
-		border: var(--lumi-border-width-thick) solid var(--lumi-control-accent);
+		background: var(--lumi-control-solid);
+		border: calc(var(--lumi-border-width-base) * 2) solid
+			var(--lumi-color-white);
 		border-radius: var(--lumi-radius-full);
-		box-shadow: var(--_thumb-shadow), var(--_thumb-ring);
+		box-shadow: var(--lumi-shadow-md), var(--_thumb-ring);
 		transform: scale(var(--_thumb-scale));
 		transition:
 			transform var(--lumi-duration-fast) var(--lumi-easing-default),
 			box-shadow var(--lumi-duration-fast) var(--lumi-easing-default);
 	}
 
-	/* Glass tooltip */
+	/* Value bubble: the solid of the thumb it follows. */
 	.lumi-slider__tooltip {
 		position: absolute;
-		left: var(--slider-fill);
-		bottom: calc(100% + var(--lumi-space-xs));
-		transform: translate(calc(-1 * var(--slider-fill)), var(--lumi-space-xs));
+		--_tooltip-direction: -1;
+		inset-inline-start: var(--slider-fill);
+		bottom: calc(100% + var(--lumi-space-2xs));
+		transform: translate(
+			calc(var(--_tooltip-direction) * var(--slider-fill)),
+			var(--lumi-space-xs)
+		);
 		padding: var(--lumi-space-2xs) var(--lumi-space-sm);
-		background: var(--lumi-color-surface-overlay);
-		border: var(--lumi-border-width-thin) solid
-			color-mix(in srgb, var(--lumi-control-accent) 35%, transparent);
-		box-shadow: var(--lumi-shadow-lg);
-		color: var(--lumi-color-text);
-		font-variant-numeric: tabular-nums;
+		color: var(--lumi-control-foreground);
 		font-size: var(--lumi-font-size-xs);
 		font-weight: var(--lumi-font-weight-bold);
-		border-radius: var(--lumi-radius-tooltip);
+		font-variant-numeric: tabular-nums;
 		white-space: nowrap;
+		background: var(--lumi-control-solid);
+		border-radius: var(--lumi-radius-full);
+		box-shadow: var(--lumi-shadow-md);
 		opacity: 0;
 		pointer-events: none;
 		transition:
@@ -252,31 +258,27 @@
 			transform var(--lumi-duration-fast) var(--lumi-easing-default);
 	}
 
+	.lumi-slider__tooltip:dir(rtl) {
+		--_tooltip-direction: 1;
+	}
+
 	/* Show tooltip on hover or active of input, or hover of control */
 	.lumi-slider__control:hover .lumi-slider__tooltip,
 	.lumi-slider__input:focus-visible ~ .lumi-slider__tooltip,
 	.lumi-slider__input:active ~ .lumi-slider__tooltip {
 		opacity: 1;
-		transform: translate(calc(-1 * var(--slider-fill)), 0);
+		transform: translate(
+			calc(var(--_tooltip-direction) * var(--slider-fill)),
+			0
+		);
 	}
 
 	.lumi-slider__range-labels {
 		display: flex;
 		justify-content: space-between;
-		margin-top: var(--lumi-space-sm);
+		margin-top: var(--lumi-space-2xs);
 		font-size: var(--lumi-font-size-xs);
 		color: var(--lumi-color-text-muted);
-	}
-
-	.lumi-slider__value {
-		align-self: center;
-		font-variant-numeric: tabular-nums;
-		font-size: var(--lumi-font-size-sm);
-		font-weight: var(--lumi-font-weight-bold);
-		color: var(--lumi-control-accent);
-		background: color-mix(in srgb, var(--lumi-control-accent) 12%, transparent);
-		border-radius: var(--lumi-radius-base);
-		padding: var(--lumi-space-2xs) var(--lumi-space-sm);
 	}
 
 	.lumi-slider--disabled {

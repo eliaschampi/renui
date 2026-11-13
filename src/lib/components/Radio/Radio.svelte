@@ -40,9 +40,9 @@
 		busy && 'lumi-radio-option--busy',
 		checked && 'lumi-radio--checked',
 		disabled && 'lumi-radio--disabled',
+		`lumi-tone lumi-tone--${color}`,
 		className
 	]}
-	style:--lumi-control-accent="var(--lumi-color-{color})"
 	aria-busy={busy || undefined}
 >
 	<input
@@ -131,7 +131,7 @@
 		width: 100%;
 		padding: var(--lumi-space-sm) var(--lumi-space-md);
 		border-radius: var(--lumi-radius-option);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border-glass);
+		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
 		background: var(--lumi-color-surface-card);
 		transition: var(--lumi-transition-control);
 	}

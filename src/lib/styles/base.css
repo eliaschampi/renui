@@ -1,6 +1,7 @@
 /* ========================================================================== */
 /* Lumi UI Base                                                               */
-/* Reset, focus and control contracts, surfaces, the recipes every page needs */
+/* Reset, the tone engine, focus and control contracts, surfaces and the     */
+/* recipes every page needs                                                   */
 /* (icon, spinner, sr-only) and scrollbars. Required by every component.      */
 /* Recipes a few components share ship with them: styles/switcher*.css,       */
 /* styles/skeleton.css, styles/floating.css, Field/field.css.                 */
@@ -70,24 +71,7 @@
 	body {
 		min-height: 100dvh;
 		color: var(--lumi-color-text);
-		background:
-			var(--lumi-app-background-accent) center / auto no-repeat,
-			linear-gradient(
-					var(--lumi-app-pattern-line-color) var(--lumi-border-width-thin),
-					transparent var(--lumi-border-width-thin)
-				)
-				0 0 / var(--lumi-app-pattern-size) var(--lumi-app-pattern-size) repeat,
-			linear-gradient(
-					90deg,
-					var(--lumi-app-pattern-line-color) var(--lumi-border-width-thin),
-					transparent var(--lumi-border-width-thin)
-				)
-				0 0 / var(--lumi-app-pattern-size) var(--lumi-app-pattern-size) repeat,
-			var(--lumi-gradient-app);
-		background-color: var(--lumi-color-background);
-		transition:
-			color var(--lumi-duration-base) var(--lumi-easing-default),
-			background var(--lumi-duration-base) var(--lumi-easing-default);
+		background: var(--lumi-color-background);
 		overflow-x: hidden;
 	}
 
@@ -127,6 +111,72 @@
 			var(--lumi-focus-ring), var(--lumi-control-shadow);
 	}
 
+	/* Tone engine — one accent in, five roles out. .lumi-tone anchors the accent
+	   trio (primary unless a color class or an inline accent says otherwise) and
+	   derives the rest for itself and its descendants: soft, strong and ink keep
+	   only the accent hue, on the theme planes; the beam shades the solid toward
+	   dusk at its tail and toward the sun at its head. An accent change without
+	   .lumi-tone keeps the roles it inherited. */
+	:where(.lumi-tone) {
+		--lumi-control-accent: var(--lumi-color-primary);
+		--lumi-control-solid: var(--lumi-color-primary-solid);
+		--lumi-control-foreground: var(--lumi-color-primary-foreground);
+		--lumi-tone-soft: oklch(
+			from var(--lumi-control-accent) var(--lumi-tone-soft-lc) h
+		);
+		--lumi-tone-strong: oklch(
+			from var(--lumi-control-accent) var(--lumi-tone-strong-lc) h
+		);
+		--lumi-tone-ink: oklch(
+			from var(--lumi-control-accent) var(--lumi-tone-ink-lc) h
+		);
+		--lumi-tone-beam: linear-gradient(
+			var(--lumi-beam-angle, 90deg),
+			color-mix(in oklch, var(--lumi-control-solid), var(--lumi-dusk) 22%),
+			var(--lumi-control-solid) 55%,
+			color-mix(
+				in oklch,
+				var(--lumi-control-solid),
+				var(--lumi-sun) var(--lumi-beam-sun, 20%)
+			)
+		);
+	}
+
+	:where(.lumi-tone--secondary) {
+		--lumi-control-accent: var(--lumi-color-secondary);
+		--lumi-control-solid: var(--lumi-color-secondary-solid);
+		--lumi-control-foreground: var(--lumi-color-secondary-foreground);
+	}
+
+	:where(.lumi-tone--success) {
+		--lumi-control-accent: var(--lumi-color-success);
+		--lumi-control-solid: var(--lumi-color-success-solid);
+		--lumi-control-foreground: var(--lumi-color-success-foreground);
+	}
+
+	:where(.lumi-tone--warning) {
+		--lumi-control-accent: var(--lumi-color-warning);
+		--lumi-control-solid: var(--lumi-color-warning-solid);
+		--lumi-control-foreground: var(--lumi-color-warning-foreground);
+	}
+
+	:where(.lumi-tone--danger) {
+		--lumi-control-accent: var(--lumi-color-danger);
+		--lumi-control-solid: var(--lumi-color-danger-solid);
+		--lumi-control-foreground: var(--lumi-color-danger-foreground);
+	}
+
+	:where(.lumi-tone--info) {
+		--lumi-control-accent: var(--lumi-color-info);
+		--lumi-control-solid: var(--lumi-color-info-solid);
+		--lumi-control-foreground: var(--lumi-color-info-foreground);
+	}
+
+	/* A beam always travels toward the reading end. */
+	:where([dir='rtl']) {
+		--lumi-beam-angle: 270deg;
+	}
+
 	/* Binary peers: a tinted fill and an accent border while hovered or active. */
 	:where(.lumi-checkbox, .lumi-radio, .lumi-switch) {
 		--lumi-control-active-fill: color-mix(
@@ -159,46 +209,35 @@
 			var(--lumi-easing-default);
 	}
 
+	/* One opaque shell for every raised surface: depth is elevation, not blur. */
 	:where(.lumi-surface, .lumi-card, .lumi-navbar, .lumi-sidebar, .lumi-dialog) {
-		background: var(--lumi-surface-bg, var(--lumi-floating-surface-bg));
+		background: var(--lumi-surface-bg, var(--lumi-color-surface-raised));
 		border: var(
 			--lumi-surface-border,
-			var(--lumi-border-width-thin) solid var(--lumi-floating-surface-border)
+			var(--lumi-border-width-thin) solid var(--lumi-color-border)
 		);
 		border-radius: var(--lumi-surface-radius-local, var(--lumi-surface-radius));
-		box-shadow: var(--lumi-surface-shadow, var(--lumi-floating-surface-shadow));
+		box-shadow: var(--lumi-surface-shadow, var(--lumi-shadow-md));
 	}
 
-	/* Blur on translucent shells; cards opt in via --lumi-surface-blur-filter. */
-	:where(.lumi-surface, .lumi-navbar, .lumi-dialog) {
-		backdrop-filter: blur(var(--lumi-surface-blur, var(--lumi-blur-sm)))
-			saturate(var(--lumi-surface-saturation));
-		-webkit-backdrop-filter: blur(var(--lumi-surface-blur, var(--lumi-blur-sm)))
-			saturate(var(--lumi-surface-saturation));
-	}
-
+	/* Frosting is opt-in per card (--lumi-surface-blur-filter). */
 	:where(.lumi-card) {
 		backdrop-filter: var(--lumi-surface-blur-filter, none);
 		-webkit-backdrop-filter: var(--lumi-surface-blur-filter, none);
 	}
 
+	/* Ambient card: a wash of its tone, lit from the top corner. */
 	.lumi-card--ambient::after {
 		content: '';
 		position: absolute;
 		inset: 0;
 		border-radius: inherit;
 		pointer-events: none;
-		background:
-			radial-gradient(
-				circle at top right,
-				color-mix(in srgb, var(--lumi-color-primary) 4.5%, transparent),
-				transparent 52%
-			),
-			linear-gradient(
-				145deg,
-				color-mix(in srgb, var(--lumi-color-primary-bg) 28%, transparent),
-				transparent 62%
-			);
+		background: linear-gradient(
+			145deg,
+			var(--lumi-color-primary-bg),
+			transparent 58%
+		);
 		z-index: 0;
 	}
 

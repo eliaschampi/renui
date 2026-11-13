@@ -361,14 +361,10 @@
 		--lumi-table-cell-font: var(--lumi-font-size-sm);
 		--lumi-table-row-hover: color-mix(
 			in srgb,
-			var(--lumi-color-primary) var(--lumi-state-hover-strength),
+			var(--lumi-color-text) var(--lumi-state-hover-strength),
 			var(--lumi-color-surface-card)
 		);
-		--lumi-table-row-selected: color-mix(
-			in srgb,
-			var(--lumi-color-primary) var(--lumi-state-bg-strength),
-			var(--lumi-color-surface-card)
-		);
+		--lumi-table-row-selected: var(--lumi-color-primary-bg);
 		display: flex;
 		flex-direction: column;
 		gap: var(--lumi-space-md);
@@ -400,8 +396,8 @@
 		position: relative;
 		inline-size: 100%;
 		overflow-x: auto;
-		background: var(--lumi-gradient-subtle), var(--lumi-color-surface-card);
-		border: var(--lumi-border-width-thin) solid var(--lumi-color-border-glass);
+		background: var(--lumi-color-surface-card);
+		border: var(--lumi-border-width-thin) solid var(--lumi-color-border);
 		border-radius: var(--lumi-surface-radius);
 		box-shadow: var(--lumi-shadow-sm);
 	}
@@ -431,19 +427,9 @@
 	}
 
 	.lumi-table__thead {
-		background:
-			linear-gradient(
-				145deg,
-				color-mix(
-					in srgb,
-					var(--lumi-color-surface-glass-strong) 88%,
-					transparent
-				),
-				color-mix(in srgb, var(--lumi-color-background-hover) 68%, transparent)
-			),
-			var(--lumi-color-surface-glass-strong);
+		background: var(--lumi-color-surface-inset);
 		border-block-end: var(--lumi-border-width-thin) solid
-			var(--lumi-color-border-strong);
+			var(--lumi-color-border);
 	}
 
 	.lumi-table__th,
@@ -452,11 +438,7 @@
 		font-size: var(--lumi-font-size-xs);
 		font-weight: var(--lumi-font-weight-semibold);
 		letter-spacing: var(--lumi-letter-spacing-wide);
-		color: color-mix(
-			in srgb,
-			var(--lumi-color-text) 72%,
-			var(--lumi-color-primary)
-		);
+		color: var(--lumi-color-text-muted);
 		text-align: start;
 		white-space: nowrap;
 	}
@@ -476,11 +458,10 @@
 		text-align: center;
 	}
 
-	/* Rows: hairline separators and an inline-start accent (mirrors in RTL). */
+	/* Rows: hairline separators; neutral wash on hover, soft tone when selected. */
 	.lumi-table__row {
 		border-block-end: var(--lumi-border-width-thin) solid
-			color-mix(in srgb, var(--lumi-color-border) 72%, transparent);
-		border-inline-start: var(--lumi-border-width-thick) solid transparent;
+			var(--lumi-color-border-light);
 		transition: var(--lumi-transition-control);
 	}
 
@@ -499,11 +480,6 @@
 
 	.lumi-table--hover .lumi-table__row:hover {
 		background: var(--lumi-table-row-hover);
-		border-inline-start-color: color-mix(
-			in srgb,
-			var(--lumi-color-primary) 18%,
-			var(--lumi-color-border)
-		);
 	}
 
 	.lumi-table--stripe .lumi-table__row:nth-child(even) {
@@ -516,7 +492,6 @@
 
 	.lumi-table .lumi-table__row.lumi-table__row--selected {
 		background: var(--lumi-table-row-selected);
-		border-inline-start-color: var(--lumi-color-primary);
 	}
 
 	.lumi-table__loading {

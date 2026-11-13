@@ -42,10 +42,10 @@
 		invalid && 'lumi-field--invalid',
 		disabled && 'lumi-field--disabled',
 		showCount && maxlength && 'lumi-textarea--count',
+		`lumi-tone lumi-tone--${invalid ? 'danger' : color}`,
 		className
 	]}
 	style:--lumi-textarea-rows={rows}
-	style:--lumi-control-accent="var(--lumi-color-{invalid ? 'danger' : color})"
 >
 	{#if label}
 		<FieldLabel for={id} {label} required={!!required} />

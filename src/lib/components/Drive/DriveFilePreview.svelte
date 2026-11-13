@@ -170,14 +170,7 @@
 		padding: var(--lumi-space-sm);
 		border: var(--lumi-border-width-thin) solid var(--lumi-color-border-light);
 		border-radius: var(--lumi-radius-panel);
-		background:
-			linear-gradient(
-				145deg,
-				color-mix(in srgb, var(--lumi-color-primary) 3%, transparent) 0%,
-				transparent 60%,
-				transparent 100%
-			),
-			var(--lumi-color-background-secondary);
+		background: var(--lumi-color-surface-inset);
 	}
 
 	.lumi-drive-preview__media-wrap {
