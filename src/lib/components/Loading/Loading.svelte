@@ -29,10 +29,12 @@
 	role="status"
 	aria-label={text || children ? undefined : i18n.t.loading}
 >
-	<span class="ren-loading__indicator" aria-hidden="true">
-		<span class="ren-spinner ren-loading__ring"></span>
-		<span class="ren-loading__core"></span>
-	</span>
+	<!-- Track plus an arc that grows, shrinks and turns; reduced motion keeps
+	     a still arc. -->
+	<svg class="ren-loading__indicator" viewBox="0 0 48 48" aria-hidden="true">
+		<circle class="ren-loading__track" cx="24" cy="24" r="20" />
+		<circle class="ren-loading__arc" cx="24" cy="24" r="20" />
+	</svg>
 
 	{#if text || children}
 		<span class="ren-loading__text">
@@ -43,38 +45,34 @@
 
 <style>
 	.ren-loading {
+		--loading-size: var(--ren-space-3xl);
 		display: inline-flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		gap: var(--ren-space-md);
 		color: var(--ren-control-accent);
-		--loading-ring-size: var(--ren-space-3xl);
-		--loading-core-size: var(--ren-space-lg);
 	}
 
+	/* Geometry in viewBox units (circumference ≈ 126), so stroke and dashes
+	   scale with the size. */
 	.ren-loading__indicator {
-		position: relative;
-		display: grid;
-		place-items: center;
-		inline-size: var(--loading-ring-size);
-		block-size: var(--loading-ring-size);
+		inline-size: var(--loading-size);
+		block-size: var(--loading-size);
+		fill: none;
+		stroke-width: 4;
+		stroke-linecap: round;
+		animation: ren-spin calc(var(--ren-duration-spin) * 2) linear infinite;
 	}
 
-	.ren-loading__ring {
-		position: absolute;
-		inset: 0;
-		--ren-spinner-size: 100%;
+	.ren-loading__track {
+		stroke: var(--ren-tone-soft);
 	}
 
-	.ren-loading__core {
-		inline-size: var(--loading-core-size);
-		block-size: var(--loading-core-size);
-		border-radius: var(--ren-radius-full);
-		background: currentColor;
-		box-shadow: 0 0 var(--ren-space-md)
-			color-mix(in srgb, currentColor 35%, transparent);
-		animation: ren-loading-pulse var(--ren-duration-shimmer)
+	.ren-loading__arc {
+		stroke: currentColor;
+		stroke-dasharray: 60 200;
+		animation: ren-loading-arc var(--ren-duration-shimmer)
 			var(--ren-easing-in-out) infinite;
 	}
 
@@ -87,27 +85,29 @@
 	}
 
 	.ren-loading--sm {
-		--loading-ring-size: var(--ren-space-xxl);
-		--loading-core-size: var(--ren-space-sm);
+		--loading-size: var(--ren-space-xxl);
 		gap: var(--ren-space-sm);
 	}
 
 	.ren-loading--lg {
-		--loading-ring-size: var(--ren-space-4xl);
-		--loading-core-size: var(--ren-space-xl);
+		--loading-size: var(--ren-space-4xl);
 		gap: var(--ren-space-lg);
 	}
 
-	@keyframes ren-loading-pulse {
-		0%,
-		100% {
-			transform: scale(0.78);
-			opacity: 0.65;
+	@keyframes ren-loading-arc {
+		0% {
+			stroke-dasharray: 1 200;
+			stroke-dashoffset: 0;
 		}
 
 		50% {
-			transform: scale(1);
-			opacity: 1;
+			stroke-dasharray: 90 200;
+			stroke-dashoffset: -35;
+		}
+
+		100% {
+			stroke-dasharray: 90 200;
+			stroke-dashoffset: -124;
 		}
 	}
 </style>

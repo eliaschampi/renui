@@ -646,7 +646,7 @@ Control heights share one ladder (`--ren-control-height-xs` … `--ren-control-h
 | Tint        | Rows and options: neutral `--ren-color-hover` on hover, tone soft/strong for selection          |
 | Focus       | Visible ring/outline from shared tokens, ≥ 3:1 in every role and theme; keyboard-first          |
 | Disabled    | Reduced opacity (`--ren-opacity-disabled`) + `pointer-events: none`; hover rules need no guard  |
-| Loading     | Shared spinner recipe (18% accent track + solid arc, ~1s) or progress; block double-submit      |
+| Loading     | Inline `.ren-spinner`; `Loading` draws a soft track + breathing arc; block double-submit        |
 | Selection   | Binary peers: control-active fill. Switchers: elevated active pill. Cards/lists: clear vs hover |
 | Destructive | `danger` color; confirm in app logic, not red styling alone                                     |
 | Overlays    | Portal + `createFloating`; outside press and Escape close unless `persistent`                   |

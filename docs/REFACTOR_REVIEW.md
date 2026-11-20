@@ -1,5 +1,20 @@
 # Reviews
 
+## 2.1 review — 2026-11-19
+
+The hygiene audit found no dead code, commented-out code, raw colors or TODOs to remove. No refactor reached the bar of near-certain need, so none was made beyond what the new components required.
+
+| Area    | Change                                                                                                                                                     | Evidence                                                                                                                                                                         |
+| ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| New     | `Calendar`, `DatePicker` (`range` in the same field), `TimePicker`. Date math lives in `utils/date.ts` on zone-free `YYYY-MM-DD` strings that sort as text | Reverses the 1.0 decision below on request. Weight was the gate: `TimePicker` reuses `Select` (+626 B over it), `DatePicker` reuses the field shell, `createFloating` and portal |
+| Loading | SVG track + breathing arc replaces the ring and pulsing dot                                                                                                | 1,375 → 1,351 B; reduced motion leaves a still arc instead of freezing on a dot                                                                                                  |
+| Select  | Opens centered on its selection once placed; scrolls only the listbox                                                                                      | A 48-slot time list opened on 12:00 AM with 9:30 AM selected. +65 B                                                                                                              |
+| Reuse   | `formatDate` uses `parseDate`; `focusable` is exported from `utils/modal.ts` for the date dialog's Tab cycle                                               | One `YYYY-MM-DD` pattern instead of two; impossible days (`2026-02-31`) now format as `''` instead of rolling into March                                                         |
+
+**Verification.** In Chromium, light and dark, English and Spanish (`es-PE`): single and range picking by pointer and keyboard (arrows, Enter, Escape back to the field), range hover preview, `min`/`max` and disabled weekends, time list centered on its value, and `Loading` mid-animation. 26 new tests (81 total) cover date math, `formatDate`, Calendar selection, bounds and keys, DatePicker formatting, form value and clearing, and TimePicker slots. All exports grows 5,202 B for the three components. Sizes are in the [Lightweight Contract](../README.md#lightweight-contract).
+
+Not done on purpose: typed date entry (it needs locale-aware parsing; `Input type="date"` covers it), a year or decade grid view (the native year menu already jumps), and folding `DateRangeFilter` into `DatePicker`, which would change its two labelled fields and its apply action.
+
 ## 2.0 review — 2026-11-13
 
 Lumen unifies tone roles and removes default panel gradients and backdrop blur. The change is a major version because it removes legacy CSS tokens; see [Upgrade 1.x → 2.0.0](./UPGRADE.md#1x--200).

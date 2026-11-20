@@ -44,7 +44,8 @@ export function liveRegion(node: HTMLElement): { destroy(): void } {
 const focusableSelector =
 	'a[href], area[href], button, input, select, textarea, [tabindex], [contenteditable="true"], summary, audio[controls], video[controls]';
 
-function focusable(node: HTMLElement): HTMLElement[] {
+/** Tabbable elements of `node` in Tab order (one per radio group). */
+export function focusable(node: HTMLElement): HTMLElement[] {
 	const elements = Array.from(
 		node.querySelectorAll<HTMLElement>(focusableSelector)
 	).filter(

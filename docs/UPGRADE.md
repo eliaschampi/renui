@@ -2,6 +2,16 @@
 
 Consumer migration from **Lumi UI 1.x** (`@lumi-ui/svelte`) to **RenUI 2.0** (`@renui/svelte`). Use **pnpm** only. Source remains authoritative.
 
+## 2.0 → 2.1.0
+
+A minor release: no prop, token or entry point is removed or renamed.
+
+- New: `DatePicker` (one date or a `range`), inline `Calendar`, and `TimePicker` (a `Select` of times). Values are `YYYY-MM-DD` / `HH:MM` strings, so native date and time inputs migrate without conversion. `DateRangeFilter` is unchanged.
+- `Loading` draws a soft track with an arc that grows, shrinks and turns, instead of a ring around a pulsing dot. Props are unchanged; check screenshots that capture it.
+- `Select` opens with its selected option centered in the list.
+- `formatDate` returns `''` for an impossible date-only string such as `2026-02-31`; it used to roll over into the next month.
+- New locale keys `datePlaceholder`, `dateRangePlaceholder`, `timePlaceholder`, `calendarPrevious`, `calendarNext`, `calendarMonth`, `calendarYear` ship in `renEs`. An app with its own complete `RenMessages` dictionary must add them.
+
 ## 1.x → 2.0.0
 
 RenUI 2.0 is Lumi UI under a new name and a **breaking CSS release**. Component props and entry points are unchanged; names change, and applications that consume removed tokens must migrate. Lumen replaces decorative glass and gradient panels with opaque surfaces, shared tone roles, and a brand-tinted canvas. Its palette derives from CSS relative colors, which raises the [browser baseline](../README.md#browser-support) to Baseline 2024.

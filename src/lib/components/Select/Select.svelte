@@ -61,7 +61,7 @@
 	import Check from '@lucide/svelte/icons/check';
 	import ChevronDown from '@lucide/svelte/icons/chevron-down';
 	import X from '@lucide/svelte/icons/x';
-	import { tick } from 'svelte';
+	import { tick, untrack } from 'svelte';
 	import { scale } from 'svelte/transition';
 	import '../../styles/floating.css';
 	import { portal } from '../../actions/portal';
@@ -288,6 +288,20 @@
 		if (next && (root?.contains(next) || listbox?.contains(next))) return;
 		closeList();
 	}
+
+	// A long list opens centered on its selection once placed (max height
+	// applied); scrolling only the listbox never moves the page.
+	$effect(() => {
+		if (!floating.hasPosition || !listbox) return;
+		const option = untrack(() =>
+			listbox?.querySelector<HTMLElement>(
+				`#${CSS.escape(optionId(focusedIndex))}`
+			)
+		);
+		if (option)
+			listbox.scrollTop =
+				option.offsetTop - (listbox.clientHeight - option.offsetHeight) / 2;
+	});
 
 	$effect(() => {
 		if (disabled) closeList();

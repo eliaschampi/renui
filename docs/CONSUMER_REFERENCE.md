@@ -418,6 +418,9 @@ import type { ButtonProps, RenColor, RenSize } from '@renui/svelte';
 | `SegmentedControl` | `bind:value`, `options`, `fullWidth`, `orientation`, `iconOnly`, `clearable`                           | One exclusive choice                                                           |
 | `ToggleGroup`      | `bind:value` (array), `options`, `size`, `orientation`, `fullWidth`                                    | Any number pressed                                                             |
 | `FileUpload`       | `bind:files`, `accept`, `multiple`, `maxSize`, `validateFile`                                          | Queue + validation + removal                                                   |
+| `DatePicker`       | `bind:value` or `range` + `bind:start`/`bind:end`, `min`, `max`, `isDateDisabled`, `format`, `name`    | `YYYY-MM-DD`; range submits `start/end`                                        |
+| `Calendar`         | Same date props as `DatePicker`, `weekStart`, `onchange`                                               | Inline month grid                                                              |
+| `TimePicker`       | `bind:value`, `interval`, `min`, `max`, `hour12`, plus `Select` field props                            | `HH:MM`; labels follow the locale                                              |
 | `DateRangeFilter`  | `bind:fromValue`, `bind:toValue`, `compact`, `onapply`                                                 | Apply button only with `onapply`                                               |
 | `Fieldset`         | `legend`                                                                                               | Semantic grouping                                                              |
 | `TagOption`        | `label`, `color`, `selected`, `onclick`                                                                | Compact tag choice                                                             |

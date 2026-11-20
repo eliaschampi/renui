@@ -17,6 +17,7 @@ import type { ButtonProps } from '@renui/svelte';
 | Few visible exclusive choices                           | `SegmentedControl`; `Radio` when each choice needs label/description |
 | Several independent toggles or filters                  | `ToggleGroup`; one standalone toggle → `Button pressed`              |
 | Longer or space-constrained choice                      | `Select`; `RemoteSelect` for server-backed search                    |
+| Date, date range, or time of day                        | `DatePicker` (`range` for spans), inline `Calendar`, `TimePicker`    |
 | Submitted boolean vs immediate setting                  | `Checkbox` vs `Switch`                                               |
 | Persistent vs transient feedback                        | `Alert` vs `Notification` (queued through `Toaster`)                 |
 | Generic vs titled dashboard surface                     | `Card` vs `DashboardSection`                                         |
@@ -58,6 +59,9 @@ import type { ButtonProps } from '@renui/svelte';
 | `SegmentedControl` | Short visible exclusive choice                      | [`SegmentedControl/types.ts`](../src/lib/components/SegmentedControl/types.ts)                            |
 | `ToggleGroup`      | Several independent pressed toggles                 | [`ToggleGroup/types.ts`](../src/lib/components/ToggleGroup/types.ts)                                      |
 | `FileUpload`       | Selection, validation, queue, removal               | [`FileUpload/types.ts`](../src/lib/components/FileUpload/types.ts)                                        |
+| `DatePicker`       | Field + calendar popover; one date or a `range`     | [`DatePicker/types.ts`](../src/lib/components/DatePicker/types.ts)                                        |
+| `Calendar`         | Inline month grid; one date or a `range`            | [`Calendar/types.ts`](../src/lib/components/Calendar/types.ts)                                            |
+| `TimePicker`       | `Select` of locale-formatted times by `interval`    | [`TimePicker/types.ts`](../src/lib/components/TimePicker/types.ts)                                        |
 | `DateRangeFilter`  | Native from/to date pair with apply action          | [`DateRangeFilter/types.ts`](../src/lib/components/DateRangeFilter/types.ts)                              |
 | `Fieldset`         | Semantic grouping for related controls              | [`Fieldset/types.ts`](../src/lib/components/Fieldset/types.ts)                                            |
 | `TagOption`        | Compact semantic tag choice                         | [`TagOption/types.ts`](../src/lib/components/TagOption/types.ts)                                          |
@@ -151,7 +155,8 @@ Icons cost only what a page renders: pass deep-imported Lucide components (`@luc
 - Read `.svelte` when snippets/callbacks matter; several are local, not in exported `*Props`.
 - `Button.variant` sets the visual treatment and `Button.type` the native semantics. `href` renders an `<a>` with the same styles (disabled/loading links drop `href` and expose `aria-disabled`); `pressed` adds `aria-pressed` for a standalone toggle. `summary` renders the `<summary>` of a native `<details>` — a disclosure toggle that works without JavaScript (storefront menus, filter panels) and reads as pressed while open. `filled` and `gradient` consume `solid + foreground`.
 - `Card` derives its depth from the neutral surface ladder. A clickable card renders as a button and must not contain nested interactive controls.
-- Form peers share one field shell (`Field/field.css`, layer `ren.components`): `Input`, `NumberInput`, `Select` and `Textarea` render `.ren-field` with the same heights, fill/border, invalid state, autofill and focus. `error` (`true` or a message) and `hint` work the same on all four.
+- Form peers share one field shell (`Field/field.css`, layer `ren.components`): `Input`, `NumberInput`, `Select`, `DatePicker` and `Textarea` render `.ren-field` with the same heights, fill/border, invalid state, autofill and focus. `error` (`true` or a message) and `hint` work the same on all five.
+- Dates are `YYYY-MM-DD` and times `HH:MM` strings, as native inputs use: zone-free, so SSR and every browser show the same day. `Calendar`/`DatePicker` take `min`, `max`, `isDateDisabled` and `weekStart` (default: the locale's); `range` binds `start`/`end`, written together once both ends are picked, and `name` submits the ISO interval `start/end`. Month and year menus are native selects, so long year lists use the platform picker. `TimePicker` keeps an off-step bound value selectable; use `Input type="time"` for minute-exact entry. `DateRangeFilter` stays the native two-field filter with an apply action.
 - `Tabs`, `SegmentedControl` and `ToggleGroup` share the `.ren-switcher` recipe (recessed track + raised active pill with tone ink, `styles/switcher.css`, imported by those components), not the field well. SegmentedControl is one exclusive choice (radio semantics); ToggleGroup is any number of pressed options (`aria-pressed`, roving tabindex, `value` is an array).
 - `Tab.content` enables managed panels: every panel stays mounted while inactive panels are hidden, preserving local state and successful form controls.
 - Radios bound to the same `group` must also share a non-empty `name`. `busy` temporarily disables interaction.

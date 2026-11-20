@@ -60,6 +60,13 @@ export interface RenMessages {
 	slider: string;
 	dateFrom: string;
 	dateTo: string;
+	datePlaceholder: string;
+	dateRangePlaceholder: string;
+	timePlaceholder: string;
+	calendarPrevious: string;
+	calendarNext: string;
+	calendarMonth: string;
+	calendarYear: string;
 	fileUploadTitle: string;
 	fileUploadHint: string;
 	fileUploadAddMore: string;

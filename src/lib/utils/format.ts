@@ -2,6 +2,7 @@
  * Cached `Intl` formatters. Constructing a formatter costs far more than
  * formatting, so instances are shared per locale + options.
  */
+import { DATE_ONLY, parseDate } from './date';
 
 /** Locale and currency used when an app sets none. */
 export const DEFAULT_LOCALE = 'en-US';
@@ -77,8 +78,6 @@ export function formatNumber(
 	return numberFormat(locale, options).format(value);
 }
 
-const DATE_ONLY = /^(\d{4})-(\d{2})-(\d{2})$/;
-
 /**
  * Format a date; invalid input returns an empty string. Date-only strings
  * (`YYYY-MM-DD`, as native date inputs produce) are calendar dates: they
@@ -88,10 +87,10 @@ export function formatDate(
 	value: Date | string | number,
 	{ locale = DEFAULT_LOCALE, ...options }: FormatDateOptions = {}
 ): string {
-	const day = typeof value === 'string' ? DATE_ONLY.exec(value) : null;
-	if (day) {
-		const [, year, month, date] = day.map(Number);
-		value = new Date(Date.UTC(year, month - 1, date));
+	if (typeof value === 'string' && DATE_ONLY.test(value)) {
+		const day = parseDate(value);
+		if (!day) return '';
+		value = day;
 		options = { ...options, timeZone: 'UTC' };
 	}
 	const date = value instanceof Date ? value : new Date(value);

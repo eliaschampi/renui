@@ -1,6 +1,7 @@
 // Re-measures the Lightweight Contract in README.md and fails over budget:
 //   pnpm run package && pnpm run size
-// Caps use the measured 1.2.0 baseline, including the full export surface.
+// Caps use the measured 1.2.0 baseline. Loading keeps its 2.0 size; surfaces
+// new in 2.1.0 and the full export surface cap at their 2.1.0 measurement.
 // Divider rounds up a few bytes: its gzip output varies by platform.
 // Fully minified Vite production ES bundles (Rolldown + Lightning CSS) with
 // Svelte external; JavaScript and CSS gzip (level 9) separately, then sum.
@@ -36,6 +37,10 @@ const BUNDLES = [
 	['SegmentedControl', named('SegmentedControl'), 2_872],
 	['ToggleGroup', named('ToggleGroup'), 3_021],
 	['Skeleton', named('Skeleton'), 1_089],
+	['Loading', named('Loading'), 1_375],
+	['Calendar', named('Calendar'), 5_470],
+	['DatePicker', named('DatePicker'), 10_710],
+	['TimePicker', named('TimePicker'), 9_310],
 	['Message', named('Message'), 1_585],
 	['MessageList', named('MessageList'), 3_070],
 	[
@@ -56,7 +61,7 @@ const BUNDLES = [
 		named('Button', 'Card', 'Image', 'Chip', 'Input', 'Icon', 'Divider'),
 		9_776
 	],
-	['All exports', `export * from '@renui/svelte';`, 74_124]
+	['All exports', `export * from '@renui/svelte';`, 77_890]
 ];
 
 const gzip = (path) => gzipSync(readFileSync(path), { level: 9 }).length;
