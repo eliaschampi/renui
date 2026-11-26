@@ -1,7 +1,10 @@
 // Re-measures the Lightweight Contract in README.md and fails over budget:
 //   pnpm run package && pnpm run size
-// Caps use the measured 1.2.0 baseline. Loading keeps its 2.0 size; surfaces
-// new in 2.1.0 and the full export surface cap at their 2.1.0 measurement.
+// Caps use the measured 1.2.0 baseline. Loading caps at its 2.0 size; surfaces
+// new in 2.1.0 cap about 10 B above their 2.1.0 measurement and the full
+// export surface about 0.1% above it, the spread seen between Node/zlib
+// builds. Figures come from Node 22.23.3 (zlib 1.3.1), the build that
+// reproduces the 2.0.0 numbers byte for byte.
 // Divider rounds up a few bytes: its gzip output varies by platform.
 // Fully minified Vite production ES bundles (Rolldown + Lightning CSS) with
 // Svelte external; JavaScript and CSS gzip (level 9) separately, then sum.
@@ -38,8 +41,8 @@ const BUNDLES = [
 	['ToggleGroup', named('ToggleGroup'), 3_021],
 	['Skeleton', named('Skeleton'), 1_089],
 	['Loading', named('Loading'), 1_375],
-	['Calendar', named('Calendar'), 5_470],
-	['DatePicker', named('DatePicker'), 10_710],
+	['Calendar', named('Calendar'), 5_530],
+	['DatePicker', named('DatePicker'), 10_750],
 	['TimePicker', named('TimePicker'), 9_310],
 	['Message', named('Message'), 1_585],
 	['MessageList', named('MessageList'), 3_070],
@@ -61,7 +64,7 @@ const BUNDLES = [
 		named('Button', 'Card', 'Image', 'Chip', 'Input', 'Icon', 'Divider'),
 		9_776
 	],
-	['All exports', `export * from '@renui/svelte';`, 77_890]
+	['All exports', `export * from '@renui/svelte';`, 78_110]
 ];
 
 const gzip = (path) => gzipSync(readFileSync(path), { level: 9 }).length;

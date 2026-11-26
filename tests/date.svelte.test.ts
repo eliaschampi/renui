@@ -194,6 +194,58 @@ describe('Calendar', () => {
 		).toBe('true');
 	});
 
+	it('keeps the roving day on a range end picked by keyboard', async () => {
+		const props = $state({
+			range: true,
+			start: '2026-11-02',
+			end: '2026-11-03'
+		});
+		const target = render(Calendar, props);
+		const walk = async (steps: number) => {
+			for (let i = 0; i < steps; i++) {
+				press(document.activeElement!, 'ArrowRight');
+				await tick();
+			}
+		};
+		day(target, '2026-11-02').focus();
+		await walk(8);
+		(document.activeElement as HTMLButtonElement).click();
+		flushSync();
+		await walk(5);
+		(document.activeElement as HTMLButtonElement).click();
+		flushSync();
+
+		expect([props.start, props.end]).toEqual(['2026-11-10', '2026-11-15']);
+		expect(stop(target)).toBe(day(target, '2026-11-15'));
+		await walk(1);
+		expect(document.activeElement).toBe(day(target, '2026-11-16'));
+	});
+
+	it('stays on the month where a range ends, and follows an outside change', () => {
+		const props = $state({
+			range: true,
+			start: '2026-11-02',
+			end: '2026-11-03'
+		});
+		const target = render(Calendar, props);
+		day(target, '2026-11-20').click();
+		flushSync();
+		target
+			.querySelector<HTMLButtonElement>('button[aria-label="Next month"]')!
+			.click();
+		flushSync();
+		day(target, '2026-12-18').click();
+		flushSync();
+
+		expect([props.start, props.end]).toEqual(['2026-11-20', '2026-12-18']);
+		expect(title(target)).toBe('December 2026');
+
+		props.start = '2027-03-05';
+		props.end = '2027-03-09';
+		flushSync();
+		expect(title(target)).toBe('March 2027');
+	});
+
 	it('starts the week on weekStart, else on the locale first day', () => {
 		const first = (root: ParentNode) =>
 			root.querySelector('thead th')!.textContent!.trim();

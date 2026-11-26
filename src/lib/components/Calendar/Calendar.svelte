@@ -71,11 +71,17 @@
 	const blocked = (iso: string) =>
 		(!!min && iso < min) || (!!max && iso > max) || !!isDateDisabled?.(iso);
 
-	// The roving day, whose month is shown. It follows the selection; arrows,
-	// paging and the menus override it until the selection changes again.
-	let focused = $derived.by(() => {
-		const selected = range ? start : value;
-		return clamp(parseDate(selected) ? selected : now);
+	// The roving day, whose month is shown. It follows the selected date (the
+	// range start); arrows, paging, the menus and picks move it while the
+	// selection they were made under stands. A pick records the date it leaves
+	// selected: writing a bound value re-derives what reads it, which would
+	// drop the user's place.
+	const selected = () => (range ? start : value);
+	let moved: { day: string; selection: string } | undefined = $state.raw();
+	const focused = $derived.by(() => {
+		const date = selected();
+		if (moved?.selection === date) return clamp(moved.day);
+		return clamp(parseDate(date) ? date : now);
 	});
 	const view = $derived(parseDate(focused) ?? (parseDate(now) as Date));
 	const viewYear = $derived(view.getUTCFullYear());
@@ -125,12 +131,12 @@
 	});
 
 	function show(date: Date): void {
-		focused = clamp(toIsoDate(date));
+		moved = { day: toIsoDate(date), selection: selected() };
 	}
 
 	function select(iso: string): void {
 		if (disabled || blocked(iso)) return;
-		focused = iso;
+		moved = { day: iso, selection: range ? start : iso };
 		if (!range) {
 			value = iso;
 			onchange?.(iso);
@@ -141,6 +147,7 @@
 			anchor = hovered = '';
 			start = from;
 			end = to;
+			moved = { day: iso, selection: from };
 			onchange?.(from, to);
 		}
 	}

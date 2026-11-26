@@ -78,32 +78,32 @@ RenUI was published as Lumi UI (`@lumi-ui/svelte`) until 1.2.1. Version 2.0 rena
 
 ## Lightweight Contract
 
-Budgets start from the 1.2.0 baseline on the 16 surfaces measured since then, including all exports, with a few bytes of headroom where gzip output varies across Node/zlib builds. `Loading` keeps its 2.0 size as its cap; surfaces new in 2.1.0 cap at their first measurement. They are release gates: `pnpm run package && pnpm run size` re-measures them and fails over budget. Figures are **bytes gzip**, summing separately gzipped (level 9) JavaScript and component CSS from fully minified Vite 8 production ES bundles (Rolldown + Lightning CSS), with Svelte externalized. Measured **2026-11-19** for 2.1.0.
+Budgets start from the 1.2.0 baseline on the 16 surfaces measured since then, including all exports, with a few bytes of headroom where gzip output varies across Node/zlib builds. `Loading` caps at its 2.0 size; surfaces new in 2.1.0 cap about 10 B above their first measurement, and all exports about 0.1% above it. They are release gates: `pnpm run package && pnpm run size` re-measures them and fails over budget. Figures are **bytes gzip**, summing separately gzipped (level 9) JavaScript and component CSS from fully minified Vite 8 production ES bundles (Rolldown + Lightning CSS), with Svelte externalized. Measured **2026-11-26** for 2.1.0 with Node 22.23.3 (zlib 1.3.1), the build that reproduces the 2.0.0 figures byte for byte.
 
 | Surface                                                                                     | 1.2.0 baseline |  2.1.0 |   Budget |
 | ------------------------------------------------------------------------------------------- | -------------: | -----: | -------: |
-| Global CSS `@renui/svelte/styles`                                                           |          7,691 |  7,440 |  ≤ 7,691 |
-| Lean CSS `tokens.base.css` + `base.css`                                                     |          4,984 |  4,787 |  ≤ 4,984 |
-| `Button`                                                                                    |          2,754 |  2,580 |  ≤ 2,754 |
-| `Divider`                                                                                   |            966 |    962 |    ≤ 976 |
-| `Tooltip`                                                                                   |          4,121 |  4,050 |  ≤ 4,121 |
-| `Dropdown` + `DropdownItem`                                                                 |          5,560 |  5,377 |  ≤ 5,560 |
-| `Select`                                                                                    |          8,751 |  8,674 |  ≤ 8,751 |
-| `Tabs`                                                                                      |          3,197 |  3,016 |  ≤ 3,197 |
-| `SegmentedControl`                                                                          |          2,872 |  2,754 |  ≤ 2,872 |
-| `ToggleGroup`                                                                               |          3,021 |  2,842 |  ≤ 3,021 |
-| `Skeleton`                                                                                  |          1,089 |  1,003 |  ≤ 1,089 |
-| `Loading` (2.0: 1,375)                                                                      |              — |  1,351 |  ≤ 1,375 |
-| `Calendar` (new)                                                                            |              — |  5,460 |  ≤ 5,470 |
-| `DatePicker` (new, includes `Calendar`)                                                     |              — | 10,699 | ≤ 10,710 |
-| `TimePicker` (new, includes `Select`)                                                       |              — |  9,300 |  ≤ 9,310 |
-| `Message`                                                                                   |          1,585 |  1,580 |  ≤ 1,585 |
-| `MessageList`                                                                               |          3,070 |  3,055 |  ≤ 3,070 |
-| Form/table: `Switch`, `Radio`, `Textarea`, `Checkbox`, `SegmentedControl`, `Input`, `Table` |         15,156 | 14,719 | ≤ 15,156 |
-| Storefront: `Button`, `Card`, `Image`, `Chip`, `Input`, `Icon`, `Divider`                   |          9,776 |  9,368 |  ≤ 9,776 |
-| All exports                                                                                 |         74,124 | 77,874 | ≤ 77,890 |
+| Global CSS `@renui/svelte/styles`                                                           |          7,691 |  7,430 |  ≤ 7,691 |
+| Lean CSS `tokens.base.css` + `base.css`                                                     |          4,984 |  4,778 |  ≤ 4,984 |
+| `Button`                                                                                    |          2,754 |  2,564 |  ≤ 2,754 |
+| `Divider`                                                                                   |            966 |    965 |    ≤ 976 |
+| `Tooltip`                                                                                   |          4,121 |  4,056 |  ≤ 4,121 |
+| `Dropdown` + `DropdownItem`                                                                 |          5,560 |  5,370 |  ≤ 5,560 |
+| `Select`                                                                                    |          8,751 |  8,666 |  ≤ 8,751 |
+| `Tabs`                                                                                      |          3,197 |  3,007 |  ≤ 3,197 |
+| `SegmentedControl`                                                                          |          2,872 |  2,743 |  ≤ 2,872 |
+| `ToggleGroup`                                                                               |          3,021 |  2,835 |  ≤ 3,021 |
+| `Skeleton`                                                                                  |          1,089 |    999 |  ≤ 1,089 |
+| `Loading` (2.0: 1,372)                                                                      |              — |  1,353 |  ≤ 1,375 |
+| `Calendar` (new)                                                                            |              — |  5,513 |  ≤ 5,530 |
+| `DatePicker` (new, includes `Calendar`)                                                     |              — | 10,734 | ≤ 10,750 |
+| `TimePicker` (new, includes `Select`)                                                       |              — |  9,297 |  ≤ 9,310 |
+| `Message`                                                                                   |          1,585 |  1,572 |  ≤ 1,585 |
+| `MessageList`                                                                               |          3,070 |  3,037 |  ≤ 3,070 |
+| Form/table: `Switch`, `Radio`, `Textarea`, `Checkbox`, `SegmentedControl`, `Input`, `Table` |         15,156 | 14,722 | ≤ 15,156 |
+| Storefront: `Button`, `Card`, `Image`, `Chip`, `Input`, `Icon`, `Divider`                   |          9,776 |  9,359 |  ≤ 9,776 |
+| All exports                                                                                 |         74,124 | 78,026 | ≤ 78,110 |
 
-Reference output can differ by a few bytes across platforms and Node/zlib builds (`Divider` measures 962–968 B); budgets absorb that variance, not feature growth. Every surface measured in 1.2.0 is still equal to or smaller than its baseline. The all-exports bundle grows 5,202 B over 2.0.1 (72,672 B) for `Calendar`, `DatePicker` and `TimePicker`, so its cap moved to the 2.1.0 measurement; an app pays for them only when it imports them. These are transfer-size measurements, not runtime speed claims.
+Reference output can differ across platforms and Node/zlib builds: a few bytes on one component (`Divider` measures 962–968 B), about 0.1% on all exports. Budgets absorb that variance, not feature growth. Every 1.2.0 surface except all exports is still equal to or smaller than its baseline. The all-exports bundle grows 5,245 B over 2.0.1 (72,781 B, same build) for `Calendar`, `DatePicker` and `TimePicker`, so its cap moved to the 2.1.0 measurement; an app pays for them only when it imports them. These are transfer-size measurements, not runtime speed claims.
 
 The [browser benchmark](./docs/BENCHMARK.md) exercises 300 components in light and dark themes after incorporating upstream 1.2.1 changes. Median mount/layout time is 11.9 → 11.9 ms in light and 12.1 → 11.9 ms in dark; median slider-update is 5.4 → 5.3 ms in light and unchanged in dark. Unmount medians are unchanged. Dark mount p95 increases by 0.1 ms and dark update p95 by 0.4 ms. These mixed results do not establish a universal runtime speedup; see the methodology and limits.
 
