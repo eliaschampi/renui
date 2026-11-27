@@ -259,6 +259,8 @@
 		font-weight: var(--ren-font-weight-bold);
 		color: var(--ren-color-text);
 		line-height: var(--ren-line-height-tight);
+		/* Long unbroken names (files, emails) wrap instead of overflowing. */
+		overflow-wrap: anywhere;
 	}
 
 	.ren-dialog__header :global(.ren-dialog__close) {

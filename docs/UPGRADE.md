@@ -10,7 +10,9 @@ A minor release: no prop, token or entry point is removed or renamed.
 - `Loading` draws a soft track with an arc that grows, shrinks and turns, instead of a ring around a pulsing dot. Props are unchanged; check screenshots that capture it.
 - `Select` opens with its selected option centered in the list.
 - `formatDate` returns `''` for an impossible date-only string such as `2026-02-31`; it used to roll over into the next month.
-- New locale keys `datePlaceholder`, `dateRangePlaceholder`, `timePlaceholder`, `calendarPrevious`, `calendarNext`, `calendarMonth`, `calendarYear` ship in `renEs`. An app with its own complete `RenMessages` dictionary must add them.
+- `DriveFilePreview` frames a PDF only when its stored `mime_type` is `application/pdf` (the `.pdf` name counts only without one) and the browser has a PDF viewer, so phones get a message and Download instead of a blank frame. An image, video or audio file that fails to load shows the same message. PDFs get an "Open in new tab" action, use the `xl` dialog, and load once instead of on every move of the dialog while it opens. A copied preview component can be dropped.
+- `Dialog` titles wrap long unbroken words, such as file names, instead of overflowing.
+- New locale keys `datePlaceholder`, `dateRangePlaceholder`, `timePlaceholder`, `calendarPrevious`, `calendarNext`, `calendarMonth`, `calendarYear` ship in `renEs`, and `drivePreviewFailed`, `driveOpenInNewTab` in `renDriveEs`. An app with its own complete `RenMessages` or `RenDriveMessages` dictionary must add them.
 
 ## 1.x → 2.0.0
 

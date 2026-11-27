@@ -3,6 +3,14 @@
 	import { renDriveEn } from '../../i18n/drive';
 
 	const COPY = { ...renDriveEn, close: en.close };
+
+	// Moving a loaded iframe reloads it, and the dialog moves its content
+	// twice while opening (portal to the body, then raised above other
+	// layers). The source is set a frame later, once the frame is in place.
+	const navigate = (src: string) => (frame: HTMLIFrameElement) => {
+		const id = requestAnimationFrame(() => (frame.src = src));
+		return () => cancelAnimationFrame(id);
+	};
 </script>
 
 <script lang="ts">
@@ -54,55 +62,89 @@
 
 		return serveUrl(file.code);
 	});
-	const isImage = $derived(file?.type === 'img');
-	const isVideo = $derived(file?.type === 'vid');
-	const isAudio = $derived(file?.type === 'aud');
+	// The served type decides how the browser renders (apps send the stored
+	// MIME, often with nosniff); the name only guesses when none is stored.
 	const isPdf = $derived(
-		file?.mime_type === 'application/pdf' ||
-			file?.name.toLowerCase().endsWith('.pdf')
+		file?.mime_type
+			? file.mime_type === 'application/pdf'
+			: !!file?.name.toLowerCase().endsWith('.pdf')
+	);
+	// Without a built-in viewer (most phones) a PDF frame stays blank.
+	const pdfViewer =
+		typeof navigator === 'undefined' || navigator.pdfViewerEnabled !== false;
+	// Code of the file whose image, video or audio failed to load.
+	let failedCode: string | null = $state(null);
+	const fail = () => (failedCode = file?.code ?? null);
+	const failed = $derived(
+		!!file && (file.code === failedCode || (isPdf && !pdfViewer))
+	);
+	// What the body renders; '' shows a message instead.
+	const kind = $derived(
+		!file || failed
+			? ''
+			: ['img', 'vid', 'aud'].includes(file.type)
+				? file.type
+				: isPdf
+					? 'pdf'
+					: ''
 	);
 </script>
 
-<Dialog bind:open title={file?.name || i18n.t.drivePreview} size="lg">
+<Dialog
+	bind:open
+	title={file?.name || i18n.t.drivePreview}
+	size={isPdf && pdfViewer ? 'xl' : 'lg'}
+	onopen={() => (failedCode = null)}
+>
 	<div class="ren-drive-preview">
-		{#if !file}
-			<div class="ren-drive-preview__empty">
-				<Icon icon={FileIcon} size="2xl" color="muted" />
-				<p>{i18n.t.driveNoSelection}</p>
-			</div>
-		{:else if isImage}
+		{#if kind === 'img'}
 			<div class="ren-drive-preview__media-wrap">
 				<img
 					src={previewUrl}
-					alt={file.name}
+					alt={file?.name}
 					class="ren-drive-preview__image"
 					decoding="async"
+					onerror={fail}
 				/>
 			</div>
-		{:else if isVideo}
+		{:else if kind === 'vid'}
 			<div class="ren-drive-preview__media-wrap">
 				<!-- svelte-ignore a11y_media_has_caption -->
-				<video src={previewUrl} controls class="ren-drive-preview__video"
+				<video
+					src={previewUrl}
+					controls
+					class="ren-drive-preview__video"
+					onerror={fail}
 				></video>
 			</div>
-		{:else if isAudio}
+		{:else if kind === 'aud'}
 			<div class="ren-drive-preview__audio-wrap">
 				<Icon icon={Music} size="var(--ren-space-4xl)" color="warning" />
-				<audio src={previewUrl} controls class="ren-drive-preview__audio"
+				<audio
+					src={previewUrl}
+					controls
+					class="ren-drive-preview__audio"
+					onerror={fail}
 				></audio>
 			</div>
-		{:else if isPdf}
+		{:else if kind === 'pdf'}
 			<div class="ren-drive-preview__pdf-wrap">
 				<iframe
-					src={previewUrl}
-					title={file.name}
+					{@attach navigate(previewUrl)}
+					title={file?.name}
 					class="ren-drive-preview__pdf"
 				></iframe>
 			</div>
 		{:else}
-			<div class="ren-drive-preview__empty">
+			<div class="ren-drive-preview__empty" role="status">
 				<Icon icon={FileIcon} size="2xl" color="muted" />
-				<p>{i18n.t.drivePreviewUnavailable}</p>
+				<p>
+					{!file
+						? i18n.t.driveNoSelection
+						: failed
+							? i18n.t.drivePreviewFailed
+							: i18n.t.drivePreviewUnavailable}
+				</p>
 			</div>
 		{/if}
 	</div>
@@ -142,6 +184,13 @@
 		<Button variant="border" onclick={() => (open = false)}
 			>{i18n.t.close}</Button
 		>
+		{#if file && isPdf}
+			<!-- A blocked frame (deployment headers) cannot be detected; this is
+			     the recovery. -->
+			<Button variant="border" href={previewUrl} target="_blank" rel="noopener"
+				>{i18n.t.driveOpenInNewTab}</Button
+			>
+		{/if}
 		{#if file}
 			<Button
 				variant="filled"

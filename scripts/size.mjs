@@ -64,7 +64,7 @@ const BUNDLES = [
 		named('Button', 'Card', 'Image', 'Chip', 'Input', 'Icon', 'Divider'),
 		9_776
 	],
-	['All exports', `export * from '@renui/svelte';`, 78_110]
+	['All exports', `export * from '@renui/svelte';`, 78_450]
 ];
 
 const gzip = (path) => gzipSync(readFileSync(path), { level: 9 }).length;

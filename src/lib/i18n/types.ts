@@ -154,6 +154,8 @@ export interface RenDriveMessages {
 	drivePreview: string;
 	driveNoSelection: string;
 	drivePreviewUnavailable: string;
+	drivePreviewFailed: string;
+	driveOpenInNewTab: string;
 	driveDownload: string;
 	driveUploadTitle: string;
 	/** Upload button label; `count` is the number of queued files */

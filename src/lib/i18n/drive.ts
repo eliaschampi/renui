@@ -42,6 +42,8 @@ export const renDriveEn: RenDriveMessages = {
 	drivePreview: 'Preview',
 	driveNoSelection: 'No file selected',
 	drivePreviewUnavailable: 'Preview is not available for this file type',
+	drivePreviewFailed: 'This file cannot be shown here; download it to open it',
+	driveOpenInNewTab: 'Open in new tab',
 	driveDownload: 'Download',
 	driveUploadTitle: 'Upload files',
 	driveUpload: (count) => (count > 0 ? `Upload (${count})` : 'Upload'),
@@ -97,6 +99,9 @@ export const renDriveEs: RenDriveMessages = {
 	driveNoSelection: 'No hay archivo seleccionado',
 	drivePreviewUnavailable:
 		'Vista previa no disponible para este tipo de archivo',
+	drivePreviewFailed:
+		'No se puede mostrar este archivo aquí; descárgalo para abrirlo',
+	driveOpenInNewTab: 'Abrir en otra pestaña',
 	driveDownload: 'Descargar',
 	driveUploadTitle: 'Subir archivos',
 	driveUpload: (count) => (count > 0 ? `Subir (${count})` : 'Subir'),
